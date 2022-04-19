@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { createContext } from "react";
 
-import UserProvider from './user-context'
-import ProductProvider from './product-context'
+import UserProvider from "./user-context";
+import ProductProvider from "./product-context";
+import AlertProvider from "./alert-context";
 
-export default function AppContext({children}) {
+// we create this context to pass the firestore reference to entire application
+const AppContext = createContext(null);
+
+function AppContextWrapper({ children, db }) {
   return (
-    <ProductProvider>
-        <UserProvider>
-            {children}
-        </UserProvider>
-    </ProductProvider>
-  )
+    <AppContext.Provider value={db}>
+      <UserProvider>
+        <ProductProvider>
+          <AlertProvider>{children}</AlertProvider>
+        </ProductProvider>
+      </UserProvider>
+    </AppContext.Provider>
+  );
 }
+
+// fetch the user data (necessary only) and all product's data and special category
+function useInitializeApp() {}
+
+export default AppContextWrapper;
+export { AppContext };
