@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
@@ -9,11 +10,12 @@ import "./index.css";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <AppContext db={db}>
+  <AppContext db={db} auth={auth}>
     <App />
   </AppContext>
 );

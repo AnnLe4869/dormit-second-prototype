@@ -7,9 +7,9 @@ import AlertProvider from "./alert-context";
 // we create this context to pass the firestore reference to entire application
 const AppContext = createContext(null);
 
-function AppContextWrapper({ children, db }) {
+function AppContextWrapper({ children, db, auth }) {
   return (
-    <AppContext.Provider value={db}>
+    <AppContext.Provider value={{db, auth}}>
       <UserProvider>
         <ProductProvider>
           <AlertProvider>{children}</AlertProvider>

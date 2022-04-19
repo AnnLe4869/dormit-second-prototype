@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# DormIt second prototype
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overall structure
 
-## Available Scripts
+This project use **React** as front-end framework and rely entirely on client-side rendering. It uses **Firebase** to handle back-end logic, thus has little to no need to create a dedicated server
 
-In the project directory, you can run:
+This project use React ContextAPI to handle states across components and pages. In consideration of future development and the current team level, I decide to use the Redux approach, meaning components can access app's states and change them by calling certain hooks, and these custom hooks will handle all the logic from changing app state to update Firestore database. This approach, I believe, can reduce the complexity of the app in the long run and make collaboration between developers a bit easier
 
-### `npm start`
+This project handle pages using `react-router`. Nothing special here, and the route structure shall be discussed in later section
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Context structure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For the context structure, I have a file name `types.ts` that list out how the overall app states would look like. The very top states are, in no particular order, `products` which store the details of all products including the deals and category, `alert` which store the notification to display to user, and `user` to store user's info as well as cart and order information
 
-### `npm test`
+- `products` context is defined in `product-context.js` file
+- `alert` context is defined in `alert-context.js`
+- `user` context is defined in `user-context.js`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+These contexts are combined into one in the `app-context.js`. If you look closely in `app-context.js`, you will see another layer of context, namely `AppContext`. This is used to pass the `firestore` reference and `authentication` around the application. This is the way to access the firestore database in latest version of firebase
 
-### `npm run build`
+In each of those context files there are two parts that may go through changes in the future (change mean we will add some more code, not change the fundamental structure): a reducer (one function with "Reducer" in its name) and several custom hooks. The reducer job is to actually make change to the context. We do so by calling special function called `dispatch` and pass inside it the necessary information. The detail on how to use those function, read more on these [How to use React Context effectively](https://kentcdodds.com/blog/how-to-use-react-context-effectively) and [How to optimize your context value](https://kentcdodds.com/blog/how-to-optimize-your-context-value). One big note here is that these reducer function **MUST HAVE NO SIDE-EFFECT**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+As for the custom hooks, it is used to make the bridge between the context and React component: component use these custom hooks to access and make change to the context. We will do the `dispatch` inside these custom hooks and not inside the React component. We also perform our logic like get data from firestore or update database or authenticate user from these hooks. This help decouple the logic from our component and make future development easier
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Route structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For now, we will have six(6) basics routes: home, search, order, account, auth and checkout
 
-### `npm run eject`
+- `/` is the home page. This is where we see all the products and deals
+- `/search` is the search page. We will show the search bar here. The result search will be sub-route of this route. The category list also be sub-route of this one
+- `/auth` is the authentication page. Think of them as the log in and sign up page. When user's want to sign in or when we need to redirect user to authenticate, this is the page
+- `/order` is the order page. We list out all order, including the current orders and old order. The current order tracking will be sub-route of this one. This is protected route and only show to users who are authenticated
+- `/checkout` is for the checkout. After user put stuff to cart and go to checkout, this is what wait them. All the delivery address, adjust item's quantity, remove item, payment setup will be handle in the sub-route of this. Protected route and only show to those who are authenticated
+- `/account` is for anything that are related to user's profile. Detail on profile and change the profile are handled in this route or its sub-route. Protected route
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## React component
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+React component shall be defined in files that are in correct directory according to the page they are in. For example, `Item.js` that display item in the home page should be in the directory `/home`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Another note is that, for consistency, we should have component defined inside its own directory of same name (`Item.js` is in `Item` directory). This is so that if we have CSS file for the component or test file for them, we can put them in same directory
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+We will have a file of route name that incorporate all those component into one complete design. For example, the route `/home` will have a component `/home/Home.js` that combine all of components that are needed into one file
 
-## Learn More
+## Shared components
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For the most part, a component is not shared between route. But at the moment, there are two component that are shared between routes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Bottom navigation: the bottom navigation used to navigate between routes. No explanation here
+- Cart: the hovering "Show cart" right above the bottom navigation should be shared between routes (except for the `/auth` route and probably the `/account`). This is, according to the UI design, the only way to access the cart. This component shall do following task: show the current number of items in cart, and when being click on shall pop up a modal that show all the items in cart, the detail quantities and such
 
-### Code Splitting
+The header, although sounds like something that should be shared, isn't actually one as. From the UI design, I see that the header are different between routes and no duplication here
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## FAQ
 
-### Analyzing the Bundle Size
+1. How to use the firebase?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    Read the [Get started with Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart) and [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start). Remember to use the Web version 9
 
-### Making a Progressive Web App
+    For this app, replace the detail in `firebase.config.js` with the correct setup and you should be good to go
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. How do I contribute to the application
 
-### Advanced Configuration
+    You can fork the project and then do pull request. Ideally, you would want to create a new branch, do some change on it and do pull request on those. Talk or message with the leads for more information
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. Should I use this library X to do Y?
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    Please talk or message with the leads before you decide to install a library. This is front-end, and unlike back-end, we are very sensitive to how much "weight" does the app have. If the application is too heavy, it will make the page sluggish and the user will leave the website. A good rule-of-thumb to decide a library is to think: can I do this without the library and how much work do I have to do; how much weight the library will add into the project; how much the library is used comparing to the size of it
