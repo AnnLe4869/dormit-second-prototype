@@ -40,11 +40,19 @@
     padding-bottom: 3%;
 }
 
-.title {
-    font-size: large;
+.head {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
 }
 
-#surveyBtn {
+.head .icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0%;
+}
+
+.btn {
     background: blueviolet;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
@@ -55,5 +63,11 @@
     border-radius: 0.3rem;
     box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
     color: white;
-    width: 25%;
+    width: 30%;
+}
+
+.contactInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

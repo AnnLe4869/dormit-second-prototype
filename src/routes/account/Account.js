@@ -16,7 +16,14 @@ export default function Account() {
     'pronouns': 'they/them'
   }
 
+  // payment method
+  let savedPayments = true;
+
   const toSurvey = () => {
+
+  }
+
+  const addPaymentMethod = () => {
 
   }
 
@@ -34,29 +41,61 @@ export default function Account() {
 
       <div className='accountPage'>
         <div className='boxes'>
-          <h1 className='title'>Your Impact</h1>
+          <div className='head'>
+            <h3>Your Impact</h3>
+            <br/>
+            <img src='impactIcon' className='icon'></img>
+          </div>
+
           <p>{student['name'] + ', you are 1 of (X) ' + student['college'] + ' students who prevented Xg carbon emissions and helped #X Rushers(s)!'}</p>
           <p>Have some time to fill a quick optional survey? Share the link with a friend and get a shout out on Instagram!</p>
-          <button id='surveyBtn' onClick={toSurvey}>Take me to survey</button>
+          <button className='btn' onClick={toSurvey}>Take me to survey</button>
         </div>
 
         <div className='boxes'>
-          <h1 className='title'>Profile</h1>
-
-        </div>
-
-        <div className='boxes'>
-          <h1 className='title'>Payment Methods</h1>
-
-        </div>
-
-        <div className='boxes'>
-          <h1 className='title'>Refer a friend</h1>
+          <div className='head'>
+            <h3>Profile</h3>
+            <img src='profileIcon' className='icon'></img>
+          </div>
 
         </div>
 
         <div className='boxes'>
-          <h1 className='title'>Contact Us</h1>
+          <div className='head'>
+            <h3>Payment methods</h3>
+            <img src='paymentIcon' className='icon'></img>
+          </div>
+          <h5>Saved payment methods</h5>
+          {savedPayments &&
+            <p>No saved methods</p>
+          }
+          <button className='btn' onClick={addPaymentMethod}>Add payment method</button>
+        </div>
+
+        <div className='boxes'>
+          <div className='head'>
+            <h3>Refer a friend</h3>
+            <img src='friendIcon' className='icon'></img>
+          </div>
+          <p>Get $10 in credits when someone signs up using your referral link. $10 credit will be 
+            automatically applied to your account. You will be notified via email.
+          </p>
+          <p>Share this link</p>
+        </div>
+
+        <div className='boxes'>
+          <div className='head'>
+            <h3>Contact us</h3>
+            <img src='contactIcon' className='icon'></img>
+          </div>
+
+          <div className='socialMedia'>
+            
+          </div>
+
+          <div className='contactInfo'>
+            <p><a href='link'>dormit.app</a> | team@dormit.app</p>
+          </div>
 
         </div>
       </div>
