@@ -4,9 +4,24 @@ import './Account.css';
 
 export default function Account() {
 
+  // images
+  let editIconImage = 'image';
+  let profilePicUrl = 'imageUrl';
+  let locationIcon = 'icon';
+  let contactDeetIcon = 'icon';
+
+  let instagramImg = 'img';
+  let facebookImg = 'img';
+  let tiktokImg = 'img';
+  let linkedinImg = 'img';
+
+  // variables
+  let referalLink = 'link';
+
   // example student
   let student = {
     'name': 'Alex',
+    'fullname': 'Alex Turner',
     'college': 'Revelle',
     'building' : 'building name',
     'floor': 1,
@@ -27,6 +42,42 @@ export default function Account() {
 
   }
 
+  const changeProfilePic = () => {
+
+  }
+
+  const editName = () => {
+
+  }
+
+  const editLocation = () => {
+
+  }
+
+  const editContactInfo = () => {
+
+  }
+
+  const copyReferalLink = () => {
+
+  }
+
+  const openInstagram = () => {
+
+  }
+
+  const openFacebook = () => {
+
+  }
+
+  const openTiktok = () => {
+
+  }
+
+  const openLinkedin = () => {
+
+  }
+
   return (
     <div>
       <div className='intro'>
@@ -44,8 +95,9 @@ export default function Account() {
           <div className='head'>
             <h3>Your Impact</h3>
             <br/>
-            <img src='impactIcon' className='icon'></img>
+            <img src='impactIcon' className='icon' id='impactIcon'></img>
           </div>
+          <hr className='lineDiv' id='impactLine'/>
 
           <p>{student['name'] + ', you are 1 of (X) ' + student['college'] + ' students who prevented Xg carbon emissions and helped #X Rushers(s)!'}</p>
           <p>Have some time to fill a quick optional survey? Share the link with a friend and get a shout out on Instagram!</p>
@@ -55,16 +107,86 @@ export default function Account() {
         <div className='boxes'>
           <div className='head'>
             <h3>Profile</h3>
-            <img src='profileIcon' className='icon'></img>
+            <img src='profileIcon' className='icon' id='profileIcon'></img>
+          </div>
+          <hr className='lineDiv' id='profileLine'/>
+          <br/>
+
+          <div className='rows'>
+            <button style={{background: profilePicUrl, width:'60px', height:'60px'}} onClick={changeProfilePic}></button>
+
+            <div className='editItem'>
+              <div className='editTop'>
+                <p>Full name</p>
+                <button style={{background: editIconImage}} className='editIcon' onClick={editName}></button>
+              </div>
+
+              <p>{student['fullname']}</p>
+            </div>
           </div>
 
+          <div className='rows'>
+            <img src={locationIcon} className='smallIcon'></img>
+            <h5>Default Location</h5>
+            <button style={{background: editIconImage}} className='editIcon' onClick={editLocation}></button>
+          </div>
+          <br/>
+
+          <div className='rows'>
+            <div className='editItem'>
+              <p>UCSD Building</p>
+              <select>
+                <option value="actual value 1">Building 1</option>
+                <option value="actual value 2">Display Text 2</option>
+                <option value="actual value 3">Display Text 3</option>
+              </select>
+            </div>
+
+            <div className='editItem'>
+              <p>Floor #</p>
+              <input type="text" size="8"></input>
+            </div>
+
+            <div className='editItem'>
+              <p>Apartment #</p>
+              <input type="text" size="8"></input>
+            </div>
+          </div>
+          <br/>
+
+          <div className='rows'>
+            <img src={contactDeetIcon} className='smallIcon'></img>
+            <h5>Contact Details</h5>
+            <button style={{background: editIconImage}} className='editIcon' onClick={editContactInfo}></button>
+          </div>
+          <br/>
+
+          <div className='rows'>
+            <div className='editItem'>
+              <p>Phone number</p>
+              <input type="text" size="8"></input>
+            </div>
+
+            <div className='editItem'>
+              <p>Email</p>
+              <input type="text" size="8"></input>
+            </div>
+
+            <div className='editItem'>
+              <p>Password</p>
+              <input type="text" size="8"></input>
+            </div>
+          </div>
         </div>
 
         <div className='boxes'>
           <div className='head'>
             <h3>Payment methods</h3>
-            <img src='paymentIcon' className='icon'></img>
+            <img src='paymentIcon' className='icon' id='paymentIcon'></img>
           </div>
+          <hr className='lineDiv' id='paymentLine'/>
+
+          <br/>
           <h5>Saved payment methods</h5>
           {savedPayments &&
             <p>No saved methods</p>
@@ -75,22 +197,32 @@ export default function Account() {
         <div className='boxes'>
           <div className='head'>
             <h3>Refer a friend</h3>
-            <img src='friendIcon' className='icon'></img>
+            <img src='friendIcon' className='icon' id='friendIcon'></img>
           </div>
+          <hr className='lineDiv' id='friendLine'/>
+
           <p>Get $10 in credits when someone signs up using your referral link. $10 credit will be 
             automatically applied to your account. You will be notified via email.
           </p>
           <p>Share this link</p>
+          <div className='rows'>
+            <input type='text' value={referalLink} style={{width: '30%'}} readOnly></input>
+            <button className='btn' onClick={copyReferalLink}>copy</button>
+          </div>
         </div>
 
         <div className='boxes'>
           <div className='head'>
             <h3>Contact us</h3>
-            <img src='contactIcon' className='icon'></img>
+            <img src='contactIcon' className='icon' id='contactIcon'></img>
           </div>
+          <hr className='lineDiv' id='contactLine'/>
 
           <div className='socialMedia'>
-            
+            <button style={{background: instagramImg}} className='mediaIcon' onClick={openInstagram}></button>
+            <button style={{background: facebookImg}} className='mediaIcon' onClick={openFacebook}></button>
+            <button style={{background: tiktokImg}} className='mediaIcon' onClick={openTiktok}></button>
+            <button style={{background: linkedinImg}} className='mediaIcon' onClick={openLinkedin}></button>
           </div>
 
           <div className='contactInfo'>
