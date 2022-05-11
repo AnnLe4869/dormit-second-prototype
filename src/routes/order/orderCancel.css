@@ -1,0 +1,68 @@
+.layout {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin: 5rem 33em;
+    margin-top: 0;
+}
+
+#logo {
+    height: 60px;
+    width: 60px;
+    border-radius: 0.3rem;
+    margin: 3rem 5rem;
+}
+
+#thankMessage {
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+#thankMessage #word {
+    color: blueviolet;
+}
+
+#text1 {
+    width: 100%;
+    align-self: left;
+    font-weight: bolder;
+}
+
+.item {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.item .desc {
+    display: flex;
+    flex-direction: column;
+    max-height: 85px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 20em;
+}
+
+.image {
+    height: 60px;
+    width: 60px;
+    border-radius: 0.3rem;
+    margin: 3rem 3rem;
+    margin-top: 0;
+    margin-left: 0;
+}
+
+#cancelBtn {
+    background: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 2rem;
+    margin: 0rem 0.5rem;
+    border: 1px solid var(--gray);
+    border-radius: 0.3rem;
+    box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
+    color: red;
+    width: 30%;
+}
