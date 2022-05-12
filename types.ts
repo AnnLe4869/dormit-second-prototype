@@ -4,6 +4,8 @@ type Product = Array<{
   name: string;
   description: string;
   category: string;
+  isDeal: boolean;
+  image_url: string
 }>;
 
 type Deals = Array<string>;

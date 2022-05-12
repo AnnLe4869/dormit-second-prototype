@@ -8,14 +8,19 @@ import AppContext from "./context/app-context";
 import firebaseConfig from "./firebase.config";
 import "./index.css";
 
+// this is to populate data only
+// when in production, admin will create item by hand and will add data to it
+import { getStorage } from "firebase/storage";
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <AppContext db={db} auth={auth}>
+  <AppContext db={db} auth={auth} storage={storage}>
     <App />
   </AppContext>
 );

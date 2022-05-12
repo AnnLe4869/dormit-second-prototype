@@ -1,4 +1,7 @@
 import React, { createContext, useContext } from "react";
+import { collection, doc, setDoc } from "firebase/firestore"; 
+
+
 import {
   ADD_TO_CART,
   DECREMENT_QUANTITY,
@@ -208,7 +211,6 @@ function UserProvider({ children }) {
 function useUserIsAuthenticated() {
   const { state: userState } = useContext(UserContext);
   const { state: productState } = useContext(ProductContext);
-  console.log(productState);
 }
 
 export default UserProvider;
