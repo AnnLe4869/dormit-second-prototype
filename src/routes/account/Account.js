@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Account.css';
 
 export default function Account() {
-
   // images
   let editIconImage = 'image';
   let profilePicUrl = 'imageUrl';
@@ -16,6 +15,9 @@ export default function Account() {
   let linkedinImg = 'img';
 
   // variables
+  let numStudents = 30;
+  let numRushers = 8;
+  let gCarbon = 4;
   let referalLink = 'link';
 
   // example student
@@ -28,7 +30,9 @@ export default function Account() {
     'apartment': 12,
     'phone': '8585342230',
     'email': 'aturner0@ucsd.edu',
-    'pronouns': 'they/them'
+    'pronouns': 'they/them',
+    // text with same length as actual password
+    'password': '******'
   }
 
   // payment method
@@ -46,22 +50,42 @@ export default function Account() {
 
   }
 
+
+  // edit contact info fields
+  let [isDisabledName, setIsDisabledName] = React.useState(true);
+  let [isDisabledContact, setIsDisabledContact] = React.useState(true);
+  let [isDisabledLocation, setIsDisabledLocation] = React.useState(true);
   const editName = () => {
-
+    setIsDisabledName(false);
   }
-
   const editLocation = () => {
-
+    setIsDisabledLocation(false);
   }
-
   const editContactInfo = () => {
-
+    setIsDisabledContact(false);
+  }
+  const keyPressName = (e) => {
+    if (e.key === 'Enter') {
+      setIsDisabledName(true);
+    }
+  }
+  const keyPressLocation = (e) => {
+    if (e.key === 'Enter') {
+      setIsDisabledLocation(true);
+    }
+  }
+  const keyPressContact = (e) => {
+    if (e.key === 'Enter') {
+      setIsDisabledContact(true);
+    }
   }
 
+  // copy referral link to clipboard
   const copyReferalLink = () => {
 
   }
 
+  // handle social media 
   const openInstagram = () => {
 
   }
@@ -90,6 +114,7 @@ export default function Account() {
         </div>
       </div>
 
+      {/* your impact box */}
       <div className='accountPage'>
         <div className='boxes'>
           <div className='head'>
@@ -99,11 +124,14 @@ export default function Account() {
           </div>
           <hr className='lineDiv' id='impactLine'/>
 
-          <p>{student['name'] + ', you are 1 of (X) ' + student['college'] + ' students who prevented Xg carbon emissions and helped #X Rushers(s)!'}</p>
+          <p>{student['name'] + ', you are 1 of ('}<span className='textColorPurp'>{numStudents}</span>{') '
+           + student['college'] + ' students who prevented '}<span className='textColorPurp'>{gCarbon}</span>{'g carbon emissions and helped #'}
+           <span className='textColorPurp'>{numRushers}</span>{' Rushers(s)!'}</p>
           <p>Have some time to fill a quick optional survey? Share the link with a friend and get a shout out on Instagram!</p>
           <button className='btn' onClick={toSurvey}>Take me to survey</button>
         </div>
 
+        {/* profile box */}
         <div className='boxes'>
           <div className='head'>
             <h3>Profile</h3>
@@ -114,20 +142,18 @@ export default function Account() {
 
           <div className='rows'>
             <button style={{background: profilePicUrl, width:'60px', height:'60px'}} onClick={changeProfilePic}></button>
-
             <div className='editItem'>
               <div className='editTop'>
                 <p>Full name</p>
                 <button style={{background: editIconImage}} className='editIcon' onClick={editName}></button>
               </div>
-
-              <p>{student['fullname']}</p>
+              <input type="text" size="8" disabled={isDisabledName} onKeyDown={keyPressName} defaultValue={student['name']}></input>
             </div>
           </div>
 
           <div className='rows'>
             <img src={locationIcon} className='smallIcon'></img>
-            <h5>Default Location</h5>
+            <h5 className='textColorPurp'>Default Location</h5>
             <button style={{background: editIconImage}} className='editIcon' onClick={editLocation}></button>
           </div>
           <br/>
@@ -141,40 +167,35 @@ export default function Account() {
                 <option value="actual value 3">Display Text 3</option>
               </select>
             </div>
-
             <div className='editItem'>
               <p>Floor #</p>
-              <input type="text" size="8"></input>
+              <input type="text" size="8" disabled={isDisabledLocation} onKeyDown={keyPressLocation} defaultValue={student['floor']}></input>
             </div>
-
             <div className='editItem'>
               <p>Apartment #</p>
-              <input type="text" size="8"></input>
+              <input type="text" size="8" disabled={isDisabledLocation} onKeyDown={keyPressLocation} defaultValue={student['apartment']}></input>
             </div>
           </div>
           <br/>
 
           <div className='rows'>
             <img src={contactDeetIcon} className='smallIcon'></img>
-            <h5>Contact Details</h5>
+            <h5 className='textColorPurp'>Contact Details</h5>
             <button style={{background: editIconImage}} className='editIcon' onClick={editContactInfo}></button>
           </div>
           <br/>
-
           <div className='rows'>
             <div className='editItem'>
               <p>Phone number</p>
-              <input type="text" size="8"></input>
+              <input type="text" size="8" disabled={isDisabledContact} onKeyDown={keyPressContact} defaultValue={student['phone']}></input>
             </div>
-
             <div className='editItem'>
               <p>Email</p>
-              <input type="text" size="8"></input>
+              <input type="text" size="8" disabled={isDisabledContact} onKeyDown={keyPressContact} defaultValue={student['email']}></input>
             </div>
-
             <div className='editItem'>
               <p>Password</p>
-              <input type="text" size="8"></input>
+              <input type="password" size="8" disabled={isDisabledContact} onKeyDown={keyPressContact} defaultValue={student['password']}></input>
             </div>
           </div>
         </div>
@@ -185,7 +206,6 @@ export default function Account() {
             <img src='paymentIcon' className='icon' id='paymentIcon'></img>
           </div>
           <hr className='lineDiv' id='paymentLine'/>
-
           <br/>
           <h5>Saved payment methods</h5>
           {savedPayments &&
@@ -194,6 +214,7 @@ export default function Account() {
           <button className='btn' onClick={addPaymentMethod}>Add payment method</button>
         </div>
 
+        {/* referral box */}
         <div className='boxes'>
           <div className='head'>
             <h3>Refer a friend</h3>
@@ -211,6 +232,7 @@ export default function Account() {
           </div>
         </div>
 
+        {/* contact box */}
         <div className='boxes'>
           <div className='head'>
             <h3>Contact us</h3>
