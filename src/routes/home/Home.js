@@ -1,8 +1,8 @@
 import React from 'react'
-import { usePopulateProduct } from '../../context/product-context'
+import { useInitializeProduct } from '../../context/product-context'
 
 export default function Home() {
-
+  useInitializeProduct()
   return (
     <h1>Home</h1>
   )
