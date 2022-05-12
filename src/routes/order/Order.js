@@ -1,10 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './orderCancel.css';
+import { CircularProgress } from '@mui/material';
 
 export default function Order() {
 
   let dormitLogo = "image";
+  let [orderProgress, setOrderProgress] = React.useState(60);
 
   // example order items
   let orderItems = [
@@ -24,7 +26,9 @@ export default function Order() {
       
       <p id='thankMessage'>Thank you for ordering with <span id='word'>Dormit</span>!</p>
 
-
+      <br/>
+      <CircularProgress color='secondary' variant="determinate" value={orderProgress} size='5rem'/>
+      <br/>
 
       <p id='text1'>You ordered</p>
 
