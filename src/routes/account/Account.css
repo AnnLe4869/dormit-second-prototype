@@ -5,7 +5,7 @@
 .intro {
     display: flex;
     justify-content: flex-start;
-    margin: 5rem 11em;
+    margin: 5rem 16em;
     margin-top: 5%;
     margin-bottom: 3%;
 }
@@ -22,7 +22,7 @@
     align-items: center;
     flex-direction: column;
     width: 60%;
-    margin: 5rem 15em;
+    margin: 5rem 20em;
     margin-top: 2%;
     margin-bottom: 0;
 }
