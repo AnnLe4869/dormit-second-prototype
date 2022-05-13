@@ -10,6 +10,10 @@ export const ADD_TO_CART = "ADD TO CART";
 export const ACTIVATE_ALERT = "ACTIVATE ALERT";
 export const DEACTIVATE_ALERT = "DEACTIVATE ALERT";
 
+// change authentication status
+export const SIGN_IN_USER = "SIGN IN";
+export const SIGN_UP_USER = "SIGN UP";
+export const SIGN_OUT_USER = "SIGN OUT";
 // change cart's items amount
 export const INCREMENT_QUANTITY = "INCREMENT QUANTITY";
 export const DECREMENT_QUANTITY = "DECREMENT QUANTITY";

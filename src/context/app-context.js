@@ -1,16 +1,17 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import UserProvider from "./user-context";
-import ProductProvider from "./product-context";
+import ProductProvider, { useInitializeProduct } from "./product-context";
 import AlertProvider from "./alert-context";
 
 // we create this context to pass the firestore reference to entire application
-const AppContext = createContext(null);
+export const AppContext = createContext(null);
 
-function AppContextWrapper({ children, db, auth, storage }) {
-
+export default function AppContextWrapper({ children, db, auth, storage }) {
   return (
-    <AppContext.Provider value={{db, auth, storage}}>
+    <AppContext.Provider value={{ db, auth, storage }}>
       <UserProvider>
         <ProductProvider>
           <AlertProvider>{children}</AlertProvider>
@@ -21,7 +22,30 @@ function AppContextWrapper({ children, db, auth, storage }) {
 }
 
 // fetch the user data (necessary only) and all product's data and special category
-function useInitializeApp() {}
+export function useInitializeApp() {
+  const { auth } = useContext(AppContext);
+  /**
+   * Track the user authentication status
+   * If user sign out, refresh the page
+   * How this works: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
+   */
 
-export default AppContextWrapper;
-export { AppContext };
+  onAuthStateChanged(auth, (user) => {
+    /**
+     * if user already authenticated before, populate all the fields
+     * Or if user successfully authenticate, do the same
+     *
+     */
+    if (user) {
+    } else {
+      // if user sign out, free all user's related state
+      // ideally, you may want to redirect user to another page
+    }
+  });
+
+  /**
+   * TODO: initialize all necessary data, like product data
+   */
+
+   useInitializeProduct()
+}

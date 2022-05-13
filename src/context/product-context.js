@@ -7,7 +7,7 @@ import { INITIALIZE_PRODUCTS, UPDATE_ALL_PRODUCTS } from "../constant";
 import { UserContext } from "./user-context";
 import { AppContext } from "./app-context";
 
-const ProductContext = createContext({
+export const ProductContext = createContext({
   products: [
     {
       id: "123adc",
@@ -37,7 +37,7 @@ function productReducer(state, action) {
   }
 }
 
-function ProductProvider({ children }) {
+export default function ProductProvider({ children }) {
   const [state, dispatch] = React.useReducer(productReducer, {
     products: [{ id: "352" }],
     deals: [],
@@ -53,12 +53,9 @@ function ProductProvider({ children }) {
  * -----------------------------------------------------------------------------------
  */
 
-async function useInitializeProduct() {
-  const { state: productState, dispatch: productDispatch } =
-    useContext(ProductContext);
+export async function useInitializeProduct() {
+  const { dispatch: productDispatch } = useContext(ProductContext);
   const { db } = useContext(AppContext);
-
-  const products = useMemo(() => [], []);
 
   /**
    * We run this only at the start of the app
@@ -66,6 +63,7 @@ async function useInitializeProduct() {
    */
   useEffect(() => {
     async function func() {
+      const products = [];
       // get all products in the products collection
       const querySnapshot = await getDocs(collection(db, "products"));
 
@@ -73,58 +71,33 @@ async function useInitializeProduct() {
         // doc.data() is never undefined for query doc snapshots
         products.push(doc.data());
       });
+
+      productDispatch({
+        type: INITIALIZE_PRODUCTS,
+        payload: {
+          products,
+        },
+      });
+
+      // TODO: add error handling if something went wrong
     }
 
     func();
-  }, [db, products]);
+  }, [db, productDispatch]);
+}
 
-  console.log(products);
-
-  productDispatch({
-    type: INITIALIZE_PRODUCTS,
-    payload: {
-      products,
-    },
-  });
-
+/**
+ * Get all products stored in the context
+ * @returns all products
+ */
+export function useProducts() {
+  const { state: productState } = useContext(ProductContext);
   return productState.products;
 }
 /**
- * !DO NOT RUN THIS FUNCTION
- * I still think how should we implement the function as it may not be necessary at all
- * Since we use routing and when we change route the component get dismount, and when it get remount the useEffect() will run again
- * Run this one may cause infinite loop as I haven't check how it run yet
- * @returns products context
+ * TODO: implement this function
+ * @param {*} id    product id you want to get the detail
  */
-async function useUpdateProducts() {
-  const { state: productState, dispatch: productDispatch } =
-    useContext(ProductContext);
-  const { db } = useContext(AppContext);
-  const products = []
-  useEffect(() => {
-    async function func() {
-      // get all products in the products collection
-      const querySnapshot = await getDocs(collection(db, "products"));
-
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        products.push(doc.data());
-      });
-    }
-
-    func();
-  }, [db]);
-  
-
-  productDispatch({
-    type: UPDATE_ALL_PRODUCTS,
-    payload: {
-      products,
-    },
-  });
-
-  return productState.products;
+export function useProductDetail(id) {
+  const { state: productState } = useContext(ProductContext);
 }
-
-export default ProductProvider;
-export { ProductContext, useInitializeProduct };

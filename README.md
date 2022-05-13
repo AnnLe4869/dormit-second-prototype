@@ -1,5 +1,11 @@
 # DormIt second prototype
 
+## Warning
+
+When you develop the app please be very careful about the infinite loop. When infinite loop happens you may risk reaching the daily read limit of Firebase because you keep re-render some components and those components in turn keep fetching the resource. I cannot find a way to limit the read limit per seconds for Firebase, so please aware of the situation
+
+One way I find to keep track of the infinite loop that pose risks of infinite fetching data is to look at the `Network` tab in the Developer Tools (if you are using Chrome you can access with shortcut `Ctrl+Shift+I`). If you see a lot of tab popping up nonstop then stop the app immediately or close the browser
+
 ## Overall structure
 
 This project use **React** as front-end framework and rely entirely on client-side rendering. It uses **Firebase** to handle back-end logic, thus has little to no need to create a dedicated server
