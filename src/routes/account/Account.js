@@ -103,7 +103,7 @@ export default function Account() {
   }
 
   return (
-    <div>
+    <div id='layout'>
       <div className='intro'>
         <img src="imagelink.com/img/13718623" id='pfp'></img>
 
