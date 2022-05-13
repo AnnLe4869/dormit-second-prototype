@@ -5,6 +5,7 @@
     min-height: 100%;
     background-color: white;
     justify-content: flex-start;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -33,6 +34,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: min(700px, 100%);
     flex-direction: column;
 }
 
@@ -41,6 +43,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
+    width: min(700px, 100%);
     margin: 5rem 20em;
     margin-top: 0;
 }
@@ -96,4 +99,18 @@
     border-radius: 0.6rem;
     box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
     color: blueviolet;
+}
+
+#submitBtn {
+    background: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 2rem;
+    margin: 0rem 0.5rem;
+    border: 1px solid var(--gray);
+    border-radius: 0.6rem;
+    box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
+    color: blueviolet;
+    width: fit-content;
 }

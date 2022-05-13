@@ -33,42 +33,48 @@ export default function Order() {
     let text = e.target.value;
   }
 
-
-  // tip selection button attributes
-  const defaultBtn = {background:'white', color:'blueviolet'};
-  const chosenBtn = {background:'blueviolet', color:'white'};
-  const [button1Attr, setbutton1Attr] = React.useState(defaultBtn);
-  const [button2Attr, setbutton2Attr] = React.useState(defaultBtn);
-  const [button3Attr, setbutton3Attr] = React.useState(defaultBtn);
-  const [button4Attr, setbutton4Attr] = React.useState(defaultBtn);
-  // helper function
-  const deselectAllBtns = () => {
-    setbutton1Attr(defaultBtn);
-    setbutton2Attr(defaultBtn);
-    setbutton3Attr(defaultBtn);
-    setbutton4Attr(defaultBtn);
-  }
-  // tip selection functions
-  const tenPercentTip = () => {
-    deselectAllBtns();
-    setbutton1Attr(chosenBtn);
+  
+  // submit form
+  const submitForm = () => {
 
   }
-  const fifteenPercentTip = () => {
-    deselectAllBtns();
-    setbutton2Attr(chosenBtn);
 
-  }
-  const twentyPercentTip = () => {
-    deselectAllBtns();
-    setbutton3Attr(chosenBtn);
 
-  }
-  const customTip = () => {
-    deselectAllBtns();
-    setbutton4Attr(chosenBtn);
+  // // tip selection button attributes
+  // const defaultBtn = {background:'white', color:'blueviolet'};
+  // const chosenBtn = {background:'blueviolet', color:'white'};
+  // const [button1Attr, setbutton1Attr] = React.useState(defaultBtn);
+  // const [button2Attr, setbutton2Attr] = React.useState(defaultBtn);
+  // const [button3Attr, setbutton3Attr] = React.useState(defaultBtn);
+  // const [button4Attr, setbutton4Attr] = React.useState(defaultBtn);
+  // // helper function
+  // const deselectAllBtns = () => {
+  //   setbutton1Attr(defaultBtn);
+  //   setbutton2Attr(defaultBtn);
+  //   setbutton3Attr(defaultBtn);
+  //   setbutton4Attr(defaultBtn);
+  // }
+  // // tip selection functions
+  // const tenPercentTip = () => {
+  //   deselectAllBtns();
+  //   setbutton1Attr(chosenBtn);
 
-  }
+  // }
+  // const fifteenPercentTip = () => {
+  //   deselectAllBtns();
+  //   setbutton2Attr(chosenBtn);
+
+  // }
+  // const twentyPercentTip = () => {
+  //   deselectAllBtns();
+  //   setbutton3Attr(chosenBtn);
+
+  // }
+  // const customTip = () => {
+  //   deselectAllBtns();
+  //   setbutton4Attr(chosenBtn);
+
+  // }
 
 
   return (
@@ -94,22 +100,26 @@ export default function Order() {
         <textarea size="8" className='inputField' placeholder='I believe that...' onChange={experienceFieldTextEvent}></textarea>
 
         <br/>
-        <br/>
-        <p className='text'>Tip for Rusher (<span className='colorPurp'>{rusherName}</span>)</p>
+        {/* <p className='text'>Tip for Rusher (<span className='colorPurp'>{rusherName}</span>)</p> */}
 
         {/* tip selection */}
-        <div className='tipSelection'>
+        {/* <div className='tipSelection'>
           <img src={tipImage} id='tipImage'></img>
 
           <button className='tipBtn' onClick={tenPercentTip} style={button1Attr}>10%</button>
           <button className='tipBtn' onClick={fifteenPercentTip} style={button2Attr}>15%</button>
           <button className='tipBtn' onClick={twentyPercentTip} style={button3Attr}>20%</button>
           <button className='tipBtn' onClick={customTip} style={button4Attr}>Custom</button>
-        </div>
+        </div> */}
 
         <p className='text'>Leave a message for your Rusher (<span className='colorPurp'>{rusherName}</span>) or the Dormit team!</p>
 
         <textarea size="8" className='inputField' placeholder='I believe that...' onChange={feedbackFieldTextEvent}></textarea>
+
+        <br/>
+
+        {/* submit button */}
+        <button id='submitBtn' onClick={submitForm}>Submit</button>
       </div>
     </div>
   )
