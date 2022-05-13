@@ -21,6 +21,7 @@ export default function Order() {
   }
 
   return (
+    <div id='outerLayout'>
     <div className='layout'>
       <img src={dormitLogo} id='logo'></img>
       
@@ -48,6 +49,6 @@ export default function Order() {
       })}
 
       <button id='cancelBtn' onClick={cancel}>Cancel</button>
-    </div>
+    </div></div>
   )
 }
