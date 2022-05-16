@@ -14,6 +14,13 @@ export default function Account() {
   let tiktokImg = 'img';
   let linkedinImg = 'img';
 
+  let contactIcon = 'img';
+  let friendIcon = 'img';
+  let pfpIcon = 'img';
+  let impactIcon = 'img';
+  let profileIcon = 'img';
+  let paymentIcon = 'img';
+
   // variables
   let numStudents = 30;
   let numRushers = 8;
@@ -36,7 +43,10 @@ export default function Account() {
   }
 
   // payment method
-  let savedPayments = true;
+  let savedPayments = [
+    {'icon': 'img', 'name': 'name'},
+    {'icon': 'img2', 'name': 'name2'}
+  ]
 
   const toSurvey = () => {
 
@@ -52,33 +62,19 @@ export default function Account() {
 
 
   // edit contact info fields
-  let [isDisabledName, setIsDisabledName] = React.useState(true);
-  let [isDisabledContact, setIsDisabledContact] = React.useState(true);
-  let [isDisabledLocation, setIsDisabledLocation] = React.useState(true);
-  const editName = () => {
-    setIsDisabledName(false);
+  let [isEditing, setIsEditing] = React.useState(false);
+  const editProfile = () => {
+    setIsEditing(true);
   }
-  const editLocation = () => {
-    setIsDisabledLocation(false);
+  const saveProfileEdit = () => {
+    setIsEditing(false);
+
   }
-  const editContactInfo = () => {
-    setIsDisabledContact(false);
+  const cancelProfileEdit = () => {
+    setIsEditing(false);
+
   }
-  const keyPressName = (e) => {
-    if (e.key === 'Enter') {
-      setIsDisabledName(true);
-    }
-  }
-  const keyPressLocation = (e) => {
-    if (e.key === 'Enter') {
-      setIsDisabledLocation(true);
-    }
-  }
-  const keyPressContact = (e) => {
-    if (e.key === 'Enter') {
-      setIsDisabledContact(true);
-    }
-  }
+
 
   // copy referral link to clipboard
   const copyReferalLink = () => {
@@ -105,7 +101,7 @@ export default function Account() {
   return (
     <div id='layout'>
       <div className='intro'>
-        <img src="imagelink.com/img/13718623" id='pfp'></img>
+        <img src={pfpIcon} id='pfp'></img>
 
         <div className='text'>
           <h4>{'Hi, ' + student['name'] + ' (' +student['pronouns']+ ')'}</h4>
@@ -120,7 +116,7 @@ export default function Account() {
           <div className='head'>
             <h3>Your Impact</h3>
             <br/>
-            <img src='impactIcon' className='icon' id='impactIcon'></img>
+            <img src={impactIcon} className='icon' id='impactIcon'></img>
           </div>
           <hr className='lineDiv' id='impactLine'/>
 
@@ -135,7 +131,8 @@ export default function Account() {
         <div className='boxes'>
           <div className='head'>
             <h3>Profile</h3>
-            <img src='profileIcon' className='icon' id='profileIcon'></img>
+            <button style={{background: editIconImage}} className='editIcon' onClick={editProfile}></button>
+            <img src={profileIcon} className='icon' id='profileIcon'></img>
           </div>
           <hr className='lineDiv' id='profileLine'/>
           <br/>
@@ -145,23 +142,21 @@ export default function Account() {
             <div className='editItem'>
               <div className='editTop'>
                 <p>Full name</p>
-                <button style={{background: editIconImage}} className='editIcon' onClick={editName}></button>
               </div>
-              <input type="text" size="8" disabled={isDisabledName} onKeyDown={keyPressName} defaultValue={student['name']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['name']}></input>
             </div>
           </div>
 
           <div className='rows'>
             <img src={locationIcon} className='smallIcon'></img>
             <h5 className='textColorPurp'>Default Location</h5>
-            <button style={{background: editIconImage}} className='editIcon' onClick={editLocation}></button>
           </div>
           <br/>
 
           <div className='rows'>
             <div className='editItem'>
               <p>UCSD Building</p>
-              <select>
+              <select disabled={!isEditing}>
                 <option value="actual value 1">Building 1</option>
                 <option value="actual value 2">Display Text 2</option>
                 <option value="actual value 3">Display Text 3</option>
@@ -169,11 +164,11 @@ export default function Account() {
             </div>
             <div className='editItem'>
               <p>Floor #</p>
-              <input type="text" size="8" disabled={isDisabledLocation} onKeyDown={keyPressLocation} defaultValue={student['floor']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['floor']}></input>
             </div>
             <div className='editItem'>
               <p>Apartment #</p>
-              <input type="text" size="8" disabled={isDisabledLocation} onKeyDown={keyPressLocation} defaultValue={student['apartment']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['apartment']}></input>
             </div>
           </div>
           <br/>
@@ -181,36 +176,52 @@ export default function Account() {
           <div className='rows'>
             <img src={contactDeetIcon} className='smallIcon'></img>
             <h5 className='textColorPurp'>Contact Details</h5>
-            <button style={{background: editIconImage}} className='editIcon' onClick={editContactInfo}></button>
           </div>
           <br/>
           <div className='rows'>
             <div className='editItem'>
               <p>Phone number</p>
-              <input type="text" size="8" disabled={isDisabledContact} onKeyDown={keyPressContact} defaultValue={student['phone']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['phone']}></input>
             </div>
             <div className='editItem'>
               <p>Email</p>
-              <input type="text" size="8" disabled={isDisabledContact} onKeyDown={keyPressContact} defaultValue={student['email']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['email']}></input>
             </div>
             <div className='editItem'>
               <p>Password</p>
-              <input type="password" size="8" disabled={isDisabledContact} onKeyDown={keyPressContact} defaultValue={student['password']}></input>
+              <input type="password" size="8" disabled={!isEditing} defaultValue={student['password']}></input>
             </div>
           </div>
+
+          {/* show buttons if editing */}
+          {isEditing && 
+          <div className='rows'>
+            <button className='btn' onClick={saveProfileEdit}>Save</button>
+            <button className='btnInverseColor' onClick={cancelProfileEdit}>Cancel</button>
+          </div>}
         </div>
 
+        {/* payment methods */}
         <div className='boxes'>
           <div className='head'>
             <h3>Payment methods</h3>
-            <img src='paymentIcon' className='icon' id='paymentIcon'></img>
+            <img src={paymentIcon} className='icon' id='paymentIcon'></img>
           </div>
           <hr className='lineDiv' id='paymentLine'/>
           <br/>
           <h5>Saved payment methods</h5>
-          {savedPayments &&
-            <p>No saved methods</p>
-          }
+            {savedPayments.map((paymentMethod, index) => {
+              return (
+                <div className='rows'>
+                  <img scr={paymentMethod['icon']} className='smallIcon'></img>
+                  <p>{paymentMethod['name']}</p>
+                </div>
+              );
+            })}
+
+            {(savedPayments.length === 0) &&
+              <p>No saved methods</p>
+            }
           <button className='btn' onClick={addPaymentMethod}>Add payment method</button>
         </div>
 
@@ -218,7 +229,7 @@ export default function Account() {
         <div className='boxes'>
           <div className='head'>
             <h3>Refer a friend</h3>
-            <img src='friendIcon' className='icon' id='friendIcon'></img>
+            <img src={friendIcon} className='icon' id='friendIcon'></img>
           </div>
           <hr className='lineDiv' id='friendLine'/>
 
@@ -236,7 +247,7 @@ export default function Account() {
         <div className='boxes'>
           <div className='head'>
             <h3>Contact us</h3>
-            <img src='contactIcon' className='icon' id='contactIcon'></img>
+            <img src={contactIcon} className='icon' id='contactIcon'></img>
           </div>
           <hr className='lineDiv' id='contactLine'/>
 

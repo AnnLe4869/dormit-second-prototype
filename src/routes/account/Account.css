@@ -96,7 +96,7 @@
 }
 
 #profileIcon {
-    margin-left: 84%;
+    margin-left: 73%;
 }
 
 #paymentIcon {
@@ -125,6 +125,20 @@
     width: 30%;
 }
 
+.btnInverseColor {
+    background: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 2rem;
+    margin: 0rem 0.5rem;
+    border: 1px solid var(--gray);
+    border-radius: 0.3rem;
+    box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
+    color: blueviolet;
+    width: 30%;
+}
+
 .rows {
     display: flex;
     justify-content: flex-start;
@@ -147,12 +161,13 @@
 .editIcon {
     width: 30px;
     height: 30px;
-    margin-left: 5%;
+    margin-left: 3%;
 }
 
 .smallIcon {
     width: 30px;
     height: 30px;
+    margin-right: 2%;
 }
 
 .socialMedia {
