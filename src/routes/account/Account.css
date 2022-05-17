@@ -14,13 +14,16 @@
     justify-content: flex-start;
     width: min(700px, 100%);
     margin-top: 5%;
-    margin-bottom: 3%;
 }
 
 .intro #pfp {
     height: 60px;
     width: 60px;
     border-radius: 0.3rem;
+}
+
+.boxTitle {
+    font-size: x-large;
 }
 
 .accountPage {
@@ -36,7 +39,6 @@
 .boxes {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 0;
     width: 100%;
     height: auto;
     box-sizing: border-box;
@@ -89,26 +91,8 @@
 .head .icon {
     width: 2.5rem;
     height: 2.5rem;
-}
-
-#impactIcon {
-    margin-left: 76%;
-}
-
-#profileIcon {
-    margin-left: 73%;
-}
-
-#paymentIcon {
-    margin-left: 66%;
-}
-
-#friendIcon {
-    margin-left: 74%;
-}
-
-#contactIcon {
-    margin-left: 78%;
+    margin-left: auto; 
+    margin-right: 0;
 }
 
 .btn {
@@ -122,7 +106,7 @@
     border-radius: 0.3rem;
     box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
     color: white;
-    width: 30%;
+    width: max(200px,35%);
 }
 
 .btnInverseColor {
@@ -187,4 +171,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.rowToColumn {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+/* for mobile website */
+@media (max-width: 500px) {
+    .icon {
+        opacity: 0;
+    }
+
+    .rowToColumn {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+
+    .editItem {
+        width: 80%;
+    }
+
+    .socialMedia {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 60%;
+    }
 }

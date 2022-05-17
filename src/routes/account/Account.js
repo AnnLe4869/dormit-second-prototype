@@ -28,11 +28,14 @@ export default function Account() {
   let referalLink = 'link';
 
   // example student
+  let buildingValue1 = '1';
+  let buildingValue2 = '2';
+  let buildingValue3 = '3';
   let student = {
     'name': 'Alex',
     'fullname': 'Alex Turner',
     'college': 'Revelle',
-    'building' : 'building name',
+    'building' : buildingValue1,
     'floor': 1,
     'apartment': 12,
     'phone': '8585342230',
@@ -63,8 +66,16 @@ export default function Account() {
 
   // edit contact info fields
   let [isEditing, setIsEditing] = React.useState(false);
+  let nameRef = React.createRef();
+  let buildingRef = React.createRef();
+  let floorRef = React.createRef();
+  let aptRef = React.createRef();
+  let phoneRef = React.createRef();
+  let emailRef = React.createRef();
+  let passwordRef = React.createRef();
   const editProfile = () => {
     setIsEditing(true);
+
   }
   const saveProfileEdit = () => {
     setIsEditing(false);
@@ -72,7 +83,15 @@ export default function Account() {
   }
   const cancelProfileEdit = () => {
     setIsEditing(false);
-
+    // cancel edits on input fields
+    // reset to original values
+    nameRef.current.value = student['name'];
+    buildingRef.current.value = student['building'];
+    floorRef.current.value = student['floor'];
+    aptRef.current.value = student['apartment'];
+    phoneRef.current.value = student['phone'];
+    emailRef.current.value = student['email'];
+    passwordRef.current.value = student['password'];
   }
 
 
@@ -114,7 +133,7 @@ export default function Account() {
       <div className='accountPage'>
         <div className='boxes'>
           <div className='head'>
-            <h3>Your Impact</h3>
+            <h3 className='boxTitle'>Your Impact</h3>
             <br/>
             <img src={impactIcon} className='icon' id='impactIcon'></img>
           </div>
@@ -130,7 +149,7 @@ export default function Account() {
         {/* profile box */}
         <div className='boxes'>
           <div className='head'>
-            <h3>Profile</h3>
+            <h3 className='boxTitle'>Profile</h3>
             <button style={{background: editIconImage}} className='editIcon' onClick={editProfile}></button>
             <img src={profileIcon} className='icon' id='profileIcon'></img>
           </div>
@@ -143,7 +162,7 @@ export default function Account() {
               <div className='editTop'>
                 <p>Full name</p>
               </div>
-              <input type="text" size="8" disabled={!isEditing} defaultValue={student['name']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['name']} ref={nameRef}></input>
             </div>
           </div>
 
@@ -153,22 +172,22 @@ export default function Account() {
           </div>
           <br/>
 
-          <div className='rows'>
+          <div className='rowToColumn'>
             <div className='editItem'>
               <p>UCSD Building</p>
-              <select disabled={!isEditing}>
-                <option value="actual value 1">Building 1</option>
-                <option value="actual value 2">Display Text 2</option>
-                <option value="actual value 3">Display Text 3</option>
+              <select disabled={!isEditing} ref={buildingRef}>
+                <option value={buildingValue1}>Building 1</option>
+                <option value={buildingValue2}>Display Text 2</option>
+                <option value={buildingValue3}>Display Text 3</option>
               </select>
             </div>
             <div className='editItem'>
               <p>Floor #</p>
-              <input type="text" size="8" disabled={!isEditing} defaultValue={student['floor']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['floor']} ref={floorRef}></input>
             </div>
             <div className='editItem'>
               <p>Apartment #</p>
-              <input type="text" size="8" disabled={!isEditing} defaultValue={student['apartment']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['apartment']} ref={aptRef}></input>
             </div>
           </div>
           <br/>
@@ -178,18 +197,18 @@ export default function Account() {
             <h5 className='textColorPurp'>Contact Details</h5>
           </div>
           <br/>
-          <div className='rows'>
+          <div className='rowToColumn'>
             <div className='editItem'>
               <p>Phone number</p>
-              <input type="text" size="8" disabled={!isEditing} defaultValue={student['phone']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['phone']} ref={phoneRef}></input>
             </div>
             <div className='editItem'>
               <p>Email</p>
-              <input type="text" size="8" disabled={!isEditing} defaultValue={student['email']}></input>
+              <input type="text" size="8" disabled={!isEditing} defaultValue={student['email']} ref={emailRef}></input>
             </div>
             <div className='editItem'>
               <p>Password</p>
-              <input type="password" size="8" disabled={!isEditing} defaultValue={student['password']}></input>
+              <input type="password" size="8" disabled={!isEditing} defaultValue={student['password']} ref={passwordRef}></input>
             </div>
           </div>
 
@@ -204,11 +223,10 @@ export default function Account() {
         {/* payment methods */}
         <div className='boxes'>
           <div className='head'>
-            <h3>Payment methods</h3>
+            <h3 className='boxTitle'>Payment methods</h3>
             <img src={paymentIcon} className='icon' id='paymentIcon'></img>
           </div>
           <hr className='lineDiv' id='paymentLine'/>
-          <br/>
           <h5>Saved payment methods</h5>
             {savedPayments.map((paymentMethod, index) => {
               return (
@@ -228,7 +246,7 @@ export default function Account() {
         {/* referral box */}
         <div className='boxes'>
           <div className='head'>
-            <h3>Refer a friend</h3>
+            <h3 className='boxTitle'>Refer a friend</h3>
             <img src={friendIcon} className='icon' id='friendIcon'></img>
           </div>
           <hr className='lineDiv' id='friendLine'/>
@@ -237,8 +255,9 @@ export default function Account() {
             automatically applied to your account. You will be notified via email.
           </p>
           <p>Share this link</p>
-          <div className='rows'>
-            <input type='text' value={referalLink} style={{width: '30%'}} readOnly></input>
+          <div className='rowToColumn'>
+            <input type='text' value={referalLink} style={{width: 'max(200px,30%)'}} readOnly></input>
+            <br/>
             <button className='btn' onClick={copyReferalLink}>copy</button>
           </div>
         </div>
@@ -246,16 +265,20 @@ export default function Account() {
         {/* contact box */}
         <div className='boxes'>
           <div className='head'>
-            <h3>Contact us</h3>
+            <h3 className='boxTitle'>Contact us</h3>
             <img src={contactIcon} className='icon' id='contactIcon'></img>
           </div>
           <hr className='lineDiv' id='contactLine'/>
 
           <div className='socialMedia'>
-            <button style={{background: instagramImg}} className='mediaIcon' onClick={openInstagram}></button>
-            <button style={{background: facebookImg}} className='mediaIcon' onClick={openFacebook}></button>
-            <button style={{background: tiktokImg}} className='mediaIcon' onClick={openTiktok}></button>
-            <button style={{background: linkedinImg}} className='mediaIcon' onClick={openLinkedin}></button>
+            <div className='rows'>
+              <button style={{background: instagramImg}} className='mediaIcon' onClick={openInstagram}></button>
+              <button style={{background: facebookImg}} className='mediaIcon' onClick={openFacebook}></button>
+            </div>
+            <div className='rows'>
+              <button style={{background: tiktokImg}} className='mediaIcon' onClick={openTiktok}></button>
+              <button style={{background: linkedinImg}} className='mediaIcon' onClick={openLinkedin}></button>
+            </div>
           </div>
 
           <div className='contactInfo'>
