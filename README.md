@@ -6,6 +6,8 @@ When you develop the app please be very careful about the infinite loop. When in
 
 One way I find to keep track of the infinite loop that pose risks of infinite fetching data is to look at the `Network` tab in the Developer Tools (if you are using Chrome you can access with shortcut `Ctrl+Shift+I`). If you see a lot of tab popping up nonstop then stop the app immediately or close the browser
 
+**Edit**: I made some change to the code so it should detect whether you have infinite `useEffect` run. Still, good coding practice is never too much
+
 ## Overall structure
 
 This project use **React** as front-end framework and rely entirely on client-side rendering. It uses **Firebase** to handle back-end logic, thus has little to no need to create a dedicated server

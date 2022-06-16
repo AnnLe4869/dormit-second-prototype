@@ -3,6 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import React from "react";
 import { createRoot } from "react-dom/client";
+import 'stop-runaway-react-effects/hijack'
 import App from "./App";
 import AppContext from "./context/app-context";
 import firebaseConfig from "./firebase.config";
