@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { ACTIVATE_ALERT, DEACTIVATE_ALERT } from "../constant";
+import { ACTIVATE_ALERT, DEACTIVATE_ALERT } from "../../constant";
 
 const AlertContext = createContext({
   type: "INFO",

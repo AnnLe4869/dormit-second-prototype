@@ -2,9 +2,11 @@ import React, { createContext, useContext } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import UserProvider from "./user-context";
-import ProductProvider, { useInitializeProduct } from "./product-context";
-import AlertProvider from "./alert-context";
+import UserProvider from "./user/user-context";
+import ProductProvider from "./product/product-context";
+import AlertProvider from "./alert/alert-context";
+
+import { useInitializeProduct } from "./product/product-handler";
 
 // we create this context to pass the firestore reference to entire application
 export const AppContext = createContext(null);
@@ -47,5 +49,5 @@ export function useInitializeApp() {
    * TODO: initialize all necessary data, like product data
    */
 
-   useInitializeProduct()
+  useInitializeProduct();
 }
