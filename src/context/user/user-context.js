@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext } from "react";
+import React, { createContext } from "react";
 
 import {
   ADD_TO_CART,

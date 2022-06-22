@@ -1,11 +1,8 @@
-import React, { createContext, useCallback, useContext } from "react";
+import { useCallback, useContext } from "react";
 
-import { collection, doc, setDoc } from "firebase/firestore";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-import { UserContext } from "./user-context";
 import { AppContext } from "../app-context";
-import { ProductContext } from "../product/product-context";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -23,6 +20,19 @@ export function useCheckAuthenticationStatus() {
   const { auth } = useContext(AppContext);
   // if user isn't signed in, currentUser is null
   return Boolean(auth.currentUser);
+}
+/**
+ * Return the user's authentication detail like id, email, etc.
+ * This is obtained right after user authenticated
+ * This is not the user's data we store on database
+ * @returns firebase.auth.currentUser
+ */
+export function useUserAuthenticationDetail() {
+  const { auth } = useContext(AppContext);
+  if (!auth.currentUser) {
+    throw new Error("User is not authenticated");
+  }
+  return auth.currentUser;
 }
 
 /**
