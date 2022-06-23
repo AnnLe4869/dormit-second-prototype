@@ -43,7 +43,7 @@ export async function useInitializeProduct() {
   // this should run only once when app initialize
   useEffect(() => {
     func();
-  }, [func]);
+  }, []);
 }
 
 /**

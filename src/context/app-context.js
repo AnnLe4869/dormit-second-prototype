@@ -1,7 +1,8 @@
 import React, { createContext, useContext } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import UserProvider, { UserContext } from "./user/user-context";
 import ProductProvider from "./product/product-context";
@@ -29,7 +30,7 @@ export default function AppContextWrapper({ children, db, auth, storage }) {
 // fetch the user data (necessary only) and all product's data and special category
 export function useInitializeApp() {
   const { auth, db } = useContext(AppContext);
-  const { dispatch: userDispatch, state } = useContext(UserContext);
+  const { dispatch: userDispatch, state: userState } = useContext(UserContext);
   /**
    * Track the user authentication status
    * If user sign out, refresh the page
@@ -43,10 +44,10 @@ export function useInitializeApp() {
      */
     if (user) {
       // fetching user's data from database
-      const docRef = doc(db, "user", user.uid);
+      const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
       // get the current cart store in Context
-      const cartInContext = state.cart;
+      const cartInContext = userState.cart;
 
       if (docSnap.exists()) {
         // user already exist, i.e user is not sign up for the first time
@@ -76,9 +77,9 @@ export function useInitializeApp() {
       } else {
         // user first time sign in, i.e user sign up
         // we create new entry in document "user" using user uid as id
-        const docRef = doc(db, "user", user.uid);
+        const docRef = doc(db, "users", user.uid);
         // get the current cart store in Context
-        const cartInContext = state.cart;
+        const cartInContext = userState.cart;
         const payload = {
           cart: cartInContext,
           checkout: [],

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useInitializeApp } from "./context/app-context";
 import AccountPage from "./routes/account/Account";
@@ -8,9 +8,10 @@ import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
+import { useEffect } from "react";
 
 function App() {
-  useInitializeApp()
+  useInitializeApp();
 
   return (
     <Router>

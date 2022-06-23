@@ -160,7 +160,7 @@ export function useUpdateIntermittently(interval = 1000 * 60 * 5) {
   const { state } = useContext(UserContext);
   async function func() {
     await setDoc(
-      doc(db, "user", authUser.uid),
+      doc(db, "users", authUser.uid),
       {
         cart: state.cart,
       },
@@ -186,7 +186,7 @@ export async function useUpdateImmediately() {
   const { state } = useContext(UserContext);
 
   await setDoc(
-    doc(db, "user", authUser.uid),
+    doc(db, "users", authUser.uid),
     {
       cart: state.cart,
     },
