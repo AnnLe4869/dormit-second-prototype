@@ -3,6 +3,8 @@ import { useCallback, useContext } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { AppContext } from "../app-context";
+import { UserContext } from "./user-context";
+import { SIGN_IN_USER, SIGN_UP_USER } from "../../constant";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -29,10 +31,34 @@ export function useCheckAuthenticationStatus() {
  */
 export function useUserAuthenticationDetail() {
   const { auth } = useContext(AppContext);
+
   if (!auth.currentUser) {
     throw new Error("User is not authenticated");
   }
   return auth.currentUser;
+}
+/**
+ * Sign up
+ * @returns signUp function
+ */
+export function useSignUp() {
+  const { auth } = useContext(AppContext);
+  const { dispatch } = useContext(UserContext);
+  const signUp = useCallback(async () => {
+    const provider = new GoogleAuthProvider();
+    /**
+     * TODO: do some error handling
+     * For example, what if user stop authenticate midway
+     */
+    try {
+      await signInWithPopup(auth, provider);
+      dispatch({ type: SIGN_UP_USER });
+    } catch (err) {
+      throw new Error("sign in fail");
+    }
+  }, [auth, dispatch]);
+
+  return signUp;
 }
 
 /**
@@ -43,14 +69,20 @@ export function useUserAuthenticationDetail() {
  */
 export function useGoogleSignIn() {
   const { auth } = useContext(AppContext);
+  const { dispatch } = useContext(UserContext);
   const signIn = useCallback(async () => {
     const provider = new GoogleAuthProvider();
     /**
      * TODO: do some error handling
      * For example, what if user stop authenticate midway
      */
-    await signInWithPopup(auth, provider);
-  }, [auth]);
+    try {
+      await signInWithPopup(auth, provider);
+      dispatch({ type: SIGN_UP_USER });
+    } catch (err) {
+      throw new Error("sign in fail");
+    }
+  }, [auth, dispatch]);
 
   return signIn;
 }
@@ -58,4 +90,7 @@ export function useGoogleSignIn() {
 /**
  * Sign out
  */
-export function useSignOut() {}
+export function useSignOut() {
+  // remember to free all user's detail stored on context
+  // but keep the product detail untouched since they are not tied to user
+}

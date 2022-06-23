@@ -14,6 +14,8 @@ export const DEACTIVATE_ALERT = "DEACTIVATE ALERT";
 export const SIGN_IN_USER = "SIGN IN";
 export const SIGN_UP_USER = "SIGN UP";
 export const SIGN_OUT_USER = "SIGN OUT";
+export const INITIALIZE_USER_DETAILS = "INITIALIZE USER DETAILS";
+
 // change cart's items amount
 export const INCREMENT_QUANTITY = "INCREMENT QUANTITY";
 export const DECREMENT_QUANTITY = "DECREMENT QUANTITY";

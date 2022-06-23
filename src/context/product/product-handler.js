@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 
 import { INITIALIZE_PRODUCTS } from "../../constant";
 
@@ -18,9 +18,9 @@ export async function useInitializeProduct() {
    * We run this only at the start of the app
    * May need some optimization latter as this will run every time we change route and go back to it
    */
-  useEffect(() => {
-    async function func() {
-      const products = [];
+  const func = useCallback(async () => {
+    const products = [];
+    try {
       // get all products in the products collection
       const querySnapshot = await getDocs(collection(db, "products"));
 
@@ -35,12 +35,15 @@ export async function useInitializeProduct() {
           products,
         },
       });
-
-      // TODO: add error handling if something went wrong
+    } catch (err) {
+      throw new Error(err);
     }
-
-    func();
   }, [db, productDispatch]);
+
+  // this should run only once when app initialize
+  useEffect(() => {
+    func();
+  }, [func]);
 }
 
 /**
@@ -50,11 +53,4 @@ export async function useInitializeProduct() {
 export function useProducts() {
   const { state: productState } = useContext(ProductContext);
   return productState.products;
-}
-/**
- * TODO: implement this function
- * @param {*} id    product id you want to get the detail
- */
-export function useProductDetail(id) {
-  const { state: productState } = useContext(ProductContext);
 }

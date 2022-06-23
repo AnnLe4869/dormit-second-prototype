@@ -4,6 +4,7 @@ import {
   ADD_TO_CART,
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
+  INITIALIZE_USER_DETAILS,
   REMOVE_ITEM_FROM_CART,
   SET_CHECKOUT_ADDRESS,
   SET_CHECKOUT_PAYMENT,
@@ -31,16 +32,30 @@ export const UserContext = createContext({
 function userReducer(state, action) {
   switch (action.type) {
     case SIGN_IN_USER: {
+      // action is {type: SIGN_IN_USER}
       return {
         ...state,
         isAuthenticated: true,
       };
     }
     case SIGN_UP_USER: {
+      // action is {type: SIGN_UP_USER}
       return {
         ...state,
         isNewUser: true,
         isAuthenticated: true,
+      };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case INITIALIZE_USER_DETAILS: {
+      // action is {type: INITIALIZE_USER_DETAILS, payload: {user's detail fetched from firebase}}
+      return {
+        ...state,
+        ...action.payload,
       };
     }
 

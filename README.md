@@ -62,14 +62,18 @@ The header, although sounds like something that should be shared, isn't actually
 
 1. How to use the firebase?
 
-    Read the [Get started with Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart) and [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start). Remember to use the Web version 9
+   Read the [Get started with Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart) and [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start). Remember to use the Web version 9
 
-    For this app, replace the detail in `firebase.config.js` with the correct setup and you should be good to go
+   For this app, replace the detail in `firebase.config.js` with the correct setup and you should be good to go
 
 2. How do I contribute to the application
 
-    You can fork the project and then do pull request. Ideally, you would want to create a new branch, do some change on it and do pull request on those. Talk or message with the leads for more information
+   You can fork the project and then do pull request. Ideally, you would want to create a new branch, do some change on it and do pull request on those. Talk or message with the leads for more information
 
 3. Should I use this library X to do Y?
 
-    Please talk or message with the leads before you decide to install a library. This is front-end, and unlike back-end, we are very sensitive to how much "weight" does the app have. If the application is too heavy, it will make the page sluggish and the user will leave the website. A good rule-of-thumb to decide a library is to think: can I do this without the library and how much work do I have to do; how much weight the library will add into the project; how much the library is used comparing to the size of it
+   Please talk or message with the leads before you decide to install a library. This is front-end, and unlike back-end, we are very sensitive to how much "weight" does the app have. If the application is too heavy, it will make the page sluggish and the user will leave the website. A good rule-of-thumb to decide a library is to think: can I do this without the library and how much work do I have to do; how much weight the library will add into the project; how much the library is used comparing to the size of it
+
+4. Why do you store info of cart in `Context` and in `localStorage`? Would this make it redundant?
+
+   This is to store the data of cart when user is not authenticated. Data stored in `Context` will be lost the moment we close the tab or refresh the page. To ensure the app working properly, always make data about cart in the `Context` and `localStorage` in sync with each other
