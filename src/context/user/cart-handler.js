@@ -152,7 +152,11 @@ export function useRemoveProductFromCart(id) {
 /**
  * Update the content of the local cart into database
  * We perform this periodically, each update happen after the specified amount of time
+ * This hooks should only be called only one time in the entire lifetime of the app session
+ * Ideally, when we initialize the app and the user has authenticated, we call this function
  * @param {number} interval  :time between each update
+ *
+ * TODO: write a function to track in case we accidentally call this more than one, and if we did, stop other old ones
  */
 export function useUpdateIntermittently(interval = 1000 * 60 * 5) {
   const authUser = useUserAuthenticationDetail();

@@ -2,6 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useCallback, useContext, useEffect } from "react";
 
 import { INITIALIZE_PRODUCTS } from "../../constant";
+import { getCurrentTime, getTimeDifference } from "../../helper/time";
 
 import { AppContext } from "../app-context";
 import { ProductContext } from "./product-context";
@@ -19,24 +20,49 @@ export async function useInitializeProduct() {
    * May need some optimization latter as this will run every time we change route and go back to it
    */
   const func = useCallback(async () => {
-    const products = [];
-    try {
-      // get all products in the products collection
-      const querySnapshot = await getDocs(collection(db, "products"));
+    // cache the data in local and only re-fetch if the data is deemed "stale"
+    const STALE_TIME = 1000 * 60 * 5;
+    const productLocal = JSON.parse(localStorage.getItem("products"));
+    const timestamp = localStorage.getItem("timestamp");
 
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        products.push(doc.data());
-      });
+    if (
+      !productLocal ||
+      getTimeDifference(timestamp, getCurrentTime()) > STALE_TIME
+    ) {
+      try {
+        const products = [];
+        // get all products in the products collection
+        const querySnapshot = await getDocs(collection(db, "products"));
 
+        querySnapshot.forEach((doc) => {
+          products.push(doc.data());
+        });
+
+        // store the result and query time to localStorage
+        localStorage.setItem(
+          "products",
+          JSON.stringify({
+            products,
+          })
+        );
+        localStorage.setItem("timestamp", getCurrentTime());
+
+        productDispatch({
+          type: INITIALIZE_PRODUCTS,
+          payload: {
+            products,
+          },
+        });
+      } catch (err) {
+        throw new Error(err);
+      }
+    } else {
       productDispatch({
         type: INITIALIZE_PRODUCTS,
         payload: {
-          products,
+          products: productLocal,
         },
       });
-    } catch (err) {
-      throw new Error(err);
     }
   }, [db, productDispatch]);
 
