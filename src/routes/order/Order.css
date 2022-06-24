@@ -1,0 +1,116 @@
+.layout {
+    top: 0;
+    left: 0;
+    display: flex;
+    min-height: 100%;
+    background-color: white;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.close {
+    top: 0.5%;
+    right: 0.5%;
+    margin-left: 95%;
+    width: 5%;
+    height: 100%;
+    font-size: xx-large;
+    color: blueviolet;
+
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.colorPurp {
+    color: blueviolet;
+}
+
+.centering {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: min(700px, 100%);
+    flex-direction: column;
+}
+
+.alignFlexStart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    width: min(700px, 100%);
+    margin: 5rem 20em;
+    margin-top: 0;
+}
+
+.text {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.orderBox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 0;
+    width: fit-content;
+    height: auto;
+    box-sizing: border-box;
+    border: solid gray 0.1rem;
+    border-radius: 0.3rem;
+    flex-direction: column;
+    margin-bottom: 3%;
+    padding: 1%;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.inputField {
+    width: 100%;
+    height: 10em;
+}
+
+.tipSelection {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    padding: 5%;
+}
+
+#tipImage {
+    width: 2em;
+    height: 2em;
+}
+
+.tipBtn {
+    background: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 2rem;
+    margin: 0rem 0.5rem;
+    border: 1px solid var(--gray);
+    border-radius: 0.6rem;
+    box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
+    color: blueviolet;
+}
+
+#submitBtn {
+    background: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 2rem;
+    margin: 0rem 0.5rem;
+    border: 1px solid var(--gray);
+    border-radius: 0.6rem;
+    box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
+    color: blueviolet;
+    width: fit-content;
+}
