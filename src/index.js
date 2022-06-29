@@ -6,7 +6,7 @@ import { createRoot } from "react-dom/client";
 import "stop-runaway-react-effects/hijack";
 import App from "./App";
 import AppContext from "./context/app-context";
-import firebaseConfig from "./my-firebase.config";
+import firebaseConfig from "./firebase.config";
 import "./index.css";
 
 // this is to populate data only
