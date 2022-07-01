@@ -54,6 +54,7 @@ export function useSignUp() {
       await signInWithPopup(auth, provider);
       dispatch({ type: SIGN_UP_USER });
     } catch (err) {
+      console.log(err);
       throw new Error("sign in fail");
     }
   }, [auth, dispatch]);
