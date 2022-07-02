@@ -57,16 +57,21 @@ export function useInitializeApp() {
           cartInContext.length > 0 &&
           isArrayDifferent(cartInContext, cartInDb)
         ) {
-          // TODO: decide what to do when the two carts are different
-          // whether to use the one in database or use the current cart or combine them
-          // HOW: we will invoke a component (like alert) and depending on the user's answer
-          // we will choose how the final result should be
-          // for now, we will make the Context and localStorage out of sync
-          // and keep Context the "database version" and localStorage the "current version"
-          // when user make their choice, make sure the update both of them as well as sync them up
+          /**
+           * TODO: combine the current cart (in localStorage) with cart in database
+           * for an item that is in either of the carts (or both carts),
+           * the combined cart will use the larger number out of two carts
+           *
+           * For example,
+           * if current cart (in localStorage) have 3 snacks, 1 coke and 2 candies
+           * cart in database have 2 snacks, 4 cokes and 1 peanuts
+           * then the combined cart will have 3 snacks, 4 cokes, 2 candies and 1 peanuts
+           *
+           * This combined cart is the new cart and should replace the old carts
+           * Don't forget to update the cart, both in localStorage and in database
+           */
         }
 
-        // !WARNING: don't sync up localStorage and Context here. Read the TODO
         userDispatch({
           type: INITIALIZE_USER_DETAILS,
           payload: {
@@ -101,7 +106,7 @@ export function useInitializeApp() {
   });
 
   /**
-   * TODO: initialize all necessary data, like product data
+   * initialize product data
    */
 
   useInitializeProduct();
