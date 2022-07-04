@@ -58,6 +58,33 @@ For the most part, a component is not shared between route. But at the moment, t
 
 The header, although sounds like something that should be shared, isn't actually one as. From the UI design, I see that the header are different between routes and no duplication here
 
+## How to start Firebase
+
+After you cloned the project down to your computer, follow these steps to set up your firebase
+
+- Create a firebase project and then install the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments). Follow all instructions there
+
+- Create a local secret named `STRIPE_API_KEY` by running
+
+  ```bash
+  firebase functions:secrets:set STRIPE_API_KEY
+  # you will be prompted to enter the key
+  ```
+
+  Make sure the key you parse in here have sufficient permissions to write to products
+
+- Upload the custom cloud functions by running
+
+  ```bash
+  firebase deploy --only functions
+  ```
+
+- Upload the security rules
+
+  ```bash
+  firebase deploy --only firestore:rules
+  ```
+
 ## FAQ
 
 1. How to use the firebase?
@@ -77,3 +104,7 @@ The header, although sounds like something that should be shared, isn't actually
 4. Why do you store info of cart in `Context` and in `localStorage`? Would this make it redundant?
 
    This is to store the data of cart when user is not authenticated. Data stored in `Context` will be lost the moment we close the tab or refresh the page. To ensure the app working properly, always make data about cart in the `Context` and `localStorage` in sync with each other
+
+5. I cannot deploy the cloud function/security rules
+
+   This can happen because you miss some steps along the way. However, there is one strange bug I encountered while working with Firebase: I was denied of deploying because I didn't authenticated despite the fact that I already verified that I did sign in. To fix this, you just sign out (by running `firebase logout`) then sign back in again (`firebase login`)
