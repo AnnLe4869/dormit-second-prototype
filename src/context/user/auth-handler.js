@@ -94,4 +94,14 @@ export function useGoogleSignIn() {
 export function useSignOut() {
   // remember to free all user's detail stored on context
   // but keep the product detail untouched since they are not tied to user
+  const { auth } = useContext(AppContext);
+  const signOut = useCallback(async () => {
+    try {
+      auth.signOut();
+    } catch (err) {
+      throw new Error("sign in fail");
+    }
+  }, [auth]);
+
+  return signOut;
 }

@@ -108,3 +108,7 @@ After you cloned the project down to your computer, follow these steps to set up
 5. I cannot deploy the cloud function/security rules
 
    This can happen because you miss some steps along the way. However, there is one strange bug I encountered while working with Firebase: I was denied of deploying because I didn't authenticated despite the fact that I already verified that I did sign in. To fix this, you just sign out (by running `firebase logout`) then sign back in again (`firebase login`)
+
+6. Why the app use so much read?
+
+   There are many reasons for this to happen. Before jumping to conclusion, make sure that this is the actual problem and high read count is consistent. Sometimes, right after some deployment the read count can spike. For example, I encountered some read count spikes right after I deployed cloud function. The read count normalizes after a bit
