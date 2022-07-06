@@ -1,30 +1,18 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useContext } from "react";
 
-import {
-  doc,
-  onSnapshot,
-  setDoc,
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
 
-import {
-  ADD_TO_CART,
-  DECREMENT_QUANTITY,
-  INCREMENT_QUANTITY,
-  REMOVE_ITEM_FROM_CART,
-} from "../../constant";
 import { AppContext } from "../app-context";
-import { ProductContext } from "../product/product-context";
-import { UserContext } from "./user-context";
 
-import { useUserAuthenticationDetail } from "./auth-handler";
+import { getCartFromLocalStorage } from "../../helper/getCartFromLocalStorage";
+import { ProductContext } from "../product/product-context";
 
 /**
  * Return a function that, when called, will send user to a checkout page
  */
 export function useCheckout() {
   const { db, auth } = useContext(AppContext);
+  const { state } = useContext(ProductContext);
 
   return async () => {
     const currentUser = auth.currentUser;
@@ -32,6 +20,8 @@ export function useCheckout() {
     if (!auth.currentUser) {
       throw new Error("User is not authenticated");
     }
+
+    const cart = getCartFromLocalStorage();
 
     const userRef = doc(db, "users", currentUser.uid);
     const checkoutRef = await addDoc(collection(userRef, "checkout_sessions"), {
@@ -43,6 +33,22 @@ export function useCheckout() {
         },
         {
           price: "price_1LGggPBFL4Le4n4LYTlOWoMw",
+          quantity: 1,
+        },
+        {
+          /**
+           * this is for tip amount
+           * what we did is we create a Price object in-the-fly
+           * more on https://www.youtube.com/watch?v=X2SmLzQ5kfY
+           */
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Rusher Tip",
+            },
+            // this is the tip amount
+            unit_amount: 5000,
+          },
           quantity: 1,
         },
       ],
