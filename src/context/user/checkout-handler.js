@@ -26,6 +26,13 @@ export function useCheckout() {
     const userRef = doc(db, "users", currentUser.uid);
     const checkoutRef = await addDoc(collection(userRef, "checkout_sessions"), {
       mode: "payment",
+      /**
+       * this set up will calculate tax on checkout
+       * you have to set up the tax in Stripe for this to work
+       */
+      automatic_tax: {
+        enabled: true,
+      },
       line_items: [
         {
           price: "price_1LGghMBFL4Le4n4LjoI9fIFb",
@@ -48,6 +55,7 @@ export function useCheckout() {
             },
             // this is the tip amount
             unit_amount: 5000,
+            tax_behavior: "exclusive",
           },
           quantity: 1,
         },

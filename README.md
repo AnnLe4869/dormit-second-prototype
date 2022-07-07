@@ -85,6 +85,13 @@ After you cloned the project down to your computer, follow these steps to set up
   firebase deploy --only firestore:rules
   ```
 
+## Setting up Stripe
+
+- Create an account and activate it
+- Set up the billing so that we can have the checkout page to enter card info
+- Create product in the Product page. All products must have **quantity** in the metadata
+- Set up tax
+
 ## FAQ
 
 1. How to use the firebase?
@@ -112,3 +119,7 @@ After you cloned the project down to your computer, follow these steps to set up
 6. Why the app use so much read?
 
    There are many reasons for this to happen. Before jumping to conclusion, make sure that this is the actual problem and high read count is consistent. Sometimes, right after some deployment the read count can spike. For example, I encountered some read count spikes right after I deployed cloud function. The read count normalizes after a bit
+
+7. I got some error related to tax
+
+   Watch this video [How to fix tax_behavior missing for prices error](https://www.youtube.com/watch?v=KfaqrxEO8Y4)
