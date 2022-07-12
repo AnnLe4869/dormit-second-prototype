@@ -129,3 +129,7 @@ After you cloned the project down to your computer, follow these steps to set up
 7. I got some error related to tax
 
    Watch this video [How to fix tax_behavior missing for prices error](https://www.youtube.com/watch?v=KfaqrxEO8Y4)
+
+8. The cloud function doesn't send custom token. What happened?
+
+   Probably [this one](https://stackoverflow.com/questions/54066947/cant-create-a-custom-token-in-firebase-cloud-functions-because-the-service-acco). You want to edit the one with "App Engine default service account"

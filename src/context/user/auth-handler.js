@@ -108,19 +108,19 @@ export function useEmailSignIn() {
      * send the code back to cloud function for verifying the email
      * if the verification is success, we receive a token for authentication
      */
-    const { isSuccess, token, message } = await verifyOtpCode({
+    const { data } = await verifyOtpCode({
       email,
       code,
     });
 
-    if (!isSuccess) {
+    if (!data.isSuccess) {
       // display the error message to the user
-      console.log(message);
+      console.log(data.message);
     }
 
-    console.log(token);
+    console.log(data);
 
-    await signInWithCustomToken(auth, token);
+    await signInWithCustomToken(auth, data.token);
     dispatch({ type: SIGN_IN_USER });
   };
 

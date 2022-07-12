@@ -1,6 +1,9 @@
 import * as admin from "firebase-admin";
-import { firestore } from "firebase-admin";
-import { CollectionReference, FieldValue } from "firebase-admin/firestore";
+import {
+  CollectionReference,
+  FieldPath,
+  FieldValue,
+} from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import { totp } from "otplib";
 import Stripe from "stripe";
@@ -9,6 +12,7 @@ import { verifyEmail } from "./helper";
 
 admin.initializeApp();
 const db = admin.firestore();
+
 totp.options = {
   // the code is valid up to this amount of time
   step: 60 * 15, // 15 minutes
@@ -39,7 +43,9 @@ export const checkout = functions
     const eventAgeMs = Date.now() - Date.parse(context.timestamp);
     const eventMaxAgeMs = 1000 * 10;
     if (eventAgeMs > eventMaxAgeMs) {
-      console.log(`Dropping event ${context} with age[ms]: ${eventAgeMs}`);
+      functions.logger.log(
+        `Dropping event ${context} with age[ms]: ${eventAgeMs}`
+      );
       return;
     }
 
@@ -87,7 +93,7 @@ export const checkout = functions
        */
       const firestoreData = await productRef
         .where(
-          firestore.FieldPath.documentId(),
+          FieldPath.documentId(),
           "in",
           itemsSellData.map((item) => item.prod_id)
         )
@@ -151,9 +157,6 @@ export const sendCodeViaEmail = functions
   .runWith({
     // allows the function to use environment secret STRIPE_API_KEY
     secrets: ["OTP_SECRET"],
-    // Keep 1 instances warm to reduce latency.
-    // More on https://cloud.google.com/functions/docs/configuring/min-instances
-    // minInstances: 1,
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
     maxInstances: 20,
@@ -181,11 +184,6 @@ export const sendCodeViaEmail = functions
     const code = totp.generate(secret);
 
     functions.logger.log("the code is " + code);
-    functions.logger.log(
-      "the code in hex is " + Buffer.from(code, "utf8").toString("hex")
-    );
-    functions.logger.log("the email is " + email);
-    functions.logger.log("the secret is " + secret);
 
     /**
      * send token to the email address
@@ -227,9 +225,6 @@ export const verifyOtpCode = functions
   .runWith({
     // allows the function to use environment secret STRIPE_API_KEY
     secrets: ["OTP_SECRET"],
-    // Keep 1 instances warm to reduce latency.
-    // More on https://cloud.google.com/functions/docs/configuring/min-instances
-    // minInstances: 1,
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
     maxInstances: 20,
@@ -260,17 +255,10 @@ export const verifyOtpCode = functions
      * we do that as a "salting" to the secret
      */
     const secret = config.otpSecret + email;
-    const code = data.code;
+    const code = data.code.trim();
 
     // check whether the token is valid or not
     const isValid = totp.check(code, secret);
-    functions.logger.log("the code is " + code);
-    functions.logger.log(
-      "the code in hex is " + Buffer.from(code, "utf8").toString("hex")
-    );
-    functions.logger.log("the email is " + email);
-    functions.logger.log("the secret is " + secret);
-    functions.logger.log("the authentication is " + isValid);
 
     if (!process.env.FUNCTIONS_EMULATOR) {
       if (!isValid) {
@@ -284,7 +272,7 @@ export const verifyOtpCode = functions
         link_email: string;
       }>;
       const matchedUsers = await userRef.where("link_email", "==", email).get();
-      functions.logger.log(matchedUsers.docs);
+
       if (matchedUsers.empty) {
         return {
           isSuccess: false,
@@ -299,17 +287,16 @@ export const verifyOtpCode = functions
         );
       }
       const user = matchedUsers.docs[0];
-      const userId = user.id;
-      const authenticationToken = await admin.auth().createCustomToken(userId);
-      functions.logger.log(
-        "the authentication token is " + authenticationToken
-      );
+      const authenticationToken = await admin.auth().createCustomToken(user.id);
+
       return {
         isSuccess: true,
         message: "authentication success",
         token: authenticationToken,
       };
     } else {
-      return {};
+      return {
+        message: "something is wrong here. Please contact support",
+      };
     }
   });
