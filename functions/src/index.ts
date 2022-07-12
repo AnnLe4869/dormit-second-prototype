@@ -1,5 +1,5 @@
 import * as admin from "firebase-admin";
-import { firestore, auth } from "firebase-admin";
+import { firestore } from "firebase-admin";
 import { CollectionReference, FieldValue } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import { totp } from "otplib";
@@ -8,8 +8,11 @@ import config from "./config";
 import { verifyEmail } from "./helper";
 
 admin.initializeApp();
-const db = firestore();
-auth;
+const db = admin.firestore();
+totp.options = {
+  // the code is valid up to this amount of time
+  step: 60 * 15, // 15 minutes
+};
 /**
  * Fire when a an existing payment is updated
  * If the transaction is success, update the inventory IN STRIP
@@ -281,7 +284,7 @@ export const verifyOtpCode = functions
         link_email: string;
       }>;
       const matchedUsers = await userRef.where("link_email", "==", email).get();
-      functions.logger.log("the user is " + matchedUsers.docs);
+      functions.logger.log(matchedUsers.docs);
       if (matchedUsers.empty) {
         return {
           isSuccess: false,
@@ -297,7 +300,7 @@ export const verifyOtpCode = functions
       }
       const user = matchedUsers.docs[0];
       const userId = user.id;
-      const authenticationToken = await auth().createCustomToken(userId);
+      const authenticationToken = await admin.auth().createCustomToken(userId);
       functions.logger.log(
         "the authentication token is " + authenticationToken
       );
