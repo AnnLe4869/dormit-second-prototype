@@ -1,23 +1,28 @@
 import React, { createContext, useContext, useEffect } from "react";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
-import UserProvider, { UserContext } from "./user/user-context";
-import ProductProvider from "./product/product-context";
 import AlertProvider from "./alert/alert-context";
+import ProductProvider from "./product/product-context";
+import UserProvider, { UserContext } from "./user/user-context";
 
-import { useInitializeProduct } from "./product/product-handler";
 import { INITIALIZE_USER_DETAILS } from "../constant";
 import { isArrayDifferent } from "../helper/isArrayDifferent";
+import { useInitializeProduct } from "./product/product-handler";
 
 // we create this context to pass the firestore reference to entire application
 export const AppContext = createContext(null);
 
-export default function AppContextWrapper({ children, db, auth, storage }) {
+export default function AppContextWrapper({
+  children,
+  db,
+  auth,
+  storage,
+  functions,
+}) {
   return (
-    <AppContext.Provider value={{ db, auth, storage }}>
+    <AppContext.Provider value={{ db, auth, storage, functions }}>
       <UserProvider>
         <ProductProvider>
           <AlertProvider>{children}</AlertProvider>

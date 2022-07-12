@@ -62,16 +62,22 @@ The header, although sounds like something that should be shared, isn't actually
 
 After you cloned the project down to your computer, follow these steps to set up your firebase
 
-- Create a firebase project and then install the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments). Follow all instructions there
+- Create a firebase project and then install the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments) and [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email). Follow all instructions there
 
-- Create a local secret named `STRIPE_API_KEY` by running
+- For the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments), you should choose option "Sync" for the "Sync new users to Stripe customers and Cloud Firestore". After you install the extension, don't forget to setup Stripe Webhook as instructed by the extension (see the section Configure Stripe webhooks or [POSTINSTALL instruction](https://github.com/stripe/stripe-firebase-extensions/blob/master/firestore-stripe-payments/POSTINSTALL.md))
+
+- For [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email), we have to set up a SMTP connection URI
+
+- Create a local secret named `STRIPE_API_KEY` and `OTP_SECRET` by running
 
   ```bash
   firebase functions:secrets:set STRIPE_API_KEY
   # you will be prompted to enter the key
+  firebase functions:secrets:set OTP_SECRET
+  # same as above, you will be prompted to enter the key
   ```
 
-  Make sure the key you parse in here have sufficient permissions to write to products
+  Make sure the key you parse in here have sufficient permissions to write to products (in the `STRIPE_API_KEY` key). For more information about managing API key, see [Store and access sensitive configuration information](https://firebase.google.com/docs/functions/config-env#secret-manager)
 
 - Upload the custom cloud functions by running
 

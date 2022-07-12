@@ -2,13 +2,14 @@ import * as admin from "firebase-admin";
 import { firestore, auth } from "firebase-admin";
 import { CollectionReference, FieldValue } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
-import { authenticator } from "otplib";
+import { totp } from "otplib";
 import Stripe from "stripe";
 import config from "./config";
 import { verifyEmail } from "./helper";
 
 admin.initializeApp();
 const db = firestore();
+auth;
 /**
  * Fire when a an existing payment is updated
  * If the transaction is success, update the inventory IN STRIP
@@ -149,7 +150,7 @@ export const sendCodeViaEmail = functions
     secrets: ["OTP_SECRET"],
     // Keep 1 instances warm to reduce latency.
     // More on https://cloud.google.com/functions/docs/configuring/min-instances
-    minInstances: 1,
+    // minInstances: 1,
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
     maxInstances: 20,
@@ -174,8 +175,14 @@ export const sendCodeViaEmail = functions
      * we do that as a "salting" to the secret
      */
     const secret = config.otpSecret + email;
+    const code = totp.generate(secret);
 
-    const token = authenticator.generate(secret);
+    functions.logger.log("the code is " + code);
+    functions.logger.log(
+      "the code in hex is " + Buffer.from(code, "utf8").toString("hex")
+    );
+    functions.logger.log("the email is " + email);
+    functions.logger.log("the secret is " + secret);
 
     /**
      * send token to the email address
@@ -183,26 +190,28 @@ export const sendCodeViaEmail = functions
      * Extension https://firebase.google.com/products/extensions/firebase-firestore-send-email
      */
 
-    const mailRef = db.collection("email") as CollectionReference<{
-      to: string;
-      message: {
-        subject: string;
-        html: string;
-      };
-    }>;
-    try {
-      await mailRef.add({
-        to: "demog138@gmail.com",
+    if (!process.env.FUNCTIONS_EMULATOR) {
+      const mailRef = db.collection("email") as CollectionReference<{
+        to: string;
         message: {
-          subject: "Hello from Firebase!",
-          html: `This is your verification code ${token}. It will expire in 15 minutes`,
-        },
-      });
-    } catch (err) {
-      throw new functions.https.HttpsError(
-        "internal",
-        `Something went wrong and cannot write to the firestore`
-      );
+          subject: string;
+          html: string;
+        };
+      }>;
+      try {
+        await mailRef.add({
+          to: "demog138@gmail.com",
+          message: {
+            subject: "Hello from Firebase!",
+            html: `This is your verification code ${code}. It will expire in 15 minutes`,
+          },
+        });
+      } catch (err) {
+        throw new functions.https.HttpsError(
+          "internal",
+          `Something went wrong and cannot write to the firestore`
+        );
+      }
     }
   });
 
@@ -217,7 +226,7 @@ export const verifyOtpCode = functions
     secrets: ["OTP_SECRET"],
     // Keep 1 instances warm to reduce latency.
     // More on https://cloud.google.com/functions/docs/configuring/min-instances
-    minInstances: 1,
+    // minInstances: 1,
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
     maxInstances: 20,
@@ -229,10 +238,10 @@ export const verifyOtpCode = functions
         `The function must be called with the argument "email" containing the email the code is sent to.`
       );
     }
-    if (!data.token) {
+    if (!data.code) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        `The function must be called with the argument "token" containing the token received.`
+        `The function must be called with the argument "code" containing the code received.`
       );
     }
 
@@ -248,39 +257,56 @@ export const verifyOtpCode = functions
      * we do that as a "salting" to the secret
      */
     const secret = config.otpSecret + email;
+    const code = data.code;
 
     // check whether the token is valid or not
-    const isValid = authenticator.check(data.token, secret);
+    const isValid = totp.check(code, secret);
+    functions.logger.log("the code is " + code);
+    functions.logger.log(
+      "the code in hex is " + Buffer.from(code, "utf8").toString("hex")
+    );
+    functions.logger.log("the email is " + email);
+    functions.logger.log("the secret is " + secret);
+    functions.logger.log("the authentication is " + isValid);
 
-    if (!isValid) {
-      return {
-        message: "The code is incorrect",
-      };
-    }
-
-    const userRef = db.collection("users") as CollectionReference<{
-      link_email: string;
-    }>;
-
-    const matchedUsers = await userRef.where("link_email", "==", email).get();
-
-    if (matchedUsers.empty) {
-      return {
-        message: "the email is not linked to any existing user",
-      };
-    }
-
-    if (matchedUsers.size > 1) {
-      throw new functions.https.HttpsError(
-        "internal",
-        `The email ${email} is linked to multiple accounts. This shouldn't happen`
+    if (!process.env.FUNCTIONS_EMULATOR) {
+      if (!isValid) {
+        return {
+          isSuccess: false,
+          message: "The code is incorrect",
+          token: null,
+        };
+      }
+      const userRef = db.collection("users") as CollectionReference<{
+        link_email: string;
+      }>;
+      const matchedUsers = await userRef.where("link_email", "==", email).get();
+      functions.logger.log("the user is " + matchedUsers.docs);
+      if (matchedUsers.empty) {
+        return {
+          isSuccess: false,
+          message: "the email is not linked to any existing user",
+          token: null,
+        };
+      }
+      if (matchedUsers.size > 1) {
+        throw new functions.https.HttpsError(
+          "internal",
+          `The email ${email} is linked to multiple accounts. This shouldn't happen`
+        );
+      }
+      const user = matchedUsers.docs[0];
+      const userId = user.id;
+      const authenticationToken = await auth().createCustomToken(userId);
+      functions.logger.log(
+        "the authentication token is " + authenticationToken
       );
+      return {
+        isSuccess: true,
+        message: "authentication success",
+        token: authenticationToken,
+      };
+    } else {
+      return {};
     }
-
-    const user = matchedUsers.docs[0];
-    const userId = user.id;
-    const authenticationToken = await auth().createCustomToken(userId);
-    return {
-      token: authenticationToken,
-    };
   });

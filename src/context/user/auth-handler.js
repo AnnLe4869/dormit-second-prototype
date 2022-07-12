@@ -1,7 +1,11 @@
 import { useCallback, useContext } from "react";
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithCustomToken,
+} from "firebase/auth";
+import { httpsCallable } from "firebase/functions";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 import { SIGN_IN_USER, SIGN_UP_USER } from "../../constant";
@@ -79,13 +83,48 @@ export function useGoogleSignIn() {
      */
     try {
       await signInWithPopup(auth, provider);
-      dispatch({ type: SIGN_UP_USER });
+      dispatch({ type: SIGN_IN_USER });
     } catch (err) {
       throw new Error("sign in fail");
     }
   }, [auth, dispatch]);
 
   return signIn;
+}
+
+export function useEmailSignIn() {
+  const { auth, functions } = useContext(AppContext);
+  const { dispatch } = useContext(UserContext);
+
+  const sendCodeViaEmail = httpsCallable(functions, "sendCodeViaEmail");
+  const verifyOtpCode = httpsCallable(functions, "verifyOtpCode");
+
+  const sendCode = async (email) => {
+    sendCodeViaEmail({ email });
+  };
+
+  const authenticateUser = async (email, code) => {
+    /**
+     * send the code back to cloud function for verifying the email
+     * if the verification is success, we receive a token for authentication
+     */
+    const { isSuccess, token, message } = await verifyOtpCode({
+      email,
+      code,
+    });
+
+    if (!isSuccess) {
+      // display the error message to the user
+      console.log(message);
+    }
+
+    console.log(token);
+
+    await signInWithCustomToken(auth, token);
+    dispatch({ type: SIGN_IN_USER });
+  };
+
+  return { sendCode, authenticateUser };
 }
 
 /**
