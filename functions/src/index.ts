@@ -15,11 +15,11 @@ const db = admin.firestore();
 
 totp.options = {
   // the code is valid up to this amount of time
-  step: 60 * 15, // 15 minutes
+  step: 60 * 18, // 18 minutes
 };
 /**
  * Fire when a an existing payment is updated
- * If the transaction is success, update the inventory IN STRIP
+ * If the transaction is success, update the inventory IN STRIPE
  * and update the user's current order in firebase
  */
 export const checkout = functions
@@ -28,7 +28,7 @@ export const checkout = functions
     secrets: ["STRIPE_API_KEY"],
     // Keep 1 instances warm to reduce latency.
     // More on https://cloud.google.com/functions/docs/configuring/min-instances
-    minInstances: 1,
+    minInstances: 0,
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
     maxInstances: 20,
@@ -151,11 +151,15 @@ export const checkout = functions
 
 /**
  * Send a verification code to the email provided
- * This DOES NOT verify whether the email existed in the codebase or not
+ * This DOES NOT check whether the email existed in the codebase
+ * nor it check whether the email actually exists or not
+ *
+ * Params for the functions
+ * @params  {email: string}
  */
 export const sendCodeViaEmail = functions
   .runWith({
-    // allows the function to use environment secret STRIPE_API_KEY
+    // allows the function to use environment secret OTP_SECRET
     secrets: ["OTP_SECRET"],
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
@@ -220,10 +224,13 @@ export const sendCodeViaEmail = functions
  * Verify the Otp code the user provide
  * If the code is correct, using the email we search for user that have this email as "link_email"
  * Generate custom token with that user's uid and send back to client for authentication
+ *
+ * Params for the function
+ * @params  {email:string, code:string}
  */
 export const verifyOtpCode = functions
   .runWith({
-    // allows the function to use environment secret STRIPE_API_KEY
+    // allows the function to use environment secret OTP_SECRET
     secrets: ["OTP_SECRET"],
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
@@ -243,7 +250,7 @@ export const verifyOtpCode = functions
       );
     }
 
-    const email: string = data.email;
+    const email: string = data.email.trim();
     if (!verifyEmail(email)) {
       throw new functions.https.HttpsError(
         "invalid-argument",
@@ -293,6 +300,175 @@ export const verifyOtpCode = functions
         isSuccess: true,
         message: "authentication success",
         token: authenticationToken,
+      };
+    } else {
+      return {
+        message: "something is wrong here. Please contact support",
+      };
+    }
+  });
+
+/**
+ * update user's profile
+ *
+ * Params for the functions
+ * @params  {firstName:string, lastName: string, email: string}
+ */
+export const updateUserProfile = functions
+  .runWith({
+    // allows the function to use environment secret OTP_SECRET
+    secrets: ["OTP_SECRET"],
+    // no more than 20 instances of the function should be running at once.
+    // More on https://cloud.google.com/functions/docs/configuring/max-instances
+    maxInstances: 20,
+  })
+  .https.onCall(async (data, context) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        `The user must be authenticated to perform these task`
+      );
+    }
+
+    if (!data.email) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with the argument "email" containing the email address you want to change.`
+      );
+    }
+    if (!data.firstName) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with the argument "firstName" containing the first name you want to change.`
+      );
+    }
+    if (!data.lastName) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with the argument "lastName" containing the last name you want to change.`
+      );
+    }
+
+    const email: string = data.email.trim();
+    const firstName: string = data.firstName.trim();
+    const lastName: string = data.lastName.trim();
+
+    if (!verifyEmail(email)) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The value ${email} doesn't seem to be a valid email.`
+      );
+    }
+
+    if (!process.env.FUNCTIONS_EMULATOR) {
+      const userRef = db.collection("users") as CollectionReference<{
+        first_name: string;
+        last_name: string;
+        link_email: string;
+      }>;
+
+      /**
+       * find users that have the link_email field match the given email
+       * if there is such user, we cannot change our user's link_email to the given email
+       * as one email only links to one user
+       */
+      const emailMatchedUsers = await userRef
+        .where("link_email", "==", email)
+        .get();
+      if (!emailMatchedUsers.empty) {
+        return {
+          isSuccess: false,
+          message: "the email is already linked with another account",
+        };
+      }
+
+      /**
+       * find current user and update its detail
+       */
+      userRef.doc(context.auth.uid).update({
+        first_name: firstName,
+        last_name: lastName,
+        link_email: email,
+      });
+
+      return {
+        isSuccess: true,
+        message: "the user's profile has been updated",
+      };
+    } else {
+      return {
+        message: "something is wrong here. Please contact support",
+      };
+    }
+  });
+
+/**
+ * update user's email
+ * Params for the functions
+ * @params  {email: string}
+ */
+export const updateEmail = functions
+  .runWith({
+    // allows the function to use environment secret OTP_SECRET
+    secrets: ["OTP_SECRET"],
+    // no more than 20 instances of the function should be running at once.
+    // More on https://cloud.google.com/functions/docs/configuring/max-instances
+    maxInstances: 20,
+  })
+  .https.onCall(async (data, context) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        `The user must be authenticated to perform these task`
+      );
+    }
+
+    if (!data.email) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with the argument "email" containing the email address you want to change.`
+      );
+    }
+
+    const email: string = data.email.trim();
+
+    if (!verifyEmail(email)) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The value ${email} doesn't seem to be a valid email.`
+      );
+    }
+
+    if (!process.env.FUNCTIONS_EMULATOR) {
+      const userRef = db.collection("users") as CollectionReference<{
+        link_email: string;
+      }>;
+
+      /**
+       * find users that have the link_email field match the given email
+       * if there is such user, we cannot change our user's link_email to the given email
+       * as one email only links to one user
+       */
+      const emailMatchedUsers = await userRef
+        .where("link_email", "==", email)
+        .get();
+      if (!emailMatchedUsers.empty) {
+        return {
+          isSuccess: false,
+          message: "the email is already linked with another account",
+        };
+      }
+
+      /**
+       * find current user and update its detail
+       */
+      userRef.doc(context.auth.uid).update({
+        link_email: email,
+      });
+
+      return {
+        isSuccess: true,
+        message: "the user's email has been updated",
       };
     } else {
       return {

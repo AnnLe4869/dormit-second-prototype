@@ -8,7 +8,7 @@ import {
 import { httpsCallable } from "firebase/functions";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
-import { SIGN_IN_USER, SIGN_UP_USER } from "../../constant";
+import { SIGN_IN_USER, SIGN_OUT_USER, SIGN_UP_USER } from "../../constant";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -23,9 +23,9 @@ import { SIGN_IN_USER, SIGN_UP_USER } from "../../constant";
  * @returns boolean   whether user is authenticated or not
  */
 export function useCheckAuthenticationStatus() {
-  const { auth } = useContext(AppContext);
+  const { state } = useContext(UserContext);
   // if user isn't signed in, currentUser is null
-  return Boolean(auth.currentUser);
+  return Boolean(state.isAuthenticated);
 }
 /**
  * Return the user's authentication detail like id, email, etc.
@@ -35,7 +35,12 @@ export function useCheckAuthenticationStatus() {
  */
 export function useUserAuthenticationDetail() {
   const { auth } = useContext(AppContext);
-
+  /**
+   * this is for the refresh only
+   * without this line, the component won't get the latest information
+   * because the component won't reload as auth doesn't change at all
+   */
+  useContext(UserContext);
   if (!auth.currentUser) {
     throw new Error("User is not authenticated");
   }
@@ -65,6 +70,8 @@ export function useSignUp() {
 
   return signUp;
 }
+
+export function useSetUpProfile() {}
 
 /**
  * Sign in with Google
@@ -115,10 +122,8 @@ export function useEmailSignIn() {
 
     if (!data.isSuccess) {
       // display the error message to the user
-      console.log(data.message);
+      console.error(data.message);
     }
-
-    console.log(data);
 
     await signInWithCustomToken(auth, data.token);
     dispatch({ type: SIGN_IN_USER });
@@ -134,9 +139,14 @@ export function useSignOut() {
   // remember to free all user's detail stored on context
   // but keep the product detail untouched since they are not tied to user
   const { auth } = useContext(AppContext);
+  const { dispatch } = useContext(UserContext);
+
   const signOut = useCallback(async () => {
     try {
       auth.signOut();
+      dispatch({
+        type: SIGN_OUT_USER,
+      });
     } catch (err) {
       throw new Error("sign in fail");
     }
