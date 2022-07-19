@@ -205,7 +205,7 @@ export const sendCodeViaEmail = functions
       }>;
       try {
         await mailRef.add({
-          to: "demog138@gmail.com",
+          to: email,
           message: {
             subject: "Hello from Firebase!",
             html: `This is your verification code ${code}. It will expire in 15 minutes`,

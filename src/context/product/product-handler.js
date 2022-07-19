@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useCallback, useContext, useEffect } from "react";
 
-import { INITIALIZE_PRODUCTS } from "../../constant";
+import { INITIALIZE_PRODUCTS, UPDATE_ALL_PRODUCTS } from "../../constant";
 import { getCurrentTime, getTimeDifference } from "../../helper/time";
 
 import { AppContext } from "../app-context";
@@ -35,8 +35,19 @@ export async function useInitializeProduct() {
         const querySnapshot = await getDocs(collection(db, "products"));
 
         querySnapshot.forEach((doc) => {
-          products.push(doc.data());
+          products.push({ ...doc.data(), id: doc.id });
         });
+
+        for (const product of products) {
+          const qSnap = await getDocs(
+            collection(db, "products", product.id, "prices")
+          );
+
+          product.prices = qSnap.docs.map((d) => ({
+            id: d.id,
+            ...d.data(),
+          }))[0];
+        }
 
         // store the result and query time to localStorage
         localStorage.setItem(
@@ -70,6 +81,57 @@ export async function useInitializeProduct() {
   useEffect(() => {
     func();
   }, []);
+}
+
+/**
+ * update all products details as well as reset the cache time
+ */
+export function useUpdateProductImmediately() {
+  const { dispatch: productDispatch } = useContext(ProductContext);
+  const { db } = useContext(AppContext);
+
+  const func = async () => {
+    try {
+      const products = [];
+      // get all products in the products collection
+      const querySnapshot = await getDocs(collection(db, "products"));
+
+      querySnapshot.forEach((doc) => {
+        products.push({ ...doc.data(), id: doc.id });
+      });
+
+      for (const product of products) {
+        const qSnap = await getDocs(
+          collection(db, "products", product.id, "prices")
+        );
+
+        product.prices = qSnap.docs.map((d) => ({
+          id: d.id,
+          ...d.data(),
+        }))[0];
+      }
+
+      // store the result and query time to localStorage
+      localStorage.setItem(
+        "products",
+        JSON.stringify({
+          products,
+        })
+      );
+      localStorage.setItem("timestamp", getCurrentTime());
+
+      productDispatch({
+        type: UPDATE_ALL_PRODUCTS,
+        payload: {
+          products,
+        },
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  return func;
 }
 
 /**

@@ -5,13 +5,20 @@ import { INITIALIZE_PRODUCTS, UPDATE_ALL_PRODUCTS } from "../../constant";
 export const ProductContext = createContext({
   products: [
     {
-      id: "123adc",
-      inventoryRemain: 15,
+      id: "prod_123",
       name: "red bull",
       description: "energy drink",
-      category: "drink",
+      active: true,
       isDeal: false,
-      imageURL: "https://something.com",
+      images: ["https://something.com"],
+      metadata: {
+        category: "drink",
+        quantity: "15",
+      },
+      prices: {
+        id: "price_123",
+        unit_amount: 250,
+      },
     },
   ],
 });

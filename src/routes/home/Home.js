@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { ProductContext } from "../../context/product/product-context";
 import {
-  useSignUp,
-  useSignOut,
   useCheckAuthenticationStatus,
   useEmailSignIn,
+  useSignOut,
+  useSignUp,
 } from "../../context/user/auth-handler";
 import { useCheckout } from "../../context/user/checkout-handler";
 

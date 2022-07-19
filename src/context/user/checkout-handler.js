@@ -4,27 +4,46 @@ import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
 
 import { AppContext } from "../app-context";
 
-import { getCartFromLocalStorage } from "../../helper/getCartFromLocalStorage";
 import { ProductContext } from "../product/product-context";
+import { UserContext } from "./user-context";
 
 /**
  * Return a function that, when called, will send user to a checkout page
  */
 export function useCheckout() {
   const { db, auth } = useContext(AppContext);
-  const { state } = useContext(ProductContext);
+  const { state: productState } = useContext(ProductContext);
+  const { state: userState } = useContext(UserContext);
 
-  return async () => {
+  /**
+   * this function accept one argument
+   * that is the amount of tip we want to collect
+   *
+   */
+  return async (tip) => {
     const currentUser = auth.currentUser;
 
     if (!auth.currentUser) {
       throw new Error("User is not authenticated");
     }
 
-    const cart = getCartFromLocalStorage();
+    /**
+     * the cart is an array of object
+     * {
+     *    id: productID,
+     *    quantity: number
+     * }
+     */
+    const cart = userState.cart;
+    const products = productState.products;
+
+    const productInCart = products.filter((product) =>
+      cart.map((item) => item.id).includes(product.id)
+    );
 
     const userRef = doc(db, "users", currentUser.uid);
-    const checkoutRef = await addDoc(collection(userRef, "checkout_sessions"), {
+
+    const checkoutDetail = {
       mode: "payment",
       /**
        * this set up will calculate tax on checkout
@@ -33,44 +52,65 @@ export function useCheckout() {
       automatic_tax: {
         enabled: true,
       },
-      line_items: [
-        {
-          price: "price_1LGghMBFL4Le4n4LjoI9fIFb",
-          quantity: 3,
-        },
-        {
-          price: "price_1LGggPBFL4Le4n4LYTlOWoMw",
-          quantity: 1,
-        },
-        {
-          /**
-           * this is for tip amount
-           * what we did is we create a Price object in-the-fly
-           * more on https://www.youtube.com/watch?v=X2SmLzQ5kfY
-           */
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: "Rusher Tip",
-            },
-            // this is the tip amount
-            unit_amount: 5000,
-            tax_behavior: "exclusive",
-          },
-          quantity: 1,
-        },
-      ],
       success_url: window.location.origin,
       cancel_url: window.location.origin,
-    });
+      /**
+       * we want the line_items is of the form
+       * line_items: [
+        {
+          price: priceID,
+          quantity: number,
+        }
+        ],
+       */
+      line_items: productInCart.map((product) => ({
+        price: product.prices.id,
+        quantity: product.quantity,
+      })),
+    };
 
+    if (tip && isNaN(tip)) {
+      throw new Error(`the argument "tip", if provided, should be a number`);
+    }
+
+    if (tip && !isNaN(tip)) {
+      // when there is a tip and the tip is a number
+      checkoutDetail.line_items.push({
+        /**
+         * this is for tip amount
+         * what we did is we create a Price object in-the-fly
+         * more on https://www.youtube.com/watch?v=X2SmLzQ5kfY
+         */
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: "Rusher Tip",
+          },
+          // this is the tip amount
+          unit_amount: tip,
+          tax_behavior: "exclusive",
+        },
+        quantity: 1,
+      });
+    }
+
+    const checkoutRef = await addDoc(
+      collection(userRef, "checkout_sessions"),
+      checkoutDetail
+    );
+
+    /**
+     * when a new check_out document sessions is created
+     * we listen to that change and move to the checkout page made by Stripe
+     * checkout_session is created only, not update
+     */
     onSnapshot(checkoutRef, async (snap) => {
       const { error, url } = snap.data();
 
       if (error) {
         // Show an error to your customer and
         // inspect your Cloud Function logs in the Firebase console.
-        alert(`An error occured: ${error.message}`);
+        alert(`An error occurred: ${error.message}`);
       }
       if (url) {
         // We have a Stripe Checkout URL, let's redirect.

@@ -16,7 +16,7 @@ import {
 export const UserContext = createContext({
   isAuthenticated: false,
   isNewUser: false,
-  cart: [{ id: "123adc", quantity: 3 }],
+  cart: [{ id: "prod_123", quantity: 3 }],
   checkout: {
     payment: {
       CCInfo: "Visa",
