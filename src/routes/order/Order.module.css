@@ -1,112 +1,126 @@
-.layout {
-  top: 0;
-  left: 0;
-  display: flex;
-  min-height: 100%;
-  background-color: white;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
+.centering {
+    display: flex;
+    flex-direction: column;
+    margin: 50px auto;
+    max-width: 600px;
+    gap: 40px;
 }
 
-.close {
-  top: 0.5%;
-  right: 0.5%;
-  margin-left: 95%;
-  width: 5%;
-  height: 100%;
-  font-size: xx-large;
-  color: blueviolet;
-
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
+.orderContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "left topRight"
+        "left right"
+        "bottom bottom";
+    row-gap: 10px;
+    column-gap: 10px;
+    position: relative;
+    width: 100%;
 }
+
+.imageContainer {
+    background-color: #C4C4C4;
+    width: 18vh;
+    height: 18vh;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content:center;
+    align-items: center;
+    grid-row: span 1;
+}
+
+.imageContainer span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer > * {
+    margin: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    height: 6vh;
+    width: 6vh;
+}
+
+.imageContainer div {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.imageContainer div img {
+    width: 100%;
+}
+
+.orderInfo {
+    line-height: 20px;
+}
+
+.orderAction {
+    display: flex;
+    position: relative;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    gap: 20px;
+    grid-area: bottom;
+    justify-content: space-between;
+}
+
+.orderAction button {
+    padding: 5px 0;
+    width: 45%;
+    border-radius: 8px;
+    background-color: #ffffff;
+    outline: none;
+    border: #C4C4C4 1px solid;
+    font-weight: bold;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .colorPurple {
-  color: blueviolet;
+    color: var(--bs-indigo);
 }
 
-.centering {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: min(700px, 100%);
-  flex-direction: column;
+.colorRed {
+    color: red;
 }
 
-.alignFlexStart {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  width: min(700px, 100%);
-  margin: 5rem 20em;
-  margin-top: 0;
-}
+@media screen {
+    @media (min-width: 500px) {
+        .imageContainer {
+            width: 200px;
+            height: 200px;
+            grid-row: span 2;
+            grid-area: left;
+        }
 
-.text {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-weight: bold;
-}
+        .imageContainer > * {
+            height: 75px;
+            width: 75px;
+        }
 
-.orderBox {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 0;
-  width: fit-content;
-  height: auto;
-  box-sizing: border-box;
-  border: solid gray 0.1rem;
-  border-radius: 0.3rem;
-  flex-direction: column;
-  margin-bottom: 3%;
-  padding: 1%;
-  padding-top: 0;
-  padding-bottom: 0;
-}
+        .orderContainer {
+            row-gap: 15px;
+            column-gap: 25px;
+        }
 
-.inputField {
-  width: 100%;
-  height: 10em;
-  margin-top: 2rem;
-}
+        .orderAction {
+            grid-area: right;
+        }
 
-.tipSelection {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-  padding: 5%;
-}
-
-.tipBtn {
-  background: white;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding: 0.4rem 2rem;
-  margin: 0rem 0.5rem;
-  border: 1px solid gray;
-  border-radius: 0.6rem;
-  box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
-  color: blueviolet;
-}
-
-.submitBtn {
-  background: white;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding: 0.4rem 2rem;
-  margin: 0rem;
-  border: 1px solid blueviolet;
-  border-radius: 0.6rem;
-  box-shadow: 0rem 0.05rem 0.05rem 0.05rem #e0e0e0;
-  color: blueviolet;
-  width: fit-content;
+        .textContainer {
+            grid-area: topRight;
+        }
+    }
 }
