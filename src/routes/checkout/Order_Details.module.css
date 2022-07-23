@@ -1,0 +1,326 @@
+.header{
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    /* justify-content: center;
+    align-items: center;
+    justify-items: center; */
+    column-gap: 0px;
+
+}
+
+.headertext{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 51px;
+    width: 220px;
+    /* identical to box height */
+    align-self: center;
+    justify-self: center;
+}
+
+.addressform{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    width: 574px;
+    height: 272px;
+}
+
+
+.addressform > .title{
+    height: 36px;
+    width: 101px;
+    margin-bottom: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.addressform > .inputs{
+    height: 60px;
+    width: 574px;
+    display:flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.input_title{
+    margin-bottom: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.input_div{
+    width: 253px;
+}
+
+.notes_div{
+    margin-top: 10px;
+}
+
+.notes{
+    width: 574px;
+    height: 114px;
+}
+
+.wh{
+    width:560px;
+    height: 60px;
+    margin: auto;
+    font-family: 'BlinkMacSystemFont';
+    font-style: normal;
+    font-weight: 590;
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 20px;
+}
+
+.replacement{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 0 auto;
+    width: 623px;
+    height: 46px;
+}
+
+.replacement_button{
+    background:#ffffff;
+    width: 180px;
+    height:46px;
+    margin-right:34px;
+    margin-top:15px;
+    border-radius:8px;
+    text-align:center;
+    color: #7141FA;
+    justify-content:center;
+    border: 1px solid #C4C4C4;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+}
+
+.replacement_button:focus{
+    color: #FFFFFF;
+    background-color: #7141FA;
+}
+
+.payment{
+    position: relative;
+    padding-left: 30px;
+    font-family: 'BlinkMacSystemFont';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    padding-top: 10px;
+}
+
+.nextbutton{
+    float: right;
+    background-color: #FFFFFF;
+    border: 0;
+}
+
+.wh:nth-child(2){
+    height: 80px;
+}
+
+.tip{
+    margin: auto;
+    font-family: 'BlinkMacSystemFont';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.placeorder{
+    font-family: 'BlinkMacSystemFont';
+    justify-content: center;
+    margin: 0 auto;
+    padding-top: 15px;
+    font-style: normal;
+    font-weight: 700;
+    color: #FFFFFF;
+    width: 139px
+}
+
+.placeorder:nth-child(1){
+    text-align: left;
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.placeorder:nth-child(2){
+    text-align: center;
+    font-size: 24px;
+    padding-top: 10px;
+}
+
+.placeorder:nth-child(3){
+    text-align: right;
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+.tipbutton{
+    background:#ffffff;
+    height:46px;
+    margin-right:34px;
+    margin-top:15px;
+    border-radius:8px;
+    width:131px;
+    text-align:center;
+    color: #7141FA;
+    justify-content:center;
+    border: 1px solid #C4C4C4;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+}
+
+.tipbutton:focus{
+    color: #FFFFFF;
+    background-color: #7141FA;
+}
+
+.hr{
+    width:516px; margin:auto; margin-bottom:20px; margin-top:10px;
+}
+
+.placeorderbutton{
+    width:420px;
+    height:60px;
+    background:#7141FA;
+    border-color:#ffffff;
+    box-shadow:0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius:8px;
+    display: grid;
+    grid-template-rows: 417px;
+    grid-template-columns: 139px 139px 139px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width : 672px){
+    hr{
+        width: 297px
+    }
+    
+}
+
+@media screen and (max-width: 450px) {
+
+    .addressform{
+        margin-left: 20px;
+        margin-bottom: 90px;
+    }
+
+    .addressform > .inputs{
+        flex-flow: column ;
+        margin-bottom: 45px;
+    }
+
+    .input_div{
+        width: 352px;
+        height: 45px;
+    }
+
+    .input_div:nth-child(1){
+        margin-bottom: 40px;
+    }
+
+    .notes{
+        width: 352px;
+        height: 92px;
+        
+    }
+
+    .notes_div{
+        margin-top: 60px;
+    }
+
+    .wh{
+        width: 340px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        margin: 0;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        align-self: flex-start;
+    }
+
+    .wh:nth-child(1){
+        margin-bottom: 10px;
+        margin-top: 10px
+    }
+
+    .placeorderbutton{
+        width:296px;
+        grid-template-columns: 94px 106px 94px;
+        margin-top: 30px;
+    }
+
+    .placeorder{
+        font-family: 'Poppins';
+        font-weight: bold;
+    }
+
+    .placeorder:nth-child(1){
+        width: 94px;
+        font-size: 16px;
+    }
+
+    .placeorder:nth-child(2){
+        padding-top: 13px;
+        width: 106px;
+        font-size: 18px;
+    }
+
+    .placeorder:nth-child(3){
+        width: 94px;
+        font-size: 16px;
+    }
+
+    .tipbutton{
+        width: 80px;
+        margin-right:10px;
+    }
+
+    .tip{
+        font-size: 14px;
+    }
+
+    .address{
+        width: 265px;
+        height: 27px;
+    }
+
+    .addressdiv{
+        font-size: 16px;
+        margin-right: 0px;
+    }
+
+    .addressdiv:nth-child(3){
+        margin-right: 10px;
+    }
+
+    .replacement_button{
+        width: 108px;
+        height: 46px;
+        margin-right: 14px;
+    }
+
+}
+
+
