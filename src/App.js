@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useInitializeApp } from "./context/app-context";
 import AccountPage from "./routes/account/Account";
 import AuthPage from "./routes/auth/Auth";
-import CheckoutPage from "./routes/checkout/Checkout";
+import Order_Details from "./routes/checkout/Order_Details"
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
@@ -21,7 +21,7 @@ function App() {
 
         <Route path="/order" element={<OrderPage />} />
 
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/order/details" element={<Order_Details/>} />
 
         <Route path="/account" element={<AccountPage />} />
 
