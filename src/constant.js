@@ -32,3 +32,5 @@ export const CANCEL_ORDER = "CANCEL ORDER";
 export const UPDATE_HANDLING_PROCESS = "UPDATE HANDLING PROCESS";
 
 // set up user profile - no change to context state thus can be taken care later
+export const SET_FIRST_NAME = "SET FIRST NAME";
+export const SET_LAST_NAME = "SET LAST NAME";

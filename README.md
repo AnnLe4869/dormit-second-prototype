@@ -32,14 +32,7 @@ As for the custom hooks, it is used to make the bridge between the context and R
 
 ## Route structure
 
-For now, we will have six(6) basics routes: home, search, order, account, auth and checkout
-
-- `/` is the home page. This is where we see all the products and deals
-- `/search` is the search page. We will show the search bar here. The result search will be sub-route of this route. The category list also be sub-route of this one
-- `/auth` is the authentication page. Think of them as the log in and sign up page. When user's want to sign in or when we need to redirect user to authenticate, this is the page
-- `/order` is the order page. We list out all order, including the current orders and old order. The current order tracking will be sub-route of this one. This is protected route and only show to users who are authenticated
-- `/checkout` is for the checkout. After user put stuff to cart and go to checkout, this is what wait them. All the delivery address, adjust item's quantity, remove item, payment setup will be handle in the sub-route of this. Protected route and only show to those who are authenticated
-- `/account` is for anything that are related to user's profile. Detail on profile and change the profile are handled in this route or its sub-route. Protected route
+For now, we will have seven(7) basics routes: home, search, category, order, account, auth and checkout. The detail of each route can be found in the dedicated [Guide to path](/PATH_GUIDE.md)
 
 ## React component
 
