@@ -7,7 +7,8 @@ import {
   INITIALIZE_USER_DETAILS,
   REMOVE_ITEM_FROM_CART,
   SET_CHECKOUT_ADDRESS,
-  SET_CHECKOUT_PAYMENT,
+  SET_FIRST_NAME,
+  SET_LAST_NAME,
   SIGN_IN_USER,
   SIGN_OUT_USER,
   SIGN_UP_USER,
@@ -22,7 +23,12 @@ export const UserContext = createContext({
       CCInfo: "Visa",
       CCNumber: "123456789",
     },
-    deliveryAddress: "123 Special St",
+  },
+  firstName: "",
+  lastName: "",
+  shippingAddress: {
+    building: "CSE",
+    floorApartment: "12",
   },
 });
 
@@ -190,20 +196,17 @@ function userReducer(state, action) {
      */
 
     case SET_CHECKOUT_ADDRESS: {
-      // action is {type: SET_CHECKOUT_ADDRESS, payload: {address: string}}
+      // action is {type: SET_CHECKOUT_ADDRESS, payload: {address: {building: string, floorApartment: string}}}
 
       const address = action.payload.address;
 
       if (address === undefined) {
-        throw new Error("You missing the address field");
+        throw new Error("You are missing the address field");
       }
 
       return {
         ...state,
-        checkout: {
-          ...state.checkout,
-          deliveryAddress: address,
-        },
+        shippingAddress: address,
       };
     }
 
@@ -211,9 +214,32 @@ function userReducer(state, action) {
      * ----------------------------------------------------------------------------------------
      */
 
-    case SET_CHECKOUT_PAYMENT: {
-      // this will need future decision as we don't know whether we get all detail at once or not
-      return;
+    case SET_FIRST_NAME: {
+      // action is {type: SET_FIRST_NAME, payload: {name: string}}
+      const name = action.payload.name;
+
+      if (name === undefined) {
+        throw new Error("You are missing the name field");
+      }
+
+      return {
+        ...state,
+        firstName: name,
+      };
+    }
+
+    case SET_LAST_NAME: {
+      // action is {type: SET_LAST_NAME, payload: {name: string}}
+      const name = action.payload.name;
+
+      if (name === undefined) {
+        throw new Error("You are missing the name field");
+      }
+
+      return {
+        ...state,
+        lastName: name,
+      };
     }
 
     /**

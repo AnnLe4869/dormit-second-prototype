@@ -119,3 +119,23 @@ export function useCheckout() {
     });
   };
 }
+
+/**
+ * update user's shipping address
+ *
+ * return a function that when called will update user's shipping address
+ */
+export function useUpdateShipping() {
+  const { state, dispatch } = useContext(UserContext);
+
+  /**
+   * function that will update user's shipping address
+   *
+   * this will update the shipping field in firebase and in local Context
+   * in firebase in "users" collections, each user has field "shipping"
+   * which is of shape {building: string, floor-apartment: string}
+   *
+   * after that, update local
+   */
+  return async (address) => {};
+}
