@@ -9,6 +9,7 @@ import {
   SET_CHECKOUT_ADDRESS,
   SET_CHECKOUT_PAYMENT,
   SIGN_IN_USER,
+  SIGN_OUT_USER,
   SIGN_UP_USER,
 } from "../../constant";
 
@@ -44,6 +45,12 @@ function userReducer(state, action) {
         ...state,
         isNewUser: true,
         isAuthenticated: true,
+      };
+    }
+
+    case SIGN_OUT_USER: {
+      return {
+        isAuthenticated: false,
       };
     }
 

@@ -58,6 +58,46 @@ For the most part, a component is not shared between route. But at the moment, t
 
 The header, although sounds like something that should be shared, isn't actually one as. From the UI design, I see that the header are different between routes and no duplication here
 
+## How to start Firebase
+
+After you cloned the project down to your computer, follow these steps to set up your firebase
+
+- Create a firebase project and then install the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments) and [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email). Follow all instructions there
+
+- For the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments), you should choose option "Sync" for the "Sync new users to Stripe customers and Cloud Firestore". After you install the extension, don't forget to setup Stripe Webhook as instructed by the extension (see the section Configure Stripe webhooks or [POSTINSTALL instruction](https://github.com/stripe/stripe-firebase-extensions/blob/master/firestore-stripe-payments/POSTINSTALL.md))
+
+- For [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email), we have to set up a SMTP connection URI
+
+- Create a local secret named `STRIPE_API_KEY` and `OTP_SECRET` by running
+
+  ```bash
+  firebase functions:secrets:set STRIPE_API_KEY
+  # you will be prompted to enter the key
+  firebase functions:secrets:set OTP_SECRET
+  # same as above, you will be prompted to enter the key
+  ```
+
+  Make sure the key you parse in here have sufficient permissions to write to products (in the `STRIPE_API_KEY` key). For more information about managing API key, see [Store and access sensitive configuration information](https://firebase.google.com/docs/functions/config-env#secret-manager)
+
+- Upload the custom cloud functions by running
+
+  ```bash
+  firebase deploy --only functions
+  ```
+
+- Upload the security rules
+
+  ```bash
+  firebase deploy --only firestore:rules
+  ```
+
+## Setting up Stripe
+
+- Create an account and activate it
+- Set up the billing so that we can have the checkout page to enter card info
+- Create product in the Product page. All products must have **quantity** in the metadata
+- Set up tax
+
 ## FAQ
 
 1. How to use the firebase?
@@ -77,3 +117,19 @@ The header, although sounds like something that should be shared, isn't actually
 4. Why do you store info of cart in `Context` and in `localStorage`? Would this make it redundant?
 
    This is to store the data of cart when user is not authenticated. Data stored in `Context` will be lost the moment we close the tab or refresh the page. To ensure the app working properly, always make data about cart in the `Context` and `localStorage` in sync with each other
+
+5. I cannot deploy the cloud function/security rules
+
+   This can happen because you miss some steps along the way. However, there is one strange bug I encountered while working with Firebase: I was denied of deploying because I didn't authenticated despite the fact that I already verified that I did sign in. To fix this, you just sign out (by running `firebase logout`) then sign back in again (`firebase login`)
+
+6. Why the app use so much read?
+
+   There are many reasons for this to happen. Before jumping to conclusion, make sure that this is the actual problem and high read count is consistent. Sometimes, right after some deployment the read count can spike. For example, I encountered some read count spikes right after I deployed cloud function. The read count normalizes after a bit
+
+7. I got some error related to tax
+
+   Watch this video [How to fix tax_behavior missing for prices error](https://www.youtube.com/watch?v=KfaqrxEO8Y4)
+
+8. The cloud function doesn't send custom token. What happened?
+
+   Probably [this one](https://stackoverflow.com/questions/54066947/cant-create-a-custom-token-in-firebase-cloud-functions-because-the-service-acco). You want to edit the one with "App Engine default service account"

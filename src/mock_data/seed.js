@@ -1,4 +1,6 @@
 // replace the current useInitializeApp with this one
+import { ref, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
 
 export async function useInitializeApp() {
   const { storage, db } = useContext(AppContext);
@@ -642,6 +644,8 @@ export async function useInitializeApp() {
       is_deal: false,
     },
   ];
+
+  // make sure you change the storage rules to public, so that anyone can access it
   const imagesName = [
     "apple.jpg",
     "coke.jpg",

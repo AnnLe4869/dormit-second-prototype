@@ -157,6 +157,7 @@ export function useRemoveProductFromCart(id) {
  * @param {number} interval  :time between each update
  *
  * TODO: write a function to track in case we accidentally call this more than one, and if we did, stop other old ones
+ * Maybe try using useRef() to do this
  */
 export function useUpdateIntermittently(interval = 1000 * 60 * 5) {
   const authUser = useUserAuthenticationDetail();

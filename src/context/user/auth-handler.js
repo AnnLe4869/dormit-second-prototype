@@ -1,10 +1,14 @@
 import { useCallback, useContext } from "react";
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithCustomToken,
+} from "firebase/auth";
+import { httpsCallable } from "firebase/functions";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
-import { SIGN_IN_USER, SIGN_UP_USER } from "../../constant";
+import { SIGN_IN_USER, SIGN_OUT_USER, SIGN_UP_USER } from "../../constant";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -19,9 +23,9 @@ import { SIGN_IN_USER, SIGN_UP_USER } from "../../constant";
  * @returns boolean   whether user is authenticated or not
  */
 export function useCheckAuthenticationStatus() {
-  const { auth } = useContext(AppContext);
+  const { state } = useContext(UserContext);
   // if user isn't signed in, currentUser is null
-  return Boolean(auth.currentUser);
+  return Boolean(state.isAuthenticated);
 }
 /**
  * Return the user's authentication detail like id, email, etc.
@@ -31,7 +35,12 @@ export function useCheckAuthenticationStatus() {
  */
 export function useUserAuthenticationDetail() {
   const { auth } = useContext(AppContext);
-
+  /**
+   * this is for the refresh only
+   * without this line, the component won't get the latest information
+   * because the component won't reload as auth doesn't change at all
+   */
+  useContext(UserContext);
   if (!auth.currentUser) {
     throw new Error("User is not authenticated");
   }
@@ -54,12 +63,15 @@ export function useSignUp() {
       await signInWithPopup(auth, provider);
       dispatch({ type: SIGN_UP_USER });
     } catch (err) {
+      console.log(err);
       throw new Error("sign in fail");
     }
   }, [auth, dispatch]);
 
   return signUp;
 }
+
+export function useSetUpProfile() {}
 
 /**
  * Sign in with Google
@@ -78,7 +90,7 @@ export function useGoogleSignIn() {
      */
     try {
       await signInWithPopup(auth, provider);
-      dispatch({ type: SIGN_UP_USER });
+      dispatch({ type: SIGN_IN_USER });
     } catch (err) {
       throw new Error("sign in fail");
     }
@@ -87,10 +99,58 @@ export function useGoogleSignIn() {
   return signIn;
 }
 
+export function useEmailSignIn() {
+  const { auth, functions } = useContext(AppContext);
+  const { dispatch } = useContext(UserContext);
+
+  const sendCodeViaEmail = httpsCallable(functions, "sendCodeViaEmail");
+  const verifyOtpCode = httpsCallable(functions, "verifyOtpCode");
+
+  const sendCode = async (email) => {
+    sendCodeViaEmail({ email });
+  };
+
+  const authenticateUser = async (email, code) => {
+    /**
+     * send the code back to cloud function for verifying the email
+     * if the verification is success, we receive a token for authentication
+     */
+    const { data } = await verifyOtpCode({
+      email,
+      code,
+    });
+
+    if (!data.isSuccess) {
+      // display the error message to the user
+      console.error(data.message);
+    }
+
+    await signInWithCustomToken(auth, data.token);
+    dispatch({ type: SIGN_IN_USER });
+  };
+
+  return { sendCode, authenticateUser };
+}
+
 /**
  * Sign out
  */
 export function useSignOut() {
   // remember to free all user's detail stored on context
   // but keep the product detail untouched since they are not tied to user
+  const { auth } = useContext(AppContext);
+  const { dispatch } = useContext(UserContext);
+
+  const signOut = useCallback(async () => {
+    try {
+      auth.signOut();
+      dispatch({
+        type: SIGN_OUT_USER,
+      });
+    } catch (err) {
+      throw new Error("sign in fail");
+    }
+  }, [auth]);
+
+  return signOut;
 }
