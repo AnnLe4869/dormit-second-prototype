@@ -13,6 +13,9 @@ import { verifyEmail } from "./helper";
 admin.initializeApp();
 const db = admin.firestore();
 
+/**
+ * option for TOTP code
+ */
 totp.options = {
   // the code is valid up to this amount of time
   step: 60 * 18, // 18 minutes
@@ -150,6 +153,123 @@ export const checkout = functions
   });
 
 /**
+ * Update user's profile in Stripe and in Firebase
+ * This is needed because we want to pass address to Stripe checkout
+ * before user get to the checkout page
+ */
+export const updateShipping = functions
+  .runWith({
+    // allows the function to use environment secret STRIPE_API_KEY
+    secrets: ["STRIPE_API_KEY"],
+    // Keep 1 instances warm to reduce latency.
+    // More on https://cloud.google.com/functions/docs/configuring/min-instances
+    minInstances: 0,
+    // no more than 20 instances of the function should be running at once.
+    // More on https://cloud.google.com/functions/docs/configuring/max-instances
+    maxInstances: 20,
+  })
+  .https.onCall(async (data, context) => {
+    // Initialize stripe
+    const apiVersion = "2020-08-27";
+    const stripe = new Stripe(config.stripeSecretKey, {
+      apiVersion,
+      appInfo: {
+        name: "Dormit",
+        version: "1.0",
+      },
+    });
+
+    if (!context.auth) {
+      throw new functions.https.HttpsError(
+        "permission-denied",
+        `The user must be authenticated to perform these task`
+      );
+    }
+
+    const { building, floorApartment } = data;
+
+    if (!building) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with one argument "building"`
+      );
+    }
+    if (!floorApartment) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with one argument "floorApartment"`
+      );
+    }
+
+    const userRef = db.collection("users") as CollectionReference<{
+      stripeId: string;
+      link_email: string;
+      name: string;
+    }>;
+
+    try {
+      const user = (await userRef.doc(context.auth.uid).get()).data();
+      if (!user) {
+        throw new functions.https.HttpsError(
+          "not-found",
+          "user did not exist in database"
+        );
+      }
+
+      const stripeId = user.stripeId;
+
+      if (!stripeId) {
+        throw new functions.https.HttpsError(
+          "permission-denied",
+          "user doesn't have Stripe setup for them"
+        );
+      }
+
+      /**
+       * update user's address in Stripe
+       * is used to pre-filled shipping address in checkout session
+       */
+      const campus = {
+        name: "University of California, San Diego",
+        postalCode: "92093",
+        state: "California",
+        country: "United State of America",
+      };
+      await stripe.customers.update(stripeId, {
+        shipping: {
+          address: {
+            line1: campus.name,
+            line2: `${building}, ${floorApartment}`,
+            postal_code: campus.postalCode,
+            state: campus.state,
+            country: campus.country,
+          },
+          name: user.name,
+        },
+      });
+
+      /**
+       * update user's shipping address in Firebase
+       */
+      await userRef.doc(context.auth.uid).update({
+        shipping: {
+          address: {
+            building,
+            floor_apartment: floorApartment,
+          },
+        },
+      });
+
+      return {
+        isSuccess: true,
+        message: "update shipping address succeed",
+      };
+    } catch (error) {
+      throw new functions.https.HttpsError("internal", "error in getting data");
+    }
+  });
+
+/**
  * Send a verification code to the email provided
  * This DOES NOT check whether the email existed in the codebase
  * nor it check whether the email actually exists or not
@@ -187,36 +307,36 @@ export const sendCodeViaEmail = functions
     const secret = config.otpSecret + email;
     const code = totp.generate(secret);
 
-    functions.logger.log("the code is " + code);
-
     /**
      * send token to the email address
      * we use firebase extension to send email
      * Extension https://firebase.google.com/products/extensions/firebase-firestore-send-email
      */
 
-    if (!process.env.FUNCTIONS_EMULATOR) {
-      const mailRef = db.collection("email") as CollectionReference<{
-        to: string;
+    const mailRef = db.collection("email") as CollectionReference<{
+      to: string;
+      message: {
+        subject: string;
+        html: string;
+      };
+    }>;
+    try {
+      await mailRef.add({
+        to: email,
         message: {
-          subject: string;
-          html: string;
-        };
-      }>;
-      try {
-        await mailRef.add({
-          to: email,
-          message: {
-            subject: "Hello from Firebase!",
-            html: `This is your verification code ${code}. It will expire in 15 minutes`,
-          },
-        });
-      } catch (err) {
-        throw new functions.https.HttpsError(
-          "internal",
-          `Something went wrong and cannot write to the firestore`
-        );
-      }
+          subject: "Hello from Firebase!",
+          html: `This is your verification code ${code}. It will expire in 15 minutes`,
+        },
+      });
+      return {
+        isSuccess: true,
+        message: "A code has been sent to your email",
+      };
+    } catch (err) {
+      throw new functions.https.HttpsError(
+        "internal",
+        `Something went wrong and cannot write to the firestore`
+      );
     }
   });
 
