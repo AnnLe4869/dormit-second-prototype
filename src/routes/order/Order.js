@@ -1,82 +1,28 @@
-import React from "react";
-import ReactStars from "react-rating-stars-component";
-import styles from "./Order.module.css";
+import React from 'react'
+import styles from './Order.module.css'
+import { Container } from "react-bootstrap";
+import productList from '../../mock_data/data/PRODUCT_MOCK_DATA.json'
 
-export default function Order() {
-  // example variables
-  let orderNumber = 2345;
-  let rusherName = "name";
-  let closePage = () => {};
+import OrderView from './OrderView/OrderView';
 
-  // star rating change event
-  let ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
+function Order() {
 
-  // get text from first text area box
-  const experienceFieldTextEvent = (e) => {
-    let text = e.target.value;
-    console.log(text);
-  };
+  const order1 = [productList[23]]
+  const order2 = [productList[63], productList[41]]
+  const order3 = [productList[34], productList[74]]
+  const order4 = [productList[14], productList[24], productList[32], productList[23], productList[54], productList[63]]
 
-  // get text from second text area box
-  const feedbackFieldTextEvent = (e) => {
-    let text = e.target.value;
-  };
-
-  // submit form
-  const submitForm = () => {};
-
+  const fetchedOrders = [order1, order2, order3, order4];
+  console.log(fetchedOrders)
   return (
-    <div className={styles.layout}>
-      <button className={styles.close} onClick={closePage}>
-        X
-      </button>
-
-      <div className={styles.centering}>
-        <div className={styles.orderBox}>
-          <h2>
-            Order #<span className={styles.colorPurple}>{orderNumber}</span>
-          </h2>
+    <Container>
+        <div className={styles.centering}>
+            <h2>Past Orders</h2>
+            {/* all past orders with the products in the props */}
+            {fetchedOrders.map((order) => <OrderView order={order}/>)}
         </div>
-      </div>
-
-      <div className={styles.alignFlexStart}>
-        <p className={styles.text}>Rate your ordering experience with Dormit</p>
-
-        <ReactStars
-          count={4}
-          onChange={ratingChanged}
-          size={40}
-          activeColor="#8a2be2"
-        />
-
-        <textarea
-          size="8"
-          className={styles.inputField}
-          placeholder="I believe that..."
-          onChange={experienceFieldTextEvent}
-        ></textarea>
-
-        <br />
-
-        <p className={styles.text}>
-          Leave a message for your Rusher (
-          <span className="colorPurp">{rusherName}</span>) or the Dormit team!
-        </p>
-
-        <textarea
-          size="8"
-          className={styles.inputField}
-          placeholder="I believe that..."
-          onChange={feedbackFieldTextEvent}
-        ></textarea>
-
-        <br />
-        <button className={styles.submitBtn} onClick={submitForm}>
-          Submit
-        </button>
-      </div>
-    </div>
-  );
+    </Container>
+  )
 }
+
+export default Order
