@@ -133,7 +133,7 @@ export function useUpdateShipping() {
    *
    * this will update the shipping field in firebase and in local Context
    * in firebase in "users" collections, each user has field "shipping"
-   * which is of shape {building: string, floor-apartment: string}
+   * which is of shape {address: {building: string, floor_apartment: string}}
    *
    * after that, update local
    */
