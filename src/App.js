@@ -8,6 +8,8 @@ import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
+import Supplies from "./routes/Supplies/Supplies";
+import Browse from "./browse/Category/Category";
 
 function App() {
   useInitializeApp();
@@ -24,6 +26,10 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/account" element={<AccountPage />} />
+
+        <Route path="/supplies" element={<Supplies />} />
+
+        <Route path="/browse" element={<Browse />} />
 
         <Route path="/" element={<Homepage />} exact />
       </Routes>

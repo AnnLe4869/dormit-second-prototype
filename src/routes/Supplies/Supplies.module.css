@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
+.supplies {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 36px;
+  column-gap: 5%;
+  margin-bottom: 100px;
+}
+
+.header {
+  height: 100px;
+  background-color: #7141fa;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.back {
+  color: white;
+  position: relative;
+  top: 30px;
+  right: 0px;
+  left: 30px;
+  bottom: 10px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 19px;
+}
+
+.title {
+  color: white;
+  text-align: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 51px;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  margin-left: -2%;
+}
+
+.page {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 6%;
+  margin-left: 6%;
+}
+
+
+.suggestions {
+  font-family: "SF Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.noMoreSupplies {
+  padding-top: 30px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: left;
+
+  padding-left: 8%;
+}
+
+.item {
+  width: 10%;
+  height: 0%;
+  padding-top: 20%;
+
+  background: #c4c4c4;
+  border-style: none;
+  border-radius: 16px;
+  position: relative;
+}
+
+.suggestionContainer{
+  position: relative;
+}
+
+.suggestionInput{
+  box-sizing: border-box;
+  padding: 10px 100px 10px 20px;
+  border: 1px solid #C4C4C4;
+  border-radius: 8px;
+}
+
+.suggestionSubmit{
+  position: inherit;
+  left: -35px;
+  top: 2px;
+  background: transparent;
+  border: transparent;
+}
+
+@media only screen and (max-width: 768px) {
+  .supplies {
+    row-gap: 36px;
+    column-gap: 0px;
+    margin-bottom: 100px;
+  }
+
+  .page {
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 100px;
+    margin-right: 6%;
+    margin-left: 6%;
+  }
+
+  .item {
+    width: 20%;
+    height: 0%;
+    padding-top: 20%;
+
+    background: #c4c4c4;
+    border-style: none;
+    border-radius: 16px;
+    position: relative;
+  }
+
+  .noMoreSupplies {
+    padding-top: 30px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: left;
+  
+    padding-left: 20%;
+    max-width: 70%;
+  }
+}
