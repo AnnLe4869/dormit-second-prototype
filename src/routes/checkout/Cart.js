@@ -1,8 +1,8 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from "../Style/Cart.module.css"
+import styles from "../checkout/Cart.module.css"
 import { useState } from 'react'
-import Cart_item from './Cart_item';
+import Cart_item from '../checkout/Cart_item';
 import { Container, Row, Col, Modal, Stack, Alert, CloseButton, Offcanvas} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,13 +50,6 @@ const Cart = () => {
           <br></br>
           <div className={styles.cart_item}><Cart_item /></div>
           <br></br>
-          {/* <div className={styles.cart_item}><Cart_item /></div>
-          <br></br>
-          <div className={styles.cart_item}><Cart_item /></div>
-          <br></br>  */}
-          {/* {Lessquantity()} */}
-          {/* {OutOfStock()} */}
-          {/* {closedstore()} */}
         </Offcanvas.Body>
         <Modal.Footer style={{'white-space' : 'normal'}}>
           <Stack gap={1}>
@@ -92,81 +85,6 @@ const Cart = () => {
       
       </main>
     </div>
-  )
-}
-
-
-
-const closedstore = () => {
-  return(
-  <>
-    <Alert key='danger' variant='danger' style={{
-      'position':'absolute',
-      'width':'200px',
-      'height':'60px',
-      'text-align':'center',
-      'background': '#7141FA',
-      'top':'2vh',
-      'left':'0',
-      'color':'white',
-      'font-family':'Poppins',
-      'font-style':'normal',
-      'font-weight':'bold',
-      'font-size':'18px'
-    }}>
-      Store is closed
-    </Alert>
-  </>
-  )
-}
-
-const OutOfStock = () => {
-  return (
-    <>
-    <Alert key='danger' variant='danger' style={{
-            'position':'absolute',
-            'width':'354px',
-            'height':'60px',
-            'text-align':'center',
-            'background': '#EF5247',
-            'top':'2vh',
-            'right':'0',
-            'color':'white',
-            'font-family':'Poppins',
-            'font-style':'normal',
-            'font-weight':'bold',
-            'font-size':'18px'
-          }}>
-            <CloseButton style={{'position':'relative',
-            'top':'10%',
-            'right':'5%'}} variant='white'/>[ItemName] Out of Stock
-          </Alert>
-    </>
-  )
-}
-
-const Lessquantity = () => {
-  return(
-    <>
-    <Alert key='danger' variant='danger' style={{
-            'position':'absolute',
-            'width':'411px',
-            'background': '#EF5247',
-            'height':'60px',
-            'text-align':'center',
-            'top':'10vh',
-            'right':'0',
-            'color':'white',
-            'font-family':'Poppins',
-            'font-style':'normal',
-            'font-weight':'bold',
-            'font-size':'18px'
-          }}>
-            <CloseButton style={{'position':'relative',
-            'top':'10%',
-            'right':'5%'}} variant='white'/>[ItemName] Reduced Stock & Quantity
-          </Alert>
-    </>
   )
 }
 

@@ -1,9 +1,4 @@
 
-.modal90w{
-    width: 100%;
-    max-width: none!important;
-}
-
 .Cartbuttondiv{
     position: fixed;
     z-index: 2;
@@ -213,6 +208,32 @@
     height: 20px;
     width: 180px;
     border-style: solid;
+}
+
+.closedStoreAlert{
+    text-align: center;
+    justify-content: center;
+    width:200px;
+    height:60px;
+    text-align:center;
+    background: #7141FA;
+    color:white;
+    font-family:Poppins;
+    font-style:normal;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.outOfStockAlert{
+    width:354px;
+    height:60px;
+    text-align:center;
+    background: #EF5247;
+    color:white;
+    font-family:Poppins;
+    font-style:normal;
+    font-weight:bold;
+    font-size:18px;
 }
 
 @media screen and (max-width : 413px) {

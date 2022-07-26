@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from "../Style/CartItem.module.css"
+import styles from "../checkout/CartItem.module.css"
 
 const Cart_item = (item) => {
   return (

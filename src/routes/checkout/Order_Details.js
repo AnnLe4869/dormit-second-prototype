@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Stack, ButtonGroup, Form, FormGroup, Navbar} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
-import styles from "../Style/Order_Details.module.css"
+import styles from "../checkout/Order_Details.module.css"
 
 
 const Review_Cart = () => {
