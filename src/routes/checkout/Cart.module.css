@@ -1,5 +1,5 @@
 
-.Cartbuttondiv{
+.cartButtonDiv{
     position: fixed;
     z-index: 2;
     width: 384px;
@@ -7,71 +7,12 @@
     top: 90vh;
 }
 
-.header{
-    position: relative;
-    width: 130px;
-    height: 70px;
-    justify-content: center;
-    align-items: center;
+.cartButtonDiv > .cartButton {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
     text-align: center;
-    margin: 0 auto;
-    left: 15%;
-    display: flex;
-}
-
-.headertext {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 34px;
-    line-height: 40px;
-    margin: 0 auto;
-    white-space: nowrap;
-}
-
-.cart_item{
-    position: relative;
-    width: 534px;
-    height: 140px;
-    margin: 0 auto;
-}
-
-.review_button {
-    position: sticky;
-    right:45vw;
-}
-
-.buttontext {
-    font-family: 'System';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 21px;
-    display: flex;
     align-items: center;
-    color: #7141FA;
-}
-
-.buttonnum {
-    font-family: 'System';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 21px;
-    display: flex;
-    align-items: center;
-}
-
-.center {
-    width: 384px;
-    height: 60px;
-    border-style: solid;
-    border-color: yellowgreen;
-    position: relative;
-    }
-
-.Cartbuttondiv .Cartbutton {
-    position: absolute;
     background: #FFFFFF;
     width: 384px;
     height: 60px;   
@@ -89,10 +30,7 @@
     line-height: 29px;
 }
 
-.Cartbuttondiv .price{
-    position: absolute;
-    top: 21.29px;
-    left:303px;
+.cartButton > .price{
     font-family: 'BlinkMacSystemFont';
     font-style: normal;
     font-weight: 700;
@@ -104,9 +42,7 @@
     color: #7141FA;
 }
 
-
-.Cartbuttondiv .count{
-    position: absolute;
+.cartButton > .count{
     z-index: 2;
     color: #7141FA;
     width: 68px;
@@ -122,18 +58,25 @@
     line-height: 21px;
 }
 
-.footer_price{
-    position: relative;
-    height: 100px;
-    width: 384px;
-    text-align: center;
-    align-items: center;
-    justify-content: center; 
+.headerText {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 40px;
     margin: 0 auto;
-    white-space: normal;
+    white-space: nowrap;
 }
 
-.footer_subs{
+.cartItem{
+    position: relative;
+    width: 534px;
+    height: 140px;
+    margin: 0 auto;
+}
+
+
+.footerSubs{
     font-family: 'SF Pro';
     font-style: normal;
     font-weight: 400;
@@ -141,7 +84,7 @@
     line-height: 25px;
 }
 
-.footer_total{
+.footerTotal{
     font-family: 'SF Pro';
     font-style: normal;
     font-weight: bold;
@@ -149,7 +92,7 @@
     line-height: 25px;
 }
 
-.footer_button{
+.footerButton{
     box-sizing: border-box;
     position: relative;
     width: 384px;
@@ -158,24 +101,16 @@
     border: 1px solid #C4C4C4;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
-    justify-content: center;
     display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto;
     align-items: center;
     text-align: center;
     white-space: nowrap;
     color: #7141FA;
 }
 
-.footer_button_div{
-    position: relative;
-    height: 60px;
-    text-align: center;
-    align-items: center;
-    justify-content: center; 
-    margin: 0 auto;
-}
-
-.ft_text_big{
+.footerButtonMain{
     font-family: 'SF Pro';
     font-style: normal;
     font-weight: normal;
@@ -184,7 +119,7 @@
     /* identical to box height */
 }
 
-.ft_text_small{
+.footerButtonItemCount{
     font-family: 'SF Pro';
     font-style: normal;
     font-weight: 700;
@@ -193,21 +128,13 @@
     padding-left: 5%;
 }
 
-.ft_text_small2{
+.footerButtonPrice{
     font-family: 'SF Pro';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 21px;
     padding-right: 5%;
-}
-
-.ft_price{
-    position: relative;
-    margin: 0 auto;
-    height: 20px;
-    width: 180px;
-    border-style: solid;
 }
 
 .closedStoreAlert{
@@ -237,14 +164,14 @@
 }
 
 @media screen and (max-width : 413px) {
-    .footer_button{
+    .footerButton{
         width: 296px;
         height: 60px; 
     }
 }
 
 @media screen and (max-width : 570px){
-    .cart_item{
+    .cartItem{
         position: relative;
         width: 236px;
         height: 75px;
