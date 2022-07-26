@@ -10,6 +10,8 @@ const Review_Cart = () => {
 
   return (
     <div>
+
+        {/* Temporary NavBar */}
         <Navbar expand="sm" variant="dark" sticky='top' style={{"background-color":"#7141FA"}}>
             <div style={{"display":"flex", "justify-content":"center", "align-items":"center", "margin":"0 auto",
                         "font-family":"Poppins", "font-size":"56px"}}>

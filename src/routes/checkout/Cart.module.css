@@ -1,3 +1,4 @@
+/* The Cart Button */
 
 .cartButtonDiv{
     position: fixed;
@@ -58,6 +59,8 @@
     line-height: 21px;
 }
 
+/* Header */
+
 .headerText {
     font-family: 'Poppins';
     font-style: normal;
@@ -68,6 +71,8 @@
     white-space: nowrap;
 }
 
+/* Body */
+
 .cartItem{
     position: relative;
     width: 534px;
@@ -75,6 +80,7 @@
     margin: 0 auto;
 }
 
+/* Footer */
 
 .footerSubs{
     font-family: 'SF Pro';
@@ -137,6 +143,8 @@
     padding-right: 5%;
 }
 
+/* Alerts */
+
 .closedStoreAlert{
     text-align: center;
     justify-content: center;
@@ -162,6 +170,8 @@
     font-weight:bold;
     font-size:18px;
 }
+
+/* Responsive View */
 
 @media screen and (max-width : 413px) {
     .footerButton{

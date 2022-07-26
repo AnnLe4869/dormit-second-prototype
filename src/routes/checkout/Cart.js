@@ -1,10 +1,10 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from "../checkout/Cart.module.css"
+import styles from "../checkout/cart.module.css"
 import { useState } from 'react'
-import Cart_item from '../checkout/Cart_item';
 import { Container, Row, Col, Modal, Stack, Alert, CloseButton, Offcanvas} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import cartItem from "./cartItem"
 
 
 const Cart = () => {
@@ -44,11 +44,11 @@ const Cart = () => {
 
 
         <Offcanvas.Body>
-          <div className={styles.cartItem}><Cart_item /></div>
+          <div className={styles.cartItem}><cartItem /></div>
           <br></br>
-          <div className={styles.cartItem}><Cart_item /></div>
+          <div className={styles.cartItem}><cartItem /></div>
           <br></br>
-          <div className={styles.cartItem}><Cart_item /></div>
+          <div className={styles.cartItem}><cartItem /></div>
           <br></br>
         </Offcanvas.Body>
 
