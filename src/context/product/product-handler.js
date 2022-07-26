@@ -139,6 +139,6 @@ export function useUpdateProductImmediately() {
  * @returns all products
  */
 export function useProducts() {
-  const { state: productState } = useContext(ProductContext);
-  return productState.products;
+  const { state } = useContext(ProductContext);
+  return state.products;
 }
