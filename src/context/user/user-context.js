@@ -26,9 +26,11 @@ export const UserContext = createContext({
   },
   firstName: "",
   lastName: "",
-  shippingAddress: {
-    building: "CSE",
-    floorApartment: "12",
+  shipping: {
+    address: {
+      building: "CSE",
+      floorApartment: "12",
+    },
   },
 });
 
@@ -206,7 +208,7 @@ function userReducer(state, action) {
 
       return {
         ...state,
-        shippingAddress: address,
+        shipping: address,
       };
     }
 
@@ -260,8 +262,8 @@ export default function UserProvider({ children }) {
         CCInfo: null,
         CCNumber: null,
       },
-      deliveryAddress: null,
     },
+    shipping: null,
   });
 
   const value = { state, dispatch };
