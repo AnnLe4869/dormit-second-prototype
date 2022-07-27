@@ -5,8 +5,6 @@ import PhoneAuth from "./PhoneAuth/PhoneAuth";
 import Register from "./Register/Register";
 import LostAccess from "./LostAccess/LostAccess";
 
-import { Container } from "react-bootstrap";
-
 export default function Auth() {
   // Checking what step the client is on. That way we can stay in the same popup
   let [step, setStep] = useState(1);
@@ -50,7 +48,7 @@ export default function Auth() {
   return (
     <div className={styles.backgroundCheckout}>
       <div className={styles.popup}>
-        <Container>{access ? showStep : lostAccessSteps}</Container>
+        <div>{access ? showStep : lostAccessSteps}</div>
       </div>
     </div>
   );
