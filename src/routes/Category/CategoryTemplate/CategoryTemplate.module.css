@@ -22,14 +22,14 @@
 .text {
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 800;
-  font-size: 180%;
+  font-weight: 400;
+  font-size: 160%;
   line-height: 36px;
   margin-bottom: 20px;
 
   color: #000000;
   position: inherit;
-  bottom: 90px;
+  bottom: 60px;
 
 }
 
