@@ -1,5 +1,5 @@
 import React from "react";
-import "./Header.css";
+import HeaderCSS from "./Header.module.css";
 
 import dormitIcon from "../../assets/Home/dormit-icon.svg";
 
@@ -11,21 +11,21 @@ function Header() {
   let mockDeliveryTime = 10;
 
   return (
-    <div className="headerContainer">
-      <section className="headerTop">
+    <div className={HeaderCSS.headerContainer}>
+      <section className={HeaderCSS.headerTop}>
         {/* Center of header */}
-        <div className="headerCenter">
+        <div className={HeaderCSS.headerCenter}>
           <img src={dormitIcon} alt="DormIt Icon" />
-          <h1 className="dormitHeader">DormIt</h1>
+          <h1 className={HeaderCSS.dormitHeader}>DormIt</h1>
         </div>
 
         {/* Right of header */}
-        <div className="headerRight">Earn Cash</div>
+        <div className={HeaderCSS.headerRight}>Earn Cash</div>
       </section>
 
       {/* Left of header */}
-      <section className="headerLeft">
-        <div className="headerLeftGrid">
+      <section className={HeaderCSS.headerLeft}>
+        <div className={HeaderCSS.headerLeftGrid}>
           {/* Drop-pin Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +39,9 @@ function Header() {
             <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
           </svg>
 
-          <div className="deliveryInfo">
+          <div className={HeaderCSS.deliveryInfo}>
             <p>Rushing to</p>
-            <p className="headerText">{mockDeliveryLocation}</p>
+            <p className={HeaderCSS.headerText}>{mockDeliveryLocation}</p>
             <p>In under {mockDeliveryTime} minutes</p>
           </div>
 
