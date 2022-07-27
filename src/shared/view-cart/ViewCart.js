@@ -1,13 +1,13 @@
 import React from 'react';
-import './ViewCart.css';
+import ViewCartCSS from './ViewCart.module.css';
 
 const ViewCart = ({numItems, totalAmount}) => {
     return (
-        <button className="viewCart">
+        <button className={ViewCartCSS.viewCart}>
 
-            <div className="items">{numItems} items</div>
+            <div className={ViewCartCSS.items}>{numItems} items</div>
             <h4>View Cart</h4>
-            <div className="totalAmount">${totalAmount}</div>
+            <div className={ViewCartCSS.totalAmount}>${totalAmount}</div>
 
         </button>
     )

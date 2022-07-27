@@ -3,7 +3,7 @@ import { useRef } from "react";
 /*
  * Style Sheet
  */
-import "./Home.css";
+import HomeCSS from "./Home.module.css";
 import { useProducts } from "../../context/product/product-handler";
 
 /*
@@ -90,10 +90,10 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <div className="homeContainer">
-        <div className="homeContent">
+      <div className={HomeCSS.homeContainer}>
+        <div className={HomeCSS.homeContent}>
           {/* Navbar for Food Categories */}
-          <section className="homeCategoryNav">
+          <section className={HomeCSS.homeCategoryNav}>
             <button onClick={(e) => scrollToCategory(0)}>Chips</button>
             <button onClick={(e) => scrollToCategory(1)}>Snacks</button>
             <button onClick={(e) => scrollToCategory(2)}>Energy</button>
@@ -104,23 +104,23 @@ export default function HomePage() {
           </section>
 
           {/* Bulletin */}
-          <section className="homeBulletin">
-            <div className="bulletinBox"></div>
-            <div className="bulletinBox"></div>
-            <div className="bulletinBox"></div>
+          <section className={HomeCSS.homeBulletin}>
+            <div className={HomeCSS.bulletinBox}></div>
+            <div className={HomeCSS.bulletinBox}></div>
+            <div className={HomeCSS.bulletinBox}></div>
           </section>
 
           {/* Today's Special */}
-          <section className="todaysSpecial">
+          <section className={HomeCSS.todaysSpecial}>
             <img
               src={todaysSpecialIcon}
               alt="Today's Special"
-              className="todaysSpecialIcon"
+              className={HomeCSS.todaysSpecialIcon}
             />
             <h2>Today's Special</h2>
             <h3>Get it while it's hot!</h3>
 
-            <ul className="bigItemList">
+            <ul className={HomeCSS.bigItemList}>
               {mockSpecialItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -128,9 +128,9 @@ export default function HomePage() {
           </section>
 
           {/* For You Section */}
-          <section className="smallItemSection">
+          <section className={HomeCSS.smallItemSection}>
             <h3>For You</h3>
-            <ul className="smallItemList">
+            <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -138,9 +138,9 @@ export default function HomePage() {
           </section>
 
           {/* Trending Section*/}
-          <section className="smallItemSection">
+          <section className={HomeCSS.smallItemSection}>
             <h3>Trending</h3>
-            <ul className="smallItemList">
+            <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -148,9 +148,9 @@ export default function HomePage() {
           </section>
 
           {/* Deals Section */}
-          <section className="smallItemSection">
+          <section className={HomeCSS.smallItemSection}>
             <h3>Deals</h3>
-            <ul className="smallItemList">
+            <ul className={HomeCSS.smallItemList}>
               {mockDealItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -158,7 +158,7 @@ export default function HomePage() {
           </section>
 
           {/* Food Categories */}
-          <section className="categorySection">
+          <section className={HomeCSS.categorySection}>
             {/* Chips Section */}
             <div id="chipsSection" ref={chipsRef}>
               <Category
