@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./BottomNav.css";
+import BottomNavCSS from "./BottomNav.module.css";
 
 /*
  * Imported Assets
@@ -66,10 +66,10 @@ const Taskbar = ({ currentPage }) => {
   }
 
   return (
-    <div className="taskbarContainer">
+    <div className={BottomNavCSS.taskbarContainer}>
       {/* Home button */}
       <button
-        className="homeButton"
+        className={BottomNavCSS.homeButton}
         onMouseEnter={(e) => {
           setHoverHome(true);
         }}
@@ -82,7 +82,7 @@ const Taskbar = ({ currentPage }) => {
 
       {/* Search button */}
       <button
-        className="searchButton"
+        className={BottomNavCSS.searchButton}
         onMouseEnter={(e) => {
           setHoverSearch(true);
         }}
@@ -95,7 +95,7 @@ const Taskbar = ({ currentPage }) => {
 
       {/* Orders button */}
       <button
-        className="ordersButton"
+        className={BottomNavCSS.ordersButton}
         onMouseEnter={(e) => {
           setHoverOrders(true);
         }}
@@ -108,7 +108,7 @@ const Taskbar = ({ currentPage }) => {
 
       {/* Account button */}
       <button
-        className="accountButton"
+        className={BottomNavCSS.accountButton}
         onMouseEnter={(e) => {
           setHoverAccount(true);
         }}

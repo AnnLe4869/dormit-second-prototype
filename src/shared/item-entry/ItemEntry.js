@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ItemEntry.css";
+import ItemCSS from "./ItemEntry.module.css";
 
 /*
  * Imported Assets
@@ -46,9 +46,9 @@ const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
   }
 
   return (
-    <div className="itemContainer">
+    <div className={ItemCSS.itemContainer}>
       {/* Corner button (Plus/Check) */}
-      <button className="itemCorner" onClick={toggleCorner}>
+      <button className={ItemCSS.itemCorner} onClick={toggleCorner}>
         {inCart ? (
           <img src={greenCheck} alt="Added Item" />
         ) : (
@@ -57,22 +57,22 @@ const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
       </button>
 
       {/* Item image */}
-      <button className="itemImage" onClick={toggleImage}>
+      <button className={ItemCSS.itemImage} onClick={toggleImage}>
         <img src={image} alt="Item" />
       </button>
 
       {/* Item Info (Price, Stock) */}
-      <section className="itemInfo" style={stock ? {} : { color: "#686868" }}>
+      <section className={ItemCSS.itemInfo} style={stock ? {} : { color: "#686868" }}>
         {dealPrice ? (
           <>
-            <p className="purpleFont">${dealPrice}</p>
-            <p className="strikeThrough">${price}</p>
+            <p className={ItemCSS.purpleFont}>${dealPrice}</p>
+            <p className={ItemCSS.strikeThrough}>${price}</p>
           </>
         ) : (
           <p>${price}</p>
         )}
 
-        <div className="stockInfo">{checkStock(stock)}</div>
+        <div className={ItemCSS.stockInfo}>{checkStock(stock)}</div>
       </section>
     </div>
   );
