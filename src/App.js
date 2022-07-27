@@ -7,8 +7,8 @@ import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
-import Supplies from "./routes/Supplies/Supplies";
-import Browse from "./routes/Category/Category";
+import Supplies from "./routes/Category/Supplies/Supplies";
+import Category from "./routes/Category/Category";
 
 function App() {
   useInitializeApp();
@@ -26,9 +26,8 @@ function App() {
 
         <Route path="/account" element={<AccountPage />} />
 
-        <Route path="/supplies" element={<Supplies />} />
-
-        <Route path="/browse" element={<Browse />} />
+        <Route path="/category" element={<Category />} />
+        <Route path="/category/supplies" element={<Supplies />} />
 
         <Route path="/" element={<Homepage />} exact />
       </Routes>

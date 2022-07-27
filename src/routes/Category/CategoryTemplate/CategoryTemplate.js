@@ -6,7 +6,7 @@ const CategoryTemplate = (props) => {
   const navigate = useNavigate();
 
   const navigateCategory = () => {
-    navigate("/supplies");
+    navigate("/category/supplies");
   };
 
   return (

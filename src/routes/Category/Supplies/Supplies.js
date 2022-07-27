@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Supplies = (props) => {
   const navigate = useNavigate();
   const navigateItems = () => {
-    navigate("/");
+    navigate("/category");
   };
 
   const sendSuggestions = () => {
