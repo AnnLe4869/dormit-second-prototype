@@ -9,7 +9,7 @@ import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
 import Supplies from "./routes/Supplies/Supplies";
-import Browse from "./browse/Category/Category";
+import Browse from "./routes/Category/Category";
 
 function App() {
   useInitializeApp();
