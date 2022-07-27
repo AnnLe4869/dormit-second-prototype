@@ -20,7 +20,7 @@ export function useCheckout() {
    * that is the amount of tip we want to collect
    *
    */
-  return async (tip) => {
+  return async (tip = 0) => {
     const currentUser = auth.currentUser;
 
     if (!auth.currentUser) {
@@ -40,6 +40,21 @@ export function useCheckout() {
     const productInCart = products.filter((product) =>
       cart.map((item) => item.id).includes(product.id)
     );
+
+    // const productInCart = [
+    //   {
+    //     prices: {
+    //       id: "price_1LGginBFL4Le4n4Ln1aqvhxQ",
+    //     },
+    //     quantity: 3,
+    //   },
+    //   {
+    //     prices: {
+    //       id: "price_1LGKpHBFL4Le4n4LTJvZz53k",
+    //     },
+    //     quantity: 5,
+    //   },
+    // ];
 
     const userRef = doc(db, "users", currentUser.uid);
 
@@ -67,6 +82,11 @@ export function useCheckout() {
         price: product.prices.id,
         quantity: product.quantity,
       })),
+      /**
+       * this is to collect shipping fee
+       * we must create shipping rate in Stripe dashboard and parse the id there
+       */
+      shipping_rates: ["shr_1LQ197BFL4Le4n4LGxubQHny"],
     };
 
     if (tip && isNaN(tip)) {
