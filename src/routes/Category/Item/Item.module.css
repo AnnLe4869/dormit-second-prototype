@@ -19,6 +19,7 @@
     margin-right: 3%;
     align-items: right;
     color: #7141FA;
+    transform: scale(2.3);
 }
 
 .display{
@@ -39,16 +40,17 @@
 .name{
     text-align: left;
     font-family: 'Poppins';
-    font-weight: bold;
+    font-weight: 500;
     font-size: 150%;
     line-height: 36px;
+    margin-bottom: 5px;
     
 }
 
 .price{
     text-align: right;
     font-family: 'Poppins';
-    font-weight: bold;
+    font-weight: 500;
     font-size: 24px;
     line-height: 36px;
     float: right;
@@ -57,30 +59,31 @@
 .stock{
     text-align: left;
     font-family: 'Poppins';
-    font-weight: normal;
+    font-weight: 400;
     font-size: 18px;
     line-height: 21px;
     color: #7141FA;
+    margin-bottom: 10px;
 }
 
 .description{
     text-align: left;
     font-family: 'Poppins';
-    font-weight: normal;
+    font-weight: 100;
     font-size: 18px;
     line-height: 21px;
 }
 
 .addToCartButton{
     margin: 0 auto;
-    margin-top: 30%;
+    margin-top: 80%;
     width: 80%;
     height: 50px;
 
     background: #7141FA;
     border: 1px solid #C4C4C4;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    border-radius: 15px;
 
     display: flex; 
     justify-content: center; 
@@ -114,6 +117,7 @@
         margin-left: 20%;
     }
 
-
-    
+    .close{
+        margin-top: 6%;
+    }
 }

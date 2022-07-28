@@ -2,15 +2,15 @@ import React from "react";
 
 import styles from "./Category.module.css";
 import CategoryTemplate from "./categoryTemplate/CategoryTemplate";
+import SearchIcon from '@mui/icons-material/Search';
 
 function Category() {
   return (
     <div className={styles.container}>
       <header>
         <div>
-          <label>
-            <input className={styles.searchBar} type="search" placeholder="Search" />
-          </label>
+          <SearchIcon className={styles.searchIcon} style={{color: "#7141fa" }}/>
+          <input className={styles.searchBar} type="search" placeholder="Search" />
         </div>
 
         <p className={styles.pageTitle}>Categories</p>

@@ -17,17 +17,10 @@
 }
 
 .back {
-  color: white;
   position: relative;
-  top: 30px;
-  right: 0px;
+  top: 25px;
   left: 30px;
-  bottom: 10px;
   cursor: pointer;
-  width: 36px;
-  height: 36px;
-  border: 0;
-  border-radius: 19px;
 }
 
 .title {
@@ -38,7 +31,7 @@
   font-weight: 700;
   font-size: 34px;
   line-height: 51px;
-  height: 30%;
+  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,6 +52,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
+  padding-bottom: 10px;
 }
 
 .noMoreSupplies {
@@ -70,7 +64,8 @@
   line-height: 36px;
   text-align: left;
 
-  padding-left: 8%;
+  padding-left: 1%;
+  padding-bottom: 30px;
 }
 
 .item {
@@ -98,7 +93,7 @@
 .suggestionSubmit{
   position: inherit;
   left: -35px;
-  top: 2px;
+  top: 3px;
   background: transparent;
   border: transparent;
 }
@@ -133,12 +128,12 @@
     padding-top: 30px;
     font-family: "Poppins";
     font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
+    font-weight: normal;
+    font-size: 110%;
     line-height: 36px;
     text-align: left;
   
-    padding-left: 20%;
+    padding-left: 10%;
     max-width: 70%;
   }
 }
