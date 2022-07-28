@@ -2,7 +2,7 @@
 
 .container {
   text-align: center;
-  margin-top: 6.4%;
+  margin-top: 3%;
   margin-bottom: 6.4%;
   margin-right: 9.6%;
   margin-left: 9.6%;
@@ -14,7 +14,7 @@
   align-items: center;
   row-gap: 30px;
   column-gap: 5%;
-  margin-left: 4%;
+  margin-left: 3%;
 }
 
 .searchBar {
@@ -33,21 +33,21 @@
 
 .pageTitle {
   width: 189px;
-  height: 51px;
   left: 180px;
   top: 133px;
+  margin-top: 4%;
+  margin-bottom: 2%;
 
   font-family: "Poppins";
   font-style: normal;
   font-weight: bold;
   font-size: 34px;
-  line-height: 51px;
 
   display: flex;
   align-items: center;
 
   color: #000000;
-  margin-left: 50px;
+  margin-left: 30px;
 }
 
 label {
