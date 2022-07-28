@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Supplies.module.css";
-import SuppliesTemplate from "./SuppliesTemplate/SuppliesTemplate";
+import SuppliesTemplate from "./suppliesTemplate/SuppliesTemplate";
 import { AiOutlineSend } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 

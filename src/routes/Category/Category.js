@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./Category.module.css";
-import CategoryTemplate from "./CategoryTemplate/CategoryTemplate";
+import CategoryTemplate from "./categoryTemplate/CategoryTemplate";
 
 function Category() {
   return (

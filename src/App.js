@@ -7,8 +7,8 @@ import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
-import Supplies from "./routes/Category/Supplies/Supplies";
-import Category from "./routes/Category/Category";
+import Supplies from "./routes/category/supplies/Supplies";
+import Category from "./routes/category/Category";
 
 function App() {
   useInitializeApp();

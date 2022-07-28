@@ -1,7 +1,7 @@
 import React , {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./SuppliesTemplate.module.css";
-import Item from '../../Item/Item.js'
+import Item from '../../item/Item.js'
 import Popup from 'reactjs-popup';
 import "./SuppliesPopUp.css"
 
