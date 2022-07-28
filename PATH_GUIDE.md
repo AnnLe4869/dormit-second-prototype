@@ -55,7 +55,10 @@ This route corresponds to the route `https://localhost/order` and the component 
 There are two(2) main subroutes here
 
 - `/order` will show all orders. This means we can see what is the current order as well as orders that has been finished in the past
+- `/order/current` will show all current order
 - `/order/current/:orderId` will show the detail of the current order. This includes what items are in the order, the delivery progress and the information on who is the delivery personnel
+- `/order/past` will show all completed order
+- `/order/past/:orderId` will show the detail of the current order. This includes what items are in the order, the cost summary and the information on who was the delivery personnel
 
 Per specification, we don't have the route to view detail of past order
 

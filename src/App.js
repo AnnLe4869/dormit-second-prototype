@@ -7,6 +7,8 @@ import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
+import Supplies from "./routes/Category/Supplies/Supplies";
+import Category from "./routes/Category/Category";
 
 function App() {
   useInitializeApp();
@@ -23,6 +25,9 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/account" element={<AccountPage />} />
+
+        <Route path="/category" element={<Category />} />
+        <Route path="/category/supplies" element={<Supplies />} />
 
         <Route path="/" element={<Homepage />} exact />
       </Routes>
