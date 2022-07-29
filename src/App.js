@@ -9,6 +9,7 @@ import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
 import Supplies from "./routes/category/supplies/Supplies";
 import Category from "./routes/category/Category";
+import Test from "./routes/test/Test";
 
 function App() {
   useInitializeApp();
