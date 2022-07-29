@@ -1,4 +1,3 @@
-import * as admin from "firebase-admin";
 import {
   CollectionReference,
   FieldPath,
@@ -8,8 +7,7 @@ import * as functions from "firebase-functions";
 import Stripe from "stripe";
 import config from "../config";
 
-admin.initializeApp();
-const db = admin.firestore();
+import { db } from "../setup";
 
 /**
  * Fire when a an existing payment is updated

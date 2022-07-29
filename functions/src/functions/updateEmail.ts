@@ -1,10 +1,8 @@
-import * as admin from "firebase-admin";
 import { CollectionReference } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import { verifyEmail } from "../helper/helper";
 
-admin.initializeApp();
-const db = admin.firestore();
+import { db } from "../setup";
 
 /**
  * update user's email

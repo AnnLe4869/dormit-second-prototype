@@ -1,12 +1,10 @@
-import * as admin from "firebase-admin";
 import { CollectionReference } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import { totp } from "otplib";
 import config from "../config";
 import { verifyEmail } from "../helper/helper";
 
-admin.initializeApp();
-const db = admin.firestore();
+import { db, admin } from "../setup";
 
 /**
  * Verify the Otp code the user provide

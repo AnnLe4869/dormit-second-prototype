@@ -1,11 +1,9 @@
-import * as admin from "firebase-admin";
 import { CollectionReference } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import Stripe from "stripe";
 import config from "../config";
 
-admin.initializeApp();
-const db = admin.firestore();
+import { db } from "../setup";
 
 /**
  * Update user's profile in Stripe and in Firebase

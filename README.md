@@ -57,9 +57,28 @@ After you cloned the project down to your computer, follow these steps to set up
 
 - Create a firebase project and then install the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments) and [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email). Follow all instructions there
 
-- For the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments), you should choose option "Sync" for the "Sync new users to Stripe customers and Cloud Firestore". After you install the extension, don't forget to setup Stripe Webhook as instructed by the extension (see the section Configure Stripe webhooks or [POSTINSTALL instruction](https://github.com/stripe/stripe-firebase-extensions/blob/master/firestore-stripe-payments/POSTINSTALL.md))
+- For the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments), you should choose option "Sync" for the "Sync new users to Stripe customers and Cloud Firestore". After you install the extension, don't forget to setup Stripe Webhook as instructed by the extension (see the section Configure Stripe webhooks or [POSTINSTALL instruction](https://github.com/stripe/stripe-firebase-extensions/blob/master/firestore-stripe-payments/POSTINSTALL.md)). The overall setup look like this
 
-- For [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email), we have to set up a SMTP connection URI
+  ```bash
+  CUSTOMERS_COLLECTION=users
+  DELETE_STRIPE_CUSTOMERS=Auto delete
+  LOCATION=us-west2
+  PRODUCTS_COLLECTION=products
+  STRIPE_CONFIG_COLLECTION=configuration
+  SYNC_USERS_ON_CREATE=Sync
+  STRIPE_API_KEY=rk_test_51LFbOFBFL4Le4n4LMEoeONWCjmqo73EUhFozs0LoJ4NIPctxx4w004BoFeBrd
+  STRIPE_WEBHOOK_SECRET=whsec_LYb6SrfCBNwjRQU5
+  ```
+
+- For [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email), we have to set up a SMTP connection URI and SMTP password. I am using Sendgrid because it's free and easiest to set up. The overall setup would look like this
+
+  ```bash
+     DEFAULT_FROM=no-reply@dormitdelivery.com
+     LOCATION=us-west2
+     MAIL_COLLECTION=emails
+     SMTP_CONNECTION_URI=smtps://apikey@smtp.sendgrid.net:465
+     SMTP_PASSWORD=SG.v3wmh4HvTf6GKNNi5qsXKA.Nd1LUtQdIqDQcxjG1NuJI
+  ```
 
 - Create a local secret named `STRIPE_API_KEY` and `OTP_SECRET` by running
 
@@ -83,6 +102,12 @@ After you cloned the project down to your computer, follow these steps to set up
   ```bash
   firebase deploy --only firestore:rules
   ```
+
+## Set up emulator for local development
+
+- Install extension. This will prompt you to enter information. For now, just save all info in local. You don't have to do `npm run build` because it seems like when you install they automatically compile to normal Javascript file
+- Go to where the extension is and install all necessary libraries with `npm install` (**IMPORTANT**). I don't know why they didn't do that automatically. For example, the extension, after running `firebase emulator:start` is located at `C:/User/name/.cache/firebase/extension`
+- Stop the emulator and run it again
 
 ## Setting up Stripe
 
