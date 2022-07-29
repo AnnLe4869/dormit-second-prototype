@@ -11,12 +11,8 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
@@ -40,9 +36,5 @@
     "ui": {
       "enabled": true
     }
-  },
-  "extensions": {
-    "firestore-send-email": "firebase/firestore-send-email@0.1.19",
-    "firestore-stripe-payments": "stripe/firestore-stripe-payments@0.2.7"
   }
 }

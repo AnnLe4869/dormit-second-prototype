@@ -7,6 +7,7 @@ import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
+import Test from "./routes/test/Test";
 
 function App() {
   useInitializeApp();
@@ -23,6 +24,9 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/account" element={<AccountPage />} />
+
+        {/*this is special route for testing only. Delete when done*/}
+        <Route path="/test" element={<Test />} />
 
         <Route path="/" element={<Homepage />} exact />
       </Routes>
