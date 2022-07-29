@@ -136,6 +136,25 @@ Afte that, you have to use local Stripe CLI to test out webhook. Because we work
 
 One more thing. Because this is run on local, you can modify the extension as you want. Just don't forget to recompile them. And don't worry if you go to the extension site (usually at `http://localhost:4000/extensions`) and see that some fields in configuration are empty. They are secret fields and usually remained empty like that, though in reality the emulator already has info from your above configuration (either local file or remote Google Safe)
 
+If you did everything correctly, when you perform checkout or sign up, this is what you should see
+
+```bash
+stripe listen --forward-to http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents
+> Ready! You are using Stripe API Version [2020-08-27]. Your webhook signing secret is whsec_05764f2e03350dcede056065965787869f5a5ddffe300e2b6790c3917e9dccae (^C to quit)
+2022-07-29 06:48:52   --> customer.created [evt_1LQtYeBFL4Le4n4L6tPdkEye]
+2022-07-29 06:48:53  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_1LQtYeBFL4Le4n4L6tPdkEye]
+2022-07-29 06:54:22   --> customer.created [evt_1LQtdyBFL4Le4n4LVboDDxKQ]
+2022-07-29 06:54:22  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_1LQtdyBFL4Le4n4LVboDDxKQ]
+2022-07-29 06:54:23   --> payment_intent.created [evt_3LQtdzBFL4Le4n4L07rARS9D]
+2022-07-29 06:54:23  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_3LQtdzBFL4Le4n4L07rARS9D]
+2022-07-29 06:54:56   --> customer.updated [evt_1LQteWBFL4Le4n4L2ODl9KwP]
+2022-07-29 06:54:56   --> payment_intent.succeeded [evt_3LQtdzBFL4Le4n4L0LDr4sII]
+2022-07-29 06:54:56   --> checkout.session.completed [evt_1LQteWBFL4Le4n4LbIuuz5gQ]
+2022-07-29 06:54:56   --> charge.succeeded [evt_3LQtdzBFL4Le4n4L0TXpwGva]
+2022-07-29 06:54:56  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_1LQteWBFL4Le4n4L2ODl9KwP]
+2022-07-29 06:54:57  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_3LQtdzBFL4Le4n4L0LDr4sII]
+```
+
 ## Setting up Stripe
 
 - Create an account and activate it
