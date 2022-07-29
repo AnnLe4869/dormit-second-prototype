@@ -26,7 +26,7 @@ export const sendCodeViaEmail = functions
     if (!data.email) {
       throw new functions.https.HttpsError(
         "invalid-argument",
-        `The function must be called with one argument "email" containing the email to send code to.`
+        `The function must be called with one argument "email" containing the email to send the code to.`
       );
     }
 
@@ -50,7 +50,7 @@ export const sendCodeViaEmail = functions
      * Extension https://firebase.google.com/products/extensions/firebase-firestore-send-email
      */
 
-    const mailRef = db.collection("email") as CollectionReference<{
+    const mailRef = db.collection("emails") as CollectionReference<{
       to: string;
       message: {
         subject: string;

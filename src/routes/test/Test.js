@@ -32,7 +32,7 @@ export default function Test() {
       {status ? (
         <>
           <button onClick={signOut}>Sign out</button>
-          <button onClick={checkout}>Checkout</button>
+          <button onClick={() => checkout(3520)}>Checkout</button>
         </>
       ) : (
         <>

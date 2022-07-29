@@ -105,9 +105,36 @@ After you cloned the project down to your computer, follow these steps to set up
 
 ## Set up emulator for local development
 
-- Install extension. This will prompt you to enter information. For now, just save all info in local. You don't have to do `npm run build` because it seems like when you install they automatically compile to normal Javascript file
+- Install extension. This will prompt you to enter information. For now, just save all info in local. You don't have to do `npm run build` because it seems like when you install they automatically compile to normal Javascript file. Make sure you enter the correct information
 - Go to where the extension is and install all necessary libraries with `npm install` (**IMPORTANT**). I don't know why they didn't do that automatically. For example, the extension, after running `firebase emulator:start` is located at `C:/User/name/.cache/firebase/extension`
-- Stop the emulator and run it again
+- Stop the emulator and run it again. You should have the extension run without error (not mean they will work)
+
+Now for each extension above. Trigger Email should work, but Stripe Payment need some change. Remember we need to have the Webhook setup. Stripe Payment uses HTTPS call to listen to Stripe event (like payment created, checkout created, etc.), mean that we need to have the HTTPS call URL. See [Instrument your app for HTTPS functions emulation](https://firebase.google.com/docs/emulator-suite/connect_functions#instrument_your_app_for_https_functions_emulation). Your URL should look something like this `http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents`. You can get this URL by looking at the initialized messages as such
+
+```bash
+firestore: Firestore Emulator logging to firestore-debug.log
+i  hosting: Serving hosting files from: build
++  hosting: Local server: http://localhost:5000
+i  ui: Emulator UI logging to ui-debug.log
+i  functions: Watching "D:\Coding\Job\dormit\second-prototype\functions" for Cloud Functions...
++  functions[us-central1-checkout]: firestore function initialized.
++  functions[us-central1-sendCodeViaEmail]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/sendCodeViaEmail).
++  functions[us-central1-verifyOtpCode]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/verifyOtpCode).
++  functions[us-central1-updateEmail]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/updateEmail).
++  functions[us-central1-updateShipping]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/updateShipping).
++  functions[us-central1-updateUserProfile]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/updateUserProfile).
+i  functions: Watching "C:\Users\asada\.cache\firebase\extensions\firebase\firestore-send-email@0.1.19\functions" for Cloud Functions...
++  functions[us-west2-ext-firestore-send-email-processQueue]: firestore function initialized.
+i  functions: Watching "C:\Users\asada\.cache\firebase\extensions\stripe\firestore-stripe-payments@0.2.7\functions" for Cloud Functions...
++  functions[us-west2-ext-firestore-stripe-payments-createCustomer]: auth function initialized.
++  functions[us-west2-ext-firestore-stripe-payments-createCheckoutSession]: firestore function initialized.
++  functions[us-west2-ext-firestore-stripe-payments-createPortalLink]: http function initialized (http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-createPortalLink).
++  functions[us-west2-ext-firestore-stripe-payments-handleWebhookEvents]: http function initialized (http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents).
+```
+
+Afte that, you have to use local Stripe CLI to test out webhook. Because we work on local, we have to find a way for Stripe to connect to our machine. See [Is it possible to set localhost as a Stripe webhook URL?](https://stackoverflow.com/questions/15357356/is-it-possible-to-set-localhost-as-a-stripe-webhook-url/58073355#58073355) and watch the video [Laravel Stripe Checkout tutorial](https://www.youtube.com/watch?v=b4Jz9UPAyI0&t=1140s) on what the process would look like
+
+One more thing. Because this is run on local, you can modify the extension as you want. Just don't forget to recompile them. And don't worry if you go to the extension site (usually at `http://localhost:4000/extensions`) and see that some fields in configuration are empty. They are secret fields and usually remained empty like that, though in reality the emulator already has info from your above configuration (either local file or remote Google Safe)
 
 ## Setting up Stripe
 
