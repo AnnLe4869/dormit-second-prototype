@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 
 import AlertProvider from "./alert/alert-context";
 import ProductProvider from "./product/product-context";
@@ -10,6 +10,7 @@ import UserProvider, { UserContext } from "./user/user-context";
 import { INITIALIZE_USER_DETAILS } from "../constant";
 import { isArrayDifferent } from "../helper/isArrayDifferent";
 import { useInitializeProduct } from "./product/product-handler";
+import { removeUserDataFromLocalStorage } from "../helper/removeCartFromLocalStorage";
 
 // we create this context to pass the firestore reference to entire application
 export const AppContext = createContext(null);
@@ -55,9 +56,11 @@ export function useInitializeApp() {
         // get the current cart store in Context
         const cartInContext = userState.cart;
 
+        let data;
+
         if (docSnap.exists()) {
           // user already exist, i.e user is not sign up for the first time
-          const data = docSnap.data();
+          data = docSnap.data();
           const cartInDb = data.cart;
           if (
             cartInContext.length > 0 &&
@@ -77,37 +80,39 @@ export function useInitializeApp() {
              * Don't forget to update the cart, both in localStorage and in database
              */
           }
-
-          userDispatch({
-            type: INITIALIZE_USER_DETAILS,
-            payload: {
-              isAuthenticated: true,
-              ...data,
-            },
-          });
         } else {
           // user first time sign in, i.e user sign up
           // we create new entry in document "user" using user uid as id
-          const docRef = doc(db, "users", user.uid);
           // get the current cart store in Context
           const cartInContext = userState.cart;
-          const payload = {
+          data = {
             cart: cartInContext,
-            checkout: [],
           };
-          await setDoc(docRef, payload);
-          userDispatch({
-            type: INITIALIZE_USER_DETAILS,
-            payload: {
-              isAuthenticated: true,
-              ...payload,
-            },
-          });
+          await setDoc(docRef, data);
         }
-      }
-      // if user sign out, free all user's related state
-      // ideally, you may want to redirect user to another page
-      else {
+
+        userDispatch({
+          type: INITIALIZE_USER_DETAILS,
+          payload: {
+            isAuthenticated: true,
+            ...data,
+          },
+        });
+
+        /**
+         * listen to realtime update on user's data
+         * we mostly interested in the current_order part
+         */
+
+        onSnapshot(docRef, (doc) => {});
+      } else {
+        /**
+         * if user sign out, free all user's related state in Context and in localStorage
+         * a possible way to clear out Context is to redirect user to another page
+         * redirect will cause reload, which will detach the realtime listener - the result we want
+         */
+        removeUserDataFromLocalStorage();
+        window.location.href = "localhost:3000/";
       }
     });
   }, []);
