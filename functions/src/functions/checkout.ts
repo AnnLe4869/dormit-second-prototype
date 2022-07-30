@@ -117,7 +117,8 @@ export const checkout = functions
        */
       const userId = context.params.userId;
       const paymentId = context.params.paymentId;
-      const userRef = db.collection("users") as CollectionReference<{
+
+      const usersRef = db.collection("users") as CollectionReference<{
         current_order: Array<{
           customer_id: string;
           // used to search for PaymentIntent - provides details about order like order's products, cost, etc.
@@ -138,32 +139,35 @@ export const checkout = functions
           };
         }>;
       }>;
-      // const currentOrderRef = db.collection(
-      //   "current_orders"
-      // ) as CollectionReference<{
-      //   customer_id: string;
-      //   /**
-      //    * used to search for PaymentIntent - provides details about order like order's products, cost, etc.
-      //    * we use this as id for collection "current_orders" for convenience
-      //    */
-      //   payment_id: string;
-      //   order_time: string;
-      //   order_process: string;
-      //   until_delivery: string;
-      //   rusher: {
-      //     user_id: string;
-      //     /**
-      //      * the below field is not important - they are here for easy time to copy data from this field to user
-      //      * for example, when user want to view the rusher's detail, they cannot view their info
-      //      * because they don't have the permission to do so
-      //      * these field provides just enough information of the rusher to the user
-      //      */
-      //     user_name: string;
-      //     user_contact: string;
-      //   };
-      // }>;
+      const currentOrdersRef = db.collection(
+        "current_orders"
+      ) as CollectionReference<{
+        customer_id: string;
+        /**
+         * used to search for PaymentIntent - provides details about order like order's products, cost, etc.
+         * we use this as id for collection "current_orders" for convenience
+         */
+        payment_id: string;
+        order_time: string;
+        order_process: string;
+        until_delivery: string;
+        rusher: {
+          user_id: string;
+          /**
+           * the below field is not important - they are here for easy time to copy data from this field to user
+           * for example, when user want to view the rusher's detail, they cannot view their info
+           * because they don't have the permission to do so
+           * these field provides just enough information of the rusher to the user
+           */
+          user_name: string;
+          user_contact: string;
+        };
+      }>;
 
-      const userData = (await userRef.doc(userId).get()).data();
+      // get all documents' id
+      const currentOrdersData = await currentOrdersRef.listDocuments();
+
+      const userData = (await usersRef.doc(userId).get()).data();
 
       if (!userData) {
         throw new Error("user didn't exist in database");
@@ -177,7 +181,7 @@ export const checkout = functions
         throw new Error("somehow the order already in the user's active order");
       }
 
-      await userRef.doc(userId).update({
+      await usersRef.doc(userId).update({
         current_order: FieldValue.arrayUnion(paymentId),
       });
     }
