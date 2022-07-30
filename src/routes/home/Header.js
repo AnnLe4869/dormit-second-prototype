@@ -8,6 +8,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Grid from "@mui/material/Grid";
 
+
 /**
  * delivery block component
  * this lies in the left of the navbar
@@ -33,6 +34,7 @@ function DeliveryBlock() {
           >
             Enter delivery location
           </Typography>
+
 
           <Typography variant="caption" component="div" textAlign="left">
             in under 10 minutes
