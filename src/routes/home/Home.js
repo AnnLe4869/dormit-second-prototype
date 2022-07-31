@@ -21,6 +21,8 @@ import Header from "./Header";
 import apple from "../../assets/apple.png";
 import todaysSpecialIcon from "../../assets/Home/todays-special-icon.svg";
 
+
+
 export default function HomePage() {
   const products = useProducts();
 
