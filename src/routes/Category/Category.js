@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 function Category() {
   return (
     <div className={styles.container}>
-      <header>
+      <header className={styles.headerMargin}>
         <div>
           <SearchIcon className={styles.searchIcon} style={{color: "#7141fa" }}/>
           <input className={styles.searchBar} type="search" placeholder="Search" />

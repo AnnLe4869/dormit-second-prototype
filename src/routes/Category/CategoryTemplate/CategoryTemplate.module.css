@@ -6,10 +6,7 @@
 }
 
 .image {
-  display: block;
-  max-width:320px;
-  max-height:200px;
-  width: auto;
+  width: 60%;
   height: auto;
 
   cursor: pointer;
@@ -39,23 +36,11 @@
   }
 
   .image {
-    display: block;
-    max-width:240px;
-    max-height:150px;
-    width: auto;
-    height: auto;
+    width: 90%;
   }
-
-  .text {
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 800;
-    font-size: 120%;
-    line-height: 36px;
-    margin-bottom: 20px;
   
-    color: #000000;
-    position: inherit;
+  .text {
+    font-size: 120%;
     bottom: 70px;
   }
 }

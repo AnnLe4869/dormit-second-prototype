@@ -9,13 +9,17 @@
 }
 
 .categories {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  row-gap: 30px;
-  column-gap: 5%;
-  margin-left: 3%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 30%);
+  grid-gap: 1rem;
+  justify-content: center;
 }
+
+.headerMargin{
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
 
 .searchBar {
   width: 95%;
@@ -48,6 +52,8 @@
 
   color: #000000;
   margin-left: 30px;
+
+
 }
 
 .searchIcon {
@@ -66,42 +72,24 @@
     margin-left: 3%;
   }
 
-  .searchIcon {
-    margin-left: 8%;
-    margin-top: 1.8%;
-    position: absolute;
-    left: 0px;
-    top: 9px;
-    bottom: 0;
+  .searchBar {
+    width: 90%;
   }
 
   .categories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    row-gap: 30px;
-    column-gap: 5%;
+    grid-template-columns: repeat(auto-fill, 40%); /* 2 */
   }
 
   .pageTitle {
-    width: 189px;
-    height: 51px;
-    left: 180px;
-    top: 133px;
-
-    /* Desktop Title 1 */
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: bold;
-    font-size: 34px;
-    line-height: 51px;
-
-    /* identical to box height */
-    display: flex;
-    align-items: center;
-
-    color: #000000;
+    font-size: 140%;
     margin-left: 10px;
+
+    margin-left: 10%;
+  }
+
+  .headerMargin{
+    margin-left: 0%;
+    margin-right: 0%;
   }
 }
 
