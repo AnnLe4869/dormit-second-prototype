@@ -25,7 +25,7 @@ const SuppliesTemplate = (props) => {
       </div>
       <div className={styles.price}>$Price</div>
       </div>
-      <Popup open={show} className="supplies-popup" modal nested >
+      <Popup open={show} className="supplies-popup" modal nested lockScroll="true">
         <Item onClose={setShow} link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430" />
       </Popup>
     </>
