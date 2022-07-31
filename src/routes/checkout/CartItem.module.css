@@ -13,7 +13,7 @@
   align-items: center;
 }
 
-p .itemName {
+p > .itemName {
   position: absolute;
   left: 237px;
   top: 33px;
@@ -29,7 +29,7 @@ p .itemName {
   align-items: center;
 }
 
-p .Details {
+p > .Details {
   position: absolute;
   left: 237px;
   top: 72px;
@@ -44,7 +44,7 @@ p .Details {
   align-items: center;
 }
 
-p .price {
+p > .price {
   position: absolute;
   left: 237px;
   top: 97px;
@@ -59,7 +59,7 @@ p .price {
   align-items: center;
 }
 
-p .image {
+p > .image {
   position: absolute;
   width: 96px;
   height: 95px;
@@ -72,11 +72,11 @@ p .image {
   position: relative;
   margin-top: 14px;
   margin-left: 16.34px;
-  background-image: url("../../public/Delete.svg");
   height: 23.44px;
   width: 20.31px;
   border: 0px;
   cursor: pointer;
+  background-color: #ffffff;
 }
 
 .pluscart {
@@ -100,7 +100,6 @@ p .image {
     height: 14.06px;
     margin-left: 9.41px;
     margin-top: 7px;
-    background-image: url(../../public/Delete_Mobile.svg);
   }
 
   p .image {

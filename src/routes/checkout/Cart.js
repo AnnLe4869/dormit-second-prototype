@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "../checkout/cart.module.css";
+import styles from "../checkout/Cart.module.css";
 import { useState } from "react";
 import {
   Container,
@@ -13,7 +13,7 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import cartItem from "./cartItem";
+import CartItem from "./cartItem";
 
 const Cart = () => {
   const [show, setShow] = useState(false);
@@ -51,15 +51,15 @@ const Cart = () => {
 
           <Offcanvas.Body>
             <div className={styles.cartItem}>
-              <cartItem />
+              <CartItem />
             </div>
             <br></br>
             <div className={styles.cartItem}>
-              <cartItem />
+              <CartItem />
             </div>
             <br></br>
             <div className={styles.cartItem}>
-              <cartItem />
+              <CartItem />
             </div>
             <br></br>
           </Offcanvas.Body>
@@ -104,7 +104,7 @@ const Cart = () => {
               <button
                 className={styles.footerButton}
                 onClick={() => {
-                  navigate("/order/details");
+                  navigate("/checkout");
                 }}
               >
                 <div className={styles.footerButtonItemCount}>X Items</div>

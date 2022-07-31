@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import styles from "../checkout/cartItem.module.css";
+import styles from "../checkout/CartItem.module.css";
 
-const Cart_item = (item) => {
+const CartItem = () => {
   return (
     <div className={styles.box}>
       <p>
-        <button className={styles.CartItemdelete}></button>
+        <button className={styles.CartItemdelete}><img src="./Delete.svg"></img></button>
         <div className={styles.image}></div>
-        <div className={styles.ItemName}>ItemName</div>
+        <div className={styles.itemName}>ItemName</div>
         <div className={styles.Details}>Details</div>
         <div className={styles.price}>Price</div>
       </p>
@@ -15,4 +15,4 @@ const Cart_item = (item) => {
   );
 };
 
-export default Cart_item;
+export default CartItem;

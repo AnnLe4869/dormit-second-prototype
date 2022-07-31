@@ -7,12 +7,21 @@ import { createRoot } from "react-dom/client";
 import "stop-runaway-react-effects/hijack";
 import App from "./App";
 import AppContext from "./context/app-context";
-import firebaseConfig from "./firebase.config";
-import "./index.css";
 
+import "./index.css";
 // this is to populate data only
 // when in production, admin will create item by hand and will add data to it
 import { getStorage } from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAJFe5JBX1JXD2ygq4ryDamTavbO2e9Po4",
+  authDomain: "dormit-second-prototype.firebaseapp.com",
+  projectId: "dormit-second-prototype",
+  storageBucket: "dormit-second-prototype.appspot.com",
+  messagingSenderId: "451270285728",
+  appId: "1:451270285728:web:9ad8890ea66d822a176cc5",
+  measurementId: "G-LW1R7N143W"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

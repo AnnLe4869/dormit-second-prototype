@@ -32,7 +32,7 @@
   height: 272px;
 }
 
-.addressform > .title {
+.title {
   height: 36px;
   width: 101px;
   margin-bottom: 10px;
@@ -43,7 +43,7 @@
   line-height: 36px;
 }
 
-.addressform > .inputs {
+.inputs {
   height: 60px;
   width: 574px;
   display: flex;
@@ -217,7 +217,7 @@
     margin-bottom: 90px;
   }
 
-  .addressForm > .inputs {
+  .inputs {
     flex-flow: column;
     margin-bottom: 45px;
   }

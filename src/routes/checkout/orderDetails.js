@@ -7,12 +7,9 @@ import {
   FormGroup,
   Navbar,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import styles from "../checkout/orderDetails.module.css";
 
-const Review_Cart = () => {
-  let navigate = useNavigate();
-
+const OrderDetails = () => {
   return (
     <div>
       {/* Temporary NavBar */}
@@ -78,10 +75,6 @@ const Review_Cart = () => {
             <Stack>
               <div>Payment</div>
               <div className={styles.payment}>
-                <img
-                  src="./public/wallet.svg"
-                  style={{ "margin-right": "15px" }}
-                ></img>
                 **** **** **** 1234
                 <button className={styles.nextButton}>
                   <img src="./next.svg"></img>
@@ -129,9 +122,6 @@ const Review_Cart = () => {
           <button
             className={styles.placeOrderButton}
             type="submit"
-            onClick={() => {
-              navigate("/order/complete");
-            }}
           >
             <div className={styles.placeOrder}>X Items</div>
             <div className={styles.placeOrder}>Place Order</div>
@@ -143,4 +133,4 @@ const Review_Cart = () => {
   );
 };
 
-export default Review_Cart;
+export default OrderDetails;
