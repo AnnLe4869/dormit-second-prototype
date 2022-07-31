@@ -22,6 +22,39 @@ import apple from "../../assets/apple.png";
 import todaysSpecialIcon from "../../assets/Home/todays-special-icon.svg";
 
 
+/*
+ * Material-UI Imports
+ */
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { borderRadius, fontWeight } from "@mui/system";
+import { Typography } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#7141fa'
+    }
+  },
+
+  typography: {
+    h3: {
+      fontSize: '18px',
+      lineHeight: '21px',
+      fontWeight: 700
+    }
+  }
+
+})
+
+const styles = {
+  navButton: {
+    width: 147,
+    height: 36,
+    borderRadius: '8px',
+    borderColor: '#c4c4c4'
+  }
+};
 
 export default function HomePage() {
   const products = useProducts();
@@ -90,7 +123,7 @@ export default function HomePage() {
   }
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Header />
       <div className={HomeCSS.homeContainer}>
         <div className={HomeCSS.homeContent}>
@@ -121,6 +154,11 @@ export default function HomePage() {
             />
             <h2>Today's Special</h2>
             <h3>Get it while it's hot!</h3>
+
+            {/* TEST */}
+            <Button variant="outlined" sx={styles.navButton}>
+              <Typography variant="h3">Test</Typography>
+            </Button>
 
             <ul className={HomeCSS.bigItemList}>
               {mockSpecialItems.map((item) => {
@@ -249,6 +287,6 @@ export default function HomePage() {
       </div>
       <ViewCart numItems="X" totalAmount="X.XX" />
       <BottomNav currentPage="home" />
-    </>
+    </ThemeProvider>
   );
 }
