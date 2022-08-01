@@ -1,9 +1,12 @@
 import { useState } from "react";
 import {
   useCheckAuthenticationStatus,
-  useEmailSignIn,
+  useSendCodeEmail,
+  useSendCodeToPhone,
   useSignOut,
   useSignUp,
+  useVerifyEmailCode,
+  useVerifyPhoneCode,
 } from "../../context/user/auth-handler";
 import { useCheckout } from "../../context/user/checkout-handler";
 
@@ -13,18 +16,28 @@ export default function Test() {
   const signOut = useSignOut();
   const checkout = useCheckout();
 
-  const { sendCode, authenticateUser } = useEmailSignIn();
+  const sendEmailCode = useSendCodeEmail();
+  const verifyEmailCode = useVerifyEmailCode();
+  const sendPhoneCode = useSendCodeToPhone();
+  const verifyPhoneCode = useVerifyPhoneCode();
 
-  const [code, setCode] = useState("");
+  const [emailCode, setEmailCode] = useState("");
+  const [phoneCode, setPhoneCode] = useState("");
 
-  const handleChange = (event) => {
-    setCode(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmailCode(event.target.value);
+  };
+  const handleEmailSubmit = (event) => {
+    event.preventDefault();
+    verifyEmailCode("kunquan4869@gmail.com", emailCode);
   };
 
-  const handleSubmit = (event) => {
+  const handlePhoneChange = (event) => {
+    setPhoneCode(event.target.value);
+  };
+  const handlePhoneSubmit = (event) => {
     event.preventDefault();
-    authenticateUser("kunquan4869@gmail.com", code);
-    console.log(code);
+    verifyPhoneCode(phoneCode);
   };
 
   return (
@@ -36,20 +49,42 @@ export default function Test() {
         </>
       ) : (
         <>
+          <h1>Sign in with linked email</h1>
           <button
             onClick={() => {
-              sendCode("kunquan4869@gmail.com");
-              console.log("code is sent");
+              sendEmailCode("kunquan4869@gmail.com");
             }}
           >
             Send code to email
           </button>
-          <form onSubmit={handleSubmit}>
-            <label form="code">Enter code</label>
-            <input type="text" id="code" onChange={handleChange} />
+          <form onSubmit={handleEmailSubmit}>
+            <label form="email-code">Enter code</label>
+            <input type="text" id="email-code" onChange={handleEmailChange} />
             <button>Submit</button>
           </form>
-          <button onClick={signUp}>Sign up</button>
+          <hr />
+
+          {/**------------------------------------------------------------------- */}
+
+          <h1>Sign in with phone number</h1>
+          <button
+            onClick={() => {
+              sendPhoneCode("+12345678911");
+            }}
+            id="phone-sign-in-button"
+          >
+            Send code to phone number
+          </button>
+          <form onSubmit={handlePhoneSubmit}>
+            <label form="phone-code">Enter phone code</label>
+            <input type="text" id="phone-code" onChange={handlePhoneChange} />
+            <button>Submit</button>
+          </form>
+          <hr />
+          {/**------------------------------------------------------------------- */}
+
+          <h1>Sign in with Gmail</h1>
+          <button onClick={signUp}>Sign up with Gmail</button>
         </>
       )}
     </main>

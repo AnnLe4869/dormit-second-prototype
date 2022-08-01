@@ -61,6 +61,7 @@ export const updateShipping = functions
       stripeId: string;
       link_email: string;
       name: string;
+      phone: string;
     }>;
 
     try {

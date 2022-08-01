@@ -37,24 +37,24 @@ export function useCheckout() {
     const cart = userState.cart;
     const products = productState.products;
 
-    const productInCart = products.filter((product) =>
-      cart.map((item) => item.id).includes(product.id)
-    );
+    // const productInCart = products.filter((product) =>
+    //   cart.map((item) => item.id).includes(product.id)
+    // );
 
-    // const productInCart = [
-    //   {
-    //     prices: {
-    //       id: "price_1LGginBFL4Le4n4Ln1aqvhxQ",
-    //     },
-    //     quantity: 3,
-    //   },
-    //   {
-    //     prices: {
-    //       id: "price_1LGKpHBFL4Le4n4LTJvZz53k",
-    //     },
-    //     quantity: 5,
-    //   },
-    // ];
+    const productInCart = [
+      {
+        prices: {
+          id: "price_1LGginBFL4Le4n4Ln1aqvhxQ",
+        },
+        quantity: 3,
+      },
+      {
+        prices: {
+          id: "price_1LGKpHBFL4Le4n4LTJvZz53k",
+        },
+        quantity: 5,
+      },
+    ];
 
     const userRef = doc(db, "users", currentUser.uid);
 

@@ -4,7 +4,6 @@ import {
   FieldValue,
 } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
-import { useId } from "react";
 import Stripe from "stripe";
 import config from "../config";
 
@@ -131,7 +130,7 @@ export const checkout = functions
       const userId = context.params.userId as string;
       const usersRef = db.collection("users") as CollectionReference<{
         name: string;
-        phone_number: string;
+        phone: string;
         current_order: Array<{
           /**
            * payment_id used to search for PaymentIntent
@@ -176,14 +175,22 @@ export const checkout = functions
         customer: {
           id: string;
           name: string;
-          phone_number: string;
+          phone: string;
+        };
+        /**
+         * at order time, we don't have any rusher assigned to the order
+         */
+        rusher: {
+          id: string | null;
+          name: string | null;
+          phone: string | null;
         };
       }>;
       /**
        * check if an order of same id has existed or not
        * if there is one, something is wrong
        */
-      const orderDoc = await usersRef.doc(userId).get();
+      const orderDoc = await currentOrdersRef.doc(userId).get();
       if (orderDoc.exists) {
         throw new functions.https.HttpsError(
           "internal",
@@ -221,7 +228,12 @@ export const checkout = functions
         customer: {
           id: userId,
           name: user.name,
-          phone_number: user.phone_number,
+          phone: user.phone,
+        },
+        rusher: {
+          id: null,
+          name: null,
+          phone: null,
         },
       });
 
@@ -239,9 +251,12 @@ export const checkout = functions
           rusher: {
             id: null,
             name: null,
-            phone_number: null,
+            phone: null,
           },
         }),
       });
+
+      // Commit the batch
+      await batch.commit();
     }
   });
