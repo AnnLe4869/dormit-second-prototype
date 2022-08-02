@@ -3,7 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useInitializeApp } from "./context/app-context";
 import AccountPage from "./routes/account/Account";
 import AuthPage from "./routes/auth/Auth";
+<<<<<<< Updated upstream
 import CheckoutPage from "./routes/checkout/Checkout";
+=======
+import OrderDetails from "./routes/checkout/OrderDetails"
+>>>>>>> Stashed changes
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
@@ -22,7 +26,11 @@ function App() {
 
         <Route path="/order" element={<OrderPage />} />
 
+<<<<<<< Updated upstream
         <Route path="/checkout" element={<CheckoutPage />} />
+=======
+        <Route path="/checkout" element={<OrderDetails />} />
+>>>>>>> Stashed changes
 
         <Route path="/account" element={<AccountPage />} />
 
