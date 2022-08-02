@@ -42,7 +42,7 @@ export const updateEmail = functions
     }
 
     if (!process.env.FUNCTIONS_EMULATOR) {
-      const userRef = db.collection("users") as CollectionReference<{
+      const usersRef = db.collection("users") as CollectionReference<{
         link_email: string;
       }>;
 
@@ -51,7 +51,7 @@ export const updateEmail = functions
        * if there is such user, we cannot change our user's link_email to the given email
        * as one email only links to one user
        */
-      const emailMatchedUsers = await userRef
+      const emailMatchedUsers = await usersRef
         .where("link_email", "==", email)
         .get();
       if (!emailMatchedUsers.empty) {
@@ -64,7 +64,7 @@ export const updateEmail = functions
       /**
        * find current user and update its detail
        */
-      userRef.doc(context.auth.uid).update({
+      usersRef.doc(context.auth.uid).update({
         link_email: email,
       });
 

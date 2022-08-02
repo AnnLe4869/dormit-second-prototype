@@ -57,14 +57,15 @@ export const updateShipping = functions
       );
     }
 
-    const userRef = db.collection("users") as CollectionReference<{
+    const usersRef = db.collection("users") as CollectionReference<{
       stripeId: string;
       link_email: string;
       name: string;
+      phone: string;
     }>;
 
     try {
-      const user = (await userRef.doc(context.auth.uid).get()).data();
+      const user = (await usersRef.doc(context.auth.uid).get()).data();
       if (!user) {
         throw new functions.https.HttpsError(
           "not-found",
@@ -107,7 +108,7 @@ export const updateShipping = functions
       /**
        * update user's shipping address in Firebase
        */
-      await userRef.doc(context.auth.uid).update({
+      await usersRef.doc(context.auth.uid).update({
         shipping: {
           address: {
             building,
