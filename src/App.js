@@ -49,8 +49,13 @@ function App() {
 
         <Route path="/account" element={<AccountPage />} />
 
-        <Route path="/category" element={<Category />} />
-        <Route path="/category/supplies" element={<Supplies />} />
+        <Route path="/category">
+          <Route index element={<Category />} />
+          <Route path="supplies" element={<Supplies />} />
+        </Route>
+
+        {/*this is special route for testing only. Delete when done*/}
+        <Route path="/test" element={<Test />} />
 
         <Route path="/" element={<Homepage />} exact />
       </Routes>
