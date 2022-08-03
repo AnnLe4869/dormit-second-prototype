@@ -37,24 +37,24 @@ export function useCheckout() {
     const cart = userState.cart;
     const products = productState.products;
 
-    const productInCart = products.filter((product) =>
-      cart.map((item) => item.id).includes(product.id)
-    );
+    // const productInCart = products.filter((product) =>
+    //   cart.map((item) => item.id).includes(product.id)
+    // );
 
-    // const productInCart = [
-    //   {
-    //     prices: {
-    //       id: "price_1LGginBFL4Le4n4Ln1aqvhxQ",
-    //     },
-    //     quantity: 3,
-    //   },
-    //   {
-    //     prices: {
-    //       id: "price_1LGKpHBFL4Le4n4LTJvZz53k",
-    //     },
-    //     quantity: 5,
-    //   },
-    // ];
+    const productInCart = [
+      {
+        prices: {
+          id: "price_1LGginBFL4Le4n4Ln1aqvhxQ",
+        },
+        quantity: 3,
+      },
+      {
+        prices: {
+          id: "price_1LGKpHBFL4Le4n4LTJvZz53k",
+        },
+        quantity: 5,
+      },
+    ];
 
     const userRef = doc(db, "users", currentUser.uid);
 
@@ -67,8 +67,8 @@ export function useCheckout() {
       automatic_tax: {
         enabled: true,
       },
-      success_url: window.location.origin,
-      cancel_url: window.location.origin,
+      success_url: "http://localhost:3000/test",
+      cancel_url: "http://localhost:3000/test",
       /**
        * we want the line_items is of the form
        * line_items: [
@@ -87,6 +87,12 @@ export function useCheckout() {
        * we must create shipping rate in Stripe dashboard and parse the id there
        */
       shipping_rates: ["shr_1LQ197BFL4Le4n4LGxubQHny"],
+      /**
+       * this is needed so that the address shipping input can be displayed
+       * plus, you have to create in your firebase, in your "products" collection,
+       *
+       */
+      collect_shipping_address: true,
     };
 
     if (tip && isNaN(tip)) {
@@ -138,24 +144,4 @@ export function useCheckout() {
       }
     });
   };
-}
-
-/**
- * update user's shipping address
- *
- * return a function that when called will update user's shipping address
- */
-export function useUpdateShipping() {
-  const { state, dispatch } = useContext(UserContext);
-
-  /**
-   * function that will update user's shipping address
-   *
-   * this will update the shipping field in firebase and in local Context
-   * in firebase in "users" collections, each user has field "shipping"
-   * which is of shape {address: {building: string, floor_apartment: string}}
-   *
-   * after that, update local
-   */
-  return async (address) => {};
 }

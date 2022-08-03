@@ -17,6 +17,9 @@ import Current from "./routes/order/Current/Current";
 import Past from "./routes/order/Past/Past";
 import Selected from "./routes/order/Selected/Selected";
 
+import Test from "./routes/test/Test";
+
+
 function App() {
   useInitializeApp();
 
@@ -44,6 +47,9 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/account" element={<AccountPage />} />
+
+        {/*this is special route for testing only. Delete when done*/}
+        <Route path="/test" element={<Test />} />
 
         <Route path="/" element={<Homepage />} exact />
       </Routes>

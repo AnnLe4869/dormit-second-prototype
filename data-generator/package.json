@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "stripe": "^9.16.0"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
