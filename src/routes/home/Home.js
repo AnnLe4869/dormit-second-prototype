@@ -1,19 +1,21 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 /*
  * Style Sheet
  */
-import "./Home.css";
+import HomeCSS from "./Home.module.css";
+import { homepageStyles } from "../../muiStyles";
 import { useProducts } from "../../context/product/product-handler";
 
 /*
  * Imported Components
  */
 import ItemEntry from "../../shared/item-entry/ItemEntry";
-import BottomNav from "../../shared/bottom-nav/BottomNav";
 import ViewCart from "../../shared/view-cart/ViewCart";
 import Category from "./Category";
 import Header from "./Header";
+
+import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 /*
  * Imported Assets
@@ -21,10 +23,25 @@ import Header from "./Header";
 import apple from "../../assets/apple.png";
 import todaysSpecialIcon from "../../assets/Home/todays-special-icon.svg";
 
-export default function HomePage() {
-  const products = useProducts();
 
+/*
+ * Material-UI Imports
+ */
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import { borderRadius, fontWeight } from "@mui/system";
+import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+
+import { theme } from "../../muiStyles";
+
+export default function HomePage() {
+
+  const products = useProducts();
   console.log(products);
+
   /*
    * Mock lists
    */
@@ -88,39 +105,62 @@ export default function HomePage() {
   }
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+
+      {/*********TODO: Mui **********/}
       <Header />
-      <div className="homeContainer">
-        <div className="homeContent">
+      <div className={HomeCSS.homeContainer}>
+        <div className={HomeCSS.homeContent}>
           {/* Navbar for Food Categories */}
-          <section className="homeCategoryNav">
-            <button onClick={(e) => scrollToCategory(0)}>Chips</button>
-            <button onClick={(e) => scrollToCategory(1)}>Snacks</button>
-            <button onClick={(e) => scrollToCategory(2)}>Energy</button>
-            <button onClick={(e) => scrollToCategory(3)}>Drinks</button>
-            <button onClick={(e) => scrollToCategory(4)}>Sweets</button>
-            <button onClick={(e) => scrollToCategory(5)}>Ice Cream</button>
-            <button onClick={(e) => scrollToCategory(6)}>Ready-to-Eat</button>
+
+          <section className={HomeCSS.homeCategoryNav}>
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(0)}>
+              <Typography variant="h4">Chips</Typography>
+            </Button>
+
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(1)}>
+              <Typography variant="h4">Snacks</Typography>
+            </Button>
+
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(2)}>
+              <Typography variant="h4">Energy</Typography>
+            </Button>
+
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(3)}>
+              <Typography variant="h4">Drinks</Typography>
+            </Button>
+
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(4)}>
+              <Typography variant="h4">Sweets</Typography>
+            </Button>
+
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(5)}>
+              <Typography variant="h4">Ice Cream</Typography>
+            </Button>
+
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(6)}>
+              <Typography variant="h4">Ready-to-eat</Typography>
+            </Button>
           </section>
 
           {/* Bulletin */}
-          <section className="homeBulletin">
-            <div className="bulletinBox"></div>
-            <div className="bulletinBox"></div>
-            <div className="bulletinBox"></div>
+          <section className={HomeCSS.homeBulletin}>
+              <Box sx={homepageStyles.bulletinBox}/>
+              <Box sx={homepageStyles.bulletinBox}/>
+              <Box sx={homepageStyles.bulletinBox}/>
           </section>
 
           {/* Today's Special */}
-          <section className="todaysSpecial">
+          <section className={HomeCSS.todaysSpecial}>
             <img
               src={todaysSpecialIcon}
               alt="Today's Special"
-              className="todaysSpecialIcon"
+              className={HomeCSS.todaysSpecialIcon}
             />
-            <h2>Today's Special</h2>
-            <h3>Get it while it's hot!</h3>
+            <Typography variant="h2">Today's Special</Typography>
+            <Typography variant="h3">Get it while it's hot!</Typography>
 
-            <ul className="bigItemList">
+            <ul className={HomeCSS.bigItemList}>
               {mockSpecialItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -128,9 +168,9 @@ export default function HomePage() {
           </section>
 
           {/* For You Section */}
-          <section className="smallItemSection">
-            <h3>For You</h3>
-            <ul className="smallItemList">
+          <section className={HomeCSS.smallItemSection}>
+            <Typography variant="h3" color="primary">For You</Typography>
+            <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -138,9 +178,9 @@ export default function HomePage() {
           </section>
 
           {/* Trending Section*/}
-          <section className="smallItemSection">
-            <h3>Trending</h3>
-            <ul className="smallItemList">
+          <section className={HomeCSS.smallItemSection}>
+            <Typography variant="h3" color="primary">Trending</Typography>
+            <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -148,9 +188,9 @@ export default function HomePage() {
           </section>
 
           {/* Deals Section */}
-          <section className="smallItemSection">
-            <h3>Deals</h3>
-            <ul className="smallItemList">
+          <section className={HomeCSS.smallItemSection}>
+            <Typography variant="h3" color="primary">Deals</Typography>
+            <ul className={HomeCSS.smallItemList}>
               {mockDealItems.map((item) => {
                 return <li>{item}</li>;
               })}
@@ -158,8 +198,10 @@ export default function HomePage() {
           </section>
 
           {/* Food Categories */}
-          <section className="categorySection">
+          <section className={HomeCSS.categorySection}>
+
             {/* Chips Section */}
+            {/*********TODO: Mui **********/}
             <div id="chipsSection" ref={chipsRef}>
               <Category
                 name="Chips"
@@ -172,6 +214,7 @@ export default function HomePage() {
             </div>
 
             {/* Snacks Section */}
+            {/*********TODO: Mui **********/}
             <div id="snacksSection" ref={snacksRef}>
               <Category
                 name="Snacks"
@@ -184,6 +227,7 @@ export default function HomePage() {
             </div>
 
             {/* Energy Section */}
+            {/*********TODO: Mui **********/}
             <div id="energySection" ref={energyRef}>
               <Category
                 name="Energy"
@@ -196,6 +240,7 @@ export default function HomePage() {
             </div>
 
             {/* Drinks Section */}
+            {/*********TODO: Mui **********/}
             <div id="drinksSection" ref={drinksRef}>
               <Category
                 name="Drinks"
@@ -208,6 +253,7 @@ export default function HomePage() {
             </div>
 
             {/* Sweets Section */}
+            {/*********TODO: Mui **********/}
             <div id="sweetsSection" ref={sweetsRef}>
               <Category
                 name="Sweets"
@@ -220,6 +266,7 @@ export default function HomePage() {
             </div>
 
             {/* Ice Cream Section */}
+            {/*********TODO: Mui **********/}
             <div id="icecreamSection" ref={iceCreamRef}>
               <Category
                 name="Ice Cream"
@@ -232,6 +279,7 @@ export default function HomePage() {
             </div>
 
             {/* Ready-to-Eat Section */}
+            {/*********TODO: Mui **********/}
             <div id="readytoeatSection" ref={readyToEatRef}>
               <Category
                 name="Ready-to-Eat"
@@ -246,7 +294,7 @@ export default function HomePage() {
         </div>
       </div>
       <ViewCart numItems="X" totalAmount="X.XX" />
-      <BottomNav currentPage="home" />
-    </>
+      <BottomNav />
+    </ThemeProvider>
   );
 }
