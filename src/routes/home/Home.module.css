@@ -64,6 +64,14 @@ h3 {
   line-height: 21px;
 }
 
+.homeBulletin2 {
+  grid-gap: 24px;
+  width: 100px;
+  height: 160px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
 .homeBulletin {
   height: 160px;
   display: grid;
