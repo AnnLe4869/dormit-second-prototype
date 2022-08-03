@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Supplies.module.css";
 import SuppliesTemplate from "./suppliesTemplate/SuppliesTemplate";
-import { AiOutlineSend } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import SendIcon from '@mui/icons-material/Send';
 
 const Supplies = (props) => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Supplies = (props) => {
           <div className={styles.suggestionContainer}>
             <input className={styles.suggestionInput} type="text" placeholder="Tell us what to add" />
             <button className={styles.suggestionSubmit} type="submit" onClick={sendSuggestions}>
-              <AiOutlineSend size={18}/>
+              <SendIcon />
             </button>
           </div>
         </div>
