@@ -9,6 +9,7 @@ import {
   useVerifyPhoneCode,
 } from "../../context/user/auth-handler";
 import { useCheckout } from "../../context/user/checkout-handler";
+import { useUpdateShipping } from "../../context/user/profile-context";
 
 export default function Test() {
   const status = useCheckAuthenticationStatus();
@@ -20,6 +21,7 @@ export default function Test() {
   const verifyEmailCode = useVerifyEmailCode();
   const sendPhoneCode = useSendCodeToPhone();
   const verifyPhoneCode = useVerifyPhoneCode();
+  const updateShipping = useUpdateShipping();
 
   const [emailCode, setEmailCode] = useState("");
   const [phoneCode, setPhoneCode] = useState("");
@@ -40,12 +42,27 @@ export default function Test() {
     verifyPhoneCode(phoneCode);
   };
 
+  const handleCheckout = async () => {
+    // await updateShipping();
+    await checkout(1235);
+  };
+
   return (
     <main>
       {status ? (
         <>
           <button onClick={signOut}>Sign out</button>
-          <button onClick={() => checkout(3520)}>Checkout</button>
+          <div>
+            <button
+              onClick={() => {
+                updateShipping();
+              }}
+            >
+              Update shipping address
+            </button>
+          </div>
+
+          <button onClick={handleCheckout}>Checkout</button>
         </>
       ) : (
         <>
@@ -69,7 +86,7 @@ export default function Test() {
           <h1>Sign in with phone number</h1>
           <button
             onClick={() => {
-              sendPhoneCode("+12345678911");
+              sendPhoneCode("+12345358911");
             }}
             id="phone-sign-in-button"
           >

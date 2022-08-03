@@ -252,3 +252,25 @@ stripe listen --forward-to http://localhost:5001/test-app-8c148/us-west2/ext-fir
       And you don't see your function `myFunc` there. It means something is wrong with your `myFunc` and it wasn't get deployed to Emulator
 
     - You use correct format for endpoint. By that I mean, when [using Emulator](https://firebase.google.com/docs/emulator-suite/connect_functions#instrument_your_app_for_https_functions_emulation), the endpoint will look like `https://localhost:5001/test-app-01b2/us-central1/helloWorld` whereas [in production](https://firebase.google.com/docs/functions/http-events#invoke_an_http_function) (when you deploy your cloud function to firebase) it will be of format `https://us-central1-test-app-01b2.cloudfunctions.net/helloWorld`
+
+14. I cannot config Stripe to show the shipping address part even when I already created a document in `products` collection of ID `shipping_countries` per extension instruction
+
+    You may have to remove the config `STRIPE_CONFIG_COLLECTION` in the config file (if you are using Emulator) or the "Stripe configuration collection" if you are using real life server. The reason is because in the extension coding we have
+
+    ```ts
+    const shippingCountries: Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[] =
+      collect_shipping_address
+        ? (
+            await admin
+              .firestore()
+              .collection(
+                config.stripeConfigCollectionPath ||
+                  config.productsCollectionPath
+              )
+              .doc("shipping_countries")
+              .get()
+          ).data()?.["allowed_countries"] ?? []
+        : [];
+    ```
+
+    This means if you have the config for `STRIPE_CONFIG_COLLECTION`, it will overwrite the config location for `PRODUCTS_COLLECTION` config and make it unable to retrieve the information about the shipping
