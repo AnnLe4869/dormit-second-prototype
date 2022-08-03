@@ -1,68 +1,41 @@
-import React from "react";
-import HeaderCSS from "./Header.module.css";
+import React from 'react'
+import AppBar from "@mui/material/AppBar";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Badge from '@mui/material/Badge'
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import dormitIcon from "../../assets/Home/dormit-icon.svg";
 
+import { headerStyles } from '../../muiStyles';
+
 function Header() {
-  /*
-   * Mock values
-   */
-  const mockDeliveryLocation = "Enter delivery location";
-  let mockDeliveryTime = 10;
 
   return (
-    <div className={HeaderCSS.headerContainer}>
-      <section className={HeaderCSS.headerTop}>
-        {/* Center of header */}
-        <div className={HeaderCSS.headerCenter}>
-          <img src={dormitIcon} alt="DormIt Icon" />
-          <h1 className={HeaderCSS.dormitHeader}>DormIt</h1>
-        </div>
+    <AppBar sx={headerStyles.headerContainer}>
+      <Grid container sx={headerStyles.headerGrid} alignItems="center" justifyContent="center">
 
-        {/* Right of header */}
-        <div className={HeaderCSS.headerRight}>Earn Cash</div>
-      </section>
+        <Grid item xs={6} md={3} sx={headerStyles.headerLeft} order={{ xs: 2, md: 1 }}>
+          <Button sx={headerStyles.headerButton} endIcon={<ExpandMoreIcon transform="scale(1.4)"/>}>
+            <Typography variant="h5" fontWeight={200}>Delivery Location</Typography>
+          </Button>
+        </Grid>
 
-      {/* Left of header */}
-      <section className={HeaderCSS.headerLeft}>
-        <div className={HeaderCSS.headerLeftGrid}>
-          {/* Drop-pin Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            fill="currentColor"
-            class="bi bi-geo-alt-fill"
-            viewBox="0 0 16 16"
-            className="pin"
-          >
-            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-          </svg>
+        <Grid item xs={6} md={6} sx={headerStyles.headerCenter} order={{ xs: 1, md: 2 }}>
+          <Badge sx={headerStyles.headerIcon}><img src={dormitIcon} alt="DormIt Icon" /></Badge>
+          <Typography variant="h2" fontWeight={700} sx={{display: "inline-flex"}}>DormIt</Typography>
+        </Grid>
 
-          <div className={HeaderCSS.deliveryInfo}>
-            <p>Rushing to</p>
-            <p className={HeaderCSS.headerText}>{mockDeliveryLocation}</p>
-            <p>In under {mockDeliveryTime} minutes</p>
-          </div>
+        <Grid item xs={0} md={3} sx={headerStyles.headerRight} order={{md: 3 }}>
+          <Button sx={headerStyles.headerButton}>
+            <Typography variant="h5" fontWeight={200}>Earn Cash</Typography>
+          </Button>
+        </Grid>
 
-          {/* Down-arrow Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            fill="currentColor"
-            class="bi bi-chevron-down"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-            />
-          </svg>
-        </div>
-      </section>
-    </div>
-  );
+      </Grid>
+    </AppBar>
+  )
 }
 
-export default Header;
+export default Header
