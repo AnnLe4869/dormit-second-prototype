@@ -8,11 +8,8 @@
 
 .orderContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-        "left topRight"
-        "left right"
-        "bottom bottom";
+    grid-template-columns: auto 1fr;
+    grid-auto-flow: row;
     row-gap: 10px;
     column-gap: 10px;
     position: relative;
@@ -28,7 +25,8 @@
     grid-template-columns: repeat(2, auto);
     justify-content:center;
     align-items: center;
-    grid-row: span 1;
+    grid-column: span 1;
+    grid-row: span 2;
 }
 
 .imageContainer span {
@@ -58,38 +56,53 @@
 
 .orderInfo {
     line-height: 20px;
+    grid-column: span 1;
+    grid-row: span 2;
 }
 
-.orderAction {
+.completedAction {
     display: flex;
     position: relative;
     bottom: 0;
-    height: 40px;
     width: 100%;
+    height: 100%;
     gap: 20px;
-    grid-area: bottom;
-    justify-content: space-between;
+    justify-content: start;
+    align-items: flex-end;
+    grid-column: span 2;
 }
 
-.orderAction button {
-    padding: 5px 0;
-    width: 45%;
+.currentAction {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: span 2;
+}
+
+.completedAction button {
+    padding: 5px 30px;
+    width: 100%;
     border-radius: 8px;
+    font-size: medium;
     background-color: #ffffff;
     outline: none;
     border: #C4C4C4 1px solid;
-    font-weight: bold;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
-}
+    font-weight: bold;}
 
-.textContainer {
-    display: flex;
-    flex-direction: column;
+.currentBtn {
+    width: 40px;
+    height: 40px;
+    outline: none;
+    border: none;
+    background-color: none;
+    border-radius: 999px;
+    overflow: hidden;
 }
 
 
 .colorPurple {
-    color: var(--bs-indigo);
+    color: #7141FA;
 }
 
 .colorRed {
@@ -102,7 +115,6 @@
             width: 200px;
             height: 200px;
             grid-row: span 2;
-            grid-area: left;
         }
 
         .imageContainer > * {
@@ -115,12 +127,17 @@
             column-gap: 25px;
         }
 
-        .orderAction {
-            grid-area: right;
+        .orderInfo {
+            grid-row: span 1;
         }
 
-        .textContainer {
-            grid-area: topRight;
+        .currentAction {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .completedAction {
+            grid-column: span 1;
         }
     }
 }
