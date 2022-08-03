@@ -90,4 +90,4 @@ async function generateProducts(numberOfProduct) {
   }
 }
 
-generateProducts(3);
+updateProducts();

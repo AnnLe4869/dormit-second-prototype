@@ -87,16 +87,18 @@ export const updateShipping = functions
        * is used to pre-filled shipping address in checkout session
        */
       const campus = {
-        name: "University of California, San Diego",
+        address: "9500 Gilman Dr",
         postalCode: "92093",
-        state: "California",
-        country: "United State of America",
+        city: "San Diego",
+        state: "CA",
+        country: "US",
       };
       await stripe.customers.update(stripeId, {
         shipping: {
           address: {
-            line1: campus.name,
-            line2: `${building}, ${floorApartment}`,
+            line1: campus.address,
+            line2: `UCSD building ${building}, floor/apartment ${floorApartment}`,
+            city: campus.city,
             postal_code: campus.postalCode,
             state: campus.state,
             country: campus.country,
