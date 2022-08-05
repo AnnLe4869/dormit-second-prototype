@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
 .supplies {
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 36px;
-  column-gap: 5%;
-  margin-bottom: 100px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-column-gap: 70px;
+  grid-row-gap: 10px;
+  justify-content: center;
 }
 
 .header {
@@ -53,9 +53,10 @@
   font-size: 16px;
   line-height: 19px;
   padding-bottom: 10px;
+  padding-top: 50px;
 }
 
-.noMoreSupplies {
+.jumpToAnotherCategory {
   padding-top: 30px;
   font-family: "Poppins";
   font-style: normal;
@@ -64,7 +65,7 @@
   line-height: 36px;
   text-align: left;
 
-  padding-left: 1%;
+  padding-left: 10%;
   padding-bottom: 30px;
 }
 
@@ -98,10 +99,19 @@
   border: transparent;
 }
 
+.categories{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 30%);
+  grid-gap: 1rem;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 768px) {
   .supplies {
-    row-gap: 36px;
+    display: flex;
+    flex-wrap: wrap;
     column-gap: 0px;
+    justify-content: left;
     margin-bottom: 100px;
   }
 
@@ -124,16 +134,17 @@
     position: relative;
   }
 
-  .noMoreSupplies {
-    padding-top: 30px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: normal;
+  .suggestions{
+    padding-top: 0px;
+  }
+
+  .jumpToAnotherCategory {
     font-size: 110%;
-    line-height: 36px;
-    text-align: left;
-  
     padding-left: 10%;
-    max-width: 70%;
+    padding-bottom: 10px;
+  }
+
+  .categories {
+    grid-template-columns: repeat(auto-fill, 40%); /* 2 */
   }
 }

@@ -33,6 +33,7 @@
 @media only screen and (max-width: 768px) {
   .container{
     position: relative;
+    height: 150px;
   }
 
   .image {

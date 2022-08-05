@@ -18,12 +18,13 @@
 .headerMargin{
   margin-left: 8%;
   margin-right: 8%;
+  padding-bottom: 40px;
 }
 
 
 .searchBar {
   width: 95%;
-  height: 30px;
+  height: 35px;
   border: 0px solid #000000;
   background-color: #F3F3F3;
   border-radius: 8px;
@@ -33,27 +34,6 @@
 
 .searchBar::placeholder {
   color: #686868;
-}
-
-.pageTitle {
-  width: 189px;
-  left: 180px;
-  top: 133px;
-  margin-top: 4%;
-  margin-bottom: 2%;
-
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 34px;
-
-  display: flex;
-  align-items: center;
-
-  color: #000000;
-  margin-left: 30px;
-
-
 }
 
 .searchIcon {
@@ -73,18 +53,12 @@
   }
 
   .searchBar {
-    width: 90%;
+    width: 80%;
+    margin-right: 5%;
   }
 
   .categories {
     grid-template-columns: repeat(auto-fill, 40%); /* 2 */
-  }
-
-  .pageTitle {
-    font-size: 140%;
-    margin-left: 10px;
-
-    margin-left: 10%;
   }
 
   .headerMargin{

@@ -12,8 +12,6 @@ function Category() {
           <SearchIcon className={styles.searchIcon} style={{color: "#686868" }}/>
           <input className={styles.searchBar} type="search" placeholder="Search DormIt" />
         </div>
-
-        <p className={styles.pageTitle}>Categories</p>
       </header>
 
       <div className={styles.categories}>
