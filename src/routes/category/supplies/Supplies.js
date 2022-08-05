@@ -33,9 +33,9 @@ const Supplies = (props) => {
         </div>
 
         <div>
-          <p className={styles.suggestions}>Didn't see what you wanted?</p>
+          <p className={styles.suggestions}>Didn't find what you wanted?</p>
           <div className={styles.suggestionContainer}>
-            <input className={styles.suggestionInput} type="text" placeholder="Tell us what to add" />
+            <input className={styles.suggestionInput} type="text" placeholder="Request" />
             <button className={styles.suggestionSubmit} type="submit" onClick={sendSuggestions}>
               <SendIcon />
             </button>
