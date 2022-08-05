@@ -32,6 +32,7 @@ const Item = (props) => {
         <ButtonGroup className={styles.quantity}>
           <Button style={{maxWidth: '35px', maxHeight: '35px', minWidth: '35px', minHeight: '35px'}}
             aria-label="reduce"
+            variant="text"
             onClick={() => {
               setCount(Math.max(count - 1, 0));
             }}
@@ -41,8 +42,10 @@ const Item = (props) => {
 
 
           <div className={styles.countBox}>{count}</div>
+
           <Button style={{maxWidth: '35px', maxHeight: '35px', minWidth: '35px', minHeight: '35px'}}
             aria-label="increase"
+            variant="text"
             onClick={() => {
               setCount(count + 1);
             }}

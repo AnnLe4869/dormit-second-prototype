@@ -81,7 +81,9 @@
 }
 
 .countBox{
-    width: 70px;
+    width: 60px;
+    border-left: 1px solid;
+    border-right: 1px solid;
 }
 
 .addToCartButton{
