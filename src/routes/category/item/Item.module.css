@@ -30,8 +30,8 @@
 }
 
 .image{
-    width: 80%;
-    height: 80%;
+    width: 60%;
+    height: 60%;
     border-style: none;
     border-radius: 16px;
     position: relative;
@@ -90,7 +90,7 @@
     margin: 0 auto;
     margin-top: 20%;
     width: 50%;
-    height: 60px;
+    height: 50px;
 
     background: #7141FA;
     border: 1px solid #C4C4C4;
