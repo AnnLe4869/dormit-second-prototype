@@ -58,10 +58,18 @@ export const checkout = functions
 
     /**
      * check the status of the data
-     * only when status is "succeeded" do we adjust the inventory
+     * only when status is "succeeded" do we adjust the inventory and order
      */
     if (payment.status === "succeeded") {
-      // get the sell data
+      /**
+       * ---------------------------------------------------------------------------------
+       * UPDATE PRODUCT DATA
+       * ---------------------------------------------------------------------------------
+       */
+
+      /**
+       * get the sell data
+       */
       const { items } = payment;
       const itemsSellData = items.map((item) => {
         if (!item.price || !item.quantity) {
@@ -80,7 +88,7 @@ export const checkout = functions
       }>;
 
       /**
-       * get the current inventory
+       * get the items in inventory that is in the order
        */
       const firestoreData = await productRef
         .where(
@@ -96,7 +104,7 @@ export const checkout = functions
         );
 
         if (!itemSellData) {
-          throw new Error("something is wrong here");
+          throw new Error("Cannot find the item's data");
         }
         /**
          * update the inventory in Stripe
@@ -111,74 +119,144 @@ export const checkout = functions
       });
 
       /**
-       * update the user's current order and current_order collection in firebase
-       * we check for duplicate order
-       * in case something went wrong and we already push the order already
+       * -----------------------------------------------------------------------------------------------
+       * UPDATE CURRENT ORDER DATA
+       * -----------------------------------------------------------------------------------------------
        */
-      const userId = context.params.userId;
-      const paymentId = context.params.paymentId;
-      const userRef = db.collection("users") as CollectionReference<{
+
+      /**
+       * get the user's data
+       */
+      const userId = context.params.userId as string;
+      const usersRef = db.collection("users") as CollectionReference<{
+        name: string;
+        phone: string;
         current_order: Array<{
-          customer_id: string;
-          // used to search for PaymentIntent - provides details about order like order's products, cost, etc.
+          /**
+           * payment_id used to search for PaymentIntent
+           * provides details about order like shipping address, ordered items and their quantity
+           */
           payment_id: string;
+          /**
+           * customer_id is used to effectively find user and update the order's process
+           */
+          customer_id: string;
           order_time: string;
           order_process: string;
-          until_delivery: string;
-          rusher: {
-            user_id: string;
-            /**
-             * the below field is not important - they are here for easy time to fetch data
-             * for example, when user want to view the rusher's detail, they cannot view their info
-             * because they don't have the permission to do so
-             * these field provides just enough information of the rusher to the user
-             */
-            user_name: string;
-            user_contact: string;
-          };
+          until_delivered: string;
         }>;
       }>;
-      // const currentOrderRef = db.collection(
-      //   "current_orders"
-      // ) as CollectionReference<{
-      //   customer_id: string;
-      //   /**
-      //    * used to search for PaymentIntent - provides details about order like order's products, cost, etc.
-      //    * we use this as id for collection "current_orders" for convenience
-      //    */
-      //   payment_id: string;
-      //   order_time: string;
-      //   order_process: string;
-      //   until_delivery: string;
-      //   rusher: {
-      //     user_id: string;
-      //     /**
-      //      * the below field is not important - they are here for easy time to copy data from this field to user
-      //      * for example, when user want to view the rusher's detail, they cannot view their info
-      //      * because they don't have the permission to do so
-      //      * these field provides just enough information of the rusher to the user
-      //      */
-      //     user_name: string;
-      //     user_contact: string;
-      //   };
-      // }>;
-
-      const userData = (await userRef.doc(userId).get()).data();
-
-      if (!userData) {
-        throw new Error("user didn't exist in database");
+      /**
+       * we need user's data and not just user's id
+       * because the rusher need some basic info about the customer, but not all info
+       * it will be risky to have the rusher have all customer's info
+       * we extract only necessary user's info and put that into current_orders for rusher to see
+       */
+      const userDoc = await usersRef.doc(userId).get();
+      const user = userDoc.data();
+      if (!userDoc.exists || !user) {
+        throw new functions.https.HttpsError(
+          "internal",
+          "cannot access data of user that didn't exist in database"
+        );
       }
 
-      // check if the order already exists
-      if (
-        userData.current_order &&
-        userData.current_order.includes(paymentId)
-      ) {
-        throw new Error("somehow the order already in the user's active order");
+      const currentOrdersRef = db.collection(
+        "current_orders"
+      ) as CollectionReference<{
+        /**
+         * used to search for PaymentIntent - provides details about order like order's products, cost, etc.
+         * we use this as id for collection "current_orders" for convenience
+         */
+        order_time: number;
+        order_process: number;
+        payment_id: string;
+        until_delivered: number;
+        customer: {
+          id: string;
+          name: string;
+          phone: string;
+        };
+        /**
+         * at order time, we don't have any rusher assigned to the order
+         */
+        rusher: {
+          id: string | null;
+          name: string | null;
+          phone: string | null;
+        };
+      }>;
+      /**
+       * check if an order of same id has existed or not
+       * if there is one, something is wrong
+       */
+      const orderDoc = await currentOrdersRef.doc(userId).get();
+      if (orderDoc.exists) {
+        throw new functions.https.HttpsError(
+          "internal",
+          "an order of the same id has already existed. Something is wrong here"
+        );
       }
 
-      await userRef.doc(userId).update({
-        current_order: FieldValue.arrayUnion(paymentId),
+      /**
+       * create new document in collection "current_orders" and
+       * create new order in "users" current_orders field
+       */
+      const EPOCH_CURRENT_TIME = new Date().getTime();
+      const TWO_HOURS_PERIOD = 2 * 60 * 60 * 1000;
+      const ORDER_PROCESS_STEP = [0, 1, 2, 3, 4, 5];
+
+      /**
+       * we use batch write here to ensure that both write operations must either succeed or fail together
+       * we don't want the case where we have one write fail while the other success
+       * orders must be synced between collection "current_orders" and in collection "users" field current_orders
+       */
+      const batch = db.batch();
+
+      const paymentId = context.params.paymentId as string;
+
+      // create new document in the "current_orders" collection
+      batch.set(currentOrdersRef.doc(paymentId), {
+        order_time: EPOCH_CURRENT_TIME,
+        order_process: ORDER_PROCESS_STEP[0],
+        payment_id: paymentId,
+        /**
+         * this is rough estimate time until order is delivered
+         * will be adjusted once order is processed
+         */
+        until_delivered: EPOCH_CURRENT_TIME + TWO_HOURS_PERIOD,
+        customer: {
+          id: userId,
+          name: user.name,
+          phone: user.phone,
+        },
+        rusher: {
+          id: null,
+          name: null,
+          phone: null,
+        },
       });
+
+      // create new order in "users" collection's field current_orders with empty value for rusher's fields
+      batch.update(usersRef.doc(userId), {
+        current_orders: FieldValue.arrayUnion({
+          order_time: EPOCH_CURRENT_TIME,
+          order_process: ORDER_PROCESS_STEP[0],
+          payment_id: paymentId,
+          /**
+           * this is rough estimate time until order is delivered
+           * will be adjusted once order is processed
+           */
+          until_delivered: EPOCH_CURRENT_TIME + TWO_HOURS_PERIOD,
+          rusher: {
+            id: null,
+            name: null,
+            phone: null,
+          },
+        }),
+      });
+
+      // Commit the batch
+      await batch.commit();
     }
   });

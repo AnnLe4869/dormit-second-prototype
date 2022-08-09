@@ -50,7 +50,7 @@ export const sendCodeViaEmail = functions
      * Extension https://firebase.google.com/products/extensions/firebase-firestore-send-email
      */
 
-    const mailRef = db.collection("emails") as CollectionReference<{
+    const emailsRef = db.collection("emails") as CollectionReference<{
       to: string;
       message: {
         subject: string;
@@ -58,7 +58,7 @@ export const sendCodeViaEmail = functions
       };
     }>;
     try {
-      await mailRef.add({
+      await emailsRef.add({
         to: email,
         message: {
           subject: "Hello from Firebase!",

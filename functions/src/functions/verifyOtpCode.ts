@@ -61,10 +61,12 @@ export const verifyOtpCode = functions
           token: null,
         };
       }
-      const userRef = db.collection("users") as CollectionReference<{
+      const usersRef = db.collection("users") as CollectionReference<{
         link_email: string;
       }>;
-      const matchedUsers = await userRef.where("link_email", "==", email).get();
+      const matchedUsers = await usersRef
+        .where("link_email", "==", email)
+        .get();
 
       if (matchedUsers.empty) {
         return {

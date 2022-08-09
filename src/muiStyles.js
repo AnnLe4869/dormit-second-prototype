@@ -49,8 +49,20 @@ export const theme = createTheme({
     }
   
 })
+
+export const headers = {
+
+    header4: {
+        fontSize: '18px',
+        lineHeight: '21px',
+        fontWeight: 600
+    },
+
+
+}
   
 export const headerStyles = {
+
 
     headerContainer: {
         position: "static",

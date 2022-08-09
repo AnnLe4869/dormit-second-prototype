@@ -132,9 +132,28 @@ i  functions: Watching "C:\Users\asada\.cache\firebase\extensions\stripe\firesto
 +  functions[us-west2-ext-firestore-stripe-payments-handleWebhookEvents]: http function initialized (http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents).
 ```
 
-Afte that, you have to use local Stripe CLI to test out webhook. Because we work on local, we have to find a way for Stripe to connect to our machine. See [Is it possible to set localhost as a Stripe webhook URL?](https://stackoverflow.com/questions/15357356/is-it-possible-to-set-localhost-as-a-stripe-webhook-url/58073355#58073355) and watch the video [Laravel Stripe Checkout tutorial](https://www.youtube.com/watch?v=b4Jz9UPAyI0&t=1140s) on what the process would look like
+After that, you have to use local Stripe CLI to test out webhook. Because we work on local, we have to find a way for Stripe to connect to our machine. See [Is it possible to set localhost as a Stripe webhook URL?](https://stackoverflow.com/questions/15357356/is-it-possible-to-set-localhost-as-a-stripe-webhook-url/58073355#58073355) and watch the video [Laravel Stripe Checkout tutorial](https://www.youtube.com/watch?v=b4Jz9UPAyI0&t=1140s) on what the process would look like
 
 One more thing. Because this is run on local, you can modify the extension as you want. Just don't forget to recompile them. And don't worry if you go to the extension site (usually at `http://localhost:4000/extensions`) and see that some fields in configuration are empty. They are secret fields and usually remained empty like that, though in reality the emulator already has info from your above configuration (either local file or remote Google Safe)
+
+If you did everything correctly, when you perform checkout or sign up, this is what you should see
+
+```bash
+stripe listen --forward-to http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents
+> Ready! You are using Stripe API Version [2020-08-27]. Your webhook signing secret is whsec_05764f2e03350dcede056065965787869f5a5ddffe300e2b6790c3917e9dccae (^C to quit)
+2022-07-29 06:48:52   --> customer.created [evt_1LQtYeBFL4Le4n4L6tPdkEye]
+2022-07-29 06:48:53  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_1LQtYeBFL4Le4n4L6tPdkEye]
+2022-07-29 06:54:22   --> customer.created [evt_1LQtdyBFL4Le4n4LVboDDxKQ]
+2022-07-29 06:54:22  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_1LQtdyBFL4Le4n4LVboDDxKQ]
+2022-07-29 06:54:23   --> payment_intent.created [evt_3LQtdzBFL4Le4n4L07rARS9D]
+2022-07-29 06:54:23  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_3LQtdzBFL4Le4n4L07rARS9D]
+2022-07-29 06:54:56   --> customer.updated [evt_1LQteWBFL4Le4n4L2ODl9KwP]
+2022-07-29 06:54:56   --> payment_intent.succeeded [evt_3LQtdzBFL4Le4n4L0LDr4sII]
+2022-07-29 06:54:56   --> checkout.session.completed [evt_1LQteWBFL4Le4n4LbIuuz5gQ]
+2022-07-29 06:54:56   --> charge.succeeded [evt_3LQtdzBFL4Le4n4L0TXpwGva]
+2022-07-29 06:54:56  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_1LQteWBFL4Le4n4L2ODl9KwP]
+2022-07-29 06:54:57  <--  [200] POST http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents [evt_3LQtdzBFL4Le4n4L0LDr4sII]
+```
 
 ## Setting up Stripe
 
@@ -178,3 +197,80 @@ One more thing. Because this is run on local, you can modify the extension as yo
 8. The cloud function doesn't send custom token. What happened?
 
    Probably [this one](https://stackoverflow.com/questions/54066947/cant-create-a-custom-token-in-firebase-cloud-functions-because-the-service-acco). You want to edit the one with "App Engine default service account"
+
+9. For Emulator, I cannot install the extension. I keep getting error `firebase ref does not have a version extension`
+
+   Probably because you didn't specify the version of the extension when you install it. Some extension doesn't require the version to be specified but some extension does require. You typically just use the latest version found in the extension page and install like this
+
+   ```bash
+   firebase ext:install stripe/firestore-stripe-payments@0.2.7
+   ```
+
+10. When I run `firebase emulators:start`, I getting error like `The Cloud Functions emulator requires the module "firebase-admin" to be installed`
+
+    First thing you should do is to update your `firebase-tools` to the latest version. If this still not works, you may have to install all dependencies that the extension needed by yourselves. Extension is just cloud function and they have dependencies. You can view where the extension is installed when you install the extension or when you run `firebase emulators:start`
+
+    In Windows, the extension is installed at `~/.cache/firebase/extensions`. For example, my Stripe payment extension is installed at `C:\Users\my-username\.cache\firebase\extensions\stripe\firestore-stripe-payments@0.2.7`. When you go to the extension installed location, navigate to the `functions` directory inside them (all extensions should have that directory - this is where Cloud functions is located). Once there, you run `npm install` to install all dependencies needed. If the extension use TypeScript, you will need to compile them down to Javascript, but most likely you don't need to because extension will automatically compile when you run `npm install`. You can read their `package.json` to see how this works
+
+11. I don't see any secret config when I go to `http://localhost:4000/extensions`. I only see config that is not secret
+
+    Emulator will not display the secret in `.secret.local` and will leave the field blank (yes, blank, not even filled). This is, in my opinion, a very bad UI because it confuses people into thinking that something is wrong and the Emulator didn't get the secret file. In reality, the Emulator did get the secrets
+
+12. I cannot setup the Webhooks secret for Stripe
+
+    Because you develop in local environment, you cannot set up Webhooks endpoint (how can you put `localhost:5001` as endpoint?). With this, you must use Stripe CLI to "tunnel" the event happen on Stripe to your local machine. See [Test a webhooks integration with the Stripe CLI](https://stripe.com/docs/webhooks/test) and watch the video [Laravel Stripe Checkout tutorial](https://www.youtube.com/watch?v=b4Jz9UPAyI0&t=1140s) to see how it is in action.
+
+    Don't quit the CLI because if you do so, it will stop the tunneling. You need to keep it open
+
+    In particular, if you are using Stripe payment extension, you probably want to run this for tunneling
+
+    ```bash
+    # for log in to stripe via CLI
+    stripe login
+    # for tunneling
+    stripe listen --forward-to http://localhost:5001/test-app-8c148/us-west2/ext-firestore-stripe-payments-handleWebhookEvents
+    ```
+
+13. I keep getting 404 message when I use tunneling
+
+    You may have incorrect endpoint. Make sure you check that
+
+    - You use correct protocol. In local development you probably use `http` and not `https`. They won't mix together
+    - The function you call is deployed. You can check whether your function is deployed (in emulator) or not by checking the message when you run `firebase emulators:start`. For example, let's say you have function named `myFunc` and the message you get when start emulator is such
+
+      ```bash
+      # some message above
+      functions[us-central1-checkout]: firestore function initialized.
+      +  functions[us-central1-sendCodeViaEmail]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/sendCodeViaEmail).
+      +  functions[us-central1-verifyOtpCode]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/verifyOtpCode).
+      +  functions[us-central1-updateEmail]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/updateEmail).
+      +  functions[us-central1-updateShipping]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/updateShipping).
+      +  functions[us-central1-updateUserProfile]: http function initialized (http://localhost:5001/test-app-8c148/us-central1/updateUserProfile).
+      # and some message below
+      ```
+
+      And you don't see your function `myFunc` there. It means something is wrong with your `myFunc` and it wasn't get deployed to Emulator
+
+    - You use correct format for endpoint. By that I mean, when [using Emulator](https://firebase.google.com/docs/emulator-suite/connect_functions#instrument_your_app_for_https_functions_emulation), the endpoint will look like `https://localhost:5001/test-app-01b2/us-central1/helloWorld` whereas [in production](https://firebase.google.com/docs/functions/http-events#invoke_an_http_function) (when you deploy your cloud function to firebase) it will be of format `https://us-central1-test-app-01b2.cloudfunctions.net/helloWorld`
+
+14. I cannot config Stripe to show the shipping address part even when I already created a document in `products` collection of ID `shipping_countries` per extension instruction
+
+    You may have to remove the config `STRIPE_CONFIG_COLLECTION` in the config file (if you are using Emulator) or the "Stripe configuration collection" if you are using real life server. The reason is because in the extension coding we have
+
+    ```ts
+    const shippingCountries: Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[] =
+      collect_shipping_address
+        ? (
+            await admin
+              .firestore()
+              .collection(
+                config.stripeConfigCollectionPath ||
+                  config.productsCollectionPath
+              )
+              .doc("shipping_countries")
+              .get()
+          ).data()?.["allowed_countries"] ?? []
+        : [];
+    ```
+
+    This means if you have the config for `STRIPE_CONFIG_COLLECTION`, it will overwrite the config location for `PRODUCTS_COLLECTION` config and make it unable to retrieve the information about the shipping
