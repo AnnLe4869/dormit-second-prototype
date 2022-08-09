@@ -8,7 +8,7 @@ import Badge from '@mui/material/Badge'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import dormitIcon from "../../assets/Home/dormit-icon.svg";
 
-import { headerStyles } from '../../muiStyles';
+import { headerStyles, headers } from '../../muiStyles';
 
 function Header() {
 
@@ -18,18 +18,18 @@ function Header() {
 
         <Grid item xs={6} md={3} sx={headerStyles.headerLeft} order={{ xs: 2, md: 1 }}>
           <Button sx={headerStyles.headerButton} endIcon={<ExpandMoreIcon transform="scale(1.4)"/>}>
-            <Typography variant="h5" fontWeight={200}>Delivery Location</Typography>
+            <Typography sx={headers.header5} fontWeight={200}>Delivery Location</Typography>
           </Button>
         </Grid>
 
         <Grid item xs={6} md={6} sx={headerStyles.headerCenter} order={{ xs: 1, md: 2 }}>
           <Badge sx={headerStyles.headerIcon}><img src={dormitIcon} alt="DormIt Icon" /></Badge>
-          <Typography variant="h2" fontWeight={700} sx={{display: "inline-flex"}}>DormIt</Typography>
+          <Typography sx={headers.header2} fontWeight={700} sx={{display: "inline-flex"}}>DormIt</Typography>
         </Grid>
 
         <Grid item xs={0} md={3} sx={headerStyles.headerRight} order={{md: 3 }}>
           <Button sx={headerStyles.headerButton}>
-            <Typography variant="h5" fontWeight={200}>Earn Cash</Typography>
+            <Typography sx={headers.header5} fontWeight={200}>Earn Cash</Typography>
           </Button>
         </Grid>
 

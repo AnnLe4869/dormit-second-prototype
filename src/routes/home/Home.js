@@ -43,6 +43,9 @@ import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
 import { theme } from "../../muiStyles";
 
 export default function HomePage() {
@@ -91,35 +94,59 @@ export default function HomePage() {
 
     <>
       <img src={specials} alt="Specials" onClick={(e) => scrollToCategory(0)}/>
-      <Typography sx={headers.header4}>Specials</Typography>
+      <Typography sx={headers.header6}>Specials</Typography>
     </>,
     <>
       <img src={candy} alt="Candy" onClick={(e) => scrollToCategory(1)}/>
-      <Typography sx={headers.header4}>Candy</Typography>
+      <Typography sx={headers.header6}>Candy</Typography>
     </>,
     <>
       <img src={chips} alt="Chips" onClick={(e) => scrollToCategory(2)}/>
-      <Typography sx={headers.header4}>Chips</Typography>
+      <Typography sx={headers.header6}>Chips</Typography>
     </>,
     <>
       <img src={drinks} alt="Drinks" onClick={(e) => scrollToCategory(3)}/>
-      <Typography sx={headers.header4}>Drinks</Typography>
+      <Typography sx={headers.header6}>Drinks</Typography>
     </>,
     <>
       <img src={ready} alt="Ready" onClick={(e) => scrollToCategory(4)}/>
-      <Typography sx={headers.header4}>Ready</Typography>
+      <Typography sx={headers.header6}>Ready</Typography>
     </>,
     <>
       <img src={snacks} alt="Snacks" onClick={(e) => scrollToCategory(5)}/>
-      <Typography sx={headers.header4}>Snacks</Typography>
+      <Typography sx={headers.header6}>Snacks</Typography>
     </>,
     <>
       <img src={icecream} alt="Ice Cream" onClick={(e) => scrollToCategory(6)}/>
-      <Typography sx={headers.header4}>Ice Cream</Typography>
+      <Typography sx={headers.header6}>Ice Cream</Typography>
     </>,
     <>
       <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
-      <Typography sx={headers.header4}>Sweets</Typography>
+      <Typography sx={headers.header6}>Sweets</Typography>
+    </>,
+    <>
+      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
+      <Typography sx={headers.header6}>Sweets</Typography>
+    </>,
+    <>
+      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
+      <Typography sx={headers.header6}>Sweets</Typography>
+    </>,
+    <>
+      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
+      <Typography sx={headers.header6}>Sweets</Typography>
+    </>,
+    <>
+      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
+      <Typography sx={headers.header6}>Sweets</Typography>
+    </>,
+    <>
+      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
+      <Typography sx={headers.header6}>Sweets</Typography>
+    </>,
+    <>
+      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
+      <Typography sx={headers.header6}>Sweets</Typography>
     </>
 
   ];
@@ -149,6 +176,22 @@ export default function HomePage() {
     refArray[index].current.scrollIntoView({ behavior: "smooth" });
   }
 
+  function scrollCategoryNext() {
+    // document.getElementById('categoryNav').scrollLeft += 105;
+    document.getElementById("categoryNav").scrollBy({
+      behavior: "smooth",
+      left: +105
+    })
+  }
+
+  function scrollCategoryBack() {
+    // document.getElementById('categoryNav').scrollLeft += 105;
+    document.getElementById("categoryNav").scrollBy({
+      behavior: "smooth",
+      left: -105
+    })
+  }
+
   return (
     <ThemeProvider theme={theme}>
 
@@ -157,13 +200,45 @@ export default function HomePage() {
       <div className={HomeCSS.homeContainer}>
         <div className={HomeCSS.homeContent}>
           {/* Navbar for Food Categories */}
-          <ul className={HomeCSS.homeCategoryNav2}>
 
-            {categoryNavs.map((item) => {
-              return <li className={HomeCSS.categoryCard}>{item}</li>;
-            })}
+          <div className={HomeCSS.homeCategoryContainer}>
+            <ul className={HomeCSS.homeCategoryNav2} id="categoryNav">
 
-          </ul>
+              {categoryNavs.map((item) => {
+                return <li className={HomeCSS.categoryCard}>{item}</li>;
+              })}
+              {/* {categoryNavs.map((item, index) => {
+                if (index < 10){
+                  console.log("Category index: ", index)
+                  return <li className={HomeCSS.categoryCard}>{item}</li>;
+                }
+                // else {
+                //   console.log("Over 10");
+                //   setCategoryOverflow(true);
+                // }
+                return;
+                
+              })} */}
+              
+
+
+            </ul>
+
+            <ArrowBackIosNewIcon
+              sx={homepageStyles.leftArrow}
+              transform="scale(1.4)"
+              onClick={scrollCategoryBack}
+            />
+
+            <ArrowForwardIosIcon 
+              sx={homepageStyles.rightArrow} 
+              transform="scale(1.4)"
+              onClick={scrollCategoryNext}
+            />
+
+
+          </div>
+
 
           <section className={HomeCSS.homeCategoryNav}>
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(0)}>
@@ -204,11 +279,18 @@ export default function HomePage() {
 
           {/* Today's Special */}
           <section className={HomeCSS.todaysSpecial}>
-            <img
-              src={todaysSpecialIcon}
-              alt="Today's Special"
-              className={HomeCSS.todaysSpecialIcon}
-            />
+            <Button 
+              variant="contained" 
+              sx={[homepageStyles.seeAll, {
+                color: "#7140FA", 
+                backgroundColor: "#E5DCFF",
+                "&:hover": {
+                  backgroundColor: "#E5DCFF"
+              }
+              }]}
+            >
+              <Typography sx={headers.header3}>See All</Typography>
+            </Button>
             <Typography sx={headers.header2}>Today's Special</Typography>
             <Typography sx={headers.header3}>Get it while it's hot!</Typography>
 
