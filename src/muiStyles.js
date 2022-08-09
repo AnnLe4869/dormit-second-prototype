@@ -63,7 +63,7 @@ export const headers = {
       },
 
     header3: {
-        fontWeight: 500,
+        fontWeight: 700,
         fontSize: '24px',
         lineHeight: '36px',
 
@@ -84,6 +84,12 @@ export const headers = {
         fontSize: "18px",
         lineHeight: "21px"
     },
+
+    header6: {
+      fontWeight: 400,
+      fontSize: "16px",
+      lineHeight: "24px"
+    }
 
 
 }
@@ -163,6 +169,30 @@ export const homepageStyles = {
         borderColor: '#c4c4c4',
         textTransform: 'none',
         padding: 0
+    },
+
+    leftArrow: {
+      position: 'absolute',
+      top: '30%',
+      left: -52,
+      color: '#7141FA'
+    },
+
+    rightArrow: {
+      position: 'absolute',
+      top: '30%',
+      right: -52,
+      color: '#7141FA'
+    },
+
+    seeAll: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      width: 350,
+      height: 51,
+      borderRadius: "24px",
+      textTransform: 'none',
     }
 };
 
