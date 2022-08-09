@@ -52,10 +52,37 @@ export const theme = createTheme({
 
 export const headers = {
 
+    header2: {
+        fontWeight: 500,
+        fontSize: '34px',
+        lineHeight: '51px',
+        "@media screen and (max-width: 960px)": {
+          fontSize: '28px',
+          lineHeight: '42px'
+        }
+      },
+
+    header3: {
+        fontWeight: 500,
+        fontSize: '24px',
+        lineHeight: '36px',
+
+        "@media screen and (max-width: 960px)": {
+          fontSize: '18px',
+          lineHeight: '21px'
+        }
+      },
+
     header4: {
         fontSize: '18px',
         lineHeight: '21px',
         fontWeight: 600
+    },
+
+    header5: {
+        fontWeight: 700,
+        fontSize: "18px",
+        lineHeight: "21px"
     },
 
 
