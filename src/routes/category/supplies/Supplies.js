@@ -5,6 +5,16 @@ import CategoryTemplate from "../categoryTemplate/CategoryTemplate";
 import { useNavigate } from "react-router-dom";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import SendIcon from '@mui/icons-material/Send';
+import today from "../../../assets/CategoryImages/todays-special.svg";
+import candy from "../../../assets/CategoryImages/candy.svg";
+import chips from "../../../assets/CategoryImages/chips.svg";
+import drinks from "../../../assets/CategoryImages/drinks.svg";
+import snacks from "../../../assets/CategoryImages/snacks.svg";
+import sweets from "../../../assets/CategoryImages/sweets.svg";
+import icecream from "../../../assets/CategoryImages/icecream.svg";
+import readyToEat from "../../../assets/CategoryImages/readytoeat.svg";
+import categoryImage from "../../../assets/CategoryImages/category.svg";
+import BottomNav from "../../../shared/bottom-nav/BottomNav";
 
 const Supplies = (props) => {
   const navigate = useNavigate();
@@ -52,44 +62,46 @@ const Supplies = (props) => {
         <div className={styles.categories}>
         <CategoryTemplate
           className="Today's Special"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={today}
         />
         <CategoryTemplate
           className="Candy"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={candy}
         />
         <CategoryTemplate
           className="Chips"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={chips}
         />
 
         <CategoryTemplate
           className="Drinks"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={drinks}
         />
         <CategoryTemplate
           className="Snacks"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={snacks}
         />
         <CategoryTemplate
           className="Sweets"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={sweets}
         />
 
         <CategoryTemplate
           className="Ice Cream"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={icecream}
         />
         <CategoryTemplate
           className="Ready To Eat"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={readyToEat}
         />
         <CategoryTemplate
           className="Category"
-          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+          link={categoryImage}
         />
+
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 };

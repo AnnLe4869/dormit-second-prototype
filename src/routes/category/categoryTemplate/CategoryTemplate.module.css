@@ -2,18 +2,12 @@
 
 .container{
   position: relative;
-
 }
 
 .image {
-  width: 60%;
-  height: auto;
-
   cursor: pointer;
-  background: #c4c4c4;
-  border-style: none;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10%;
+  width: 80%;
+  height: auto;
 }
 
 .text {
@@ -33,11 +27,10 @@
 @media only screen and (max-width: 768px) {
   .container{
     position: relative;
-    height: 150px;
   }
 
   .image {
-    width: 90%;
+    width: 100%;
   }
   
   .text {

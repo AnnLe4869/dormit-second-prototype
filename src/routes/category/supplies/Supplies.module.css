@@ -3,8 +3,8 @@
 .supplies {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto;
-  grid-column-gap: 70px;
-  grid-row-gap: 10px;
+  grid-column-gap: 50px;
+  grid-row-gap: 80px;
   justify-content: center;
 }
 
@@ -40,9 +40,9 @@
 .page {
   text-align: center;
   margin-top: 100px;
-  margin-bottom: 100px;
   margin-right: 6%;
   margin-left: 6%;
+  margin-bottom: 6%;
 }
 
 
@@ -57,7 +57,7 @@
 }
 
 .jumpToAnotherCategory {
-  padding-top: 30px;
+  padding-top: 80px;
   font-family: "Poppins";
   font-style: normal;
   font-weight: bold;
@@ -65,7 +65,7 @@
   line-height: 36px;
   text-align: left;
 
-  padding-left: 10%;
+  padding-left: 5%;
   padding-bottom: 30px;
 }
 
@@ -102,7 +102,7 @@
 .categories{
   display: grid;
   grid-template-columns: repeat(auto-fill, 30%);
-  grid-gap: 1rem;
+  grid-gap: 3rem;
   justify-content: center;
 }
 
@@ -112,7 +112,8 @@
     flex-wrap: wrap;
     column-gap: 0px;
     justify-content: left;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+    grid-row-gap: 10px;
   }
 
   .page {
@@ -139,12 +140,15 @@
   }
 
   .jumpToAnotherCategory {
+    padding-top: 30px;
     font-size: 110%;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-bottom: 10px;
   }
 
   .categories {
-    grid-template-columns: repeat(auto-fill, 40%); /* 2 */
+    grid-template-columns: repeat(auto-fill, 40%);
+    grid-column-gap: 2rem;
+    grid-row-gap: 1rem;
   }
 }
