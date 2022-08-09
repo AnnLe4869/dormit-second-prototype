@@ -9,7 +9,7 @@ import {
   useVerifyPhoneCode,
 } from "../../context/user/auth-handler";
 import { useCheckout } from "../../context/user/checkout-handler";
-import { useUpdateShipping } from "../../context/user/profile-context";
+import { useUpdateShipping, useUpdateFirstName } from "../../context/user/profile-context";
 
 export default function Test() {
   const status = useCheckAuthenticationStatus();
@@ -22,9 +22,11 @@ export default function Test() {
   const sendPhoneCode = useSendCodeToPhone();
   const verifyPhoneCode = useVerifyPhoneCode();
   const updateShipping = useUpdateShipping();
+  const updateFirstName = useUpdateFirstName();
 
   const [emailCode, setEmailCode] = useState("");
   const [phoneCode, setPhoneCode] = useState("");
+  const [firstName, setFirstName] = useState("");
 
   const handleEmailChange = (event) => {
     setEmailCode(event.target.value);
@@ -41,6 +43,14 @@ export default function Test() {
     event.preventDefault();
     verifyPhoneCode(phoneCode);
   };
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  }
+  const handleFirstNameSubmit = (event) => {
+    event.preventDefault();
+    updateFirstName(firstName);
+  }
 
   const handleCheckout = async () => {
     // await updateShipping();
@@ -102,6 +112,15 @@ export default function Test() {
 
           <h1>Sign in with Gmail</h1>
           <button onClick={signUp}>Sign up with Gmail</button>
+          <hr />
+          {/**------------------------------------------------------------------- */}
+
+          <h1>Set User's First Name</h1>
+          <form onSubmit={handleFirstNameSubmit}>
+            <label form="phone-code">Enter phone code</label>
+            <input type="text" id="phone-code" onChange={handleFirstNameChange} />
+            <button>Submit</button>
+          </form>
         </>
       )}
     </main>

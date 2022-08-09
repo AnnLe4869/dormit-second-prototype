@@ -36,6 +36,19 @@ h3 {
   margin: 24px 0;
 }
 
+.homeCategoryNav2 {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 20px;
+  list-style: none;
+
+}
+
+.categoryCard img {
+  width: 85px;
+  height: 85px;
+}
+
 .homeCategoryNav {
   height: 36px;
   display: grid;

@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
  * Style Sheet
  */
 import HomeCSS from "./Home.module.css";
-import { homepageStyles } from "../../muiStyles";
+import { homepageStyles, headers } from "../../muiStyles";
 import { useProducts } from "../../context/product/product-handler";
 
 /*
@@ -22,6 +22,14 @@ import BottomNav from "../../shared/bottom-nav/BottomNav";
  */
 import apple from "../../assets/apple.png";
 import todaysSpecialIcon from "../../assets/Home/todays-special-icon.svg";
+import specials from "../../assets/Home/specials.svg";
+import candy from "../../assets/Home/candy.svg";
+import chips from "../../assets/Home/chips.svg";
+import drinks from "../../assets/Home/drinks.svg";
+import ready from "../../assets/Home/ready.svg";
+import snacks from "../../assets/Home/snacks.svg";
+import icecream from "../../assets/Home/icecream.svg";
+import sweets from "../../assets/Home/sweets.svg";
 
 
 /*
@@ -79,6 +87,43 @@ export default function HomePage() {
     <ItemEntry price={"Price"} image={apple} />,
   ];
 
+  const categoryNavs = [
+
+    <>
+      <img src={specials} alt="Specials" onClick={(e) => scrollToCategory(0)}/>
+      <Typography sx={headers.header4}>Specials</Typography>
+    </>,
+    <>
+      <img src={candy} alt="Candy" onClick={(e) => scrollToCategory(1)}/>
+      <Typography sx={headers.header4}>Candy</Typography>
+    </>,
+    <>
+      <img src={chips} alt="Chips" onClick={(e) => scrollToCategory(2)}/>
+      <Typography sx={headers.header4}>Chips</Typography>
+    </>,
+    <>
+      <img src={drinks} alt="Drinks" onClick={(e) => scrollToCategory(3)}/>
+      <Typography sx={headers.header4}>Drinks</Typography>
+    </>,
+    <>
+      <img src={ready} alt="Ready" onClick={(e) => scrollToCategory(4)}/>
+      <Typography sx={headers.header4}>Ready</Typography>
+    </>,
+    <>
+      <img src={snacks} alt="Snacks" onClick={(e) => scrollToCategory(5)}/>
+      <Typography sx={headers.header4}>Snacks</Typography>
+    </>,
+    <>
+      <img src={icecream} alt="Ice Cream" onClick={(e) => scrollToCategory(6)}/>
+      <Typography sx={headers.header4}>Ice Cream</Typography>
+    </>,
+    <>
+      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
+      <Typography sx={headers.header4}>Sweets</Typography>
+    </>
+
+  ];
+
   //useRef() constants for page categories
   const chipsRef = useRef(null);
   const snacksRef = useRef(null);
@@ -112,34 +157,41 @@ export default function HomePage() {
       <div className={HomeCSS.homeContainer}>
         <div className={HomeCSS.homeContent}>
           {/* Navbar for Food Categories */}
+          <ul className={HomeCSS.homeCategoryNav2}>
+
+            {categoryNavs.map((item) => {
+              return <li className={HomeCSS.categoryCard}>{item}</li>;
+            })}
+
+          </ul>
 
           <section className={HomeCSS.homeCategoryNav}>
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(0)}>
-              <Typography variant="h4">Chips</Typography>
+              <Typography sx={headers.header4}>Chips</Typography>
             </Button>
 
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(1)}>
-              <Typography variant="h4">Snacks</Typography>
+              <Typography sx={headers.header4}>Snacks</Typography>
             </Button>
 
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(2)}>
-              <Typography variant="h4">Energy</Typography>
+              <Typography sx={headers.header4}>Energy</Typography>
             </Button>
 
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(3)}>
-              <Typography variant="h4">Drinks</Typography>
+              <Typography sx={headers.header4}>Drinks</Typography>
             </Button>
 
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(4)}>
-              <Typography variant="h4">Sweets</Typography>
+              <Typography sx={headers.header4}>Sweets</Typography>
             </Button>
 
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(5)}>
-              <Typography variant="h4">Ice Cream</Typography>
+              <Typography sx={headers.header4}>Ice Cream</Typography>
             </Button>
 
             <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(6)}>
-              <Typography variant="h4">Ready-to-eat</Typography>
+              <Typography sx={headers.header4}>Ready-to-eat</Typography>
             </Button>
           </section>
 
@@ -157,8 +209,8 @@ export default function HomePage() {
               alt="Today's Special"
               className={HomeCSS.todaysSpecialIcon}
             />
-            <Typography variant="h2">Today's Special</Typography>
-            <Typography variant="h3">Get it while it's hot!</Typography>
+            <Typography sx={headers.header2}>Today's Special</Typography>
+            <Typography sx={headers.header3}>Get it while it's hot!</Typography>
 
             <ul className={HomeCSS.bigItemList}>
               {mockSpecialItems.map((item) => {
@@ -169,7 +221,7 @@ export default function HomePage() {
 
           {/* For You Section */}
           <section className={HomeCSS.smallItemSection}>
-            <Typography variant="h3" color="primary">For You</Typography>
+            <Typography sx={headers.header3}>For You</Typography>
             <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
@@ -179,7 +231,7 @@ export default function HomePage() {
 
           {/* Trending Section*/}
           <section className={HomeCSS.smallItemSection}>
-            <Typography variant="h3" color="primary">Trending</Typography>
+            <Typography sx={headers.header3}>Trending</Typography>
             <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
@@ -189,7 +241,7 @@ export default function HomePage() {
 
           {/* Deals Section */}
           <section className={HomeCSS.smallItemSection}>
-            <Typography variant="h3" color="primary">Deals</Typography>
+            <Typography sx={headers.header3}>Deals</Typography>
             <ul className={HomeCSS.smallItemList}>
               {mockDealItems.map((item) => {
                 return <li>{item}</li>;
