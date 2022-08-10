@@ -45,7 +45,6 @@
   margin-bottom: 6%;
 }
 
-
 .suggestions {
   font-family: "SF Pro";
   font-style: normal;
@@ -80,18 +79,18 @@
   position: relative;
 }
 
-.suggestionContainer{
+.suggestionContainer {
   position: relative;
 }
 
-.suggestionInput{
+.suggestionInput {
   box-sizing: border-box;
   padding: 10px 100px 10px 20px;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   border-radius: 30px;
 }
 
-.suggestionSubmit{
+.suggestionSubmit {
   position: inherit;
   left: -35px;
   top: 7px;
@@ -99,7 +98,7 @@
   border: transparent;
 }
 
-.categories{
+.categories {
   display: grid;
   grid-template-columns: repeat(auto-fill, 30%);
   grid-gap: 3rem;
@@ -135,7 +134,7 @@
     position: relative;
   }
 
-  .suggestions{
+  .suggestions {
     padding-top: 0px;
   }
 

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
-.container{
+.container {
   position: relative;
 }
 
@@ -21,18 +21,17 @@
   color: #000000;
   position: inherit;
   bottom: 60px;
-
 }
 
 @media only screen and (max-width: 768px) {
-  .container{
+  .container {
     position: relative;
   }
 
   .image {
     width: 100%;
   }
-  
+
   .text {
     font-size: 120%;
     bottom: 70px;

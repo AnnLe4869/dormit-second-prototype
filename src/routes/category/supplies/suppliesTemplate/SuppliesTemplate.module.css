@@ -1,6 +1,5 @@
 .suppliesItemContainer {
   position: relative;
-
 }
 
 .image {
@@ -28,7 +27,6 @@
   align-items: center;
   transform: scale(2.3);
 }
-
 
 .price {
   font-family: "SF Pro";

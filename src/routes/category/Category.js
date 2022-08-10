@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./Category.module.css";
 import CategoryTemplate from "./categoryTemplate/CategoryTemplate";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 /* CategoryImages components */
 import today from "../../assets/CategoryImages/todays-special.svg";
@@ -25,62 +25,41 @@ import BottomNav from "../../shared/bottom-nav/BottomNav";
 function Category() {
   return (
     <ThemeProvider theme={theme}>
-    <div>
-      <div className={styles.container}>
-        <header className={styles.headerMargin}>
+      <div>
+        <div className={styles.container}>
+          <header className={styles.headerMargin}>
+            <div>
+              <SearchIcon
+                className={styles.searchIcon}
+                style={{ color: "#686868" }}
+              />
+              <input
+                className={styles.searchBar}
+                type="search"
+                placeholder="Search DormIt"
+              />
+            </div>
+          </header>
+
           <div>
-            <SearchIcon className={styles.searchIcon} style={{color: "#686868" }}/>
-            <input className={styles.searchBar} type="search" placeholder="Search DormIt" />
-          </div>
-        </header>
+            <div className={styles.categories}>
+              <CategoryTemplate className="Today's Special" link={today} />
+              <CategoryTemplate className="Candy" link={candy} />
+              <CategoryTemplate className="Chips" link={chips} />
 
-        <div >
-          <div className={styles.categories}>
-            <CategoryTemplate
-              className="Today's Special"
-              link={today}
-            />
-            <CategoryTemplate
-              className="Candy"
-              link={candy}
-            />
-            <CategoryTemplate
-              className="Chips"
-              link={chips}
-            />
+              <CategoryTemplate className="Drinks" link={drinks} />
+              <CategoryTemplate className="Snacks" link={snacks} />
+              <CategoryTemplate className="Sweets" link={sweets} />
 
-            <CategoryTemplate
-              className="Drinks"
-              link={drinks}
-            />
-            <CategoryTemplate
-              className="Snacks"
-              link={snacks}
-            />
-            <CategoryTemplate
-              className="Sweets"
-              link={sweets}
-            />
-
-            <CategoryTemplate
-              className="Ice Cream"
-              link={icecream}
-            />
-            <CategoryTemplate
-              className="Ready To Eat"
-              link={readyToEat}
-            />
-            <CategoryTemplate
-              className="Category"
-              link={categoryImage}
-            />
+              <CategoryTemplate className="Ice Cream" link={icecream} />
+              <CategoryTemplate className="Ready To Eat" link={readyToEat} />
+              <CategoryTemplate className="Category" link={categoryImage} />
+            </div>
           </div>
         </div>
-        
+        <ViewCart numItems="X" totalAmount="X.XX" />
+        <BottomNav />
       </div>
-      <ViewCart numItems="X" totalAmount="X.XX" />
-      <BottomNav/>
-    </div>
     </ThemeProvider>
   );
 }

@@ -11,7 +11,7 @@ const CategoryTemplate = (props) => {
 
   return (
     <div className={styles.container} onClick={navigateCategory}>
-      <img className={styles.image} src={props.link} alt={props.className}/>
+      <img className={styles.image} src={props.link} alt={props.className} />
     </div>
   );
 };

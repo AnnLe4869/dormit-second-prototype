@@ -3,8 +3,8 @@ import styles from "./Supplies.module.css";
 import SuppliesTemplate from "./suppliesTemplate/SuppliesTemplate";
 import CategoryTemplate from "../categoryTemplate/CategoryTemplate";
 import { useNavigate } from "react-router-dom";
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import SendIcon from '@mui/icons-material/Send';
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import SendIcon from "@mui/icons-material/Send";
 import today from "../../../assets/CategoryImages/todays-special.svg";
 import candy from "../../../assets/CategoryImages/candy.svg";
 import chips from "../../../assets/CategoryImages/chips.svg";
@@ -24,12 +24,16 @@ const Supplies = (props) => {
 
   const sendSuggestions = () => {
     alert("Thank you for your suggestions.");
-  }
+  };
 
   return (
     <div>
       <header className={styles.header}>
-        <NavigateBeforeIcon className={styles.back} style={{ width: 48, height: 48, color: "#FFFFFF" }} onClick={navigateItems}/>
+        <NavigateBeforeIcon
+          className={styles.back}
+          style={{ width: 48, height: 48, color: "#FFFFFF" }}
+          onClick={navigateItems}
+        />
         <p className={styles.title}>Supplies</p>
       </header>
       <div className={styles.page}>
@@ -46,8 +50,16 @@ const Supplies = (props) => {
         <div>
           <p className={styles.suggestions}>Didn't find what you wanted?</p>
           <div className={styles.suggestionContainer}>
-            <input className={styles.suggestionInput} type="text" placeholder="Request" />
-            <button className={styles.suggestionSubmit} type="submit" onClick={sendSuggestions}>
+            <input
+              className={styles.suggestionInput}
+              type="text"
+              placeholder="Request"
+            />
+            <button
+              className={styles.suggestionSubmit}
+              type="submit"
+              onClick={sendSuggestions}
+            >
               <SendIcon />
             </button>
           </div>
@@ -60,45 +72,17 @@ const Supplies = (props) => {
         </div>
 
         <div className={styles.categories}>
-        <CategoryTemplate
-          className="Today's Special"
-          link={today}
-        />
-        <CategoryTemplate
-          className="Candy"
-          link={candy}
-        />
-        <CategoryTemplate
-          className="Chips"
-          link={chips}
-        />
+          <CategoryTemplate className="Today's Special" link={today} />
+          <CategoryTemplate className="Candy" link={candy} />
+          <CategoryTemplate className="Chips" link={chips} />
 
-        <CategoryTemplate
-          className="Drinks"
-          link={drinks}
-        />
-        <CategoryTemplate
-          className="Snacks"
-          link={snacks}
-        />
-        <CategoryTemplate
-          className="Sweets"
-          link={sweets}
-        />
+          <CategoryTemplate className="Drinks" link={drinks} />
+          <CategoryTemplate className="Snacks" link={snacks} />
+          <CategoryTemplate className="Sweets" link={sweets} />
 
-        <CategoryTemplate
-          className="Ice Cream"
-          link={icecream}
-        />
-        <CategoryTemplate
-          className="Ready To Eat"
-          link={readyToEat}
-        />
-        <CategoryTemplate
-          className="Category"
-          link={categoryImage}
-        />
-
+          <CategoryTemplate className="Ice Cream" link={icecream} />
+          <CategoryTemplate className="Ready To Eat" link={readyToEat} />
+          <CategoryTemplate className="Category" link={categoryImage} />
         </div>
       </div>
       <BottomNav />

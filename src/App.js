@@ -20,7 +20,6 @@ import Past from "./routes/order/Past/Past";
 import Selected from "./routes/order/Selected/Selected";
 import Test from "./routes/test/Test";
 
-
 function App() {
   useInitializeApp();
 
