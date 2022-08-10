@@ -293,7 +293,7 @@ export default function HomePage() {
           </section>
         </div>
       </div>
-      <ViewCart numItems="X" totalAmount="X.XX" />
+      <ViewCart numItems="X" totalAmount="X.XX"/>
       <BottomNav />
     </ThemeProvider>
   );

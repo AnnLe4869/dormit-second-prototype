@@ -16,8 +16,13 @@ import SearchPage from "./routes/search/Search";
 import Current from "./routes/order/Current/Current";
 import Past from "./routes/order/Past/Past";
 import Selected from "./routes/order/Selected/Selected";
+import OrderDetails from "./routes/checkout/OrderDetails";
+import CompletedOrder from "./routes/checkout/CompletedOrder";
 
 import Test from "./routes/test/Test";
+import Order from "./routes/order/Order";
+import Cart from "./routes/home/Cart";
+import { Home } from "@mui/icons-material";
 
 
 function App() {
@@ -44,7 +49,7 @@ function App() {
           <Route path=":orderId" element={<Selected />} />
         </Route>
 
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkout" element={<OrderDetails />} />
 
         <Route path="/account" element={<AccountPage />} />
 
@@ -52,6 +57,7 @@ function App() {
         <Route path="/test" element={<Test />} />
 
         <Route path="/" element={<Homepage />} exact />
+        <Route path="/complete" element={<CompletedOrder />} exact />
       </Routes>
     </Router>
   );
