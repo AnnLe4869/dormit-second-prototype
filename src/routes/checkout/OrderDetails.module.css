@@ -1,258 +1,257 @@
-header{
-    width: 100%;
-    height: 60px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    color: #000000;
-    margin-top: 5px;
+header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  color: #000000;
+  margin-top: 5px;
 }
 
-header > p{
-    margin: 0 auto;
-    padding-top: 10px;
-    font-weight: 500;
-    font-size: 34px;
-    line-height: 40px;
-    white-space: nowrap;
+header > p {
+  margin: 0 auto;
+  padding-top: 10px;
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 40px;
+  white-space: nowrap;
 }
 
-.back{
-    margin-left: 20px;
-    float: inline-end;
-    color: #7140FA;
-    background: none;
-    border: 0;
+.back {
+  margin-left: 20px;
+  float: inline-end;
+  color: #7140fa;
+  background: none;
+  border: 0;
 }
 
-
-.body{
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+.body {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
-.box{
-    border: 1px;
-    width: 610px;
-    height: 151px;
-    display: flex;
-    flex-flow: column wrap;
-    margin-top: 10px;
-    justify-content: center;
+.box {
+  border: 1px;
+  width: 610px;
+  height: 151px;
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 10px;
+  justify-content: center;
 }
 
-.outerPicture{
-    width: 151px;
-    height: 151px;
-    border-radius: 16px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: #C4C4C4;
+.outerPicture {
+  width: 151px;
+  height: 151px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #c4c4c4;
 }
 
-.outerPicture > .images{
-    width: 56px;
-    height: 57px;
-    background: #C4C4C4;
-    border-radius: 16px;
-    border-radius: 8px;
+.outerPicture > .images {
+  width: 56px;
+  height: 57px;
+  background: #c4c4c4;
+  border-radius: 16px;
+  border-radius: 8px;
 }
 
-.details{
-    width: calc(610px - 151px - 30px);
-    height: 120px;
+.details {
+  width: calc(610px - 151px - 30px);
+  height: 120px;
 }
 
-.details > .row{
-    margin-bottom: 10px;
-    width: inherit;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-    font-family: 'BlinkMacSystemFont';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
+.details > .row {
+  margin-bottom: 10px;
+  width: inherit;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
 }
 
-.details > .row:nth-child(1){
-    justify-content: flex-start;
-    font-weight: 700;
+.details > .row:nth-child(1) {
+  justify-content: flex-start;
+  font-weight: 700;
 }
 
-.addressBox{
-    width: 610px;
-    height: inherit;
-    margin-bottom: 20px;
+.addressBox {
+  width: 610px;
+  height: inherit;
+  margin-bottom: 20px;
 }
 
-.addressBox > .title{
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 36px;
+.addressBox > .title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
 }
 
-.addressBox > .input{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-    height: 53px;
-    margin: 10px 0;
-    font-family: 'BlinkMacSystemFont';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
+.addressBox > .input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  height: 53px;
+  margin: 10px 0;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
 }
 
-.paymentBox{
-    width: 610px;
-    height: inherit;
-    margin-bottom: 30px;
+.paymentBox {
+  width: 610px;
+  height: inherit;
+  margin-bottom: 30px;
 }
 
-.paymentBox >.title{
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 36px;
+.paymentBox > .title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
 }
 
-.paymentBox > .input{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-    margin: 15px 0;
-    font-family: 'BlinkMacSystemFont';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
+.paymentBox > .input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin: 15px 0;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
 }
 
-.rusherTips{
-    width: 610px;
-    height: inherit;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.rusherTips {
+  width: 610px;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.rusherTips > .title{
-    font-family: 'BlinkMacSystemFont';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
+.rusherTips > .title {
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
 }
 
-.tipButton{
-    cursor: pointer;
-    width: 88px;
-    height: 41px;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-    color: #7141FA;
-    background: #EEEEEE;
-    border: inherit;
+.tipButton {
+  cursor: pointer;
+  width: 88px;
+  height: 41px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #7141fa;
+  background: #eeeeee;
+  border: inherit;
 }
 
-.tipButton:nth-child(1){
-    border-radius: 20px 0 0 20px;
+.tipButton:nth-child(1) {
+  border-radius: 20px 0 0 20px;
 }
 
-.tipButton:nth-child(4){
-    border-radius: 0 20px 20px 0;
+.tipButton:nth-child(4) {
+  border-radius: 0 20px 20px 0;
 }
 
 .tipButton:focus {
-    background: #7141FA;
-    color:white;
+  background: #7141fa;
+  color: white;
 }
 
-.replacement{
-    width: 610px;
-    height: inherit;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
+.replacement {
+  width: 610px;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
-.replacement > .title{
-    font-family: 'BlinkMacSystemFont';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
+.replacement > .title {
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
 }
 
-.replaceButton{
-    cursor: pointer;
-    width: 115px;
-    height: 41px;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-    color: #7141FA;
-    background: #EEEEEE;
-    border: inherit;
+.replaceButton {
+  cursor: pointer;
+  width: 115px;
+  height: 41px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #7141fa;
+  background: #eeeeee;
+  border: inherit;
 }
 
-.replaceButton:nth-child(1){
-    border-radius: 20px 0 0 20px;
+.replaceButton:nth-child(1) {
+  border-radius: 20px 0 0 20px;
 }
 
-.replaceButton:nth-child(3){
-    border-radius: 0 20px 20px 0;
+.replaceButton:nth-child(3) {
+  border-radius: 0 20px 20px 0;
 }
 
-.replaceButton:focus{
-    background: #7141FA;
-    color:white;
+.replaceButton:focus {
+  background: #7141fa;
+  color: white;
 }
 
-.placeOrder{
-    display: flex;
-    justify-content: center;
-    column-gap: 5px;
-    align-items: center;
-    text-align: center;
-    width: 420px;
-    height: 60px;
-    background: #7141FA;
-    border-radius: 30px;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 36px;
-    color: white;
-    border: none;
-    margin-bottom: 10px;
-    cursor: pointer;
+.placeOrder {
+  display: flex;
+  justify-content: center;
+  column-gap: 5px;
+  align-items: center;
+  text-align: center;
+  width: 420px;
+  height: 60px;
+  background: #7141fa;
+  border-radius: 30px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
