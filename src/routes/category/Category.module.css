@@ -59,7 +59,7 @@
   .searchIcon {
     position: absolute;
     top: 57px;
-    left: 38px;
+    left: 55px;
   }
 
   .categories {
@@ -67,8 +67,8 @@
   }
 
   .headerMargin {
-    margin-left: 0%;
-    margin-right: 0%;
+    margin-left: 5%;
+    margin-right: 2%;
     padding-top: 40px;
   }
 }
