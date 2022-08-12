@@ -72,6 +72,9 @@ export default function HomePage() {
     <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
     <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
     <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />
   ];
 
   const mockDealItems = [
@@ -79,6 +82,12 @@ export default function HomePage() {
     <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
     <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
     <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
+    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
+    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
+    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
+    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
+    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
+    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />
   ];
 
   const mockCategoryItems = [
@@ -125,48 +134,51 @@ export default function HomePage() {
       <Typography sx={headers.header6}>Sweets</Typography>
     </>,
     <>
-      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
-      <Typography sx={headers.header6}>Sweets</Typography>
+      <Box sx={homepageStyles.grayBox}/>
+      <Typography sx={headers.header6}>Category</Typography>
     </>,
     <>
-      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
-      <Typography sx={headers.header6}>Sweets</Typography>
+      <Box sx={homepageStyles.grayBox}/>
+      <Typography sx={headers.header6}>Category</Typography>
     </>,
     <>
-      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
-      <Typography sx={headers.header6}>Sweets</Typography>
+      <Box sx={homepageStyles.grayBox}/>
+      <Typography sx={headers.header6}>Category</Typography>
     </>,
     <>
-      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
-      <Typography sx={headers.header6}>Sweets</Typography>
+      <Box sx={homepageStyles.grayBox}/>
+      <Typography sx={headers.header6}>Category</Typography>
     </>,
     <>
-      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
-      <Typography sx={headers.header6}>Sweets</Typography>
+      <Box sx={homepageStyles.grayBox}/>
+      <Typography sx={headers.header6}>Category</Typography>
     </>,
     <>
-      <img src={sweets} alt="Sweets" onClick={(e) => scrollToCategory(7)}/>
-      <Typography sx={headers.header6}>Sweets</Typography>
+      <Box sx={homepageStyles.grayBox}/>
+      <Typography sx={headers.header6}>Category</Typography>
     </>
 
   ];
 
   //useRef() constants for page categories
+  const specialsRef = useRef(null);
+  const candyRef = useRef(null);
   const chipsRef = useRef(null);
-  const snacksRef = useRef(null);
-  const energyRef = useRef(null);
   const drinksRef = useRef(null);
-  const sweetsRef = useRef(null);
-  const iceCreamRef = useRef(null);
   const readyToEatRef = useRef(null);
+  const snacksRef = useRef(null);
+  const iceCreamRef = useRef(null);
+  const sweetsRef = useRef(null);
+
   const refArray = [
+    specialsRef,
+    candyRef,
     chipsRef,
-    snacksRef,
-    energyRef,
     drinksRef,
-    sweetsRef,
-    iceCreamRef,
     readyToEatRef,
+    snacksRef,
+    iceCreamRef,
+    sweetsRef,
   ];
 
   /*
@@ -176,20 +188,30 @@ export default function HomePage() {
     refArray[index].current.scrollIntoView({ behavior: "smooth" });
   }
 
-  function scrollCategoryNext() {
-    // document.getElementById('categoryNav').scrollLeft += 105;
-    document.getElementById("categoryNav").scrollBy({
-      behavior: "smooth",
-      left: +105
-    })
+  let categoryPixels = {pixelCount: 0};
+  let forYouPixels = {pixelCount: 0};
+  let trendingPixels = {pixelCount: 0};
+  let dealsPixels = {pixelCount: 0};
+  let candyPixels = {pixelCount: 0};
+  let chipsPixels = {pixelCount: 0};
+  let drinksPixels = {pixelCount: 0};
+  let readyPixels = {pixelCount: 0};
+  let snacksPixels = {pixelCount: 0};
+  let iceCreamPixels = {pixelCount: 0};
+  let sweetsPixels = {pixelCount: 0};
+
+  function scrollCategoryNext(element, object, pixels, overflow) {
+    const total = overflow * pixels;
+    if (object.pixelCount < total){
+      document.getElementById(element).scrollTo(object.pixelCount += pixels, 0);
+    }
+    
   }
 
-  function scrollCategoryBack() {
-    // document.getElementById('categoryNav').scrollLeft += 105;
-    document.getElementById("categoryNav").scrollBy({
-      behavior: "smooth",
-      left: -105
-    })
+  function scrollCategoryBack(element, object, pixels) {
+    if (object.pixelCount > 0){
+      document.getElementById(element).scrollTo(object.pixelCount -= pixels, 0);
+    }
   }
 
   return (
@@ -203,228 +225,429 @@ export default function HomePage() {
 
           <div className={HomeCSS.homeCategoryContainer}>
             <ul className={HomeCSS.homeCategoryNav2} id="categoryNav">
-
               {categoryNavs.map((item) => {
                 return <li className={HomeCSS.categoryCard}>{item}</li>;
               })}
-              {/* {categoryNavs.map((item, index) => {
-                if (index < 10){
-                  console.log("Category index: ", index)
-                  return <li className={HomeCSS.categoryCard}>{item}</li>;
-                }
-                // else {
-                //   console.log("Over 10");
-                //   setCategoryOverflow(true);
-                // }
-                return;
-                
-              })} */}
-              
-
-
             </ul>
 
             <ArrowBackIosNewIcon
               sx={homepageStyles.leftArrow}
               transform="scale(1.4)"
-              onClick={scrollCategoryBack}
+              onClick={() => scrollCategoryBack("categoryNav", categoryPixels, 105)}
             />
 
             <ArrowForwardIosIcon 
               sx={homepageStyles.rightArrow} 
               transform="scale(1.4)"
-              onClick={scrollCategoryNext}
+              onClick={() => scrollCategoryNext("categoryNav", categoryPixels, 105, categoryNavs.length-10)}
             />
 
 
           </div>
 
-
-          <section className={HomeCSS.homeCategoryNav}>
-            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(0)}>
-              <Typography sx={headers.header4}>Chips</Typography>
-            </Button>
-
-            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(1)}>
-              <Typography sx={headers.header4}>Snacks</Typography>
-            </Button>
-
-            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(2)}>
-              <Typography sx={headers.header4}>Energy</Typography>
-            </Button>
-
-            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(3)}>
-              <Typography sx={headers.header4}>Drinks</Typography>
-            </Button>
-
-            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(4)}>
-              <Typography sx={headers.header4}>Sweets</Typography>
-            </Button>
-
-            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(5)}>
-              <Typography sx={headers.header4}>Ice Cream</Typography>
-            </Button>
-
-            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(6)}>
-              <Typography sx={headers.header4}>Ready-to-eat</Typography>
-            </Button>
-          </section>
-
-          {/* Bulletin */}
-          <section className={HomeCSS.homeBulletin}>
-              <Box sx={homepageStyles.bulletinBox}/>
-              <Box sx={homepageStyles.bulletinBox}/>
-              <Box sx={homepageStyles.bulletinBox}/>
-          </section>
-
           {/* Today's Special */}
-          <section className={HomeCSS.todaysSpecial}>
-            <Button 
-              variant="contained" 
-              sx={[homepageStyles.seeAll, {
-                color: "#7140FA", 
-                backgroundColor: "#E5DCFF",
-                "&:hover": {
-                  backgroundColor: "#E5DCFF"
-              }
-              }]}
-            >
-              <Typography sx={headers.header3}>See All</Typography>
-            </Button>
-            <Typography sx={headers.header2}>Today's Special</Typography>
-            <Typography sx={headers.header3}>Get it while it's hot!</Typography>
+          <section className={HomeCSS.todaysSpecial}  id="specialsSection" ref={specialsRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.todaysSpecialHeader}>
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#7140FA", 
+                  backgroundColor: "#E5DCFF",
+                  "&:hover": {
+                    backgroundColor: "#E5DCFF"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
+              <Typography sx={headers.header2}>Today's Special</Typography>
+              <Typography sx={[headers.header3, {color: "#969696", fontWeight: 400}]}>Get it while it's hot!</Typography>
+            </div>
+
 
             <ul className={HomeCSS.bigItemList}>
               {mockSpecialItems.map((item) => {
                 return <li>{item}</li>;
               })}
             </ul>
+            <hr className={HomeCSS.sectionBarBottom}/>
           </section>
 
           {/* For You Section */}
           <section className={HomeCSS.smallItemSection}>
             <Typography sx={headers.header3}>For You</Typography>
-            <ul className={HomeCSS.smallItemList}>
-              {mockForYouItems.map((item) => {
-                return <li>{item}</li>;
-              })}
-            </ul>
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="forYouList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("forYouList", forYouPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("forYouList", forYouPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+
           </section>
 
           {/* Trending Section*/}
           <section className={HomeCSS.smallItemSection}>
             <Typography sx={headers.header3}>Trending</Typography>
-            <ul className={HomeCSS.smallItemList}>
-              {mockForYouItems.map((item) => {
-                return <li>{item}</li>;
-              })}
-            </ul>
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="trendingList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("trendingList", trendingPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("trendingList", trendingPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+
           </section>
 
           {/* Deals Section */}
           <section className={HomeCSS.smallItemSection}>
             <Typography sx={headers.header3}>Deals</Typography>
-            <ul className={HomeCSS.smallItemList}>
-              {mockDealItems.map((item) => {
-                return <li>{item}</li>;
-              })}
-            </ul>
+            <Typography sx={[headers.header3, {color: "#969696", fontWeight: 400}]}>Don't miss out!</Typography>
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="dealsList">
+                {mockDealItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("dealsList", dealsPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("dealsList", dealsPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+
           </section>
 
-          {/* Food Categories */}
-          <section className={HomeCSS.categorySection}>
+          {/* Bulletin */}
+          <section className={HomeCSS.homeBulletin}>
+              <Box sx={homepageStyles.bulletinBox}/>
+              <Box sx={homepageStyles.bulletinBox}/>
+          </section>
 
-            {/* Chips Section */}
-            {/*********TODO: Mui **********/}
-            <div id="chipsSection" ref={chipsRef}>
-              <Category
-                name="Chips"
-                itemList={mockCategoryItems}
-                style={{
-                  borderImageSource:
-                    "linear-gradient(90.28deg, #F0786F 0%, #FABA68 100%)",
-                }}
-              />
+          {/* Candy Section */}
+          <section className={HomeCSS.categoryContainer} id="candySection" ref={candyRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={candy} alt="Candy section" />
+              <Typography sx={headers.header3}>Candy</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#D4162E", 
+                  backgroundColor: "#FCBAC2",
+                  "&:hover": {
+                    backgroundColor: "#FCBAC2"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
             </div>
 
-            {/* Snacks Section */}
-            {/*********TODO: Mui **********/}
-            <div id="snacksSection" ref={snacksRef}>
-              <Category
-                name="Snacks"
-                itemList={mockCategoryItems}
-                style={{
-                  borderImageSource:
-                    "linear-gradient(90.28deg, #FABA68 0%, #FFEB83 100%)",
-                }}
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="candyList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("candyList", candyPixels, 174)}
               />
-            </div>
 
-            {/* Energy Section */}
-            {/*********TODO: Mui **********/}
-            <div id="energySection" ref={energyRef}>
-              <Category
-                name="Energy"
-                itemList={mockCategoryItems}
-                style={{
-                  borderImageSource:
-                    "linear-gradient(90.28deg, #FFEB83 0%, #CDF888 100%)",
-                }}
-              />
-            </div>
-
-            {/* Drinks Section */}
-            {/*********TODO: Mui **********/}
-            <div id="drinksSection" ref={drinksRef}>
-              <Category
-                name="Drinks"
-                itemList={mockCategoryItems}
-                style={{
-                  borderImageSource:
-                    "linear-gradient(90.28deg, #88F8CF 0%, #88BBF8 100%)",
-                }}
-              />
-            </div>
-
-            {/* Sweets Section */}
-            {/*********TODO: Mui **********/}
-            <div id="sweetsSection" ref={sweetsRef}>
-              <Category
-                name="Sweets"
-                itemList={mockCategoryItems}
-                style={{
-                  borderImageSource:
-                    "linear-gradient(90.28deg, #945B46 0%, #DEAD98 100%)",
-                }}
-              />
-            </div>
-
-            {/* Ice Cream Section */}
-            {/*********TODO: Mui **********/}
-            <div id="icecreamSection" ref={iceCreamRef}>
-              <Category
-                name="Ice Cream"
-                itemList={mockCategoryItems}
-                style={{
-                  borderImageSource:
-                    "linear-gradient(90.28deg, #DB88F8 0%, #F88888 100%)",
-                }}
-              />
-            </div>
-
-            {/* Ready-to-Eat Section */}
-            {/*********TODO: Mui **********/}
-            <div id="readytoeatSection" ref={readyToEatRef}>
-              <Category
-                name="Ready-to-Eat"
-                itemList={mockCategoryItems}
-                style={{
-                  borderImageSource:
-                    "linear-gradient(90.28deg, #DC4A4A 0%, #ECA8A8 100%)",
-                }}
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("candyList", candyPixels, 174, mockForYouItems.length-6)}
               />
             </div>
           </section>
+
+          {/* Chips Section */}
+          <section className={HomeCSS.categoryContainer} id="chipsSection" ref={chipsRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={chips} alt="Chips section" />
+              <Typography sx={headers.header3}>Chips</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#BD653C", 
+                  backgroundColor: "#FFD9C7",
+                  "&:hover": {
+                    backgroundColor: "#FFD9C7"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="chipsList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("chipsList", chipsPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("chipsList", chipsPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+          </section>
+
+          {/* Drinks Section */}
+          <section className={HomeCSS.categoryContainer} id="drinksSection" ref={drinksRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={drinks} alt="Drinks section" />
+              <Typography sx={headers.header3}>Drinks</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#C79415", 
+                  backgroundColor: "#FFE7AA",
+                  "&:hover": {
+                    backgroundColor: "#FFE7AA"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="drinksList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("drinksList", drinksPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("drinksList", drinksPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+          </section>
+
+          {/* Ready To Eat Section */}
+          <section className={HomeCSS.categoryContainer} id="readyToEatSection" ref={readyToEatRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={ready} alt="Ready To Eat section" />
+              <Typography sx={headers.header3}>Ready To Eat</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#E28413", 
+                  backgroundColor: "#FFDBB0",
+                  "&:hover": {
+                    backgroundColor: "#FFDBB0"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="readyList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("readyList", readyPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("readyList", readyPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+          </section>
+
+          {/* Snacks Section */}
+          <section className={HomeCSS.categoryContainer} id="snacksSection" ref={snacksRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={snacks} alt="Snacks section" />
+              <Typography sx={headers.header3}>Snacks</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#3C8D8A", 
+                  backgroundColor: "#C8F0EE",
+                  "&:hover": {
+                    backgroundColor: "#C8F0EE"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="snacksList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("snacksList", snacksPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("snacksList", snacksPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+          </section>
+
+          {/* Ice Cream Section */}
+          <section className={HomeCSS.categoryContainer} id="iceCreamSection" ref={iceCreamRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={icecream} alt="Ice Cream section" />
+              <Typography sx={headers.header3}>Ice Cream</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#3B88C3", 
+                  backgroundColor: "#B3DEFF",
+                  "&:hover": {
+                    backgroundColor: "#B3DEFF"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="iceCreamList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("iceCreamList", iceCreamPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("iceCreamList", iceCreamPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+          </section>
+
+          {/* Sweets Section */}
+          <section className={HomeCSS.categoryContainer} id="sweetsSection" ref={sweetsRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={sweets} alt="Sweets section" />
+              <Typography sx={headers.header3}>Sweets</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#AC23B9", 
+                  backgroundColor: "#F8D7FB",
+                  "&:hover": {
+                    backgroundColor: "#F8D7FB"
+                }
+                }]}
+              >
+                <Typography sx={headers.header3}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="sweetsList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("sweetsList", sweetsPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("sweetsList", sweetsPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+          </section>
+
         </div>
       </div>
       <ViewCart numItems="X" totalAmount="X.XX" />

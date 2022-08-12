@@ -24,7 +24,7 @@ function Header() {
 
         <Grid item xs={6} md={6} sx={headerStyles.headerCenter} order={{ xs: 1, md: 2 }}>
           <Badge sx={headerStyles.headerIcon}><img src={dormitIcon} alt="DormIt Icon" /></Badge>
-          <Typography sx={headers.header2} fontWeight={700} sx={{display: "inline-flex"}}>DormIt</Typography>
+          <Typography sx={[headers.header2, {display: "inline-flex"}]} fontWeight={700}>DormIt</Typography>
         </Grid>
 
         <Grid item xs={0} md={3} sx={headerStyles.headerRight} order={{md: 3 }}>
