@@ -21,7 +21,7 @@ import BottomNav from "../../shared/bottom-nav/BottomNav";
  * Imported Assets
  */
 import apple from "../../assets/apple.png";
-import todaysSpecialIcon from "../../assets/Home/todays-special-icon.svg";
+import innout from '../../assets/innout.png';
 import specials from "../../assets/Home/specials.svg";
 import candy from "../../assets/Home/candy.svg";
 import chips from "../../assets/Home/chips.svg";
@@ -51,7 +51,7 @@ export default function HomePage() {
    * Mock lists
    */
   const mockSpecialItems = [
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={2} />,
+    <ItemEntry id="innout" name="In-N-Out Burger" image={innout} price="3.45" stock={2} />,
     <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
     <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
     <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,

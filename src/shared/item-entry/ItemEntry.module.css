@@ -35,6 +35,7 @@
 .itemImage img {
     width: 100%;
     cursor: pointer;
+    border-radius: 16px;
 }
 
 .itemInfo {
@@ -47,6 +48,10 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 21px;
+}
+
+.itemName {
+    font-weight: 900;
 }
 
 .stockInfo p {
