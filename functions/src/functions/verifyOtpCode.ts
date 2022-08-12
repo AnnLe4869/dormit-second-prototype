@@ -8,7 +8,7 @@ import { db, admin } from "../setup";
 
 /**
  * Verify the Otp code the user provide
- * If the code is correct, using the email we search for user that have this email as "link_email"
+ * If the code is correct, using the email we search for user that have this email as "linked_email"
  * Generate custom token with that user's uid and send back to client for authentication
  *
  * Params for the function
@@ -62,10 +62,10 @@ export const verifyOtpCode = functions
         };
       }
       const usersRef = db.collection("users") as CollectionReference<{
-        link_email: string;
+        linked_email: string;
       }>;
       const matchedUsers = await usersRef
-        .where("link_email", "==", email)
+        .where("linked_email", "==", email)
         .get();
 
       if (matchedUsers.empty) {
