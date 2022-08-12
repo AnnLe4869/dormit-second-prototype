@@ -53,7 +53,7 @@ export const theme = createTheme({
 export const headers = {
 
     header2: {
-        fontWeight: 500,
+        fontWeight: 900,
         fontSize: '34px',
         lineHeight: '51px',
         "@media screen and (max-width: 960px)": {
@@ -100,14 +100,16 @@ export const headerStyles = {
     headerContainer: {
         position: "static",
         width: "100%",
-        height: 100,
+        padding: "0.8% 0",
+        height: "auto",
+        maxHeight: 90,
         backgroundColor: "secondary.main",
         flexGrow: 1 ,
         display: "flex",
         justifyContent: "center",
         textAlign: "center",
         "@media screen and (max-width: 960px)": {
-            height: 95,
+            height: 80,
             display: "block",
             padding: "20px"
         }
@@ -143,22 +145,37 @@ export const headerStyles = {
     },
 
     headerIcon: {
-        "@media screen and (max-width: 960px)": {
-            display: "none"
-        }
+
+      maxWidth: 78,
+      height: "auto",
+
+      "@media screen and (max-width: 960px)": {
+          display: "none"
+      }
     }
 }
 
 export const homepageStyles = {
 
+    grayBox: {
+      width: 85,
+      height: 85,
+      borderRadius: "15px",
+      backgroundColor: "#EEEEEE",
+      "@media screen and (max-width: 960px)": {
+        width: 67,
+        height: 67
+      }
+    },
+
     bulletinBox: {
-        width: 310,
-        height: 160,
+        width: 507,
+        height: 214,
         borderRadius: '16px',
         backgroundColor: "secondary.main",
 
         "@media screen and (max-width: 960px)": {
-        height: 130
+          height: 130
         }
     },
 
@@ -175,24 +192,40 @@ export const homepageStyles = {
       position: 'absolute',
       top: '30%',
       left: -52,
-      color: '#7141FA'
+      color: '#7141FA',
+      "@media screen and (max-width: 960px)": {
+        display: "none"
+      }
     },
 
     rightArrow: {
       position: 'absolute',
       top: '30%',
       right: -52,
-      color: '#7141FA'
+      color: '#7141FA',
+      "@media screen and (max-width: 960px)": {
+        display: "none"
+      }
     },
 
     seeAll: {
       position: 'absolute',
       top: 0,
+      bottom: 0,
       right: 0,
-      width: 350,
+      margin: "auto",
+      width: "34%",
       height: 51,
       borderRadius: "24px",
       textTransform: 'none',
+      boxShadow: "none",
+      "&:hover": {
+        boxShadow: "none"
+      },
+      "@media screen and (max-width: 960px)": {
+        width: 92,
+        height: 34
+      }
     }
 };
 

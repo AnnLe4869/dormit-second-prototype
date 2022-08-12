@@ -15,6 +15,7 @@
     overflow: hidden;
     border: none;
     background-color: rgb(0,0,0,0);
+    cursor: pointer;
 }
 
 .itemCorner img {
@@ -23,15 +24,17 @@
 
 .itemImage {
     width: 100%;
+    background-color: #ffffff;
     /* padding-top: 100%; */
     /* ^TURN ME OFF FOR REAL IMAGES, ON FOR BOXES^ */
-    background-color: #ffffff;
+    /* background-color: #818181; */
     border-radius: 16px;
     border: none;
 }
 
 .itemImage img {
     width: 100%;
+    cursor: pointer;
 }
 
 .itemInfo {
