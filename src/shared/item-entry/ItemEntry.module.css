@@ -62,7 +62,7 @@
     text-decoration: line-through;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 600px) {
 
     .itemInfo {
         margin-bottom: 8px;

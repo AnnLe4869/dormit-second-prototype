@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
  * Style Sheet
  */
 import HomeCSS from "./Home.module.css";
-import { homepageStyles, headers } from "../../muiStyles";
+import { homepageStyles, headers } from "./muiStyles";
 import { useProducts } from "../../context/product/product-handler";
 
 /*
@@ -35,18 +35,12 @@ import sweets from "../../assets/Home/sweets.svg";
 /*
  * Material-UI Imports
  */
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import { borderRadius, fontWeight } from "@mui/system";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
-import { theme } from "../../muiStyles";
 
 export default function HomePage() {
 
@@ -215,9 +209,7 @@ export default function HomePage() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-
-      {/*********TODO: Mui **********/}
+    <>
       <Header />
       <div className={HomeCSS.homeContainer}>
         <div className={HomeCSS.homeContent}>
@@ -259,7 +251,7 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
               <Typography sx={headers.header2}>Today's Special</Typography>
               <Typography sx={[headers.header3, {color: "#969696", fontWeight: 400}]}>Get it while it's hot!</Typography>
@@ -354,6 +346,48 @@ export default function HomePage() {
               <Box sx={homepageStyles.bulletinBox}/>
           </section>
 
+          {/* Candy Section
+          <section className={HomeCSS.categoryContainer} id="candySection" ref={candyRef}>
+            <hr className={HomeCSS.sectionBarTop}/>
+            <div className={HomeCSS.categoryHeader}>
+
+              <img src={candy} alt="Candy section" />
+              <Typography sx={headers.header3}>Candy</Typography>
+
+              <Button 
+                variant="contained" 
+                sx={[homepageStyles.seeAll, {
+                  color: "#D4162E", 
+                  backgroundColor: "#FCBAC2",
+                  "&:hover": {
+                    backgroundColor: "#FCBAC2"
+                }
+                }]}
+              >
+                <Typography sx={headers.seeAllFont}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.smallListContainer}>
+              <ul className={HomeCSS.smallItemList} id="candyList">
+                {mockForYouItems.map((item) => {
+                  return <li>{item}</li>;
+                })}
+              </ul>
+              <ArrowBackIosNewIcon
+                sx={homepageStyles.leftArrow}
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryBack("candyList", candyPixels, 174)}
+              />
+
+              <ArrowForwardIosIcon 
+                sx={homepageStyles.rightArrow} 
+                transform="scale(1.4)"
+                onClick={() => scrollCategoryNext("candyList", candyPixels, 174, mockForYouItems.length-6)}
+              />
+            </div>
+          </section> */}
+
           {/* Candy Section */}
           <section className={HomeCSS.categoryContainer} id="candySection" ref={candyRef}>
             <hr className={HomeCSS.sectionBarTop}/>
@@ -372,12 +406,12 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
             </div>
 
-            <div className={HomeCSS.smallListContainer}>
-              <ul className={HomeCSS.smallItemList} id="candyList">
+            <div className={HomeCSS.categoryListContainer}>
+              <ul className={HomeCSS.categoryItemList} id="candyList">
                 {mockForYouItems.map((item) => {
                   return <li>{item}</li>;
                 })}
@@ -414,12 +448,12 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
             </div>
 
-            <div className={HomeCSS.smallListContainer}>
-              <ul className={HomeCSS.smallItemList} id="chipsList">
+            <div className={HomeCSS.categoryListContainer}>
+              <ul className={HomeCSS.categoryItemList} id="chipsList">
                 {mockForYouItems.map((item) => {
                   return <li>{item}</li>;
                 })}
@@ -456,12 +490,12 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
             </div>
 
-            <div className={HomeCSS.smallListContainer}>
-              <ul className={HomeCSS.smallItemList} id="drinksList">
+            <div className={HomeCSS.categoryListContainer}>
+              <ul className={HomeCSS.categoryItemList} id="drinksList">
                 {mockForYouItems.map((item) => {
                   return <li>{item}</li>;
                 })}
@@ -498,12 +532,12 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
             </div>
 
-            <div className={HomeCSS.smallListContainer}>
-              <ul className={HomeCSS.smallItemList} id="readyList">
+            <div className={HomeCSS.categoryListContainer}>
+              <ul className={HomeCSS.categoryItemList} id="readyList">
                 {mockForYouItems.map((item) => {
                   return <li>{item}</li>;
                 })}
@@ -540,12 +574,12 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
             </div>
 
-            <div className={HomeCSS.smallListContainer}>
-              <ul className={HomeCSS.smallItemList} id="snacksList">
+            <div className={HomeCSS.categoryListContainer}>
+              <ul className={HomeCSS.categoryItemList} id="snacksList">
                 {mockForYouItems.map((item) => {
                   return <li>{item}</li>;
                 })}
@@ -582,12 +616,12 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
             </div>
 
-            <div className={HomeCSS.smallListContainer}>
-              <ul className={HomeCSS.smallItemList} id="iceCreamList">
+            <div className={HomeCSS.categoryListContainer}>
+              <ul className={HomeCSS.categoryItemList} id="iceCreamList">
                 {mockForYouItems.map((item) => {
                   return <li>{item}</li>;
                 })}
@@ -624,12 +658,12 @@ export default function HomePage() {
                 }
                 }]}
               >
-                <Typography sx={headers.header3}>See All</Typography>
+                <Typography sx={headers.seeAllFont}>See All</Typography>
               </Button>
             </div>
 
-            <div className={HomeCSS.smallListContainer}>
-              <ul className={HomeCSS.smallItemList} id="sweetsList">
+            <div className={HomeCSS.categoryListContainer}>
+              <ul className={HomeCSS.categoryItemList} id="sweetsList">
                 {mockForYouItems.map((item) => {
                   return <li>{item}</li>;
                 })}
@@ -652,6 +686,6 @@ export default function HomePage() {
       </div>
       <ViewCart numItems="X" totalAmount="X.XX" />
       <BottomNav />
-    </ThemeProvider>
+    </>
   );
 }
