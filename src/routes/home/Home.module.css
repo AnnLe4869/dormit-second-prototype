@@ -200,7 +200,6 @@ h3 {
   flex-shrink: 0;
   width: 15.3%;
   max-width: 157px;
-  min-width: 127px;
   height: auto;
 }
 
@@ -229,10 +228,9 @@ h3 {
 }
 
 .categoryItemList li {
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
   width: 15.3%;
   max-width: 157px;
-  min-width: 127px;
   height: auto;
 }
 
@@ -341,10 +339,6 @@ h3 {
     height: 31px;
   }
 
-  .bigItemList {
-    
-  }
-
   .bigItemList li {
     width: 150px;
     height: auto;
@@ -368,13 +362,14 @@ h3 {
   } 
 
   .categoryItemList {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
   
   .categoryItemList li {
-    width: 108px;
+    width: 30%;
+    max-width: 220px;
   }
 }
 

@@ -1,32 +1,46 @@
 import React from "react";
 import HomeCSS from "./Home.module.css";
 
-import rightArrow from "../../assets/Home/right-arrow.svg";
+import { Button, Typography } from "@mui/material";
 
-const THUMBNAIL_LIST_MAX = 4;
+import { headers, homepageStyles } from './muiStyles.js';
 
-const Category = ({ name, style, itemList }) => {
+const THUMBNAIL_LIST_MAX = 6;
+
+const Category = ({ name, image, color1, color2, itemList }) => {
   return (
-    <div className={HomeCSS.categoryContainer}>
-      {/* Category Header */}
-      <section className={HomeCSS.categoryHeader} style={style}>
-        <h2>{name}</h2>
-        <button>
-          See All
-          <img src={rightArrow} alt="See All" />
-        </button>
-      </section>
+    <>
+      <hr className={HomeCSS.sectionBarTop}/>
+      <div className={HomeCSS.categoryHeader}>
 
-      {/* Rendered list of items */}
-      <ul className={HomeCSS.bigItemList}>
-        {itemList.map((item, index) => {
-          if (index < THUMBNAIL_LIST_MAX) {
-            return <li>{item}</li>;
+        <img src={image} alt="Category Icon" />
+        <Typography sx={headers.header3}>{name}</Typography>
+
+        <Button 
+          variant="contained" 
+          sx={[homepageStyles.seeAll, {
+            color: color1, 
+            backgroundColor: color2,
+            "&:hover": {
+              backgroundColor: color2
           }
-          return;
-        })}
-      </ul>
-    </div>
+          }]}
+        >
+          <Typography sx={headers.seeAllFont}>See All</Typography>
+        </Button>
+      </div>
+
+      <div className={HomeCSS.categoryListContainer}>
+        <ul className={HomeCSS.categoryItemList}>
+          {itemList.map((item, index) => {
+            if (index < THUMBNAIL_LIST_MAX){
+              return <li>{item}</li>;
+            }
+            return;
+          })}
+        </ul>
+      </div>
+    </>
   );
 };
 

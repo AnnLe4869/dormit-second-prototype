@@ -3,6 +3,7 @@
     height: 100%;
     text-align: center;
     position: relative;
+    background-color: rgb(183, 161, 243);
 }
 
 .itemCorner {
