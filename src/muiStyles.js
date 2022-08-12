@@ -100,14 +100,16 @@ export const headerStyles = {
     headerContainer: {
         position: "static",
         width: "100%",
-        height: 100,
+        padding: "0.8% 0",
+        height: "auto",
+        maxHeight: 90,
         backgroundColor: "secondary.main",
         flexGrow: 1 ,
         display: "flex",
         justifyContent: "center",
         textAlign: "center",
         "@media screen and (max-width: 960px)": {
-            height: 95,
+            height: 80,
             display: "block",
             padding: "20px"
         }
@@ -143,9 +145,13 @@ export const headerStyles = {
     },
 
     headerIcon: {
-        "@media screen and (max-width: 960px)": {
-            display: "none"
-        }
+
+      maxWidth: 78,
+      height: "auto",
+
+      "@media screen and (max-width: 960px)": {
+          display: "none"
+      }
     }
 }
 
@@ -208,7 +214,7 @@ export const homepageStyles = {
       bottom: 0,
       right: 0,
       margin: "auto",
-      width: 350,
+      width: "34%",
       height: 51,
       borderRadius: "24px",
       textTransform: 'none',

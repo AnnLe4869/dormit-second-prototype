@@ -148,7 +148,7 @@ h3 {
 
 .bigItemList li {
   display: inline-block;
-  width: 200px;
+  width: 19.4%;
   height: auto;
 }
 
@@ -174,7 +174,8 @@ h3 {
   overflow-x: scroll;
   scroll-behavior: smooth;
 
-  grid-gap: 17px;
+  grid-gap: 1.65%;
+  /* grid-gap: 17px; */
   transition-delay: 1s;
 
   margin-left: -15px;
@@ -189,7 +190,7 @@ h3 {
 
 .smallItemList li {
   flex-shrink: 0;
-  width: 157px;
+  width: 15.3%;
   height: auto;
 }
 
@@ -233,17 +234,16 @@ h3 {
 }
 
 .categoryHeader img {
-  width: 113px;
-  height: 113px;
+  width: 10.9%;
 }
-
+/*
 @media screen and (max-width: 1280px) {
   .homeContent {
     width: 860px;
-    /* background-color: rgb(196, 255, 235); */
+    /* background-color: rgb(196, 255, 235); 
   }
 }
-
+*/
 @media screen and (max-width: 960px) {
   h2 {
     font-size: 28px;
