@@ -9,25 +9,13 @@ const THUMBNAIL_LIST_MAX = 6;
 
 const Category = ({ name, image, color1, color2, itemList }) => {
   return (
-    <>
+    <div className={HomeCSS.categoryContainer}>
       <hr className={HomeCSS.sectionBarTop}/>
       <div className={HomeCSS.categoryHeader}>
 
         <img src={image} alt="Category Icon" />
         <Typography sx={headers.header3}>{name}</Typography>
 
-        <Button 
-          variant="contained" 
-          sx={[homepageStyles.seeAll, {
-            color: color1, 
-            backgroundColor: color2,
-            "&:hover": {
-              backgroundColor: color2
-          }
-          }]}
-        >
-          <Typography sx={headers.seeAllFont}>See All</Typography>
-        </Button>
       </div>
 
       <div className={HomeCSS.categoryListContainer}>
@@ -40,7 +28,20 @@ const Category = ({ name, image, color1, color2, itemList }) => {
           })}
         </ul>
       </div>
-    </>
+
+      <Button 
+          variant="contained" 
+          sx={[homepageStyles.categorySeeAll, {
+            color: color1, 
+            backgroundColor: color2,
+            "&:hover": {
+              backgroundColor: color2
+          }
+          }]}
+        >
+          <Typography sx={headers.categorySeeAllFont}>See All</Typography>
+        </Button>
+    </div>
   );
 };
 

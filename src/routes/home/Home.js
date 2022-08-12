@@ -349,7 +349,7 @@ export default function HomePage() {
           </section>
 
           {/* Candy Section */}
-          <section className={HomeCSS.categoryContainer} id="candySection" ref={candyRef}>
+          <section id="candySection" ref={candyRef}>
             <Category 
               name="Candy"
               image={candy}
@@ -360,7 +360,7 @@ export default function HomePage() {
           </section>
 
           {/* Chips Section */}
-          <section className={HomeCSS.categoryContainer} id="chipsSection" ref={chipsRef}>
+          <section id="chipsSection" ref={chipsRef}>
             <Category 
               name="Chips"
               image={chips}
@@ -371,7 +371,7 @@ export default function HomePage() {
           </section>
 
           {/* Drinks Section */}
-          <section className={HomeCSS.categoryContainer} id="drinksSection" ref={drinksRef}>
+          <section id="drinksSection" ref={drinksRef}>
             <Category 
               name="Drinks"
               image={drinks}
@@ -382,7 +382,7 @@ export default function HomePage() {
           </section>
 
           {/* Ready To Eat Section */}
-          <section className={HomeCSS.categoryContainer} id="readyToEatSection" ref={readyToEatRef}>
+          <section id="readyToEatSection" ref={readyToEatRef}>
             <Category 
               name="Ready To Eat"
               image={ready}
@@ -393,7 +393,7 @@ export default function HomePage() {
           </section>
 
           {/* Snacks Section */}
-          <section className={HomeCSS.categoryContainer} id="snacksSection" ref={snacksRef}>
+          <section id="snacksSection" ref={snacksRef}>
             <Category 
               name="Snacks"
               image={snacks}
@@ -404,7 +404,7 @@ export default function HomePage() {
           </section>
 
           {/* Ice Cream Section */}
-          <section className={HomeCSS.categoryContainer} id="iceCreamSection" ref={iceCreamRef}>
+          <section id="iceCreamSection" ref={iceCreamRef}>
             <Category 
               name="Ice Cream"
               image={icecream}
@@ -415,7 +415,7 @@ export default function HomePage() {
           </section>
 
           {/* Sweets Section */}
-          <section className={HomeCSS.categoryContainer} id="sweetsSection" ref={sweetsRef}>
+          <section id="sweetsSection" ref={sweetsRef}>
             <Category 
               name="Sweets"
               image={sweets}

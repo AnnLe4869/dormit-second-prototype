@@ -58,6 +58,16 @@ export const headers = {
         fontSize: '16px',
         lineHeight: '24px'
       }
+    },
+
+    categorySeeAllFont: {
+      fontWeight: 700,
+      fontSize: "clamp(16px, 1.8vw, 24px)",
+
+      "@media screen and (max-width: 900px)": {
+        fontSize: '24px',
+        lineHeight: '36px'
+      }
     }
 
 }
@@ -194,6 +204,29 @@ export const homepageStyles = {
       "@media screen and (max-width: 900px)": {
         width: 92,
         height: 34
+      }
+    },
+
+    categorySeeAll: {
+      position: 'absolute',
+      top: "16.5%",
+      right: 0,
+      margin: "auto",
+      width: "34%",
+      maxWidth: 350,
+      height: "auto",
+      maxHeight: 51,
+      borderRadius: "24px",
+      textTransform: 'none',
+      boxShadow: "none",
+      "&:hover": {
+        boxShadow: "none"
+      },
+      "@media screen and (max-width: 900px)": {
+        position: "static",
+        maxWidth: 420,
+        width: "90%",
+        height: 51
       }
     }
 };

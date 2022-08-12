@@ -232,6 +232,7 @@ h3 {
   width: 15.3%;
   max-width: 157px;
   height: auto;
+  padding-bottom: 20px;
 }
 
 .seeAllButton {
@@ -244,6 +245,8 @@ h3 {
   height: auto;
   padding: 40px 0 20px 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .sectionBarTop {
@@ -266,7 +269,6 @@ h3 {
 
 .categoryHeader {
   height: auto;
-  position: relative;
   display: flex;
   grid-gap: 30px;
   align-items: center;
