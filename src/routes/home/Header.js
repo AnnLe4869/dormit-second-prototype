@@ -8,7 +8,7 @@ import Badge from '@mui/material/Badge'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import dormitIcon from "../../assets/Home/dormit-icon.svg";
 
-import { headerStyles, headers } from '../../muiStyles';
+import { headerStyles, headers } from './muiStyles';
 
 function Header() {
 

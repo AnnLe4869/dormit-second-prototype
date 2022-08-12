@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { bottomNavStyles } from '../../muiStyles.js';
+import { bottomNavStyles } from './muiStyles.js';
 
 /*
  * Material-UI Imports

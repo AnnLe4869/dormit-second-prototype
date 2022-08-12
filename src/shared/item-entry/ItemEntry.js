@@ -4,8 +4,8 @@ import ItemCSS from "./ItemEntry.module.css";
 /*
  * Imported Assets
  */
-import greenCheck from "../../assets/ItemEntry/green-check.svg";
-import purplePlus from "../../assets/ItemEntry/purple-plus.svg";
+import greenCheck from "../../assets/ItemEntry/greenCheck.svg";
+import purplePlus from "../../assets/ItemEntry/purplePlus.svg";
 
 const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
   //useState() constant for Plus/Check icon
@@ -25,7 +25,7 @@ const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
    * onClick listener which is called when an item is clicked
    */
   function toggleImage() {
-    alert("Apple clicked");
+    alert(name);
   }
 
   /*
@@ -37,10 +37,10 @@ const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
       return <p>Out of stock</p>;
     } else if (stock === 1) {
       console.log("Only 1 left!");
-      return <p className="purpleFont">Only 1 left!</p>;
+      return <p className={ItemCSS.purpleFont}>Only 1 left!</p>;
     } else if (stock < 4) {
       console.log("Low in stock");
-      return <p className="purpleFont">Low in stock</p>;
+      return <p className={ItemCSS.purpleFont}>Low in stock</p>;
     }
     return;
   }
@@ -63,6 +63,7 @@ const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
 
       {/* Item Info (Price, Stock) */}
       <section className={ItemCSS.itemInfo} style={stock ? {} : { color: "#686868" }}>
+        <p className={ItemCSS.itemName}>{name}</p>
         {dealPrice ? (
           <>
             <p className={ItemCSS.purpleFont}>${dealPrice}</p>
