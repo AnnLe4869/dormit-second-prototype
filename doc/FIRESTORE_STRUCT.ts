@@ -104,7 +104,7 @@ type users = Array<{
    * in short, we only "encourage" user to enter their email and not a dummy email
    * the email will be used to authenticate in case user forget their phone
    */
-  link_email: string;
+  linked_email: string;
   /**
    * we will create a Stripe Customer whenever a new user is created in Firestore
    * this stripeId is the Customer Stripe ID that can be used to retrieve user's stripe info

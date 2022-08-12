@@ -59,8 +59,6 @@ export function useUpdateLastName() {
 export function useUpdateShipping() {
   const { functions } = useContext(AppContext);
 
-  const updateShipping = httpsCallable(functions, "updateShipping");
-
   /**
    * function that will update user's shipping address
    *
@@ -70,10 +68,5 @@ export function useUpdateShipping() {
    *
    * after that, update local
    */
-  return async (address) => {
-    await updateShipping({
-      building: "CSE",
-      floorApartment: "3",
-    });
-  };
+  return async (address) => {};
 }
