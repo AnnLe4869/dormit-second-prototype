@@ -318,12 +318,12 @@ export default function HomePage() {
           <section className={HomeCSS.bulletinContainer}>
             <div className={HomeCSS.homeBulletin}>
             
-              <Box sx={[homepageStyles.bulletinBoxUCSD, {backgroundColor: "#2F3997"}]}>
+              <Box sx={[homepageStyles.bulletinBoxUCSD, {backgroundColor: "#7141FA"}]}>
                 <div className={HomeCSS.welcomeUcsdContent}>
-                  <Typography sx={[headers.header2, {fontWeight: "500", color: "#ffffff"}]}>Welcome to UCSD</Typography>
+                  {/* <Typography sx={[headers.header2, {fontWeight: "500", color: "#ffffff"}]}>Welcome to UCSD</Typography>
 
                   <Typography sx={[headers.header4, {fontWeight:"400", color: "#ffffff", marginTop:"12px"}]}>Store Hours:</Typography>
-                  <Typography sx={[headers.header3, {fontWeight:"500", color: "#ffffff"}]}>6pm - 1am</Typography>
+                  <Typography sx={[headers.header3, {fontWeight:"500", color: "#ffffff"}]}>6pm - 1am</Typography> */}
                 </div>
               </Box>
 
@@ -331,11 +331,11 @@ export default function HomePage() {
               <Box sx={homepageStyles.bulletinBoxPromotion}>
 
                 <div className={HomeCSS.promotionContent}>
-                  <Typography sx={[headers.header3, {fontWeight: "500", color: "#ffffff"}]}>Call-to-action!</Typography>
+                  {/* <Typography sx={[headers.header3, {fontWeight: "500", color: "#ffffff"}]}>Call-to-action!</Typography>
 
                   <Typography sx={{fontSize:"13px", fontWeight:"400", color: "#ffffff", marginTop:"12px"}}>
                     Description of the promotional message in Desktop Caption text style.
-                  </Typography>
+                  </Typography> */}
 
                 </div>
 
