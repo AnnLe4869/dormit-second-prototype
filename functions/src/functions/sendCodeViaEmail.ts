@@ -12,7 +12,7 @@ import { db } from "../setup";
  * nor it check whether the email actually exists or not
  *
  * Params for the functions
- * @params  {email: string}
+ * @param {email: string}
  */
 export const sendCodeViaEmail = functions
   .runWith({

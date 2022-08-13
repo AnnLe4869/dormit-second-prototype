@@ -1,17 +1,11 @@
 /**
- * FIRESTORE_STRUCT v2
- * the below are structure of the Firestore database
- * each type represent a collection
- * a collection name should be in plural form (e.g buses or products) and NOT singular form (e.g bus or product)
- * ****
- * note: the id field in each type is the document id
- * it is there to indicate how the id should look like
- * in the actual firebase data, when you call get() you will not get the id field in the result
- * (of course, you can get the id in other way, just that the id field doesn't exist in the get() result)
- * ****
- * For how read is counted, see
- * https://stackoverflow.com/questions/64140316/firestore-sub-collection-pricing
- * https://stackoverflow.com/questions/50887442/cloud-firestore-how-is-read-calculated
+ * this is a copy-paste from FIRESTORE_STRUCT with some minor change
+ * - the type here represent a single document of the collection
+ * - the naming changes: because this represent a single document, the name change to singular form. In FIRESTORE_STRUCT the name in plural form
+ * - we export the type
+ * - we remove all id field from collection
+ *
+ * !IMPORTANT: the field detail here and FIRESTORE_STRUCT must SYNC with each other
  */
 
 /**
@@ -26,12 +20,7 @@
  * complete fields, see https://stripe.com/docs/api/products/object
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
-type products = Array<{
-  /**
-   * the id for each product must start with "prod_" and followed by a string (e.g "prod_nfi3ndfd5549")
-   * this is the format Stripe use https://stripe.com/docs/api/products/object
-   */
-  id: string;
+export type Product = {
   name: string;
   description: string;
   /**
@@ -43,16 +32,9 @@ type products = Array<{
     quantity: string;
     category: string;
   };
-  /**
-   * tax is the string that represent the tax rate
-   * write the tax rate as-is
-   * for example:
-   * 1.25%  ===> 1.25
-   * 0.5%   ===> 0.50
-   */
   tax: string;
   /**
-   * "prices" is an array (not subcollection)
+   * "prices" is an array
    * whose document is price object https://stripe.com/docs/api/prices
    * one product can have multiple prices
    * ****
@@ -64,10 +46,6 @@ type products = Array<{
     price_id: string; // must start with "price_" (e.g "price_1LV5VjBFL4Le4")
     product: string; // is the id of the product this linked to (e.g "prod_nfi3ndfd5549")
     currency: string;
-    /**
-     * unit amount counted in smallest unit
-     * so $5.12 will be 512
-     */
     unit_amount: number;
   }>;
   /**
@@ -81,7 +59,7 @@ type products = Array<{
    **** can be ignored for now
    */
   rank: string;
-}>;
+};
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
@@ -97,11 +75,7 @@ type products = Array<{
  * ideal for situation when we have large number of items and each item is big
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
-type users = Array<{
-  /**
-   * the id is assigned by Firestore, not Stripe
-   */
-  id: string;
+export type User = {
   /**
    * phone is the phone number user uses to register
    * all users must have phone number
@@ -134,9 +108,6 @@ type users = Array<{
    * the role admin can be ignored for now
    */
   role: "customer" | "rusher" | "admin";
-  /**
-   * address customer want the order to ship to
-   */
   shipping_address: {
     campus: string;
     building: string;
@@ -162,7 +133,6 @@ type users = Array<{
    * this subcollection is intended for backend usage only and shouldn't be displayed for customer
    */
   payments: Array<{
-    id: string;
     amount_received: number;
     customer: string;
     status:
@@ -228,7 +198,7 @@ type users = Array<{
     /**
      * we shall use PaymentIntent id as id for order for convenience
      */
-    id: string;
+
     customer_id: string;
     order_time: string;
     until_delivered: string;
@@ -283,7 +253,7 @@ type users = Array<{
    * user can use this id to find which orders are completed by him
    */
   finished_orders: Array<string>;
-}>;
+};
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
@@ -295,13 +265,13 @@ type users = Array<{
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
 
-type processing_orders = Array<{
+export type Processing_order = {
   /**
    * we shall use PaymentIntent id as id for order for convenience
    * this mean we have the PaymentIntent id available for us
    * this id corresponds to the PaymentIntent that complete the transaction
    */
-  id: string;
+
   /**
    * the customer's info this order belong to
    */
@@ -418,7 +388,7 @@ type processing_orders = Array<{
     product_name: string;
     product_description: string;
   }>;
-}>;
+};
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
@@ -434,11 +404,11 @@ type processing_orders = Array<{
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
 
-type completed_orders = Array<{
+export type Completed_order = {
   /**
    * we shall use PaymentIntent id as id for order for convenience
    */
-  id: string;
+
   customer_id: string;
   order_time: string;
   /**
@@ -472,19 +442,7 @@ type completed_orders = Array<{
     product_name: string;
     product_description: string;
   }>;
-}>;
-
-/**
- * ---------------------------------------------------------------------------------------------------------------------------------------
- * "configuration" is a collection of configuration needed for the app to work
- * SHOULD NOT be read or write by any user
- * ****
- * each document are different from each other, and document id represent what it does
- * for example, a document of id "stripe" may have field PUBLIC_KEY and WEBHOOK_VALUE, etc.
- * ---------------------------------------------------------------------------------------------------------------------------------------
- */
-
-type configurations = Array<{}>;
+};
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
@@ -493,7 +451,7 @@ type configurations = Array<{}>;
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
 
-type emails = Array<{
+export type Email = {
   /**
    * target emails that you want to send the email to
    */
@@ -508,4 +466,4 @@ type emails = Array<{
     text: string;
     html: string;
   };
-}>;
+};
