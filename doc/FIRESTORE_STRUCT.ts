@@ -1,5 +1,5 @@
 /**
- * FIRESTORE_STRUCT v2
+ * FIRESTORE_STRUCT v2.1
  * the below are structure of the Firestore database
  * each type represent a collection
  * a collection name should be in plural form (e.g buses or products) and NOT singular form (e.g bus or product)
@@ -17,7 +17,7 @@
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
  * the "products" collection should be treated as read-only
- * all the fields in the collection are updated from Stripe automatically (via webhook)
+ * all the fields in the collection are created and updated from Stripe automatically (via webhook)
  * means that the admin can change value on Stripe (or you write code to make change on Stripe)
  * and the products collection will update accordingly
  * ****
@@ -40,20 +40,24 @@ type products = Array<{
    */
   images: Array<string>;
   metadata: {
+    /**
+     * quantity is how many items left in inventory
+     */
     quantity: string;
     category: string;
+    /**
+     * tax is the string that represent the tax rate
+     * write the tax rate as-is
+     * for example:
+     * 1.25%  ===> 1.25
+     * 0.5%   ===> 0.50
+     */
+    tax: string;
   };
+
   /**
-   * tax is the string that represent the tax rate
-   * write the tax rate as-is
-   * for example:
-   * 1.25%  ===> 1.25
-   * 0.5%   ===> 0.50
-   */
-  tax: string;
-  /**
-   * "prices" is an array (not subcollection)
-   * whose document is price object https://stripe.com/docs/api/prices
+   * "prices" is an ARRAY (not subcollection)
+   * whose element is price object https://stripe.com/docs/api/prices
    * one product can have multiple prices
    * ****
    * the reason for multiple prices is because a product can have its "On Sale" session where its price is lower than usual
@@ -62,7 +66,7 @@ type products = Array<{
    */
   prices: Array<{
     price_id: string; // must start with "price_" (e.g "price_1LV5VjBFL4Le4")
-    product: string; // is the id of the product this linked to (e.g "prod_nfi3ndfd5549")
+    product_id: string; // the id of the product this linked to (e.g "prod_nfi3ndfd5549")
     currency: string;
     /**
      * unit amount counted in smallest unit
@@ -116,6 +120,10 @@ type users = Array<{
    */
   linked_email: string;
   /**
+   * address to the profile image
+   */
+  profile_img: string;
+  /**
    * we will create a Stripe Customer whenever a new user is created in Firestore
    * this stripeId is the Customer Stripe ID that can be used to retrieve user's stripe info
    * this stripeId should start with "cus_fm5aoc5m3" (e.g "cus_25cfd64r")
@@ -143,7 +151,7 @@ type users = Array<{
     floor_apartment: string;
   };
   /**
-   * cart is an array of object that represent which item and its quantity in user's cart
+   * cart is an ARRAY of object that represent which item and its quantity in user's cart
    */
   cart: Array<{
     product_id: string;
@@ -151,7 +159,7 @@ type users = Array<{
   }>;
 
   /**
-   * "payments" is a collection (subcollection to be precise) that record the PaymentIntent that are created
+   * "payments" is a SUBCOLLECTION that record the PaymentIntent that are created
    * PaymentIntent is an object that handle payment and collect money
    * see more in https://stripe.com/docs/payments/quickstart and https://stripe.com/docs/api/payment_intents/object
    * ****
@@ -189,6 +197,12 @@ type users = Array<{
   temp_order: {
     payment_id: string;
     customer_id: string;
+    customer_name: string;
+    customer_img: string;
+    customer_contact: {
+      phone: string;
+      text: string;
+    };
     order_time: string;
 
     shipping_address: {
@@ -196,10 +210,6 @@ type users = Array<{
       building: string;
       floor_apartment: string;
     };
-    /**
-     * the message the customer leave for rusher
-     * like instruction for the order
-     */
     message: string;
 
     amount_total: number;
@@ -216,7 +226,7 @@ type users = Array<{
   } | null;
 
   /**
-   * "current_orders" is a subcollection of orders that are in process
+   * "current_orders" is a SUBCOLLECTION of orders that are in process
    * the user is waiting for the order to be delivered
    * the detail on what each field means can be seen in collection "processing_orders"
    * ****
@@ -230,16 +240,26 @@ type users = Array<{
      */
     id: string;
     customer_id: string;
+    customer_name: string;
+    customer_img: string;
+    customer_contact: {
+      phone: string;
+      /**
+       * for now, phone and text number will be the same,
+       * but this may change in the future
+       */
+      text: string;
+    };
     order_time: string;
     until_delivered: string;
     process_stage: 0 | 1 | 2 | 3;
 
-    message: string;
     shipping_address: {
       campus: string;
       building: string;
       floor_apartment: string;
     };
+    message: string;
     rusher: {
       rusher_id: string;
       rusher_name: string;
@@ -391,7 +411,7 @@ type processing_orders = Array<{
   rusher_tip: number;
 
   /**
-   * "items" is an array of items that are in the order
+   * "items" is an ARRAY of items that are in the order
    * total cost per item type = unit_cost x quantity + tax
    */
   items: Array<{

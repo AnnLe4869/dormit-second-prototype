@@ -155,7 +155,7 @@ export const checkout = functions
        * find the price that is the lowest out of array of prices
        */
       const cheapestPrice = findCheapestPrice(product.prices);
-      const taxRate = parseFloat(product.tax);
+      const taxRate = parseFloat(product.metadata.tax);
 
       /**
        * increment the total by the item cost times added tax
@@ -189,6 +189,12 @@ export const checkout = functions
     const tempOrder: User["temp_order"] = {
       payment_id: paymentIntent.id,
       customer_id: userDetail.stripeId,
+      customer_name: userDetail.name,
+      customer_img: userDetail.profile_img,
+      customer_contact: {
+        phone: userDetail.phone,
+        text: userDetail.phone,
+      },
       order_time: EPOCH_CURRENT_TIME,
       shipping_address: shippingAddress,
       message,
@@ -209,7 +215,7 @@ export const checkout = functions
           product_description: product.description,
           unit_cost: findCheapestPrice(product.prices).unit_amount,
           quantity,
-          tax: product.tax,
+          tax: product.metadata.tax,
         };
       }),
     };

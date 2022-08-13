@@ -31,33 +31,16 @@ export type Product = {
   metadata: {
     quantity: string;
     category: string;
+    tax: string;
   };
-  tax: string;
-  /**
-   * "prices" is an array
-   * whose document is price object https://stripe.com/docs/api/prices
-   * one product can have multiple prices
-   * ****
-   * the reason for multiple prices is because a product can have its "On Sale" session where its price is lower than usual
-   * we can detect whether an item is on sale if it has two prices documents and the one with lower unit_amount is the sale prices
-   * no products shall have more than TWO(2) prices
-   */
+
   prices: Array<{
     price_id: string; // must start with "price_" (e.g "price_1LV5VjBFL4Le4")
-    product: string; // is the id of the product this linked to (e.g "prod_nfi3ndfd5549")
+    product_id: string; // is the id of the product this linked to (e.g "prod_nfi3ndfd5549")
     currency: string;
     unit_amount: number;
   }>;
-  /**
-   * the rank is the number that show how "hot" the item is
-   * this can be used to determine which items to show to the customers
-   * the higher the number, the more likely the item will be show on first data fetch
-   * rank is sorted via lexical order so 1 < 11 < 2
-   * ****
-   * when we start optimize the page, know which items to fetch and
-   * which can be fetched later can make big difference in latency and number of read
-   **** can be ignored for now
-   */
+
   rank: string;
 };
 
@@ -76,29 +59,11 @@ export type Product = {
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
 export type User = {
-  /**
-   * phone is the phone number user uses to register
-   * all users must have phone number
-   * this phone number is stored to Firestore when user use their phone to register
-   */
   phone: string;
-  /**
-   * this is the email user provides during registration process
-   * this doesn't need to be a "legitimate" email, means we don't check whether user owns this email or not
-   * in short, we only "encourage" user to enter their email and not a dummy email
-   * the email will be used to authenticate in case user forget their phone
-   */
   linked_email: string;
-  /**
-   * we will create a Stripe Customer whenever a new user is created in Firestore
-   * this stripeId is the Customer Stripe ID that can be used to retrieve user's stripe info
-   * this stripeId should start with "cus_fm5aoc5m3" (e.g "cus_25cfd64r")
-   */
+  profile_img: string;
   stripeId: string;
-  /**
-   * created during registration process
-   * not very important in term of website function, but convenient for rusher and customer to properly communicate
-   */
+
   name: string;
   /**
    * indicate what is the role of the user
@@ -159,6 +124,12 @@ export type User = {
   temp_order: {
     payment_id: string;
     customer_id: string;
+    customer_name: string;
+    customer_img: string;
+    customer_contact: {
+      phone: string;
+      text: string;
+    };
     order_time: string;
 
     shipping_address: {
@@ -166,10 +137,6 @@ export type User = {
       building: string;
       floor_apartment: string;
     };
-    /**
-     * the message the customer leave for rusher
-     * like instruction for the order
-     */
     message: string;
 
     amount_total: number;
@@ -200,16 +167,22 @@ export type User = {
      */
 
     customer_id: string;
+    customer_name: string;
+    customer_img: string;
+    customer_contact: {
+      phone: string;
+      text: string;
+    };
     order_time: string;
     until_delivered: string;
     process_stage: 0 | 1 | 2 | 3;
 
-    message: string;
     shipping_address: {
       campus: string;
       building: string;
       floor_apartment: string;
     };
+    message: string;
     rusher: {
       rusher_id: string;
       rusher_name: string;
