@@ -1,5 +1,5 @@
 /**
- * FIRESTORE_STRUCT v2.1
+ * FIRESTORE_STRUCT v2.2
  * the below are structure of the Firestore database
  * each type represent a collection
  * a collection name should be in plural form (e.g buses or products) and NOT singular form (e.g bus or product)
@@ -8,11 +8,21 @@
  * it is there to indicate how the id should look like
  * in the actual firebase data, when you call get() you will not get the id field in the result
  * (of course, you can get the id in other way, just that the id field doesn't exist in the get() result)
+ *
+ * for indication, if you see Array<> with property "id" in it, that is collection/subcollection
  * ****
  * For how read is counted, see
  * https://stackoverflow.com/questions/64140316/firestore-sub-collection-pricing
  * https://stackoverflow.com/questions/50887442/cloud-firestore-how-is-read-calculated
  */
+
+/**
+ * helper type function
+ * retrieve element type information from array type
+ * See https://stackoverflow.com/questions/41253310/typescript-retrieve-element-type-information-from-array-type
+ */
+export type ArrayElement<ArrayType extends readonly unknown[]> =
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
@@ -189,41 +199,8 @@ type users = Array<{
    * we create this temporary order
    * when the payment succeed, this temp order will be pushed to current_orders and temp_order will be reset to null
    * we should only have one order or less that is in temp_order at any time
-   * ****
-   * only the necessary fields are filled
-   * the rest of the information will be filled when it's pushed to "current_orders" and "processing_orders" collection
-   * the detail on what each field represented can be seen in "processing_orders" collection
    */
-  temp_order: {
-    payment_id: string;
-    customer_id: string;
-    customer_name: string;
-    customer_img: string;
-    customer_contact: {
-      phone: string;
-      text: string;
-    };
-    order_time: string;
-
-    shipping_address: {
-      campus: string;
-      building: string;
-      floor_apartment: string;
-    };
-    message: string;
-
-    amount_total: number;
-    shipping_fee: number;
-    rusher_tip: number;
-    items: Array<{
-      product_id: string;
-      unit_cost: number;
-      tax: string;
-      quantity: number;
-      product_name: string;
-      product_description: string;
-    }>;
-  } | null;
+  temp_order: Omit<ArrayElement<processing_orders>, "id"> | null;
 
   /**
    * "current_orders" is a SUBCOLLECTION of orders that are in process
@@ -234,56 +211,7 @@ type users = Array<{
    * is because we want to listen to real change in order_status of "processing_orders"
    * while keeping the "processing_orders" data secret from normal user
    */
-  current_orders: Array<{
-    /**
-     * we shall use PaymentIntent id as id for order for convenience
-     */
-    id: string;
-    customer_id: string;
-    customer_name: string;
-    customer_img: string;
-    customer_contact: {
-      phone: string;
-      /**
-       * for now, phone and text number will be the same,
-       * but this may change in the future
-       */
-      text: string;
-    };
-    order_time: string;
-    until_delivered: string;
-    process_stage: 0 | 1 | 2 | 3;
-
-    shipping_address: {
-      campus: string;
-      building: string;
-      floor_apartment: string;
-    };
-    message: string;
-    rusher: {
-      rusher_id: string;
-      rusher_name: string;
-      rusher_img: string;
-      rusher_contact: {
-        phone: string;
-        text: string | null;
-      };
-    } | null;
-
-    amount_total: number;
-    shipping_fee: number;
-    rusher_tip: number;
-
-    items: Array<{
-      product_id: string;
-      unit_cost: number;
-      tax: string;
-      quantity: number;
-
-      product_name: string;
-      product_description: string;
-    }>;
-  }>;
+  current_orders: Array<Omit<ArrayElement<processing_orders>, "id">>;
 
   /**
    * "past_orders" is an array of orders id that are completed
@@ -323,6 +251,14 @@ type processing_orders = Array<{
    */
   id: string;
   /**
+   * payment_id is the same as id
+   * it's here to make code a bit simpler and using the type easier
+   * one more property won't make difference in storage size
+   * if really need to cut down in size, remove this property payment_id
+   */
+  payment_id: string;
+
+  /**
    * the customer's info this order belong to
    */
   customer_id: string;
@@ -345,10 +281,12 @@ type processing_orders = Array<{
   /**
    * time until the order is delivered,
    * counted as milliseconds since EPOCH time
+   * if the order is not yet processed, value is null
    */
-  until_delivered: string;
+  until_delivered: string | null;
   /**
    * a number indicates which processing stage the order is in
+   * *** -1: order hasn't been placed (only when used on temp_order)
    * *** 0: order placed
    * *** 1: order picked up
    * *** 2: order is on the way
@@ -356,7 +294,7 @@ type processing_orders = Array<{
    * we use number as indicator to avoid confusion and mistakes that easily happen with text
    * the amount of number indicator can be changed as needed
    */
-  process_stage: 0 | 1 | 2 | 3;
+  process_stage: -1 | 0 | 1 | 2 | 3;
 
   /**
    * the shipping address
@@ -459,6 +397,7 @@ type completed_orders = Array<{
    * we shall use PaymentIntent id as id for order for convenience
    */
   id: string;
+  payment_id: string;
   customer_id: string;
   order_time: string;
   /**

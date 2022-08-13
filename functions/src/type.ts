@@ -9,6 +9,14 @@
  */
 
 /**
+ * helper type function
+ * retrieve element type information from array type
+ * See https://stackoverflow.com/questions/41253310/typescript-retrieve-element-type-information-from-array-type
+ */
+export type ArrayElement<ArrayType extends readonly unknown[]> =
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+
+/**
  * ---------------------------------------------------------------------------------------------------------------------------------------
  * the "products" collection should be treated as read-only
  * all the fields in the collection are updated from Stripe automatically (via webhook)
@@ -44,20 +52,6 @@ export type Product = {
   rank: string;
 };
 
-/**
- * ---------------------------------------------------------------------------------------------------------------------------------------
- * the "users" collection contains info about all users
- * ****
- * notice that some fields are subcollection while some are array
- * array lower the number of reads, but will always be presented when the document is fetched
- * (means the array data will always be fetched when document is fetched)
- * if the array is big and each item is big, the request's size can balloon out of control
- *
- * subcollection increases the number of read, but we can control when to fetch the data of the subcollection
- * (mean we don't have to fetch the data of subcollection when we fetch document data)
- * ideal for situation when we have large number of items and each item is big
- * ---------------------------------------------------------------------------------------------------------------------------------------
- */
 export type User = {
   phone: string;
   linked_email: string;
@@ -86,17 +80,6 @@ export type User = {
     quantity: number;
   }>;
 
-  /**
-   * "payments" is a collection (subcollection to be precise) that record the PaymentIntent that are created
-   * PaymentIntent is an object that handle payment and collect money
-   * see more in https://stripe.com/docs/payments/quickstart and https://stripe.com/docs/api/payment_intents/object
-   * ****
-   * when user go to checkout page, a PaymentIntent is created
-   * and only when the user make payment successfully then the money is sent to out bank
-   * status field will update to reflect whether the transaction succeed or not (the status update is handled via webhook)
-   * ****
-   * this subcollection is intended for backend usage only and shouldn't be displayed for customer
-   */
   payments: Array<{
     amount_received: number;
     customer: string;
@@ -110,47 +93,7 @@ export type User = {
       | "requires_capture";
   }>;
 
-  /**
-   * this is the placeholder for an order
-   * when user click on the checkout button and in the process of enter their payment info
-   * we create this temporary order
-   * when the payment succeed, this temp order will be pushed to current_orders and temp_order will be reset to null
-   * we should only have one order or less that is in temp_order at any time
-   * ****
-   * only the necessary fields are filled
-   * the rest of the information will be filled when it's pushed to "current_orders" and "processing_orders" collection
-   * the detail on what each field represented can be seen in "processing_orders" collection
-   */
-  temp_order: {
-    payment_id: string;
-    customer_id: string;
-    customer_name: string;
-    customer_img: string;
-    customer_contact: {
-      phone: string;
-      text: string;
-    };
-    order_time: string;
-
-    shipping_address: {
-      campus: string;
-      building: string;
-      floor_apartment: string;
-    };
-    message: string;
-
-    amount_total: number;
-    shipping_fee: number;
-    rusher_tip: number;
-    items: Array<{
-      product_id: string;
-      unit_cost: number;
-      tax: string;
-      quantity: number;
-      product_name: string;
-      product_description: string;
-    }>;
-  } | null;
+  temp_order: Processing_order | null;
 
   /**
    * "current_orders" is a subcollection of orders that are in process
@@ -161,52 +104,7 @@ export type User = {
    * is because we want to listen to real change in order_status of "processing_orders"
    * while keeping the "processing_orders" data secret from normal user
    */
-  current_orders: Array<{
-    /**
-     * we shall use PaymentIntent id as id for order for convenience
-     */
-
-    customer_id: string;
-    customer_name: string;
-    customer_img: string;
-    customer_contact: {
-      phone: string;
-      text: string;
-    };
-    order_time: string;
-    until_delivered: string;
-    process_stage: 0 | 1 | 2 | 3;
-
-    shipping_address: {
-      campus: string;
-      building: string;
-      floor_apartment: string;
-    };
-    message: string;
-    rusher: {
-      rusher_id: string;
-      rusher_name: string;
-      rusher_img: string;
-      rusher_contact: {
-        phone: string;
-        text: string | null;
-      };
-    } | null;
-
-    amount_total: number;
-    shipping_fee: number;
-    rusher_tip: number;
-
-    items: Array<{
-      product_id: string;
-      unit_cost: number;
-      tax: string;
-      quantity: number;
-
-      product_name: string;
-      product_description: string;
-    }>;
-  }>;
+  current_orders: Array<Processing_order>;
 
   /**
    * "past_orders" is an array of orders id that are completed
@@ -239,12 +137,7 @@ export type User = {
  */
 
 export type Processing_order = {
-  /**
-   * we shall use PaymentIntent id as id for order for convenience
-   * this mean we have the PaymentIntent id available for us
-   * this id corresponds to the PaymentIntent that complete the transaction
-   */
-
+  payment_id: string;
   /**
    * the customer's info this order belong to
    */
@@ -268,10 +161,12 @@ export type Processing_order = {
   /**
    * time until the order is delivered,
    * counted as milliseconds since EPOCH time
+   * if the order is not yet processed, value is null
    */
-  until_delivered: string;
+  until_delivered: string | null;
   /**
    * a number indicates which processing stage the order is in
+   * *** -1: order hasn't been placed (only when used on temp_order)
    * *** 0: order placed
    * *** 1: order picked up
    * *** 2: order is on the way
@@ -279,7 +174,7 @@ export type Processing_order = {
    * we use number as indicator to avoid confusion and mistakes that easily happen with text
    * the amount of number indicator can be changed as needed
    */
-  process_stage: 0 | 1 | 2 | 3;
+  process_stage: -1 | 0 | 1 | 2 | 3;
 
   /**
    * the shipping address
@@ -334,7 +229,7 @@ export type Processing_order = {
   rusher_tip: number;
 
   /**
-   * "items" is an array of items that are in the order
+   * "items" is an ARRAY of items that are in the order
    * total cost per item type = unit_cost x quantity + tax
    */
   items: Array<{
@@ -353,11 +248,7 @@ export type Processing_order = {
      */
     tax: string;
     quantity: number;
-    /**
-     * the reason we have some detail about product here
-     * instead of go to "products" collection and fetch info from there
-     * is to save some read counts
-     */
+
     product_name: string;
     product_description: string;
   }>;
@@ -381,7 +272,7 @@ export type Completed_order = {
   /**
    * we shall use PaymentIntent id as id for order for convenience
    */
-
+  payment_id: string;
   customer_id: string;
   order_time: string;
   /**

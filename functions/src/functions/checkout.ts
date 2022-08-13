@@ -188,6 +188,7 @@ export const checkout = functions
 
     const tempOrder: User["temp_order"] = {
       payment_id: paymentIntent.id,
+
       customer_id: userDetail.stripeId,
       customer_name: userDetail.name,
       customer_img: userDetail.profile_img,
@@ -195,9 +196,15 @@ export const checkout = functions
         phone: userDetail.phone,
         text: userDetail.phone,
       },
+
       order_time: EPOCH_CURRENT_TIME,
+      until_delivered: null,
+      process_stage: -1,
+
       shipping_address: shippingAddress,
       message,
+      rusher: null,
+
       amount_total: total,
       shipping_fee: SHIPPING_COST,
       rusher_tip: rusherTip,
