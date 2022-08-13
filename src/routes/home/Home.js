@@ -10,27 +10,10 @@ import { useProducts } from "../../context/product/product-handler";
 /*
  * Imported Components
  */
-import ItemEntry from "../../shared/item-entry/ItemEntry";
 import ViewCart from "../../shared/view-cart/ViewCart";
 import Category from "./Category";
 import Header from "./Header";
-
 import BottomNav from "../../shared/bottom-nav/BottomNav";
-
-/*
- * Imported Assets
- */
-import apple from "../../assets/apple.png";
-import innout from '../../assets/innout.png';
-import specials from "../../assets/Home/specials.svg";
-import candy from "../../assets/Home/candy.svg";
-import chips from "../../assets/Home/chips.svg";
-import drinks from "../../assets/Home/drinks.svg";
-import ready from "../../assets/Home/ready.svg";
-import snacks from "../../assets/Home/snacks.svg";
-import icecream from "../../assets/Home/icecream.svg";
-import sweets from "../../assets/Home/sweets.svg";
-
 
 /*
  * Material-UI Imports
@@ -42,61 +25,30 @@ import Box from "@mui/material/Box";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
-const THUMBNAIL_LIST_MAX = 6;
+/*
+ * Imported Assets
+ */
+import specials from "../../assets/Home/specials.svg";
+import candy from "../../assets/Home/candy.svg";
+import chips from "../../assets/Home/chips.svg";
+import drinks from "../../assets/Home/drinks.svg";
+import ready from "../../assets/Home/ready.svg";
+import snacks from "../../assets/Home/snacks.svg";
+import icecream from "../../assets/Home/icecream.svg";
+import sweets from "../../assets/Home/sweets.svg";
+
+/*
+ * Imported Mock Data
+ */
+import { mockSpecialItems, mockTwelveItems, mockTwelveDealItems } from "./mockData.js";
+
 
 export default function HomePage() {
 
   const products = useProducts();
   console.log(products);
 
-  /*
-   * Mock lists
-   */
-  const mockSpecialItems = [
-    <ItemEntry id="innout" name="In-N-Out Burger" image={innout} price="3.45" stock={2} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
-  ];
-
-  const mockForYouItems = [
-    <ItemEntry id="apple" image={apple} price="Price" stock={2} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={5} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={2} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={5} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" image={apple} price="Price" stock={5} />
-  ];
-
-  const mockDealItems = [
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-    <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />
-  ];
-
-  const mockCategoryItems = [
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-  ];
-
   const categoryNavs = [
-
     <>
       <img src={specials} alt="Specials" onClick={(e) => scrollToCategory(0)}/>
       <Typography sx={headers.header6}>Specials</Typography>
@@ -177,6 +129,10 @@ export default function HomePage() {
     sweetsRef,
   ];
 
+  const [scrollForYou, setScrollForYou] = useState(true);
+  const [scrollTrending, setScrollTrending] = useState(true);
+  const [scrollDeals, setScrollDeals] = useState(true);
+
   /*
    * onClick event handler to scroll to food category
    */
@@ -185,9 +141,6 @@ export default function HomePage() {
   }
 
   let categoryPixels = {pixelCount: 0};
-  let forYouPixels = {pixelCount: 0};
-  let trendingPixels = {pixelCount: 0};
-  let dealsPixels = {pixelCount: 0};
 
   function scrollCategoryNext(element, object, pixels, overflow) {
     const total = overflow * pixels;
@@ -201,6 +154,30 @@ export default function HomePage() {
     if (object.pixelCount > 0){
       document.getElementById(element).scrollTo(object.pixelCount -= pixels, 0);
     }
+  }
+
+  function scrollHorizontal(element, nextFlag){
+
+    nextFlag ? document.getElementById(element).scrollTo(2000, 0)
+    : document.getElementById(element).scrollTo(-2000, 0)
+
+    switch (element) {
+      case "forYouList":
+        setScrollForYou(!nextFlag);
+        break;
+      
+      case "trendingList":
+        setScrollTrending(!nextFlag);
+        break;
+
+      case "dealsList":
+        setScrollDeals(!nextFlag);
+        break;
+
+      default:
+        break;
+    } 
+
   }
 
   return (
@@ -252,7 +229,6 @@ export default function HomePage() {
               <Typography sx={[headers.header3, {color: "#969696", fontWeight: 400}]}>Get it while it's hot!</Typography>
             </div>
 
-
             <ul className={HomeCSS.bigItemList}>
               {mockSpecialItems.map((item) => {
                 return <li>{item}</li>;
@@ -266,21 +242,23 @@ export default function HomePage() {
             <Typography sx={headers.header3}>For You</Typography>
             <div className={HomeCSS.smallListContainer}>
               <ul className={HomeCSS.smallItemList} id="forYouList">
-                {mockForYouItems.map((item) => {
+                {mockTwelveItems.map((item) => {
                   return <li>{item}</li>;
                 })}
               </ul>
-              <ArrowBackIosNewIcon
-                sx={homepageStyles.leftArrow}
-                transform="scale(1.4)"
-                onClick={() => scrollCategoryBack("forYouList", forYouPixels, 174)}
-              />
 
-              <ArrowForwardIosIcon 
-                sx={homepageStyles.rightArrow} 
-                transform="scale(1.4)"
-                onClick={() => scrollCategoryNext("forYouList", forYouPixels, 174, mockForYouItems.length-6)}
-              />
+
+              {scrollForYou 
+                ? <ArrowForwardIosIcon 
+                  sx={homepageStyles.rightArrow} 
+                  transform="scale(1.4)"
+                  onClick={() => scrollHorizontal("forYouList", true)}/>
+                : <ArrowBackIosNewIcon
+                  sx={homepageStyles.leftArrow}
+                  transform="scale(1.4)"
+                  onClick={() => scrollHorizontal("forYouList", false)}/>
+              }
+
             </div>
 
           </section>
@@ -290,21 +268,22 @@ export default function HomePage() {
             <Typography sx={headers.header3}>Trending</Typography>
             <div className={HomeCSS.smallListContainer}>
               <ul className={HomeCSS.smallItemList} id="trendingList">
-                {mockForYouItems.map((item) => {
+                {mockTwelveItems.map((item) => {
                   return <li>{item}</li>;
                 })}
               </ul>
-              <ArrowBackIosNewIcon
-                sx={homepageStyles.leftArrow}
-                transform="scale(1.4)"
-                onClick={() => scrollCategoryBack("trendingList", trendingPixels, 174)}
-              />
 
-              <ArrowForwardIosIcon 
-                sx={homepageStyles.rightArrow} 
-                transform="scale(1.4)"
-                onClick={() => scrollCategoryNext("trendingList", trendingPixels, 174, mockForYouItems.length-6)}
-              />
+              {scrollTrending 
+                ? <ArrowForwardIosIcon 
+                  sx={homepageStyles.rightArrow} 
+                  transform="scale(1.4)"
+                  onClick={() => scrollHorizontal("trendingList", true)}/>
+                : <ArrowBackIosNewIcon
+                  sx={homepageStyles.leftArrow}
+                  transform="scale(1.4)"
+                  onClick={() => scrollHorizontal("trendingList", false)}/>
+              }
+
             </div>
 
           </section>
@@ -315,22 +294,22 @@ export default function HomePage() {
             <Typography sx={[headers.header3, {color: "#969696", fontWeight: 400}]}>Don't miss out!</Typography>
             <div className={HomeCSS.smallListContainer}>
               <ul className={HomeCSS.smallItemList} id="dealsList">
-                {mockDealItems.map((item) => {
+                {mockTwelveDealItems.map((item) => {
                   return <li>{item}</li>;
                 })}
               </ul>
 
-              <ArrowBackIosNewIcon
-                sx={homepageStyles.leftArrow}
-                transform="scale(1.4)"
-                onClick={() => scrollCategoryBack("dealsList", dealsPixels, 174)}
-              />
+              {scrollDeals 
+                ? <ArrowForwardIosIcon 
+                  sx={homepageStyles.rightArrow} 
+                  transform="scale(1.4)"
+                  onClick={() => scrollHorizontal("dealsList", true)}/>
+                : <ArrowBackIosNewIcon
+                  sx={homepageStyles.leftArrow}
+                  transform="scale(1.4)"
+                  onClick={() => scrollHorizontal("dealsList", false)}/>
+              }
 
-              <ArrowForwardIosIcon 
-                sx={homepageStyles.rightArrow} 
-                transform="scale(1.4)"
-                onClick={() => scrollCategoryNext("dealsList", dealsPixels, 174, mockForYouItems.length-6)}
-              />
             </div>
 
           </section>
@@ -351,7 +330,7 @@ export default function HomePage() {
               image={candy}
               color1="#D4162E"
               color2="#FCBAC2"
-              itemList={mockForYouItems}
+              itemList={mockTwelveItems}
             />
           </section>
 
@@ -362,7 +341,7 @@ export default function HomePage() {
               image={chips}
               color1="#BD653C"
               color2="#FFD9C7"
-              itemList={mockForYouItems}
+              itemList={mockTwelveItems}
             />
           </section>
 
@@ -373,7 +352,7 @@ export default function HomePage() {
               image={drinks}
               color1="#C79415"
               color2="#FFE7AA"
-              itemList={mockForYouItems}
+              itemList={mockTwelveItems}
             />
           </section>
 
@@ -384,7 +363,7 @@ export default function HomePage() {
               image={ready}
               color1="#E28413"
               color2="#FFDBB0"
-              itemList={mockForYouItems}
+              itemList={mockTwelveItems}
             />
           </section>
 
@@ -395,7 +374,7 @@ export default function HomePage() {
               image={snacks}
               color1="#3C8D8A"
               color2="#C8F0EE"
-              itemList={mockForYouItems}
+              itemList={mockTwelveItems}
             />
           </section>
 
@@ -406,7 +385,7 @@ export default function HomePage() {
               image={icecream}
               color1="#3B88C3"
               color2="#B3DEFF"
-              itemList={mockForYouItems}
+              itemList={mockTwelveItems}
             />
           </section>
 
@@ -417,7 +396,7 @@ export default function HomePage() {
               image={sweets}
               color1="#AC23B9"
               color2="#F8D7FB"
-              itemList={mockForYouItems}
+              itemList={mockTwelveItems}
             />
           </section>
 

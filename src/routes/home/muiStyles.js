@@ -3,9 +3,6 @@ export const headers = {
     header2: {
         fontWeight: 900,
         fontSize: "min(2.9vw, 34px)",
-        // fontSize: '4vw',
-        // fontSize: '34px',
-        // lineHeight: '51px',
         "@media screen and (max-width: 900px)": {
           fontSize: '26px',
           lineHeight: '39px'
@@ -15,8 +12,6 @@ export const headers = {
     header3: {
         fontWeight: 700,
         fontSize: "min(1.8vw, 24px)",
-        // fontSize: '24px',
-        // lineHeight: '36px',
 
         "@media screen and (max-width: 900px)": {
           fontSize: '22px',
