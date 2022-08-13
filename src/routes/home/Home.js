@@ -188,13 +188,6 @@ export default function HomePage() {
   let forYouPixels = {pixelCount: 0};
   let trendingPixels = {pixelCount: 0};
   let dealsPixels = {pixelCount: 0};
-  let candyPixels = {pixelCount: 0};
-  let chipsPixels = {pixelCount: 0};
-  let drinksPixels = {pixelCount: 0};
-  let readyPixels = {pixelCount: 0};
-  let snacksPixels = {pixelCount: 0};
-  let iceCreamPixels = {pixelCount: 0};
-  let sweetsPixels = {pixelCount: 0};
 
   function scrollCategoryNext(element, object, pixels, overflow) {
     const total = overflow * pixels;
@@ -227,13 +220,13 @@ export default function HomePage() {
             <ArrowBackIosNewIcon
               sx={homepageStyles.leftArrow}
               transform="scale(1.4)"
-              onClick={() => scrollCategoryBack("categoryNav", categoryPixels, 105)}
+              onClick={() => scrollCategoryBack("categoryNav", categoryPixels, 104)}
             />
 
             <ArrowForwardIosIcon 
               sx={homepageStyles.rightArrow} 
               transform="scale(1.4)"
-              onClick={() => scrollCategoryNext("categoryNav", categoryPixels, 105, categoryNavs.length-10)}
+              onClick={() => scrollCategoryNext("categoryNav", categoryPixels, 104, categoryNavs.length-10)}
             />
 
 
@@ -343,10 +336,13 @@ export default function HomePage() {
           </section>
 
           {/* Bulletin */}
-          <section className={HomeCSS.homeBulletin}>
+          <section className={HomeCSS.bulletinContainer}>
+            <div className={HomeCSS.homeBulletin}>
               <Box sx={homepageStyles.bulletinBox}/>
               <Box sx={homepageStyles.bulletinBox}/>
+            </div>
           </section>
+
 
           {/* Candy Section */}
           <section id="candySection" ref={candyRef}>

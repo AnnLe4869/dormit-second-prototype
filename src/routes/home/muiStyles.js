@@ -146,14 +146,16 @@ export const homepageStyles = {
     },
 
     bulletinBox: {
-        width: 507,
-        height: 214,
-        borderRadius: '16px',
-        backgroundColor: "#7141FA",
+      width: "100%",
+      height: "12vw",
+      maxHeight: 214,
+      borderRadius: '16px',
+      backgroundColor: "#7141FA",
 
-        "@media screen and (max-width: 900px)": {
-          height: 130
-        }
+      "@media screen and (max-width: 900px)": {
+        minWidth: 310,
+        minHeight: 130
+      }
     },
 
     categoryButton: {
