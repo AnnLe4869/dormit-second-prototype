@@ -95,12 +95,8 @@ h3 {
   display: none;
 }
 
-.bulletinBox {
-  width: 100%;
-  height: 12vw;
-  max-height: 214px;
-  border-radius: 16px;
-  background-color: #7141FA;
+.welcomeUcsdContent {
+  margin-left: 20px;
 }
 
 .todaysSpecial {

@@ -20,9 +20,12 @@ export const headers = {
       },
 
     header4: {
-        fontSize: '18px',
+        fontSize: "min(1.8vw, 18px)",
         lineHeight: '21px',
-        fontWeight: 600
+        fontWeight: 600,
+        "@media screen and (max-width: 900px)": {
+          fontSize: '18px',
+        }
     },
 
     header5: {
@@ -140,7 +143,22 @@ export const homepageStyles = {
       }
     },
 
-    bulletinBox: {
+    bulletinBoxUCSD: {
+      width: "100%",
+      height: "12vw",
+      maxHeight: 214,
+      borderRadius: '16px',
+      display: "flex",
+      alignItems: "center",
+
+
+      "@media screen and (max-width: 900px)": {
+        minWidth: 310,
+        minHeight: 130
+      }
+    },
+
+    bulletinBoxPromotion: {
       width: "100%",
       height: "12vw",
       maxHeight: 214,

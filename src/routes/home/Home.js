@@ -317,8 +317,29 @@ export default function HomePage() {
           {/* Bulletin */}
           <section className={HomeCSS.bulletinContainer}>
             <div className={HomeCSS.homeBulletin}>
-              <Box sx={homepageStyles.bulletinBox}/>
-              <Box sx={homepageStyles.bulletinBox}/>
+            
+              <Box sx={[homepageStyles.bulletinBoxUCSD, {backgroundColor: "#2F3997"}]}>
+                <div className={HomeCSS.welcomeUcsdContent}>
+                  <Typography sx={[headers.header2, {fontWeight: "500", color: "#ffffff"}]}>Welcome to UCSD</Typography>
+
+                  <Typography sx={[headers.header4, {fontWeight:"400", color: "#ffffff", marginTop:"12px"}]}>Store Hours:</Typography>
+                  <Typography sx={[headers.header3, {fontWeight:"500", color: "#ffffff"}]}>6pm - 1am</Typography>
+                </div>
+              </Box>
+
+
+              <Box sx={homepageStyles.bulletinBoxPromotion}>
+
+                <div className={HomeCSS.promotionContent}>
+                  <Typography sx={[headers.header3, {fontWeight: "500", color: "#ffffff"}]}>Call-to-action!</Typography>
+
+                  <Typography sx={{fontSize:"13px", fontWeight:"400", color: "#ffffff", marginTop:"12px"}}>
+                    Description of the promotional message in Desktop Caption text style.
+                  </Typography>
+
+                </div>
+
+              </Box>
             </div>
           </section>
 
