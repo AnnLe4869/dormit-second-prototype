@@ -1,4 +1,5 @@
 /**
+ * FIRESTORE_STRUCT v2.1
  * the below are structure of the Firestore database
  * each type represent a collection
  * a collection name should be in plural form (e.g buses or products) and NOT singular form (e.g bus or product)
@@ -16,7 +17,7 @@
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
  * the "products" collection should be treated as read-only
- * all the fields in the collection are updated from Stripe automatically (via webhook)
+ * all the fields in the collection are created and updated from Stripe automatically (via webhook)
  * means that the admin can change value on Stripe (or you write code to make change on Stripe)
  * and the products collection will update accordingly
  * ****
@@ -39,30 +40,39 @@ type products = Array<{
    */
   images: Array<string>;
   metadata: {
+    /**
+     * quantity is how many items left in inventory
+     */
     quantity: string;
     category: string;
+    /**
+     * tax is the string that represent the tax rate
+     * write the tax rate as-is
+     * for example:
+     * 1.25%  ===> 1.25
+     * 0.5%   ===> 0.50
+     */
+    tax: string;
   };
-  tax: string;
+
   /**
-   * "prices" is a collection (subcollection to be precise)
-   * whose document is price object https://stripe.com/docs/api/prices
+   * "prices" is an ARRAY (not subcollection)
+   * whose element is price object https://stripe.com/docs/api/prices
    * one product can have multiple prices
    * ****
    * the reason for multiple prices is because a product can have its "On Sale" session where its price is lower than usual
    * we can detect whether an item is on sale if it has two prices documents and the one with lower unit_amount is the sale prices
    * no products shall have more than TWO(2) prices
-   * ****
-   * this should be modified to be an array instead of a subcollection because how many read this will count
-   * in this current implementation of using subcollection, for each product, we will do 3 read instead of just 1
-   * the reason I did this is because I copy code from Firebase Stripe Payment extension code and they use this setup
-   * and copy code save me time
-   * in future optimization will change this to array
    */
   prices: Array<{
-    id: string; // must start with "price_" (e.g "price_1LV5VjBFL4Le4")
-    product: string; // is the id of the product this linked to (e.g "prod_nfi3ndfd5549")
+    price_id: string; // must start with "price_" (e.g "price_1LV5VjBFL4Le4")
+    product_id: string; // the id of the product this linked to (e.g "prod_nfi3ndfd5549")
     currency: string;
-    unit_amount: string;
+    /**
+     * unit amount counted in smallest unit
+     * so $5.12 will be 512
+     */
+    unit_amount: number;
   }>;
   /**
    * the rank is the number that show how "hot" the item is
@@ -93,6 +103,10 @@ type products = Array<{
  */
 type users = Array<{
   /**
+   * the id is assigned by Firestore, not Stripe
+   */
+  id: string;
+  /**
    * phone is the phone number user uses to register
    * all users must have phone number
    * this phone number is stored to Firestore when user use their phone to register
@@ -105,6 +119,10 @@ type users = Array<{
    * the email will be used to authenticate in case user forget their phone
    */
   linked_email: string;
+  /**
+   * address to the profile image
+   */
+  profile_img: string;
   /**
    * we will create a Stripe Customer whenever a new user is created in Firestore
    * this stripeId is the Customer Stripe ID that can be used to retrieve user's stripe info
@@ -125,7 +143,15 @@ type users = Array<{
    */
   role: "customer" | "rusher" | "admin";
   /**
-   * cart is an array of object that represent which item and its quantity in user's cart
+   * address customer want the order to ship to
+   */
+  shipping_address: {
+    campus: string;
+    building: string;
+    floor_apartment: string;
+  };
+  /**
+   * cart is an ARRAY of object that represent which item and its quantity in user's cart
    */
   cart: Array<{
     product_id: string;
@@ -133,7 +159,7 @@ type users = Array<{
   }>;
 
   /**
-   * "payments" is a collection (subcollection to be precise) that record the PaymentIntent that are created
+   * "payments" is a SUBCOLLECTION that record the PaymentIntent that are created
    * PaymentIntent is an object that handle payment and collect money
    * see more in https://stripe.com/docs/payments/quickstart and https://stripe.com/docs/api/payment_intents/object
    * ****
@@ -164,47 +190,27 @@ type users = Array<{
    * when the payment succeed, this temp order will be pushed to current_orders and temp_order will be reset to null
    * we should only have one order or less that is in temp_order at any time
    * ****
-   * all the fields are filled with necessary details and when it's pushed to current_orders, it will be finalized
+   * only the necessary fields are filled
+   * the rest of the information will be filled when it's pushed to "current_orders" and "processing_orders" collection
    * the detail on what each field represented can be seen in "processing_orders" collection
    */
   temp_order: {
-    /**
-     * this is the id corresponds to the PaymentIntent that complete the transaction
-     * for record keeping only
-     */
     payment_id: string;
     customer_id: string;
     customer_name: string;
+    customer_img: string;
     customer_contact: {
       phone: string;
       text: string;
     };
     order_time: string;
-    until_delivered: null;
-    /**
-     * a number indicates which processing stage the order is in
-     * value of -1 is given here because the order has yet to be completed
-     */
-    process_stage: -1;
 
-    /**
-     * the shipping address
-     */
     shipping_address: {
       campus: string;
       building: string;
       floor_apartment: string;
     };
-    /**
-     * the message the customer leave for rusher
-     * like instruction for the order
-     */
     message: string;
-    /**
-     * information about rusher - the one who deliver the order to customer
-     * the value of null is assigned here because the order has yet to be completed
-     */
-    rusher: null;
 
     amount_total: number;
     shipping_fee: number;
@@ -220,7 +226,7 @@ type users = Array<{
   } | null;
 
   /**
-   * "current_orders" is a subcollection of orders that are in process
+   * "current_orders" is a SUBCOLLECTION of orders that are in process
    * the user is waiting for the order to be delivered
    * the detail on what each field means can be seen in collection "processing_orders"
    * ****
@@ -234,16 +240,26 @@ type users = Array<{
      */
     id: string;
     customer_id: string;
+    customer_name: string;
+    customer_img: string;
+    customer_contact: {
+      phone: string;
+      /**
+       * for now, phone and text number will be the same,
+       * but this may change in the future
+       */
+      text: string;
+    };
     order_time: string;
     until_delivered: string;
     process_stage: 0 | 1 | 2 | 3;
 
-    message: string;
     shipping_address: {
       campus: string;
       building: string;
       floor_apartment: string;
     };
+    message: string;
     rusher: {
       rusher_id: string;
       rusher_name: string;
@@ -395,7 +411,7 @@ type processing_orders = Array<{
   rusher_tip: number;
 
   /**
-   * "items" is an array of items that are in the order
+   * "items" is an ARRAY of items that are in the order
    * total cost per item type = unit_cost x quantity + tax
    */
   items: Array<{
