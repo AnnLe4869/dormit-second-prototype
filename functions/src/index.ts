@@ -1,9 +1,9 @@
-import { postCheckout } from "./functions/postCheckout";
-import { sendCodeViaEmail } from "./functions/sendCodeViaEmail";
-import { testFunc } from "./functions/testFunc";
-import { updateEmail } from "./functions/updateEmail";
-import { updateUserProfile } from "./functions/updateUserProfile";
-import { verifyOtpCode } from "./functions/verifyOtpCode";
+import { postCheckout } from "./func/postCheckout";
+import { sendCodeViaEmail } from "./func/sendCodeViaEmail";
+import { testFunc } from "./func/testFunc";
+import { updateEmail } from "./func/updateEmail";
+import { updateUserProfile } from "./func/updateUserProfile";
+import { verifyOtpCode } from "./func/verifyOtpCode";
 
 export { postCheckout };
 export { sendCodeViaEmail };
