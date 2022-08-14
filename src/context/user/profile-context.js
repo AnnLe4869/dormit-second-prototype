@@ -22,6 +22,7 @@ export function useUpdateFirstName() {
    */
 
   const { db } = useContext(AppContext);
+<<<<<<< HEAD
   console.log("state: ", state);
 
   return async (name) => {
@@ -41,6 +42,18 @@ export function useUpdateFirstName() {
       console.log("useUpdateFirstName() error: ", error);
     }
 
+=======
+
+  dispatch({
+    type: SET_FIRST_NAME,
+    payload: { name: state.firstName },
+  });
+
+  return async (name) => {
+    await setDoc(doc(db, "users", "first_name"), {
+      name: state.firstName,
+    });
+>>>>>>> upstream/main
   };
 }
 

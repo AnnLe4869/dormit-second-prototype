@@ -1,9 +1,9 @@
 .purpleText {
-  color: #7141FA;
+  color: #7141fa;
 }
 
 .purpleLink {
-  color: #7141FA;
+  color: #7141fa;
   text-decoration: underline;
   font-weight: bold;
 }
@@ -34,7 +34,7 @@
 .inputPhone {
   outline: none;
   border: none;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 5px;
   color: #000000;
   padding: 15px;
@@ -48,7 +48,7 @@
   width: 100%;
   outline: none;
   border: none;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   color: #000000;
   padding: 15px;
   border-radius: 5px;
@@ -57,7 +57,7 @@
 .inputVerify {
   outline: none;
   border: none;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   color: #000000;
   border-radius: 8px;
   width: 50px;
@@ -70,7 +70,7 @@
 /* Button styles */
 
 .confirmButton {
-  background-color: #7141FA;
+  background-color: #7141fa;
   border-radius: 999px;
   color: #ffffff;
   padding: 10px 15px;
@@ -194,16 +194,15 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-
 @media screen {
   @media (min-width: 500px) {
-      .nameInput {
-        gap: 25px;
-        flex-direction: row;
-      }
-
-      .inputDiv {
-        margin: 20px 0;
-      }
+    .nameInput {
+      gap: 25px;
+      flex-direction: row;
     }
+
+    .inputDiv {
+      margin: 20px 0;
+    }
+  }
 }

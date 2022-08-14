@@ -13,12 +13,12 @@ import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
+import Supplies from "./routes/category/supplies/Supplies";
+import Category from "./routes/category/Category";
 import Current from "./routes/order/Current/Current";
 import Past from "./routes/order/Past/Past";
 import Selected from "./routes/order/Selected/Selected";
-
 import Test from "./routes/test/Test";
-
 
 function App() {
   useInitializeApp();
@@ -47,6 +47,11 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/account" element={<AccountPage />} />
+
+        <Route path="/category">
+          <Route index element={<Category />} />
+          <Route path="supplies" element={<Supplies />} />
+        </Route>
 
         {/*this is special route for testing only. Delete when done*/}
         <Route path="/test" element={<Test />} />
