@@ -23,3 +23,6 @@ export function findCheapestPrice(prices: Product["prices"]) {
       : currentValue
   );
 }
+
+export type ArrayElement<ArrayType extends readonly unknown[]> =
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;

@@ -8,11 +8,16 @@ import Stripe from "stripe";
 import config from "../config";
 
 import { db } from "../setup";
+import { ArrayElement, Processing_order, Product, User } from "../type";
 
 /**
  * Fire when a an existing payment is updated
- * If the transaction is success, update the inventory IN STRIPE
- * and update the user's current order in firebase
+ * If the transaction is success, update database
+ * In short, it does
+ * - update user's temp_order
+ * - update user's current_orders if succeed
+ * - update processing_orders if succeed
+ * - update Stripe product inventory if succeed
  */
 export const postCheckout = functions
   .runWith({
@@ -55,140 +60,59 @@ export const postCheckout = functions
     const payment = snap.after.data() as Stripe.PaymentIntent;
 
     /**
+     * get the user's data
+     */
+    const userId = context.params.userId as string;
+    const paymentId = context.params.paymentId as string;
+
+    const usersRef = db.collection("users") as CollectionReference<User>;
+    const productRef = db.collection(
+      "products"
+    ) as CollectionReference<Product>;
+    const processingOrdersRef = db.collection(
+      "processing_orders"
+    ) as CollectionReference<Processing_order>;
+    const currentOrdersRef = usersRef
+      .doc(userId)
+      .collection("current_orders") as CollectionReference<
+      ArrayElement<User["current_orders"]>
+    >;
+
+    const userDoc = await usersRef.doc(userId).get();
+    const userDetail = userDoc.data();
+    if (!userDoc.exists || !userDetail) {
+      throw new functions.https.HttpsError(
+        "internal",
+        "cannot access data of user that didn't exist in database"
+      );
+    }
+
+    /**
      * check the status of the data
      * only when status is "succeeded" do we adjust the inventory and order
+     * otherwise, we will just reset the temp_order
      */
     if (payment.status === "succeeded") {
-      /**
-       * ---------------------------------------------------------------------------------
-       * UPDATE PRODUCT DATA
-       * ---------------------------------------------------------------------------------
-       */
+      const tempOrder = userDetail.temp_order;
 
-      /**
-       * get the sell data
-       */
-      const { items } = payment;
-      const itemsSellData = items.map((item) => {
-        if (!item.price || !item.quantity) {
-          throw new Error("price is missing");
-        }
-        return {
-          prod_id: item.price.product as string,
-          sold_quantity: item.quantity,
-        };
-      });
-
-      const productRef = db.collection("products") as CollectionReference<{
-        metadata: {
-          quantity: string;
-        };
-      }>;
-
-      /**
-       * get the items in inventory that is in the order
-       */
-      const firestoreData = await productRef
-        .where(
-          FieldPath.documentId(),
-          "in",
-          itemsSellData.map((item) => item.prod_id)
-        )
-        .get();
-
-      firestoreData.forEach(async (product) => {
-        const itemSellData = itemsSellData.find(
-          (elem) => elem.prod_id === product.id
-        );
-
-        if (!itemSellData) {
-          throw new Error("Cannot find the item's data");
-        }
-        /**
-         * update the inventory in Stripe
-         */
-        await stripe.products.update(product.id, {
-          metadata: {
-            quantity:
-              parseInt(product.data().metadata.quantity) -
-              itemSellData.sold_quantity,
-          },
-        });
-      });
-
-      /**
-       * -----------------------------------------------------------------------------------------------
-       * UPDATE CURRENT ORDER DATA
-       * -----------------------------------------------------------------------------------------------
-       */
-
-      /**
-       * get the user's data
-       */
-      const userId = context.params.userId as string;
-      const usersRef = db.collection("users") as CollectionReference<{
-        name: string;
-        phone: string;
-        current_order: Array<{
-          /**
-           * payment_id used to search for PaymentIntent
-           * provides details about order like shipping address, ordered items and their quantity
-           */
-          payment_id: string;
-          /**
-           * customer_id is used to effectively find user and update the order's process
-           */
-          customer_id: string;
-          order_time: string;
-          order_process: string;
-          until_delivered: string;
-        }>;
-      }>;
-      /**
-       * we need user's data and not just user's id
-       * because the rusher need some basic info about the customer, but not all info
-       * it will be risky to have the rusher have all customer's info
-       * we extract only necessary user's info and put that into current_orders for rusher to see
-       */
-      const userDoc = await usersRef.doc(userId).get();
-      const user = userDoc.data();
-      if (!userDoc.exists || !user) {
+      if (!tempOrder) {
         throw new functions.https.HttpsError(
           "internal",
-          "cannot access data of user that didn't exist in database"
+          "temp_order is somehow empty"
+        );
+      }
+      if (tempOrder.payment_id !== paymentId) {
+        throw new functions.https.HttpsError(
+          "internal",
+          "the payment id in temp_order does not match the payment id written to database"
         );
       }
 
-      const currentOrdersRef = db.collection(
-        "current_orders"
-      ) as CollectionReference<{
-        /**
-         * used to search for PaymentIntent - provides details about order like order's products, cost, etc.
-         * we use this as id for collection "current_orders" for convenience
-         */
-        order_time: number;
-        order_process: number;
-        payment_id: string;
-        until_delivered: number;
-        customer: {
-          id: string;
-          name: string;
-          phone: string;
-        };
-        /**
-         * at order time, we don't have any rusher assigned to the order
-         */
-        rusher: {
-          id: string | null;
-          name: string | null;
-          phone: string | null;
-        };
-      }>;
       /**
        * check if an order of same id has existed or not
        * if there is one, something is wrong
        */
-      const orderDoc = await currentOrdersRef.doc(userId).get();
+      const orderDoc = await processingOrdersRef.doc(userId).get();
       if (orderDoc.exists) {
         throw new functions.https.HttpsError(
           "internal",
@@ -197,12 +121,77 @@ export const postCheckout = functions
       }
 
       /**
-       * create new document in collection "current_orders" and
-       * create new order in "users" current_orders field
+       * ---------------------------------------------------------------------------------
+       * UPDATE PRODUCT DATA in STRIPE
+       * ---------------------------------------------------------------------------------
        */
-      const EPOCH_CURRENT_TIME = new Date().getTime();
-      const TWO_HOURS_PERIOD = 2 * 60 * 60 * 1000;
-      const ORDER_PROCESS_STEP = [0, 1, 2, 3, 4, 5];
+
+      /**
+       * get the data about items that are in the order
+       * we have to get the current inventory in order to
+       * update the inventory in Stripe
+       * ****
+       * in the future, when we no longer rely on Stripe for inventory management,
+       * we can just update Firestore, which is way faster
+       */
+
+      const itemsInOrder = tempOrder.items;
+
+      /**
+       * get the items in inventory that is in the order
+       */
+      const snapshot = await productRef
+        .where(
+          FieldPath.documentId(),
+          "in",
+          itemsInOrder.map((item) => item.product_id)
+        )
+        .get();
+
+      /**
+       * array of product that changed because of the order
+       * contains the updated data that will be used to update inventory
+       */
+      const inventoryUpdatedData: Array<
+        ArrayElement<typeof itemsInOrder> & Product
+      > = [];
+
+      snapshot.forEach(async (doc) => {
+        const orderData = itemsInOrder.find(
+          (elem) => elem.product_id === doc.id
+        );
+        if (!orderData) {
+          throw new functions.https.HttpsError(
+            "internal",
+            "Cannot find the item's data in database"
+          );
+        }
+        inventoryUpdatedData.push({
+          ...orderData,
+          ...doc.data(),
+          quantity: parseInt(doc.data().metadata.quantity) - orderData.quantity,
+        });
+      });
+
+      /**
+       * update the inventory in Stripe
+       */
+      await Promise.allSettled(
+        inventoryUpdatedData.map(async (item) => {
+          await stripe.products.update(item.product_id, {
+            metadata: {
+              ...item.metadata,
+              quantity: item.quantity,
+            },
+          });
+        })
+      );
+
+      /**
+       * -----------------------------------------------------------------------------------------------
+       * UPDATE PROCESSING_ORDERS and user's CURRENT_ORDERS
+       * -----------------------------------------------------------------------------------------------
+       */
 
       /**
        * we use batch write here to ensure that both write operations must either succeed or fail together
@@ -211,50 +200,29 @@ export const postCheckout = functions
        */
       const batch = db.batch();
 
-      const paymentId = context.params.paymentId as string;
-
       // create new document in the "current_orders" collection
-      batch.set(currentOrdersRef.doc(paymentId), {
-        order_time: EPOCH_CURRENT_TIME,
-        order_process: ORDER_PROCESS_STEP[0],
-        payment_id: paymentId,
-        /**
-         * this is rough estimate time until order is delivered
-         * will be adjusted once order is processed
-         */
-        until_delivered: EPOCH_CURRENT_TIME + TWO_HOURS_PERIOD,
-        customer: {
-          id: userId,
-          name: user.name,
-          phone: user.phone,
-        },
-        rusher: {
-          id: null,
-          name: null,
-          phone: null,
-        },
+      batch.set(processingOrdersRef.doc(paymentId), {
+        ...tempOrder,
+        process_stage: 0,
       });
 
-      // create new order in "users" collection's field current_orders with empty value for rusher's fields
+      // create new document in "users" collection's field current_orders
+      batch.set(currentOrdersRef.doc(paymentId), {
+        ...tempOrder,
+        process_stage: 0,
+      });
+
+      // reset the temp_order
       batch.update(usersRef.doc(userId), {
-        current_orders: FieldValue.arrayUnion({
-          order_time: EPOCH_CURRENT_TIME,
-          order_process: ORDER_PROCESS_STEP[0],
-          payment_id: paymentId,
-          /**
-           * this is rough estimate time until order is delivered
-           * will be adjusted once order is processed
-           */
-          until_delivered: EPOCH_CURRENT_TIME + TWO_HOURS_PERIOD,
-          rusher: {
-            id: null,
-            name: null,
-            phone: null,
-          },
-        }),
+        temp_order: null,
       });
 
       // Commit the batch
       await batch.commit();
+    } else {
+      // for any other status, reset it
+      await usersRef.doc(userId).update({
+        temp_order: null,
+      });
     }
   });
