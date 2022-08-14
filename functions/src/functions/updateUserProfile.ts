@@ -47,7 +47,7 @@ export const updateUserProfile = functions
       );
     }
 
-    if (!process.env.FUNCTIONS_EMULATOR) {
+    try {
       const usersRef = db.collection("users") as CollectionReference<{
         name: string;
         linked_email: string;
@@ -80,9 +80,12 @@ export const updateUserProfile = functions
         isSuccess: true,
         message: "the user's profile has been updated",
       };
-    } else {
-      return {
-        message: "something is wrong here. Please contact support",
-      };
+    } catch (error) {
+      functions.logger.error(
+        `Error: fail to update profile for user with uid ${context.auth.uid} with email ${data.email}`,
+        (error as Error).message
+      );
+
+      throw new functions.https.HttpsError("internal", "Something went wrong");
     }
   });

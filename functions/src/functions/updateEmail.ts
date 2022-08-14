@@ -39,11 +39,11 @@ export const updateEmail = functions
       );
     }
 
-    if (!process.env.FUNCTIONS_EMULATOR) {
-      const usersRef = db.collection("users") as CollectionReference<{
-        linked_email: string;
-      }>;
+    const usersRef = db.collection("users") as CollectionReference<{
+      linked_email: string;
+    }>;
 
+    try {
       /**
        * find users that have the linked_email field match the given email
        * if there is such user, we cannot change our user's linked_email to the given email
@@ -70,9 +70,12 @@ export const updateEmail = functions
         isSuccess: true,
         message: "the user's email has been updated",
       };
-    } else {
-      return {
-        message: "something is wrong here. Please contact support",
-      };
+    } catch (error) {
+      functions.logger.error(
+        `Error: fail to update email for user with uid ${context.auth.uid} with email ${data.email}`,
+        (error as Error).message
+      );
+
+      throw new functions.https.HttpsError("internal", "Something went wrong");
     }
   });

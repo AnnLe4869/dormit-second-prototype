@@ -98,117 +98,56 @@ export const checkout = functions
       );
     }
 
-    /**
-     * -------------------------------------------------------------------------------------------------------------------
-     * fetch the data of only products that are in cart
-     * -------------------------------------------------------------------------------------------------------------------
-     */
-    const productsRef = db.collection(
-      "products"
-    ) as CollectionReference<Product>;
+    try {
+      /**
+       * -------------------------------------------------------------------------------------------------------------------
+       * fetch the data of only products that are in cart
+       * -------------------------------------------------------------------------------------------------------------------
+       */
+      const productsRef = db.collection(
+        "products"
+      ) as CollectionReference<Product>;
 
-    const productsDetail: Array<Product & { id: string }> = [];
-    const firestoreProductsData = await productsRef
-      .where(
-        FieldPath.documentId(),
-        "in",
-        cart.map((item) => item.product_id)
-      )
-      .get();
-    firestoreProductsData.forEach(async (snapshot) => {
-      productsDetail.push({ ...snapshot.data(), id: snapshot.id });
-    });
+      const productsDetail: Array<Product & { id: string }> = [];
+      const firestoreProductsData = await productsRef
+        .where(
+          FieldPath.documentId(),
+          "in",
+          cart.map((item) => item.product_id)
+        )
+        .get();
+      firestoreProductsData.forEach(async (snapshot) => {
+        productsDetail.push({ ...snapshot.data(), id: snapshot.id });
+      });
 
-    /**
-     * fetch user's data
-     */
+      /**
+       * fetch user's data
+       */
 
-    const usersRef = db.collection("users") as CollectionReference<User>;
-    const userDetail = (
-      await usersRef.doc(context.auth.uid).get()
-    ).data() as User;
+      const usersRef = db.collection("users") as CollectionReference<User>;
+      const userDetail = (
+        await usersRef.doc(context.auth.uid).get()
+      ).data() as User;
 
-    if (!userDetail) {
-      throw new functions.https.HttpsError(
-        "internal",
-        "user doesn't exist in database"
-      );
-    }
-
-    /**
-     * -------------------------------------------------------------------------------------------------------------------
-     * calculate the total
-     * -------------------------------------------------------------------------------------------------------------------
-     */
-
-    let total = 0;
-
-    cart.forEach(({ product_id, quantity }) => {
-      const product = productsDetail.find((elem) => elem.id === product_id);
-      if (!product) {
+      if (!userDetail) {
+        functions.logger.error(
+          `User of uid ${context.auth.uid} doesn't exist in database`
+        );
         throw new functions.https.HttpsError(
           "internal",
-          `Somehow a product in cart doesn't exist in database`
+          "user doesn't exist in database"
         );
       }
-      /**
-       * find the price that is the lowest out of array of prices
-       */
-      const cheapestPrice = findCheapestPrice(product.prices);
-      const taxRate = parseFloat(product.metadata.tax);
 
       /**
-       * increment the total by the item cost times added tax
+       * -------------------------------------------------------------------------------------------------------------------
+       * calculate the total
+       * -------------------------------------------------------------------------------------------------------------------
        */
-      total += cheapestPrice.unit_amount * quantity * (1 + taxRate);
-    });
 
-    // increase total by the shipping cost and rusher tip
-    total += SHIPPING_COST + rusherTip;
+      let total = 0;
 
-    /**
-     * -------------------------------------------------------------------------------------------------------------------
-     * create a new PaymentIntent with this total amount
-     * -------------------------------------------------------------------------------------------------------------------
-     */
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency: "USD",
-      amount: total,
-      automatic_payment_methods: { enabled: true },
-      setup_future_usage: "off_session",
-      customer: userDetail.stripeId,
-    });
-
-    /**
-     * -------------------------------------------------------------------------------------------------------------------
-     * update the temp_order field
-     * -------------------------------------------------------------------------------------------------------------------
-     */
-    const EPOCH_CURRENT_TIME = new Date().getTime().toString();
-
-    const tempOrder: User["temp_order"] = {
-      payment_id: paymentIntent.id,
-
-      customer_id: userDetail.stripeId,
-      customer_name: userDetail.name,
-      customer_img: userDetail.profile_img,
-      customer_contact: {
-        phone: userDetail.phone,
-        text: userDetail.phone,
-      },
-
-      order_time: EPOCH_CURRENT_TIME,
-      until_delivered: null,
-      process_stage: -1,
-
-      shipping_address: shippingAddress,
-      message,
-      rusher: null,
-
-      amount_total: total,
-      shipping_fee: SHIPPING_COST,
-      rusher_tip: rusherTip,
-      items: cart.map(({ product_id, quantity }) => {
+      cart.forEach(({ product_id, quantity }) => {
         const product = productsDetail.find((elem) => elem.id === product_id);
         if (!product) {
           throw new functions.https.HttpsError(
@@ -216,27 +155,101 @@ export const checkout = functions
             `Somehow a product in cart doesn't exist in database`
           );
         }
-        return {
-          product_id,
-          product_name: product.name,
-          product_description: product.description,
-          unit_cost: findCheapestPrice(product.prices).unit_amount,
-          quantity,
-          tax: product.metadata.tax,
-        };
-      }),
-    };
+        /**
+         * find the price that is the lowest out of array of prices
+         */
+        const cheapestPrice = findCheapestPrice(product.prices);
+        const taxRate = parseFloat(product.metadata.tax);
 
-    await usersRef.doc(context.auth.uid).update({
-      temp_order: tempOrder,
-    });
+        /**
+         * increment the total by the item cost times added tax
+         */
+        total += cheapestPrice.unit_amount * quantity * (1 + taxRate);
+      });
 
-    /**
-     * -------------------------------------------------------------------------------------------------------------------
-     * Send publishable key and PaymentIntent details to client
-     * -------------------------------------------------------------------------------------------------------------------
-     */
-    return {
-      clientSecret: paymentIntent.client_secret,
-    };
+      // increase total by the shipping cost and rusher tip
+      total += SHIPPING_COST + rusherTip;
+
+      /**
+       * -------------------------------------------------------------------------------------------------------------------
+       * create a new PaymentIntent with this total amount
+       * -------------------------------------------------------------------------------------------------------------------
+       */
+      const paymentIntent = await stripe.paymentIntents.create({
+        currency: "USD",
+        amount: total,
+        automatic_payment_methods: { enabled: true },
+        setup_future_usage: "off_session",
+        customer: userDetail.stripeId,
+      });
+
+      /**
+       * -------------------------------------------------------------------------------------------------------------------
+       * update the temp_order field
+       * -------------------------------------------------------------------------------------------------------------------
+       */
+      const EPOCH_CURRENT_TIME = new Date().getTime().toString();
+
+      const tempOrder: User["temp_order"] = {
+        payment_id: paymentIntent.id,
+
+        customer_id: userDetail.stripeId,
+        customer_name: userDetail.name,
+        customer_img: userDetail.profile_img,
+        customer_contact: {
+          phone: userDetail.phone,
+          text: userDetail.phone,
+        },
+
+        order_time: EPOCH_CURRENT_TIME,
+        until_delivered: null,
+        process_stage: -1,
+
+        shipping_address: shippingAddress,
+        message,
+        rusher: null,
+
+        amount_total: total,
+        shipping_fee: SHIPPING_COST,
+        rusher_tip: rusherTip,
+        items: cart.map(({ product_id, quantity }) => {
+          const product = productsDetail.find((elem) => elem.id === product_id);
+          if (!product) {
+            functions.logger.error(
+              `the product with id ${product_id} doesn't exist in database`
+            );
+            throw new functions.https.HttpsError(
+              "internal",
+              `Somehow a product in cart doesn't exist in database`
+            );
+          }
+          return {
+            product_id,
+            product_name: product.name,
+            product_description: product.description,
+            unit_cost: findCheapestPrice(product.prices).unit_amount,
+            quantity,
+            tax: product.metadata.tax,
+          };
+        }),
+      };
+
+      await usersRef.doc(context.auth.uid).update({
+        temp_order: tempOrder,
+      });
+
+      /**
+       * -------------------------------------------------------------------------------------------------------------------
+       * Send publishable key and PaymentIntent details to client
+       * -------------------------------------------------------------------------------------------------------------------
+       */
+      return {
+        clientSecret: paymentIntent.client_secret,
+      };
+    } catch (error) {
+      functions.logger.error(
+        `Error: cannot create checkout for user with uid ${context.auth.uid}`
+      );
+      throw new functions.https.HttpsError("internal", "Something went wrong");
+    }
   });

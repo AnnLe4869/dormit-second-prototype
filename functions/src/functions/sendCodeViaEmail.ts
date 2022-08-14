@@ -70,9 +70,10 @@ export const sendCodeViaEmail = functions
         message: "A code has been sent to your email",
       };
     } catch (err) {
-      throw new functions.https.HttpsError(
-        "internal",
-        `Something went wrong and cannot write to the firestore`
+      functions.logger.error(
+        `Error: Cannot send email to email ${email}`,
+        (err as Error).message
       );
+      throw new functions.https.HttpsError("internal", `Something went wrong`);
     }
   });
