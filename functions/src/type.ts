@@ -50,6 +50,11 @@ export type Product = {
   }>;
 
   rank: string;
+
+  /**
+   * any additional properties
+   */
+  [propName: string]: unknown;
 };
 
 export type User = {
@@ -124,6 +129,11 @@ export type User = {
    * user can use this id to find which orders are completed by him
    */
   finished_orders: Array<string>;
+
+  /**
+   * any additional properties
+   */
+  [propName: string]: unknown;
 };
 
 /**
@@ -252,6 +262,11 @@ export type Processing_order = {
     product_name: string;
     product_description: string;
   }>;
+
+  /**
+   * any additional properties
+   */
+  [propName: string]: unknown;
 };
 
 /**
@@ -306,6 +321,11 @@ export type Completed_order = {
     product_name: string;
     product_description: string;
   }>;
+
+  /**
+   * any additional properties
+   */
+  [propName: string]: unknown;
 };
 
 /**
