@@ -1,4 +1,6 @@
+import { httpsCallable } from "firebase/functions";
 import { useContext } from "react";
+import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 
 /**
@@ -31,4 +33,31 @@ export function useUpdateLastName() {
    * then update user's field in Context by calling dispatch({type: SET_LAST_NAME, payload: {name: "your name"}})
    */
   return async (name) => {};
+}
+
+/**
+ * update user's shipping address
+ *
+ * return a function that when called will update user's shipping address
+ */
+export function useUpdateShipping() {
+  const { functions } = useContext(AppContext);
+
+  const updateShipping = httpsCallable(functions, "updateShipping");
+
+  /**
+   * function that will update user's shipping address
+   *
+   * this will update the shipping field in firebase and in local Context
+   * in firebase in "users" collections, each user has field "shipping"
+   * which is of shape {address: {building: string, floor_apartment: string}}
+   *
+   * after that, update local
+   */
+  return async (address) => {
+    await updateShipping({
+      building: "CSE",
+      floorApartment: "3",
+    });
+  };
 }
