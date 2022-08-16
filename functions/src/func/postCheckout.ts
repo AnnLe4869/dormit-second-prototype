@@ -104,7 +104,10 @@ export const postCheckout = functions
             "temp_order is somehow empty"
           );
         }
-        if (tempOrder.payment_id !== paymentId) {
+        if (
+          tempOrder.payment_id !== payment.id ||
+          tempOrder.payment_id !== paymentId
+        ) {
           functions.logger.error(
             "temp_order has different payment_id than this payment id here"
           );
@@ -115,8 +118,10 @@ export const postCheckout = functions
         }
 
         /**
-         * check if an order of same id has existed or not
-         * if there is one, something is wrong
+         * check if an order of same id has existed or not in processing_orders
+         * we assume that processing_orders and current_orders are in sync with each other,
+         * thus only need to check one of the collection and not both
+         * if there is one already existed, something is wrong
          */
         const orderDoc = await processingOrdersRef.doc(paymentId).get();
         if (orderDoc.exists) {
@@ -214,29 +219,44 @@ export const postCheckout = functions
         const batch = db.batch();
 
         // create new document in the "current_orders" collection
-        batch.set(processingOrdersRef.doc(paymentId), {
-          ...tempOrder,
-          process_stage: 0,
-        });
+        batch.set(
+          processingOrdersRef.doc(paymentId),
+          {
+            ...tempOrder,
+            process_stage: 0,
+          },
+          { merge: true }
+        );
 
         // create new document in "users" collection's field current_orders
-        batch.set(currentOrdersRef.doc(paymentId), {
-          ...tempOrder,
-          process_stage: 0,
-        });
+        batch.set(
+          currentOrdersRef.doc(paymentId),
+          {
+            ...tempOrder,
+            process_stage: 0,
+          },
+          { merge: true }
+        );
 
         // reset the temp_order
-        batch.update(usersRef.doc(userId), {
-          temp_order: null,
-        });
+        batch.set(
+          usersRef.doc(userId),
+          {
+            temp_order: null,
+          },
+          { merge: true }
+        );
 
         // Commit the batch
         await batch.commit();
       } else {
         // for any other status, reset it
-        await usersRef.doc(userId).update({
-          temp_order: null,
-        });
+        await usersRef.doc(userId).set(
+          {
+            temp_order: null,
+          },
+          { merge: true }
+        );
       }
     } catch (error) {
       functions.logger.error(

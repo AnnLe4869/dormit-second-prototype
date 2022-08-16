@@ -27,11 +27,6 @@ import { Product, User } from "../type";
  *         message: string
  * }
  */
-/**
- * this is the shipping cost
- * a fixed amount
- */
-const SHIPPING_COST = 195;
 
 export const checkout = functions
   .runWith({
@@ -51,6 +46,12 @@ export const checkout = functions
         version: "1.0",
       },
     });
+
+    /**
+     * this is the shipping cost
+     * you can change the cost in environment variable
+     */
+    const SHIPPING_FEE = parseInt(config.shippingFee);
 
     /**
      * -------------------------------------------------------------------------------------------------------------------
@@ -168,7 +169,7 @@ export const checkout = functions
       });
 
       // increase total by the shipping cost and rusher tip
-      total += SHIPPING_COST + rusherTip;
+      total += SHIPPING_FEE + rusherTip;
 
       /**
        * -------------------------------------------------------------------------------------------------------------------
@@ -210,7 +211,7 @@ export const checkout = functions
         rusher: null,
 
         amount_total: total,
-        shipping_fee: SHIPPING_COST,
+        shipping_fee: SHIPPING_FEE,
         rusher_tip: rusherTip,
         items: cart.map(({ product_id, quantity }) => {
           const product = productsDetail.find((elem) => elem.id === product_id);
@@ -234,9 +235,12 @@ export const checkout = functions
         }),
       };
 
-      await usersRef.doc(context.auth.uid).update({
-        temp_order: tempOrder,
-      });
+      await usersRef.doc(context.auth.uid).set(
+        {
+          temp_order: tempOrder,
+        },
+        { merge: true }
+      );
 
       /**
        * -------------------------------------------------------------------------------------------------------------------
