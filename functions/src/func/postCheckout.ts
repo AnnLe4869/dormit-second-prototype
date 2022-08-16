@@ -1,8 +1,4 @@
-import {
-  CollectionReference,
-  FieldPath,
-  FieldValue,
-} from "firebase-admin/firestore";
+import { CollectionReference, FieldPath } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import Stripe from "stripe";
 import config from "../config";

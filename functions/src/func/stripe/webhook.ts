@@ -9,11 +9,9 @@ import * as logs from "./logs";
 const apiVersion = "2020-08-27";
 const stripe = new Stripe(config.stripeSecretKey, {
   apiVersion,
-  // Register extension as a Stripe plugin
-  // https://stripe.com/docs/building-plugins#setappinfo
   appInfo: {
-    name: "Firebase firestore-stripe-payments",
-    version: "0.2.7",
+    name: "Dormit",
+    version: "1.0",
   },
 });
 
@@ -51,8 +49,12 @@ const createCustomerRecord = async ({
   }
 };
 
-exports.createCustomer = functions.auth
-  .user()
+export const createCustomer = functions
+  .runWith({
+    // allows the function to use environment secret STRIPE_API_KEY
+    secrets: ["STRIPE_API_KEY"],
+  })
+  .auth.user()
   .onCreate(async (user): Promise<void> => {
     const { email, uid, phoneNumber } = user;
     await createCustomerRecord({
@@ -109,9 +111,16 @@ const insertPriceRecord = async (price: Stripe.Price): Promise<void> => {
 
   const productData = (await dbRef.get()).data() as ProductStripe;
 
-  productData.price = productData.prices
-    ?.filter((price) => price.price_id !== priceData.price_id)
-    .push(priceData);
+  if (productData.prices) {
+    productData.prices = [
+      ...productData.prices.filter(
+        (price) => price.price_id !== priceData.price_id
+      ),
+      priceData,
+    ];
+  } else {
+    productData.prices = [priceData];
+  }
 
   await dbRef.set(productData, { merge: true });
 
@@ -142,18 +151,20 @@ const insertPaymentRecord = async (payment: Stripe.PaymentIntent) => {
 /**
  * A webhook handler function for the relevant Stripe events.
  */
-export const handleWebhookEvents = functions.https.onRequest(
-  async (req, resp) => {
+export const handleWebhookEvents = functions
+  .runWith({
+    // allows the function to use environment secret STRIPE_API_KEY
+    secrets: ["STRIPE_API_KEY", "STRIPE_WEBHOOK_SECRET"],
+  })
+  .https.onRequest(async (req, resp) => {
     const relevantEvents = new Set([
       "product.created",
       "product.updated",
       "product.deleted",
+
       "price.created",
       "price.updated",
       "price.deleted",
-
-      "tax_rate.created",
-      "tax_rate.updated",
 
       "payment_intent.processing",
       "payment_intent.succeeded",
@@ -232,8 +243,7 @@ export const handleWebhookEvents = functions.https.onRequest(
 
     // Return a response to Stripe to acknowledge receipt of the event.
     resp.json({ received: true });
-  }
-);
+  });
 
 const deleteProductOrPrice = async (pr: Stripe.Product | Stripe.Price) => {
   if (pr.object === "product") {
@@ -241,6 +251,7 @@ const deleteProductOrPrice = async (pr: Stripe.Product | Stripe.Price) => {
     logs.firestoreDocDeleted("products", pr.id);
   }
   if (pr.object === "price") {
+    // TODO: this will need to be fixed
     await db
       .collection("products")
       .doc((pr as Stripe.Price).product as string)
