@@ -3,8 +3,9 @@ import styles from "../Auth.module.css";
 import callIcon from "../../../mock_data/images/callVector.png";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
+import { Box, Button, Typography } from "@mui/material";
 
-const authCode = new Array(4).fill(0);
+const authCode = new Array(6).fill(0);
 
 function Otpcode() {
   const [currentInput, setCurrentInput] = useState(0);
@@ -14,7 +15,7 @@ function Otpcode() {
   const handleOnchange = (index) => {
     authCode.splice(index, 1, inputRef.current.value);
 
-    if (currentInput < 3) {
+    if (currentInput < 5) {
       inputRef.current?.focus();
       return setCurrentInput(currentInput + 1);
     }
@@ -30,14 +31,35 @@ function Otpcode() {
 
   return (
     <Container>
-      <div className={styles.centering}>
-        <img src={callIcon} className={styles.callIcon} />
-        <h1>Verification</h1>
-        <p>
+      <Box
+        sx={{
+          display: "flex",
+          textAlign: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          gap: "10px",
+        }}
+      >
+        <img alt="Call Icon" src={callIcon} className={styles.callIcon} />
+        <Typography variant="h4" fontWeight="700">
+          Verification
+        </Typography>
+        <Typography variant="body1">
           We sent you an{" "}
-          <span className={styles.purpleText}>SMS code to (xxx) xxx-xxxx</span>{" "}
-        </p>
-        <div className={styles.squareInputLayout}>
+          <Box component="span" color="#7141FA">
+            SMS code to (xxx) xxx-xxxx
+          </Box>
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "10px",
+            margin: "20px 20px",
+            textAlign: "left",
+          }}
+        >
           {authCode.map((val, index) => {
             return (
               <input
@@ -50,13 +72,31 @@ function Otpcode() {
               ></input>
             );
           })}
-        </div>
+        </Box>
         <Link className={styles.buttonLink} to={{ pathname: "/auth/signup" }}>
-          <button ref={buttonRef} className={styles.confirmButton}>
+          <Button
+            ref={buttonRef}
+            disableRipple
+            variant="contained"
+            sx={{
+              backgroundColor: "#7141FA",
+              borderRadius: "999px",
+              color: "#ffffff",
+              padding: "10px 15px",
+              width: "100%",
+              fontWeight: "bold",
+              fontSize: "large",
+              border: "none",
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#7141FA",
+              },
+            }}
+          >
             Confirm
-          </button>
+          </Button>
         </Link>
-      </div>
+      </Box>
     </Container>
   );
 }
