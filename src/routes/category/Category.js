@@ -17,14 +17,12 @@ import categoryImage from "../../assets/CategoryImages/category.svg";
 
 /* ViewCart components */
 import ViewCart from "../../shared/view-cart/ViewCart";
-import { theme } from "../../muiStyles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 function Category() {
   return (
-    <ThemeProvider theme={theme}>
       <div>
         <div className={styles.container}>
           <header className={styles.headerMargin}>
@@ -60,7 +58,6 @@ function Category() {
         <ViewCart numItems="X" totalAmount="X.XX" />
         <BottomNav />
       </div>
-    </ThemeProvider>
   );
 }
 
