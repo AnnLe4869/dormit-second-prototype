@@ -1,8 +1,8 @@
 .itemContainer {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: relative;
 }
 
 .itemCorner {
@@ -19,7 +19,7 @@
 }
 
 .itemCorner img {
-    width: 100%;
+  width: 100%;
 }
 
 .itemImage {
@@ -39,15 +39,15 @@
 }
 
 .itemInfo {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .itemInfo p {
-    margin-top: 4px;
-    margin-bottom: 0;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
 }
 
 .itemName {
@@ -55,16 +55,16 @@
 }
 
 .stockInfo p {
-    font-size: 13px;
-    line-height: 16px;
+  font-size: 13px;
+  line-height: 16px;
 }
 
 .purpleFont {
-    color: #7141FA;
+  color: #7141fa;
 }
 
 .strikeThrough {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 @media screen and (max-width: 600px) {
