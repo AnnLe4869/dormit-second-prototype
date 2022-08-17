@@ -65,6 +65,21 @@ export const createCustomer = functions
   });
 
 /**
+ * Retrieve Stripe publishable key (i.e public key)
+ */
+export const getStripePublishableKey = functions.https.onCall((_, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError(
+      "permission-denied",
+      `The user must be authenticated to perform these task`
+    );
+  }
+  return {
+    stripePublishableKey: config.stripePublishableKey,
+  };
+});
+
+/**
  * Prefix Stripe metadata keys with `stripe_metadata_` to be spread onto Product and Price docs in Cloud Firestore.
  */
 const prefixMetadata = (metadata: { [propName: string]: unknown }) =>
@@ -151,7 +166,7 @@ const insertPaymentRecord = async (payment: Stripe.PaymentIntent) => {
 /**
  * A webhook handler function for the relevant Stripe events.
  */
-export const handleWebhookEvents = functions
+export const handleStripeWebhookEvents = functions
   .runWith({
     // allows the function to use environment secret STRIPE_API_KEY
     secrets: ["STRIPE_API_KEY", "STRIPE_WEBHOOK_SECRET"],
