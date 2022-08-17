@@ -3,6 +3,10 @@ import { useContext } from "react";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 
+import { SET_FIRST_NAME } from "../../constant.js";
+
+import { doc, setDoc } from "firebase/firestore";
+
 /**
  * return a function that when called will update user first name
  */
@@ -16,7 +20,19 @@ export function useUpdateFirstName() {
    * update this field
    * then update user's field in Context by calling dispatch({type: SET_FIRST_NAME, payload: {name: "your name"}})
    */
-  return async (name) => {};
+
+  const { db } = useContext(AppContext);
+
+  dispatch({
+    type: SET_FIRST_NAME,
+    payload: { name: state.firstName },
+  });
+
+  return async (name) => {
+    await setDoc(doc(db, "users", "first_name"), {
+      name: state.firstName,
+    });
+  };
 }
 
 /**

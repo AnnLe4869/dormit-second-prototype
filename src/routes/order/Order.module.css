@@ -1,143 +1,143 @@
 .centering {
-    display: flex;
-    flex-direction: column;
-    margin: 50px auto;
-    max-width: 600px;
-    gap: 40px;
+  display: flex;
+  flex-direction: column;
+  margin: 50px auto;
+  max-width: 600px;
+  gap: 40px;
 }
 
 .orderContainer {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-auto-flow: row;
-    row-gap: 10px;
-    column-gap: 10px;
-    position: relative;
-    width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-auto-flow: row;
+  row-gap: 10px;
+  column-gap: 10px;
+  position: relative;
+  width: 100%;
 }
 
 .imageContainer {
-    background-color: #C4C4C4;
-    width: 18vh;
-    height: 18vh;
-    border-radius: 16px;
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-content:center;
-    align-items: center;
-    grid-column: span 1;
-    grid-row: span 2;
+  background-color: #c4c4c4;
+  width: 18vh;
+  height: 18vh;
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: center;
+  align-items: center;
+  grid-column: span 1;
+  grid-row: span 2;
 }
 
 .imageContainer span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .imageContainer > * {
-    margin: 0 5px;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    height: 6vh;
-    width: 6vh;
+  margin: 0 5px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  height: 6vh;
+  width: 6vh;
 }
 
 .imageContainer div {
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .productImg {
-    width: 100%;
+  width: 100%;
 }
 
 .orderInfo {
-    line-height: 20px;
-    grid-column: span 1;
-    grid-row: span 2;
+  line-height: 20px;
+  grid-column: span 1;
+  grid-row: span 2;
 }
 
 .completedAction {
-    display: flex;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    gap: 20px;
-    justify-content: start;
-    align-items: flex-end;
-    grid-column: span 2;
+  display: flex;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+  justify-content: start;
+  align-items: flex-end;
+  grid-column: span 2;
 }
 
 .currentAction {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    grid-column: span 2;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-column: span 2;
 }
 
 .completedAction button {
-    padding: 5px 30px;
-    width: 100%;
-    border-radius: 8px;
-    font-size: medium;
-    background-color: #ffffff;
-    outline: none;
-    border: #C4C4C4 1px solid;
-    font-weight: bold;}
-
-.currentBtn {
-    width: 40px;
-    height: 40px;
-    outline: none;
-    border: none;
-    background-color: none;
-    border-radius: 999px;
-    overflow: hidden;
+  padding: 5px 30px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: medium;
+  background-color: #ffffff;
+  outline: none;
+  border: #c4c4c4 1px solid;
+  font-weight: bold;
 }
 
+.currentBtn {
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: none;
+  border-radius: 999px;
+  overflow: hidden;
+}
 
 .colorPurple {
-    color: #7141FA;
+  color: #7141fa;
 }
 
 .colorRed {
-    color: red;
+  color: red;
 }
 
 @media screen {
-    @media (min-width: 500px) {
-        .imageContainer {
-            width: 200px;
-            height: 200px;
-            grid-row: span 2;
-        }
-
-        .imageContainer > * {
-            height: 75px;
-            width: 75px;
-        }
-
-        .orderContainer {
-            row-gap: 15px;
-            column-gap: 25px;
-        }
-
-        .orderInfo {
-            grid-row: span 1;
-        }
-
-        .currentAction {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-
-        .completedAction {
-            grid-column: span 1;
-        }
+  @media (min-width: 500px) {
+    .imageContainer {
+      width: 200px;
+      height: 200px;
+      grid-row: span 2;
     }
+
+    .imageContainer > * {
+      height: 75px;
+      width: 75px;
+    }
+
+    .orderContainer {
+      row-gap: 15px;
+      column-gap: 25px;
+    }
+
+    .orderInfo {
+      grid-row: span 1;
+    }
+
+    .currentAction {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    .completedAction {
+      grid-column: span 1;
+    }
+  }
 }
