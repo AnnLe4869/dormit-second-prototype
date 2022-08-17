@@ -110,7 +110,7 @@ h3 {
   top: 0;
   height: 5px;
   width: 100%;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border: none;
 }
 
@@ -119,7 +119,7 @@ h3 {
   bottom: 0;
   height: 5px;
   width: 100%;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border: none;
 }
 
@@ -156,7 +156,6 @@ h3 {
 
 .smallItemSection {
   padding: 8px 0;
-
 }
 
 .smallListContainer {
@@ -170,7 +169,6 @@ h3 {
   height: auto;
   width: 100%;
 }
-
 
 .smallItemList {
   display: flex;
@@ -189,7 +187,6 @@ h3 {
   margin-left: -15px;
   margin-right: -15px;
   padding: 4px 15px;
-
 }
 
 .smallItemList::-webkit-scrollbar {
@@ -221,7 +218,6 @@ h3 {
   margin-left: -15px;
   margin-right: -15px;
   padding: 4px 15px;
-
 }
 
 .categoryItemList::-webkit-scrollbar {
@@ -237,7 +233,7 @@ h3 {
 }
 
 .seeAllButton {
-  position: 'absolute';
+  position: "absolute";
   top: 0;
   right: 0;
 }
@@ -253,7 +249,7 @@ h3 {
   top: 0;
   height: 5px;
   width: 100%;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border: none;
 }
 
@@ -262,7 +258,7 @@ h3 {
   bottom: 0;
   height: 5px;
   width: 100%;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border: none;
 }
 
@@ -272,7 +268,6 @@ h3 {
   display: flex;
   grid-gap: 30px;
   align-items: center;
-
 }
 
 .categoryHeader img {
@@ -306,14 +301,14 @@ h3 {
   .homeCategoryContainer {
     height: 100px;
   }
-  
+
   .homeCategoryNav2 {
     grid-gap: 17px;
     margin-left: -15px;
     margin-right: -15px;
     padding: 0 15px;
   }
-  
+
   .categoryCard img {
     cursor: pointer;
     width: 67px;
@@ -342,7 +337,6 @@ h3 {
   }
 
   .bigItemList {
-    
   }
 
   .bigItemList li {
@@ -351,7 +345,6 @@ h3 {
     padding: 16px 0;
   }
 
-
   .smallItemSection h3 {
     font-size: 22px;
     line-height: 33px;
@@ -359,20 +352,19 @@ h3 {
 
   .categoryHeader {
     grid-gap: 19px;
-  
   }
-  
+
   .categoryHeader img {
     width: 70px;
     height: 70px;
-  } 
+  }
 
   .categoryItemList {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
   }
-  
+
   .categoryItemList li {
     width: 108px;
   }

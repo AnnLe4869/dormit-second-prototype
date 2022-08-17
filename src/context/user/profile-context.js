@@ -28,19 +28,17 @@ export function useUpdateFirstName() {
     console.log("name: ", name);
 
     try {
-      await setDoc( doc(db, "users", "first_name"), {
-        name: name
-      });  
+      await setDoc(doc(db, "users", "first_name"), {
+        name: name,
+      });
 
       dispatch({
-        type: SET_FIRST_NAME, 
-        payload: {name: name}
-      })
-
+        type: SET_FIRST_NAME,
+        payload: { name: name },
+      });
     } catch (error) {
       console.log("useUpdateFirstName() error: ", error);
     }
-
   };
 }
 
