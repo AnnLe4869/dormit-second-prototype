@@ -5,6 +5,7 @@ import productList from "../../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import OrderView from "../OrderView/OrderView";
 import { Container } from "@mui/system";
+import { Box, Typography } from "@mui/material";
 
 function Past() {
   const order1 = { products: [productList[23]], status: "completed" };
@@ -17,13 +18,21 @@ function Past() {
   return (
     <>
       <Container>
-        <div className={styles.centering}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            margin: "50px auto",
+            maxWidth: "600px",
+            gap: "40px",
+          }}
+        >
           {/* all past orders with the products in the props */}
-          <h2>Completed</h2>
+          <Typography variant="h4">Completed</Typography>
           {fetchedOrders.map((order, index) => (
             <OrderView key={index} order={order} />
           ))}
-        </div>
+        </Box>
       </Container>
       <BottomNav currentPage="home" />
     </>

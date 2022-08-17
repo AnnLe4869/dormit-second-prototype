@@ -3,6 +3,7 @@ import styles from "../Auth.module.css";
 import callIcon from "../../../mock_data/images/callVector.png";
 import { Container } from "@mui/system";
 import { Link } from "react-router-dom";
+import { Box, Button, Typography } from "@mui/material";
 
 function Phone({ lostAccess }) {
   const inputRef = useRef();
@@ -18,18 +19,50 @@ function Phone({ lostAccess }) {
 
   return (
     <Container>
-      <div className={styles.centering}>
-        <img src={callIcon} className={styles.callIcon} />
+      <Box
+        sx={{
+          display: "flex",
+          textAlign: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          gap: "10px",
+        }}
+      >
+        <img alt="Call Icon" src={callIcon} className={styles.callIcon} />
 
-        <h1>How can we reach you?</h1>
+        <Typography variant="h4" fontWeight="700">
+          How can we reach you?
+        </Typography>
 
-        <p>
-          <span className={styles.purpleText}>Enter your phone number</span>{" "}
+        <Typography variant="body1">
+          <Box component="span" color="#7141FA">
+            Enter your phone number
+          </Box>{" "}
           below to stay updated about your order!
-        </p>
+        </Typography>
 
-        <div className={styles.inputDiv}>
-          <span className={styles.inputSpan}>Phone</span>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            maxWidth: "600px",
+            flexDirection: "column",
+            alignItems: "start",
+            margin: "10px 0",
+          }}
+        >
+          <Typography
+            variant="body1"
+            sx={{
+              fontWeight: "500",
+              fontSize: "small",
+              padding: "5px 0",
+            }}
+          >
+            Phone
+          </Typography>
           <input
             pattern="[0-9]"
             ref={inputRef}
@@ -39,27 +72,46 @@ function Phone({ lostAccess }) {
             placeholder="(xxx) xxx-xxxx"
             maxLength="10"
           ></input>
-        </div>
+        </Box>
 
         <Link
           className={styles.buttonLink}
           to={{ pathname: "/auth/phone/otpcode" }}
         >
-          <button className={styles.confirmButton}>Confirm</button>
+          <Button
+            variant="contained"
+            disableRipple
+            sx={{
+              backgroundColor: "#7141FA",
+              borderRadius: "999px",
+              color: "#ffffff",
+              padding: "10px 15px",
+              width: "100%",
+              fontWeight: "bold",
+              fontSize: "large",
+              border: "none",
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#7141FA",
+              },
+            }}
+          >
+            Confirm
+          </Button>
         </Link>
 
-        <p>
-          Lost access to your phone?{" "}
-          <span className={styles.purpleLink} onClick={lostAccess}>
-            <Link
-              className={styles.purpleLink}
-              to={{ pathname: "/auth/email" }}
-            >
-              Click here
-            </Link>
-          </span>
-        </p>
-      </div>
+        <Link className={styles.buttonLink} to={{ pathname: "/auth/email" }}>
+          <Typography
+            variant="body1"
+            fontWeight="700"
+            color="#7141FA"
+            borderBottom="2px solid #7141FA"
+            display="inline-block"
+          >
+            Lost access to your phone?
+          </Typography>
+        </Link>
+      </Box>
     </Container>
   );
 }

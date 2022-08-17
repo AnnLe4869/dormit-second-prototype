@@ -1,50 +1,91 @@
-import React, { useRef } from "react";
+import React from "react";
 import styles from "../Auth.module.css";
 import callIcon from "../../../mock_data/images/callVector.png";
 import { Container } from "@mui/system";
 import { Link } from "react-router-dom";
+import { Box, Button, Typography } from "@mui/material";
 
 function Phone({ lostAccess }) {
-  const inputRef = useRef();
-
-  //Regex to format 10 given numbers to an American phone number
-  const phoneFormat = () => {
-    let phoneNumber = inputRef.current.value;
-    inputRef.current.value = phoneNumber.replace(
-      /(\d{3})(\d{3})(\d{4})/,
-      "($1) $2-$3"
-    );
-  };
-
   return (
     <Container>
-      <div className={styles.centering}>
-        <img src={callIcon} className={styles.callIcon} />
+      <Box
+        sx={{
+          display: "flex",
+          textAlign: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          gap: "10px",
+        }}
+      >
+        <img alt="call icon" src={callIcon} className={styles.callIcon} />
 
-        <h1>Lost access to your phone?</h1>
+        <Typography variant="h4" fontWeight="700">
+          Lost access to your phone?
+        </Typography>
 
-        <p>
-          <span className={styles.purpleText}>Enter your email address</span>{" "}
+        <Typography variant="body1">
+          <Box component="span" color="#7141FA">
+            Enter your email address
+          </Box>{" "}
           associated with your account
-        </p>
+        </Typography>
 
-        <div className={styles.inputDiv}>
-          <span className={styles.inputSpan}>Email</span>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            maxWidth: "600px",
+            flexDirection: "column",
+            alignItems: "start",
+            margin: "10px 0",
+          }}
+        >
+          <Typography
+            variant="body1"
+            sx={{
+              fontWeight: "500",
+              fontSize: "small",
+              padding: "5px 0",
+            }}
+          >
+            Email
+          </Typography>
           <input
             placeholder="johndoe@example.com"
             className={styles.inputPhone}
             type="text"
             maxLength="10"
           ></input>
-        </div>
+        </Box>
 
         <Link
           className={styles.buttonLink}
           to={{ pathname: "/auth/email/otpcode" }}
         >
-          <button className={styles.confirmButton}>Confirm</button>
+          <Button
+            disableRipple
+            variant="contained"
+            sx={{
+              backgroundColor: "#7141FA",
+              borderRadius: "999px",
+              color: "#ffffff",
+              padding: "10px 15px",
+              width: "100%",
+              fontWeight: "bold",
+              fontSize: "large",
+              border: "none",
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#7141FA",
+              },
+            }}
+          >
+            Confirm
+          </Button>
         </Link>
-      </div>
+      </Box>
     </Container>
   );
 }

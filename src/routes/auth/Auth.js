@@ -1,5 +1,4 @@
 import React from "react";
-import BottomNav from "../../shared/bottom-nav/BottomNav";
 import { Outlet } from "react-router-dom";
 import { Container } from "@mui/system";
 
@@ -11,7 +10,6 @@ export default function Auth() {
       <Container>
         <Outlet />
       </Container>
-      <BottomNav currentPage="home" />
     </>
   );
 }
