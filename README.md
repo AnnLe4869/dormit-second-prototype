@@ -105,6 +105,7 @@ After you cloned the project down to your computer, follow these steps to set up
 
 ## Set up emulator for local development
 
+- If you just want to have some data to work with and don't cart about extension (like extension is not necessary for your need), you can run `firebase emulators:start --import=./data-generator/data`. What this does is it import data from `/data-generator/data` to your emulator and you have data to work with. If you need the extension, do the following steps
 - Install extension. This will prompt you to enter information. For now, just save all info in local. You don't have to do `npm run build` because it seems like when you install they automatically compile to normal Javascript file. Make sure you enter the correct information
 - Go to where the extension is and install all necessary libraries with `npm install` (**IMPORTANT**). I don't know why they didn't do that automatically. For example, the extension, after running `firebase emulator:start` is located at `C:/User/name/.cache/firebase/extension`
 - Stop the emulator and run it again. You should have the extension run without error (not mean they will work)
