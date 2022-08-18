@@ -8,7 +8,7 @@ import Badge from "@mui/material/Badge";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import dormitIcon from "../../assets/Home/dormit-icon.svg";
 
-import { headerStyles } from "../../muiStyles";
+import { headerStyles, headers } from "./muiStyles";
 
 function Header() {
   return (
@@ -30,7 +30,7 @@ function Header() {
             sx={headerStyles.headerButton}
             endIcon={<ExpandMoreIcon transform="scale(1.4)" />}
           >
-            <Typography variant="h5" fontWeight={200}>
+            <Typography sx={headers.header5} fontWeight={200}>
               Delivery Location
             </Typography>
           </Button>
@@ -47,9 +47,8 @@ function Header() {
             <img src={dormitIcon} alt="DormIt Icon" />
           </Badge>
           <Typography
-            variant="h2"
+            sx={[headers.header2, { display: "inline-flex" }]}
             fontWeight={700}
-            sx={{ display: "inline-flex" }}
           >
             DormIt
           </Typography>
@@ -63,7 +62,7 @@ function Header() {
           order={{ md: 3 }}
         >
           <Button sx={headerStyles.headerButton}>
-            <Typography variant="h5" fontWeight={200}>
+            <Typography sx={headers.header5} fontWeight={200}>
               Earn Cash
             </Typography>
           </Button>

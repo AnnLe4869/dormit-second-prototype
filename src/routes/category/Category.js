@@ -17,50 +17,47 @@ import categoryImage from "../../assets/CategoryImages/category.svg";
 
 /* ViewCart components */
 import ViewCart from "../../shared/view-cart/ViewCart";
-import { theme } from "../../muiStyles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 function Category() {
   return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <div className={styles.container}>
-          <header className={styles.headerMargin}>
-            <div>
-              <SearchIcon
-                className={styles.searchIcon}
-                style={{ color: "#686868" }}
-              />
-              <input
-                className={styles.searchBar}
-                type="search"
-                placeholder="Search DormIt"
-              />
-            </div>
-          </header>
-
+    <div>
+      <div className={styles.container}>
+        <header className={styles.headerMargin}>
           <div>
-            <div className={styles.categories}>
-              <CategoryTemplate className="Today's Special" link={today} />
-              <CategoryTemplate className="Candy" link={candy} />
-              <CategoryTemplate className="Chips" link={chips} />
+            <SearchIcon
+              className={styles.searchIcon}
+              style={{ color: "#686868" }}
+            />
+            <input
+              className={styles.searchBar}
+              type="search"
+              placeholder="Search DormIt"
+            />
+          </div>
+        </header>
 
-              <CategoryTemplate className="Drinks" link={drinks} />
-              <CategoryTemplate className="Snacks" link={snacks} />
-              <CategoryTemplate className="Sweets" link={sweets} />
+        <div>
+          <div className={styles.categories}>
+            <CategoryTemplate className="Today's Special" link={today} />
+            <CategoryTemplate className="Candy" link={candy} />
+            <CategoryTemplate className="Chips" link={chips} />
 
-              <CategoryTemplate className="Ice Cream" link={icecream} />
-              <CategoryTemplate className="Ready To Eat" link={readyToEat} />
-              <CategoryTemplate className="Category" link={categoryImage} />
-            </div>
+            <CategoryTemplate className="Drinks" link={drinks} />
+            <CategoryTemplate className="Snacks" link={snacks} />
+            <CategoryTemplate className="Sweets" link={sweets} />
+
+            <CategoryTemplate className="Ice Cream" link={icecream} />
+            <CategoryTemplate className="Ready To Eat" link={readyToEat} />
+            <CategoryTemplate className="Category" link={categoryImage} />
           </div>
         </div>
-        <ViewCart numItems="X" totalAmount="X.XX" />
-        <BottomNav />
       </div>
-    </ThemeProvider>
+      <ViewCart numItems="X" totalAmount="X.XX" />
+      <BottomNav />
+    </div>
   );
 }
 
