@@ -23,7 +23,7 @@ export default function AppContextWrapper({
   functions,
 }) {
   return (
-    <AppContext.Provider value={{ db, auth, storage, functions }}>
+    <AppContext.Provider value={{ db, auth, functions }}>
       <UserProvider>
         <ProductProvider>
           <AlertProvider>{children}</AlertProvider>

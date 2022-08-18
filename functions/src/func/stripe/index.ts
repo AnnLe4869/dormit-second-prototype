@@ -57,6 +57,7 @@ export const createCustomer = functions
   .auth.user()
   .onCreate(async (user): Promise<void> => {
     const { email, uid, phoneNumber } = user;
+    console.log(phoneNumber);
     await createCustomerRecord({
       email,
       uid,
