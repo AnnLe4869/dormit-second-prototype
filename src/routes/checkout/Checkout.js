@@ -1,14 +1,15 @@
 import React from "react";
-import { useCheckout } from "../../context/user/checkout-handler";
+import { Routes, Route } from "react-router-dom";
+
+import Order from "./Order/Order";
+import Payment from "./Payment/Payment";
 
 export default function Checkout() {
-  const checkout = useCheckout();
-
   return (
-    <div>
-      <h1>Checkout</h1>
-
-      <button onClick={() => checkout(3)}>button for checkout</button>
-    </div>
+    <Routes>
+      <Route index element={<Order />} />
+      <Route path="order" element={<Order />} />
+      <Route path="payment" element={<Payment />} />
+    </Routes>
   );
 }
