@@ -66,6 +66,11 @@ type User = {
    */
   current_orders: Array<Omit<processing_orders, "id">>;
   past_orders: Array<Omit<completed_orders, "id">>;
+
+  /**
+   * these are Context data only
+   */
+  isAuthenticated: boolean;
 };
 
 /**
