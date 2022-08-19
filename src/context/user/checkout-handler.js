@@ -32,7 +32,7 @@ export function useCheckout() {
   const checkout = httpsCallable(functions, "checkout");
   const { state: userState } = useContext(UserContext);
 
-  return async (shippingAddress = {}, tip = 0, message = "") => {
+  return async ({ shippingAddress = {}, tip = 0, message = "" }) => {
     try {
       if (!auth.currentUser) {
         throw new Error("Checkout require user to sign in");

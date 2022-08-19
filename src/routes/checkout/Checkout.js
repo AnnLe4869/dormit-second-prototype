@@ -18,10 +18,18 @@ export default function Checkout() {
   return (
     <Routes>
       <Route index element={<Order />} />
-      <Route path="order" element={<Order />} />
+      <Route
+        path="order"
+        element={<Order setStripeClientSecret={setStripeClientSecret} />}
+      />
       <Route
         path="payment"
-        element={<Payment tripePromise={stripePromise} />}
+        element={
+          <Payment
+            stripePromise={stripePromise}
+            stripeClientSecret={stripeClientSecret}
+          />
+        }
       />
     </Routes>
   );

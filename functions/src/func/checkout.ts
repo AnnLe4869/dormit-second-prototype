@@ -25,7 +25,7 @@ import { Product, User } from "../type";
  *               },
  *         rusher_tip: number,
  *         message: string
- * }
+ *      }
  */
 
 export const checkout = functions
