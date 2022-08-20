@@ -67,7 +67,7 @@ export const checkout = functions
 
     const cart = data.cart as User["cart"];
     const shippingAddress = data.shipping_address as User["shipping_address"];
-    const rusherTip = (data.rusher_tip ? data.rusher_tip : 0) as number;
+    const rusherTip = parseInt(data.rusher_tip ? data.rusher_tip : 0);
     const message = data.message ? data.message : "";
 
     if (!cart) {
@@ -165,11 +165,13 @@ export const checkout = functions
         /**
          * increment the total by the item cost times added tax
          */
-        total += cheapestPrice.unit_amount * quantity * (1 + taxRate);
+        total += cheapestPrice.unit_amount * quantity * (1 + taxRate / 1000);
       });
 
       // increase total by the shipping cost and rusher tip
       total += SHIPPING_FEE + rusherTip;
+      // round the number up because the argument for stripe must be a positive integer
+      total = Math.ceil(total);
 
       /**
        * -------------------------------------------------------------------------------------------------------------------

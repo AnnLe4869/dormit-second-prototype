@@ -6,9 +6,12 @@ import {
   handleStripeWebhookEvents,
   getStripePublishableKey,
 } from "./func/stripe";
+import { fillCustomerInfo } from "./func/testFunc";
 import { updateEmail } from "./func/updateEmail";
 import { updateUserProfile } from "./func/updateUserProfile";
 import { verifyOtpCode } from "./func/verifyOtpCode";
+
+fillCustomerInfo;
 
 export {
   getStripePublishableKey,
@@ -20,4 +23,9 @@ export {
   verifyOtpCode,
   updateEmail,
   updateUserProfile,
+  /**
+   * this is for testing purpose only
+   * remove when in development
+   */
+  fillCustomerInfo,
 };

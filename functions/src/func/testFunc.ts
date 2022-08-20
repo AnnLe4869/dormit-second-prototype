@@ -1,12 +1,24 @@
 import * as functions from "firebase-functions";
+import { db } from "../setup";
 
 /**
- * Fire when a an existing payment is updated
- * If the transaction is success, update the inventory IN STRIPE
- * and update the user's current order in firebase
+ * fill out all fields necessary for testing
  */
-export const testFunc = functions.https.onRequest(async (req, resp) => {
-  functions.logger.log("the outside world");
+export const fillCustomerInfo = functions
+  .runWith({
+    // allows the function to use environment secret STRIPE_API_KEY
+    secrets: ["STRIPE_API_KEY"],
+  })
+  .auth.user()
+  .onCreate(async (user): Promise<void> => {
+    const { uid } = user;
 
-  resp.json({ result: "nothing special" });
-});
+    await db.collection("users").doc(uid).set(
+      {
+        link_email: "hello@gmail.com",
+        profile_img: "dummy.png",
+        name: "josh",
+      },
+      { merge: true }
+    );
+  });

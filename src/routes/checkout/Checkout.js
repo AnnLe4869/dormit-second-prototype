@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { useSetupStripe } from "../../context/user/checkout-handler";
 
 import Order from "./Order/Order";
@@ -11,13 +11,16 @@ export default function Checkout() {
 
   const setupStripe = useSetupStripe(setStripePromise);
 
-  useContext(() => {
+  useEffect(() => {
     setupStripe();
   }, []);
 
   return (
     <Routes>
-      <Route index element={<Order />} />
+      <Route
+        index
+        element={<Order setStripeClientSecret={setStripeClientSecret} />}
+      />
       <Route
         path="order"
         element={<Order setStripeClientSecret={setStripeClientSecret} />}

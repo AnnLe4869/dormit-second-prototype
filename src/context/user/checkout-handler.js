@@ -19,8 +19,8 @@ export function useSetupStripe(setStripePromise) {
       functions,
       "getStripePublishableKey"
     );
-    const publishableKey = await getStripePublishableKey();
-    setStripePromise(loadStripe(publishableKey));
+    const { data } = await getStripePublishableKey();
+    setStripePromise(await loadStripe(data.stripePublishableKey));
   };
 }
 
@@ -53,11 +53,11 @@ export function useCheckout() {
 
       const cart = [
         {
-          product_id: "prod_MHCayb6WFiaYWh",
+          product_id: "prod_MHIeRk3AeN3Bgx",
           quantity: 3,
         },
         {
-          product_id: "prod_MHCafal3KlFaAr",
+          product_id: "prod_MHIeAvbFJ0dtnV",
           quantity: 5,
         },
       ];

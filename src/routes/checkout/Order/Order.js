@@ -7,7 +7,7 @@ export default function Order({ setStripeClientSecret }) {
   const navigate = useNavigate();
 
   const handleCheckout = async () => {
-    const clientSecret = await checkout({
+    const { data } = await checkout({
       shippingAddress: {
         campus: "UCSD",
         building: "CSE",
@@ -16,7 +16,8 @@ export default function Order({ setStripeClientSecret }) {
       tip: 2510,
       message: "leave the food in front of the door",
     });
-    setStripeClientSecret(clientSecret);
+
+    setStripeClientSecret(data.clientSecret);
     navigate("/checkout/payment");
   };
 
