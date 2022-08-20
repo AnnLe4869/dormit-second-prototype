@@ -22,3 +22,9 @@ export const fillCustomerInfo = functions
       { merge: true }
     );
   });
+
+export const testFunc = functions.firestore
+  .document("users/{userId}/payments/{paymentId}")
+  .onWrite(async () => {
+    functions.logger.log("Hello world from testFunc");
+  });

@@ -3,8 +3,8 @@ import { postCheckout } from "./func/postCheckout";
 import { sendCodeViaEmail } from "./func/sendCodeViaEmail";
 import {
   createCustomer,
-  handleStripeWebhookEvents,
   getStripePublishableKey,
+  handleStripeWebhookEvents,
 } from "./func/stripe";
 import { fillCustomerInfo } from "./func/testFunc";
 import { updateEmail } from "./func/updateEmail";
@@ -28,4 +28,5 @@ export {
    * remove when in development
    */
   fillCustomerInfo,
+  // testFunc,
 };

@@ -37,7 +37,7 @@ export const postCheckout = functions
     maxInstances: 20,
   })
   .firestore.document("/users/{userId}/payments/{paymentId}")
-  .onUpdate(async (snap, context) => {
+  .onWrite(async (snap, context) => {
     /**
      * we don't enable retry on fail execution at this moment, but if we do so in the future,
      * setting end condition to avoid infinite retry loops is still recommended

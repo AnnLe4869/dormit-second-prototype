@@ -163,9 +163,9 @@ export const checkout = functions
         const taxRate = parseFloat(product.metadata.tax);
 
         /**
-         * increment the total by the item cost times added tax
+         * increment the total by the item cost times tax
          */
-        total += cheapestPrice.unit_amount * quantity * (1 + taxRate / 1000);
+        total += cheapestPrice.unit_amount * quantity * (1 + taxRate / 100);
       });
 
       // increase total by the shipping cost and rusher tip
