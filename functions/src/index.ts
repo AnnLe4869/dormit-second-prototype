@@ -1,15 +1,23 @@
-import { checkout } from "./functions/checkout";
-import { sendCodeViaEmail } from "./functions/sendCodeViaEmail";
-import { testFunc } from "./functions/testFunc";
-import { updateEmail } from "./functions/updateEmail";
-import { updateShipping } from "./functions/updateShipping";
-import { updateUserProfile } from "./functions/updateUserProfile";
-import { verifyOtpCode } from "./functions/verifyOtpCode";
+import { checkout } from "./func/checkout";
+import { postCheckout } from "./func/postCheckout";
+import { sendCodeViaEmail } from "./func/sendCodeViaEmail";
+import {
+  createCustomer,
+  handleStripeWebhookEvents,
+  getStripePublishableKey,
+} from "./func/stripe";
+import { updateEmail } from "./func/updateEmail";
+import { updateUserProfile } from "./func/updateUserProfile";
+import { verifyOtpCode } from "./func/verifyOtpCode";
 
-export { checkout };
-export { sendCodeViaEmail };
-export { verifyOtpCode };
-export { updateEmail };
-export { updateShipping };
-export { updateUserProfile };
-export { testFunc };
+export {
+  getStripePublishableKey,
+  createCustomer,
+  handleStripeWebhookEvents,
+  checkout,
+  postCheckout,
+  sendCodeViaEmail,
+  verifyOtpCode,
+  updateEmail,
+  updateUserProfile,
+};

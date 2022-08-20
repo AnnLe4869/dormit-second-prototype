@@ -38,7 +38,6 @@
     }
   },
   "extensions": {
-    "firestore-send-email": "firebase/firestore-send-email@0.1.19",
-    "firestore-stripe-payments": "stripe/firestore-stripe-payments@0.2.7"
+    "firestore-send-email": "firebase/firestore-send-email@0.1.19"
   }
 }

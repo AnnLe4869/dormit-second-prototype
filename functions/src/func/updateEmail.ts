@@ -5,15 +5,12 @@ import { verifyEmail } from "../helper/helper";
 import { db } from "../setup";
 
 /**
- * update user's profile
- *
+ * update user's email
  * Params for the functions
- * @params  {firstName:string, lastName: string, email: string}
+ * @params  {email: string}
  */
-export const updateUserProfile = functions
+export const updateEmail = functions
   .runWith({
-    // allows the function to use environment secret OTP_SECRET
-    secrets: ["OTP_SECRET"],
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
     maxInstances: 20,
@@ -32,22 +29,8 @@ export const updateUserProfile = functions
         `The function must be called with the argument "email" containing the email address you want to change.`
       );
     }
-    if (!data.firstName) {
-      throw new functions.https.HttpsError(
-        "invalid-argument",
-        `The function must be called with the argument "firstName" containing the first name you want to change.`
-      );
-    }
-    if (!data.lastName) {
-      throw new functions.https.HttpsError(
-        "invalid-argument",
-        `The function must be called with the argument "lastName" containing the last name you want to change.`
-      );
-    }
 
     const email: string = data.email.trim();
-    const firstName: string = data.firstName.trim();
-    const lastName: string = data.lastName.trim();
 
     if (!verifyEmail(email)) {
       throw new functions.https.HttpsError(
@@ -56,13 +39,11 @@ export const updateUserProfile = functions
       );
     }
 
-    if (!process.env.FUNCTIONS_EMULATOR) {
-      const usersRef = db.collection("users") as CollectionReference<{
-        first_name: string;
-        last_name: string;
-        linked_email: string;
-      }>;
+    const usersRef = db.collection("users") as CollectionReference<{
+      linked_email: string;
+    }>;
 
+    try {
       /**
        * find users that have the linked_email field match the given email
        * if there is such user, we cannot change our user's linked_email to the given email
@@ -82,18 +63,19 @@ export const updateUserProfile = functions
        * find current user and update its detail
        */
       usersRef.doc(context.auth.uid).update({
-        first_name: firstName,
-        last_name: lastName,
         linked_email: email,
       });
 
       return {
         isSuccess: true,
-        message: "the user's profile has been updated",
+        message: "the user's email has been updated",
       };
-    } else {
-      return {
-        message: "something is wrong here. Please contact support",
-      };
+    } catch (error) {
+      functions.logger.error(
+        `Error: fail to update email for user with uid ${context.auth.uid} with email ${data.email}`,
+        (error as Error).message
+      );
+
+      throw new functions.https.HttpsError("internal", "Something went wrong");
     }
   });

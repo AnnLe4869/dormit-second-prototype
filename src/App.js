@@ -44,7 +44,7 @@ function App() {
           <Route path=":orderId" element={<Selected />} />
         </Route>
 
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkout/*" element={<CheckoutPage />} />
 
         <Route path="/account" element={<AccountPage />} />
 

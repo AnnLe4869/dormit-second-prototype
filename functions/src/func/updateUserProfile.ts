@@ -5,14 +5,13 @@ import { verifyEmail } from "../helper/helper";
 import { db } from "../setup";
 
 /**
- * update user's email
+ * update user's profile
+ *
  * Params for the functions
- * @params  {email: string}
+ * @params  {name: string, email: string}
  */
-export const updateEmail = functions
+export const updateUserProfile = functions
   .runWith({
-    // allows the function to use environment secret OTP_SECRET
-    secrets: ["OTP_SECRET"],
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
     maxInstances: 20,
@@ -31,8 +30,15 @@ export const updateEmail = functions
         `The function must be called with the argument "email" containing the email address you want to change.`
       );
     }
+    if (!data.name) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with the argument "name" containing the name you want to change.`
+      );
+    }
 
     const email: string = data.email.trim();
+    const name: string = data.name.trim();
 
     if (!verifyEmail(email)) {
       throw new functions.https.HttpsError(
@@ -41,8 +47,9 @@ export const updateEmail = functions
       );
     }
 
-    if (!process.env.FUNCTIONS_EMULATOR) {
+    try {
       const usersRef = db.collection("users") as CollectionReference<{
+        name: string;
         linked_email: string;
       }>;
 
@@ -65,16 +72,20 @@ export const updateEmail = functions
        * find current user and update its detail
        */
       usersRef.doc(context.auth.uid).update({
+        name,
         linked_email: email,
       });
 
       return {
         isSuccess: true,
-        message: "the user's email has been updated",
+        message: "the user's profile has been updated",
       };
-    } else {
-      return {
-        message: "something is wrong here. Please contact support",
-      };
+    } catch (error) {
+      functions.logger.error(
+        `Error: fail to update profile for user with uid ${context.auth.uid} with email ${data.email}`,
+        (error as Error).message
+      );
+
+      throw new functions.https.HttpsError("internal", "Something went wrong");
     }
   });
