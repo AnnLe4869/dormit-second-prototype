@@ -71,6 +71,7 @@ type User = {
    * these are Context data only
    */
   isAuthenticated: boolean;
+  isNewUser: boolean;
 };
 
 /**
