@@ -83,10 +83,13 @@ async function createProduct({ name, description, quantity }) {
   });
 }
 
-async function generateProducts(numberOfProduct) {
-  for (const item of data.splice(0, numberOfProduct)) {
+async function generateProducts(num, shift = 0) {
+  for (const item of data.splice(0 + shift, num + shift)) {
     await createProduct(item);
   }
 }
-
-generateProducts(20);
+/**
+ * make sure to run an appropriate number of asynchronous at the same time
+ * too many and your computer may not be able to handle it
+ */
+generateProducts(5, 15);

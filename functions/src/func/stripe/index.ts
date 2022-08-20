@@ -126,19 +126,27 @@ const insertPriceRecord = async (price: Stripe.Price): Promise<void> => {
   const dbRef = db.collection("products").doc(price.product as string);
 
   const productData = (await dbRef.get()).data() as ProductStripe;
+  /**
+   * need to check whether the product has existed in firestore or not
+   * this is needed because when a product is created,
+   * two events "product.created" and "price.created" are fired at the same time
+   * and the product may not get created on firestore yet when this function is called
+   * this will make productData undefined even though it still show in firestore (it's just not there when the function call it)
+   */
 
-  if (productData.prices) {
-    productData.prices = [
+  const data = { ...productData };
+  if (productData && productData.prices) {
+    data.prices = [
       ...productData.prices.filter(
         (price) => price.price_id !== priceData.price_id
       ),
       priceData,
     ];
   } else {
-    productData.prices = [priceData];
+    data.prices = [priceData];
   }
 
-  await dbRef.set(productData, { merge: true });
+  await dbRef.set(data, { merge: true });
 
   logs.firestoreDocCreated("prices", price.id);
 };
