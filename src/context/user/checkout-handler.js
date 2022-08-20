@@ -49,8 +49,21 @@ export function useCheckout() {
         );
       }
 
+      // const cart = userState.cart ? userState.cart : [];
+
+      const cart = [
+        {
+          product_id: "prod_MHCayb6WFiaYWh",
+          quantity: 3,
+        },
+        {
+          product_id: "prod_MHCafal3KlFaAr",
+          quantity: 5,
+        },
+      ];
+
       const clientSecret = await checkout({
-        cart: userState.cart,
+        cart,
         shipping_address: shippingAddress,
         rusher_tip: tip,
         message,

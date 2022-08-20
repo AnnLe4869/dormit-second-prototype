@@ -38,6 +38,7 @@ const createCustomerRecord = async ({
     const customer = await stripe.customers.create(customerData);
     // Add a mapping record in Cloud Firestore.
     const customerRecord = {
+      phone: phone,
       stripeId: customer.id,
     };
     await db.collection("users").doc(uid).set(customerRecord, { merge: true });
@@ -57,7 +58,6 @@ export const createCustomer = functions
   .auth.user()
   .onCreate(async (user): Promise<void> => {
     const { email, uid, phoneNumber } = user;
-    console.log(phoneNumber);
     await createCustomerRecord({
       email,
       uid,

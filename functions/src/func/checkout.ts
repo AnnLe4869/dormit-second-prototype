@@ -251,6 +251,7 @@ export const checkout = functions
         clientSecret: paymentIntent.client_secret,
       };
     } catch (error) {
+      functions.logger.error(error);
       functions.logger.error(
         `Error: cannot create checkout for user with uid ${context.auth.uid}`
       );
