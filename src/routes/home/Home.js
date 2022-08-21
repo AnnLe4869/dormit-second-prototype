@@ -1,18 +1,17 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 /*
  * Style Sheet
  */
-import HomeCSS from "./Home.module.css";
-import { homepageStyles, headers } from "./muiStyles";
 import { useProducts } from "../../context/product/product-handler";
+import HomeCSS from "./Home.module.css";
+import { headers, homepageStyles } from "./muiStyles";
 
 /*
  * Imported Components
  */
 import ItemEntry from "../../shared/item-entry/ItemEntry";
 import ViewCart from "../../shared/view-cart/ViewCart";
-import Category from "./Category";
 import Header from "./Header";
 
 import BottomNav from "../../shared/bottom-nav/BottomNav";
@@ -21,29 +20,25 @@ import BottomNav from "../../shared/bottom-nav/BottomNav";
  * Imported Assets
  */
 import apple from "../../assets/apple.png";
-import innout from "../../assets/innout.png";
-import specials from "../../assets/Home/specials.svg";
 import candy from "../../assets/Home/candy.svg";
 import chips from "../../assets/Home/chips.svg";
 import drinks from "../../assets/Home/drinks.svg";
+import icecream from "../../assets/Home/icecream.svg";
 import ready from "../../assets/Home/ready.svg";
 import snacks from "../../assets/Home/snacks.svg";
-import icecream from "../../assets/Home/icecream.svg";
+import specials from "../../assets/Home/specials.svg";
 import sweets from "../../assets/Home/sweets.svg";
+import innout from "../../assets/innout.png";
 
-/*
- * Material-UI Imports
- */
-import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function HomePage() {
   const products = useProducts();
-  console.log(products);
 
   /*
    * Mock lists
@@ -86,15 +81,6 @@ export default function HomePage() {
     <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
     <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
     <ItemEntry price={"Price"} image={apple} dealPrice={"Price"} />,
-  ];
-
-  const mockCategoryItems = [
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
-    <ItemEntry price={"Price"} image={apple} />,
   ];
 
   const categoryNavs = [
