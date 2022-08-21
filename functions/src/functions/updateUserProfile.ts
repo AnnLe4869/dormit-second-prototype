@@ -60,16 +60,16 @@ export const updateUserProfile = functions
       const usersRef = db.collection("users") as CollectionReference<{
         first_name: string;
         last_name: string;
-        link_email: string;
+        linked_email: string;
       }>;
 
       /**
-       * find users that have the link_email field match the given email
-       * if there is such user, we cannot change our user's link_email to the given email
+       * find users that have the linked_email field match the given email
+       * if there is such user, we cannot change our user's linked_email to the given email
        * as one email only links to one user
        */
       const emailMatchedUsers = await usersRef
-        .where("link_email", "==", email)
+        .where("linked_email", "==", email)
         .get();
       if (!emailMatchedUsers.empty) {
         return {
@@ -84,7 +84,7 @@ export const updateUserProfile = functions
       usersRef.doc(context.auth.uid).update({
         first_name: firstName,
         last_name: lastName,
-        link_email: email,
+        linked_email: email,
       });
 
       return {

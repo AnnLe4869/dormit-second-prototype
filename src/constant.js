@@ -34,4 +34,3 @@ export const UPDATE_HANDLING_PROCESS = "UPDATE HANDLING PROCESS";
 // set up user profile - no change to context state thus can be taken care later
 export const SET_FIRST_NAME = "SET_FIRST_NAME";
 export const SET_LAST_NAME = "SET_LAST_NAME";
-

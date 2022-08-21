@@ -59,7 +59,7 @@ export const updateShipping = functions
 
     const usersRef = db.collection("users") as CollectionReference<{
       stripeId: string;
-      link_email: string;
+      linked_email: string;
       name: string;
       phone: string;
     }>;

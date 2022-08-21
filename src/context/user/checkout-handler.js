@@ -60,6 +60,7 @@ export function useCheckout() {
 
     const checkoutDetail = {
       mode: "payment",
+      client: "mobile",
       /**
        * this set up will calculate tax on checkout
        * you have to set up the tax in Stripe for this to work

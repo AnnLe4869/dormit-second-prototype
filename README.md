@@ -32,7 +32,7 @@ As for the custom hooks, it is used to make the bridge between the context and R
 
 ## Route structure
 
-For now, we will have seven(7) basics routes: home, search, category, order, account, auth and checkout. The detail of each route can be found in the dedicated [Guide to path](/PATH_GUIDE.md)
+For now, we will have seven(7) basics routes: home, search, category, order, account, auth and checkout. The detail of each route can be found in the dedicated [Guide to path](/doc/PATH_GUIDE.md)
 
 ## React component
 

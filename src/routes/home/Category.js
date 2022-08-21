@@ -1,5 +1,5 @@
 import React from "react";
-import "./Home.css";
+import HomeCSS from "./Home.module.css";
 
 import rightArrow from "../../assets/Home/right-arrow.svg";
 
@@ -7,9 +7,9 @@ const THUMBNAIL_LIST_MAX = 4;
 
 const Category = ({ name, style, itemList }) => {
   return (
-    <div className="categoryContainer">
+    <div className={HomeCSS.categoryContainer}>
       {/* Category Header */}
-      <section className="categoryHeader" style={style}>
+      <section className={HomeCSS.categoryHeader} style={style}>
         <h2>{name}</h2>
         <button>
           See All
@@ -18,7 +18,7 @@ const Category = ({ name, style, itemList }) => {
       </section>
 
       {/* Rendered list of items */}
-      <ul className="bigItemList">
+      <ul className={HomeCSS.bigItemList}>
         {itemList.map((item, index) => {
           if (index < THUMBNAIL_LIST_MAX) {
             return <li>{item}</li>;
