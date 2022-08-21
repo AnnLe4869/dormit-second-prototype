@@ -1,6 +1,4 @@
 import React from "react";
-import styles from "../Order.module.css";
-import BottomNav from "../../../shared/bottom-nav/BottomNav";
 import productList from "../../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import OrderView from "../OrderView/OrderView";
@@ -16,26 +14,23 @@ function Past() {
   const fetchedOrders = [order1, order2, order3, order4];
 
   return (
-    <>
-      <Container>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            margin: "50px auto",
-            maxWidth: "600px",
-            gap: "40px",
-          }}
-        >
-          {/* all past orders with the products in the props */}
-          <Typography variant="h4">Completed</Typography>
-          {fetchedOrders.map((order, index) => (
-            <OrderView key={index} order={order} />
-          ))}
-        </Box>
-      </Container>
-      <BottomNav currentPage="home" />
-    </>
+    <Container>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          margin: "50px auto",
+          maxWidth: "600px",
+          gap: "40px",
+        }}
+      >
+        {/* all past orders with the products in the props */}
+        <Typography variant="h4">Completed</Typography>
+        {fetchedOrders.map((order, index) => (
+          <OrderView key={index} order={order} />
+        ))}
+      </Box>
+    </Container>
   );
 }
 

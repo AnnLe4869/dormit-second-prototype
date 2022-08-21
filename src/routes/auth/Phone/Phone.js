@@ -4,9 +4,13 @@ import callIcon from "../../../mock_data/images/callVector.png";
 import { Container } from "@mui/system";
 import { Link } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
+import { useSendCodeToPhone } from "../../../context/user/auth-handler";
+import { authStyles } from "../muiStyles";
 
-function Phone({ lostAccess }) {
+function Phone() {
   const inputRef = useRef();
+
+  const sendPhoneCode = useSendCodeToPhone();
 
   //Regex to format 10 given numbers to an American phone number
   const phoneFormat = () => {
@@ -19,17 +23,7 @@ function Phone({ lostAccess }) {
 
   return (
     <Container>
-      <Box
-        sx={{
-          display: "flex",
-          textAlign: "center",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          gap: "10px",
-        }}
-      >
+      <Box sx={authStyles.centerComponents}>
         <img alt="Call Icon" src={callIcon} className={styles.callIcon} />
 
         <Typography variant="h4" fontWeight="700">
@@ -81,20 +75,11 @@ function Phone({ lostAccess }) {
           <Button
             variant="contained"
             disableRipple
-            sx={{
-              backgroundColor: "#7141FA",
-              borderRadius: "999px",
-              color: "#ffffff",
-              padding: "10px 15px",
-              width: "100%",
-              fontWeight: "bold",
-              fontSize: "large",
-              border: "none",
-              cursor: "pointer",
-              "&:hover": {
-                backgroundColor: "#7141FA",
-              },
+            sx={authStyles.authButton}
+            onClick={() => {
+              sendPhoneCode("+1" + inputRef.current.value);
             }}
+            id="phone-sign-in-button"
           >
             Confirm
           </Button>

@@ -4,44 +4,52 @@ import callIcon from "../../../mock_data/images/callVector.png";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
 import { Box, Button, Typography } from "@mui/material";
+import { useVerifyPhoneCode } from "../../../context/user/auth-handler";
+import { authStyles } from "../muiStyles";
 
 const authCode = new Array(6).fill(0);
 
 function Otpcode() {
+  const [phoneCode, setPhoneCode] = useState("");
+
   const [currentInput, setCurrentInput] = useState(0);
+  console.log(authCode);
   let inputRef = useRef(null);
   let buttonRef = useRef();
+  const verifyPhoneCode = useVerifyPhoneCode();
 
-  const handleOnchange = (index) => {
-    authCode.splice(index, 1, inputRef.current.value);
+  // const handleOnchange = (index) => {
+  //   authCode.splice(index, 1, inputRef.current.value);
 
-    if (currentInput < 5) {
-      inputRef.current?.focus();
-      return setCurrentInput(currentInput + 1);
-    }
+  //   if (currentInput < 6) {
+  //     inputRef.current?.focus();
+  //     return setCurrentInput(currentInput + 1);
+  //   }
 
-    inputRef.current?.blur();
-    buttonRef.current.click();
-    return;
+  //   return;
+  // };
+
+  const handleOnchange = (event) => {
+    setPhoneCode(event.target.value);
   };
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  });
+  const check = async () => {
+    await verifyPhoneCode(phoneCode);
+  };
+
+  // useEffect(() => {
+  //   inputRef.current?.focus();
+
+  //   console.log(currentInput);
+
+  //   if (currentInput === 6) {
+  //     inputRef.current?.blur();
+  //   }
+  // }, [currentInput]);
 
   return (
     <Container>
-      <Box
-        sx={{
-          display: "flex",
-          textAlign: "center",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          gap: "10px",
-        }}
-      >
+      <Box sx={authStyles.centerComponents}>
         <img alt="Call Icon" src={callIcon} className={styles.callIcon} />
         <Typography variant="h4" fontWeight="700">
           Verification
@@ -60,7 +68,8 @@ function Otpcode() {
             textAlign: "left",
           }}
         >
-          {authCode.map((val, index) => {
+          <input type="text" onChange={handleOnchange}></input>
+          {/* {authCode.map((val, index) => {
             return (
               <input
                 key={index}
@@ -71,27 +80,15 @@ function Otpcode() {
                 placeholder={val}
               ></input>
             );
-          })}
+          })} */}
         </Box>
         <Link className={styles.buttonLink} to={{ pathname: "/auth/signup" }}>
           <Button
             ref={buttonRef}
             disableRipple
             variant="contained"
-            sx={{
-              backgroundColor: "#7141FA",
-              borderRadius: "999px",
-              color: "#ffffff",
-              padding: "10px 15px",
-              width: "100%",
-              fontWeight: "bold",
-              fontSize: "large",
-              border: "none",
-              cursor: "pointer",
-              "&:hover": {
-                backgroundColor: "#7141FA",
-              },
-            }}
+            sx={authStyles.authButton}
+            onClick={check}
           >
             Confirm
           </Button>
