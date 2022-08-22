@@ -63,6 +63,11 @@ type products = Array<{
      * 0.5%   ===> 0.50
      */
     tax: string;
+    /**
+     * a special status assigned to each product
+     * not sure how this status is calculated
+     */
+    isSpecial: "true" | "false";
   };
 
   /**

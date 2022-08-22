@@ -442,6 +442,7 @@ export default function HomePage() {
             ))}
         </div>
       </div>
+
       <ViewCart numItems="X" totalAmount="X.XX" />
       <BottomNav />
     </>
