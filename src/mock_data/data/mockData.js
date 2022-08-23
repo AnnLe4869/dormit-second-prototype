@@ -3,14 +3,15 @@ import innout from '../../assets/innout.png';
 import dintaifung from '../../assets/dintaifung.png';
 import lays from '../images/lays.png';
 import spaghetti from '../../assets/spaghetti.png';
+import coke from '../images/coke.jpg';
 
-const products = [
+export const products = [
     
     ///[0]
     {id: "prod_12characters",
     name: "Din Tai Fung",
     description: "Din Tai Fung is a bomb place in UTC",
-    images: ["../../assets/dintaifung.png"],
+    images: [dintaifung],
     metadata: {
         quantity: "5",
         category: "todaysSpecial",
@@ -37,7 +38,7 @@ const products = [
     {id: "prod_10dm593mjg23",
     name: "In-N-Out",
     description: "In-n-out burger is better than Shake Shack",
-    images: ["../../assets/innout.png"],
+    images: [innout],
     metadata: {
         quantity: "2",
         category: "todaysSpecial",
@@ -64,7 +65,7 @@ const products = [
     {id: "prod_10dm593mjg33",
     name: "Apple",
     description: "An apple",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "4",
         category: "todaysSpecial",
@@ -91,7 +92,7 @@ const products = [
     {id: "prod_10dm593mjg33",
     name: "Apple",
     description: "An apple",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "4",
         category: "todaysSpecial",
@@ -118,7 +119,7 @@ const products = [
     {id: "prod_10dm593mjg33",
     name: "Twix",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "1",
         category: "candy",
@@ -145,7 +146,7 @@ const products = [
     {id: "prod_10dm59332333",
     name: "Lays",
     description: "Potato Chips",
-    images: ["../images/lays.png"],
+    images: [lays],
     metadata: {
         quantity: "10",
         category: "chips",
@@ -172,7 +173,7 @@ const products = [
     {id: "prod_10dm5423333",
     name: "Coke",
     description: "",
-    images: ["../images/coke.jpg"],
+    images: [coke],
     metadata: {
         quantity: "12",
         category: "drinks",
@@ -199,7 +200,7 @@ const products = [
     {id: "prod_10dm5423333",
     name: "Lunchables",
     description: "Best charcuterie board",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "2",
         category: "snacks",
@@ -226,7 +227,7 @@ const products = [
     {id: "prod_10d12333333",
     name: "Donut",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "8",
         category: "sweets",
@@ -253,7 +254,7 @@ const products = [
     {id: "prod_10dga22342f",
     name: "Rocky Road",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "4",
         category: "icecream",
@@ -280,7 +281,7 @@ const products = [
     {id: "prod_10dga2rf23fr2f",
     name: "Mom's Spaghetti",
     description: "",
-    images: ['../../assets/spaghetti.png'],
+    images: [spaghetti],
     metadata: {
         quantity: "4",
         category: "readyToEat",
@@ -307,7 +308,7 @@ const products = [
     {id: "prod_10dm593mjg33",
     name: "Kit Kat",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "4",
         category: "candy",
@@ -334,7 +335,7 @@ const products = [
     {id: "prod_10dm59332333",
     name: "Kettle",
     description: "Potato Chips",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "chips",
@@ -361,7 +362,7 @@ const products = [
     {id: "prod_10dm5422342",
     name: "Sprite",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "12",
         category: "drinks",
@@ -388,7 +389,7 @@ const products = [
     {id: "prod_10dm5423333",
     name: "Sandwich",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "snacks",
@@ -415,7 +416,7 @@ const products = [
     {id: "prod_10d12333333",
     name: "Cookies",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "5",
         category: "sweets",
@@ -442,7 +443,7 @@ const products = [
     {id: "prod_10dga232342f",
     name: "Mint Chocolate Chip",
     description: "",
-    images: ["../../assets/apple.png"],
+    images: [apple],
     metadata: {
         quantity: "4",
         category: "icecream",
@@ -469,7 +470,7 @@ const products = [
     {id: "prod_10dga2r242fr2f",
     name: "Panda Express",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "4",
         category: "readyToEat",
@@ -496,7 +497,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "candy",
@@ -523,7 +524,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "candy",
@@ -550,7 +551,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "candy",
@@ -577,7 +578,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "candy",
@@ -604,7 +605,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "candy",
@@ -631,7 +632,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "candy",
@@ -658,7 +659,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "chips",
@@ -685,7 +686,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "chips",
@@ -712,7 +713,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "chips",
@@ -739,7 +740,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "chips",
@@ -766,7 +767,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "chips",
@@ -793,7 +794,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "chips",
@@ -820,7 +821,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "drinks",
@@ -847,7 +848,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "drinks",
@@ -874,7 +875,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "drinks",
@@ -901,7 +902,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "drinks",
@@ -928,7 +929,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "drinks",
@@ -955,7 +956,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "drinks",
@@ -982,7 +983,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "snacks",
@@ -1009,7 +1010,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "snacks",
@@ -1036,7 +1037,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "snacks",
@@ -1063,7 +1064,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "snacks",
@@ -1090,7 +1091,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "snacks",
@@ -1117,7 +1118,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "snacks",
@@ -1144,7 +1145,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "sweets",
@@ -1171,7 +1172,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "sweets",
@@ -1198,7 +1199,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "sweets",
@@ -1225,7 +1226,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "sweets",
@@ -1252,7 +1253,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "sweets",
@@ -1279,7 +1280,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "sweets",
@@ -1306,7 +1307,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "icecream",
@@ -1333,7 +1334,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "icecream",
@@ -1360,7 +1361,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "icecream",
@@ -1387,7 +1388,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "icecream",
@@ -1414,7 +1415,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "icecream",
@@ -1441,7 +1442,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "icecream",
@@ -1468,7 +1469,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "readyToEat",
@@ -1495,7 +1496,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "readyToEat",
@@ -1522,7 +1523,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "readyToEat",
@@ -1549,7 +1550,7 @@ const products = [
     {id: "prod_10dg2342fr2f",
     name: "Apple",
     description: "",
-    images: ['../../assets/apple.png'],
+    images: [apple],
     metadata: {
         quantity: "10",
         category: "readyToEat",
@@ -1576,7 +1577,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "readyToEat",
@@ -1603,7 +1604,7 @@ const products = [
         {id: "prod_10dg2342fr2f",
         name: "Apple",
         description: "",
-        images: ['../../assets/apple.png'],
+        images: [apple],
         metadata: {
             quantity: "10",
             category: "readyToEat",

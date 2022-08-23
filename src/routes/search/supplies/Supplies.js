@@ -22,7 +22,7 @@ const Supplies = (props) => {
 
   let { category } = useParams();
 
-  console.log("props: ", props);
+  console.log("props:")
   
   const navigate = useNavigate();
   const navigateItems = () => {

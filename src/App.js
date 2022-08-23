@@ -10,9 +10,6 @@ import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/OrderPage";
 import SearchPage from "./routes/search/Search";
 import Test from "./routes/test/Test";
-import { getEnabledCategories } from "trace_events";
-
-import { categories } from "./routes/category/CategoryProps.js";
 
 function App() {
   useInitializeApp();
@@ -32,15 +29,8 @@ function App() {
 
         <Route path="/category">
           <Route index element={<Category />} />
-          <Route exact path=":id" 
-            element={<Category props={categories.find(index => index.id === match.params.id)} />}
-          />
+          <Route path=":id" element={<Category />}/>
         </Route>
-
-        {/* <Route path="/category">
-          <Route index element={<Category />} />
-          <Route path=":category" element={<Supplies />} />
-        </Route> */}
 
         {/*this is special route for testing only. Delete when done*/}
         <Route path="/test" element={<Test />} />

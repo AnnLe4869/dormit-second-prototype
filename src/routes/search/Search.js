@@ -41,7 +41,7 @@ function Search() {
 
           <div>
             <div className={styles.categories}>
-              <CategoryTemplate className="Today's Special" image={today} name="Today's Special" link="todaysSpecial"/>
+              <CategoryTemplate className="Today's Special" image={today} name="Today's Special" link="todays-special"/>
               <CategoryTemplate className="Candy" image={candy} name="Candy" link="candy"/>
               <CategoryTemplate className="Chips" image={chips} name="Chips" link="chips"/>
 
@@ -50,8 +50,8 @@ function Search() {
               <CategoryTemplate className="Sweets" image={sweets} name="" link="sweets"/>
 
               <CategoryTemplate className="Ice Cream" image={icecream} name="" link="icecream"/>
-              <CategoryTemplate className="Ready To Eat" image={readyToEat} name="" link="readyToEat"/>
-              <CategoryTemplate className="Category" image={categoryImage} name="" link="placeholder"/>
+              <CategoryTemplate className="Ready To Eat" image={readyToEat} name="" link="ready-to-eat"/>
+              <CategoryTemplate className="Category" image={categoryImage} name="" link=""/>
             </div>
           </div>
         </div>
