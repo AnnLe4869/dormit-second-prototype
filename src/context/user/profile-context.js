@@ -1,3 +1,5 @@
+
+
 import { httpsCallable } from "firebase/functions";
 import { useContext } from "react";
 import { AppContext } from "../app-context";
@@ -22,40 +24,6 @@ export function useUpdateFirstName() {
    */
 
   const { db } = useContext(AppContext);
-<<<<<<< HEAD
-<<<<<<< HEAD
-  console.log("state: ", state);
-
-  return async (name) => {
-    console.log("name: ", name);
-
-    try {
-      await setDoc( doc(db, "users", "first_name"), {
-        name: name
-      });  
-
-      dispatch({
-        type: SET_FIRST_NAME, 
-        payload: {name: name}
-      })
-
-    } catch (error) {
-      console.log("useUpdateFirstName() error: ", error);
-    }
-
-=======
-
-  dispatch({
-    type: SET_FIRST_NAME,
-    payload: { name: state.firstName },
-  });
-
-  return async (name) => {
-    await setDoc(doc(db, "users", "first_name"), {
-      name: state.firstName,
-    });
->>>>>>> upstream/main
-=======
   console.log("state: ", state);
 
   return async (name) => {
@@ -73,7 +41,6 @@ export function useUpdateFirstName() {
     } catch (error) {
       console.log("useUpdateFirstName() error: ", error);
     }
->>>>>>> 84f258b0ecaf301cc618a78537e1ca1d78054b50
   };
 }
 

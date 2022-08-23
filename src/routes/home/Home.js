@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useNavigate } from "react";
 
 import { useProducts } from "../../context/product/product-handler";
 import HomeCSS from "./Home.module.css";
@@ -98,6 +98,15 @@ export default function HomePage() {
     iceCreamRef,
     sweetsRef,
   ];
+
+  /**
+   * useNavigate which is used to redirect to a category page (e.g. 'See All` for the Candy section)
+   */
+  const navigate = useNavigate();
+
+  function navigateCategory(link){
+    navigate(`/category/${link}`);
+  };
 
   /**
    * these are sections that we get from database
@@ -285,6 +294,7 @@ export default function HomePage() {
             <div className={HomeCSS.todaysSpecialHeader}>
               <Button
                 variant="contained"
+                onClick={() => navigateCategory("todaysSpecial")}
                 sx={[
                   homepageStyles.seeAll,
                   {

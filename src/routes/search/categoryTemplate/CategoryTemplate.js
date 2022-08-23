@@ -6,12 +6,12 @@ const CategoryTemplate = (props) => {
   const navigate = useNavigate();
 
   const navigateCategory = () => {
-    navigate("/category/supplies");
+    navigate(`/category/${props.link}`);
   };
 
   return (
     <div className={styles.container} onClick={navigateCategory}>
-      <img className={styles.image} src={props.link} alt={props.className} />
+      <img className={styles.image} src={props.image} alt={props.className} />
     </div>
   );
 };

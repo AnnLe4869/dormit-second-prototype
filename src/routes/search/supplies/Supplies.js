@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Supplies.module.css";
 import SuppliesTemplate from "./suppliesTemplate/SuppliesTemplate";
 import CategoryTemplate from "../categoryTemplate/CategoryTemplate";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import SendIcon from "@mui/icons-material/Send";
 import today from "../../../assets/CategoryImages/todays-special.svg";
@@ -16,10 +16,15 @@ import readyToEat from "../../../assets/CategoryImages/readytoeat.svg";
 import categoryImage from "../../../assets/CategoryImages/category.svg";
 import BottomNav from "../../../shared/bottom-nav/BottomNav";
 
+import { mockLists } from '../../home/mockData';
+
 const Supplies = (props) => {
+
+  let { category } = useParams();
+  
   const navigate = useNavigate();
   const navigateItems = () => {
-    navigate("/category");
+    navigate(-1);
   };
 
   const sendSuggestions = () => {
@@ -34,17 +39,22 @@ const Supplies = (props) => {
           style={{ width: 48, height: 48, color: "#FFFFFF" }}
           onClick={navigateItems}
         />
-        <p className={styles.title}>Supplies</p>
+        <p className={styles.title}>{category}</p>
       </header>
       <div className={styles.page}>
         <div className={styles.supplies}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((item) => (
+
+          {mockLists[category].map((item) => {
+            return <>{item}</>;
+          })}
+          
+          {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((item) => (
             <SuppliesTemplate
               key={item}
               className={styles.item}
               link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
             />
-          ))}
+          ))} */}
         </div>
 
         <div>
