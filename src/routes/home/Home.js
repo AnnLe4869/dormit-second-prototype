@@ -1,4 +1,5 @@
-import { useRef, useNavigate } from "react";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useProducts } from "../../context/product/product-handler";
 import HomeCSS from "./Home.module.css";
