@@ -34,6 +34,33 @@ export type ArrayElement<ArrayType extends readonly unknown[]> =
  * all the fields EXCEPT for subcollection "prices" are from Stripe Product object
  * all the fields below are not all info stored in firestore, but these are guaranteed to be presented when you fetch data
  * complete fields, see https://stripe.com/docs/api/products/object
+ * ****
+ * ****
+ * ****
+ * **SPECIAL DOCUMENT IN COLLECTION**:
+ * there is a document in the collection "products" with id "categories"
+ * this document has different structure than the structure listed below
+ * it doesn't store normal product's information but store information about categories
+ * in specific, how many categories we currently have and the detail on each category
+ * this document look like this
+ *
+ * {
+ *    id: "categories",
+ *    categories: Array<{
+ *      category_name: string;
+ *      category_icon: string;
+ *      category_style: {
+ *        color: string;
+ *        background_color: string;
+ *      }
+ *    }>
+ * }
+ *
+ * category_icon is the content of the svg file that represent the icon.
+ * What we did is we just put the entire svg file content into this field.
+ * The requirement for the svg file is that it must be colored
+ *
+ * category_style is for styling the button color associated with the category (see the Figma design for more detail)
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
 type products = Array<{
