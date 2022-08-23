@@ -26,19 +26,25 @@ import Button from "@mui/material/Button";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-/*
- * onClick event handler to scroll to food category
+/**
+ * jump to selected element when called
+ * in other word, we will move the view to the element with matched id
  */
-function scrollToCategory(refArray, index) {
-  refArray[index].current.scrollIntoView({ behavior: "smooth" });
+function scrollToCategory(elementId) {
+  document.getElementById(elementId).scrollIntoView({ behavior: "smooth" });
 }
+/**
+ * scroll horizontally to the right (i.e next item) in the list of horizontal items
+ */
 function scrollCategoryNext(element, object, pixels, overflow) {
   const total = overflow * pixels;
   if (object.pixelCount < total) {
     document.getElementById(element).scrollTo((object.pixelCount += pixels), 0);
   }
 }
-
+/**
+ * scroll horizontally to the left (i.e previous item) in the list of horizontal items
+ */
 function scrollCategoryBack(element, object, pixels) {
   if (object.pixelCount > 0) {
     document.getElementById(element).scrollTo((object.pixelCount -= pixels), 0);
@@ -48,8 +54,8 @@ function scrollCategoryBack(element, object, pixels) {
 export default function HomePage() {
   const products = useProducts();
 
-  /*
-   * Mock lists
+  /**
+   * mock product data
    */
   const mockSpecialItems = [
     <ItemEntry
@@ -78,27 +84,6 @@ export default function HomePage() {
     <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
   ];
 
-  // useRef() constants for page categories
-  const specialsRef = useRef(null);
-  const candyRef = useRef(null);
-  const chipsRef = useRef(null);
-  const drinksRef = useRef(null);
-  const readyToEatRef = useRef(null);
-  const snacksRef = useRef(null);
-  const iceCreamRef = useRef(null);
-  const sweetsRef = useRef(null);
-
-  const refArray = [
-    specialsRef,
-    candyRef,
-    chipsRef,
-    drinksRef,
-    readyToEatRef,
-    snacksRef,
-    iceCreamRef,
-    sweetsRef,
-  ];
-
   /**
    * these are sections that we get from database
    */
@@ -122,7 +107,6 @@ export default function HomePage() {
       color: "#D4162E",
       backgroundColor: "#FCBAC2",
       imgSrc: candy,
-      ref: candyRef,
       pixels: { pixelCount: 0 },
       displayedItems: mockForYouItems,
     },
@@ -134,7 +118,6 @@ export default function HomePage() {
       color: "#BD653C",
       backgroundColor: "#FFD9C7",
       imgSrc: chips,
-      ref: chipsRef,
       pixels: { pixelCount: 0 },
       displayedItems: mockForYouItems,
     },
@@ -146,7 +129,6 @@ export default function HomePage() {
       color: "#C79415",
       backgroundColor: "#FFE7AA",
       imgSrc: drinks,
-      ref: drinksRef,
       pixels: { pixelCount: 0 },
       displayedItems: mockForYouItems,
     },
@@ -158,7 +140,6 @@ export default function HomePage() {
       color: "#E28413",
       backgroundColor: "#FFDBB0",
       imgSrc: ready,
-      ref: readyToEatRef,
       pixels: { pixelCount: 0 },
       displayedItems: mockForYouItems,
     },
@@ -170,7 +151,6 @@ export default function HomePage() {
       color: "#3C8D8A",
       backgroundColor: "#C8F0EE",
       imgSrc: snacks,
-      ref: snacksRef,
       pixels: { pixelCount: 0 },
       displayedItems: mockForYouItems,
     },
@@ -182,7 +162,6 @@ export default function HomePage() {
       color: "#3C8D8A",
       backgroundColor: "#C8F0EE",
       imgSrc: icecream,
-      ref: iceCreamRef,
       pixels: { pixelCount: 0 },
       displayedItems: mockForYouItems,
     },
@@ -194,7 +173,6 @@ export default function HomePage() {
       color: "#AC23B9",
       backgroundColor: "#F8D7FB",
       imgSrc: sweets,
-      ref: sweetsRef,
       pixels: { pixelCount: 0 },
       displayedItems: mockForYouItems,
     },
@@ -240,12 +218,12 @@ export default function HomePage() {
           {/* Navbar for navigating to each category */}
           <div className={HomeCSS.homeCategoryContainer}>
             <ul className={HomeCSS.homeCategoryNav2} id="categoryNav">
-              {originalSections.map((section, index) => (
+              {originalSections.map((section) => (
                 <li className={HomeCSS.categoryCard}>
                   <img
                     src={section.imgSrc}
                     alt={section.alt}
-                    onClick={(e) => scrollToCategory(refArray, index)}
+                    onClick={(e) => scrollToCategory(section.sectionId)}
                   />
                   <Typography sx={headers.header6}>{section.name}</Typography>
                 </li>
@@ -276,11 +254,7 @@ export default function HomePage() {
            * Special sections
            * items in this section have different styling, thus has its own component
            */}
-          <section
-            className={HomeCSS.todaysSpecial}
-            id="specialsSection"
-            ref={specialsRef}
-          >
+          <section className={HomeCSS.todaysSpecial} id="specialsSection">
             <hr className={HomeCSS.sectionBarTop} />
             <div className={HomeCSS.todaysSpecialHeader}>
               <Button
@@ -378,7 +352,6 @@ export default function HomePage() {
               <section
                 className={HomeCSS.categoryContainer}
                 id={section.sectionId}
-                ref={section.ref}
               >
                 <hr className={HomeCSS.sectionBarTop} />
                 <div className={HomeCSS.categoryHeader}>
