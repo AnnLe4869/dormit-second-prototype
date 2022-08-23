@@ -3,24 +3,7 @@ import React, { createContext } from "react";
 import { INITIALIZE_PRODUCTS, UPDATE_ALL_PRODUCTS } from "../../constant";
 
 export const ProductContext = createContext({
-  products: [
-    {
-      id: "prod_123",
-      name: "red bull",
-      description: "energy drink",
-      active: true,
-      isDeal: false,
-      images: ["https://something.com"],
-      metadata: {
-        category: "drink",
-        quantity: "15",
-      },
-      prices: {
-        id: "price_123",
-        unit_amount: 250,
-      },
-    },
-  ],
+  products: [],
 });
 
 function productReducer(state, action) {
@@ -41,8 +24,7 @@ function productReducer(state, action) {
 
 export default function ProductProvider({ children }) {
   const [state, dispatch] = React.useReducer(productReducer, {
-    products: [{ id: "352" }],
-    deals: [],
+    products: [],
   });
 
   const value = { state, dispatch };

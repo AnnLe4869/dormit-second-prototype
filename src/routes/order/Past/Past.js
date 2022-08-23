@@ -1,10 +1,9 @@
 import React from "react";
-import styles from "../Order.module.css";
-import BottomNav from "../../../shared/bottom-nav/BottomNav";
 import productList from "../../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import OrderView from "../OrderView/OrderView";
 import { Container } from "@mui/system";
+import { Box, Typography } from "@mui/material";
 
 function Past() {
   const order1 = { products: [productList[23]], status: "completed" };
@@ -15,18 +14,23 @@ function Past() {
   const fetchedOrders = [order1, order2, order3, order4];
 
   return (
-    <>
-      <Container>
-        <div className={styles.centering}>
-          {/* all past orders with the products in the props */}
-          <h2>Completed</h2>
-          {fetchedOrders.map((order, index) => (
-            <OrderView key={index} order={order} />
-          ))}
-        </div>
-      </Container>
-      <BottomNav currentPage="home" />
-    </>
+    <Container>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          margin: "50px auto",
+          maxWidth: "600px",
+          gap: "40px",
+        }}
+      >
+        {/* all past orders with the products in the props */}
+        <Typography variant="h4">Completed</Typography>
+        {fetchedOrders.map((order, index) => (
+          <OrderView key={index} order={order} />
+        ))}
+      </Box>
+    </Container>
   );
 }
 

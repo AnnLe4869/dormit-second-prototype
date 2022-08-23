@@ -64,7 +64,7 @@ exports.data = [
   },
   {
     quantity: 50,
-    name: "Causticum 30c, Graphites 30c, Hepar Sulph 30c, Mag Phos 30c, Magnetis Polus Australis 30c, Nat Mur 30c, Nitricum Acidum 30c, Phosphoricum Ac 30c, Silicea 30c, sulphur 30c, Thuja 30c, Teucrium 30c",
+    name: "Causticum 30c, Graphites 30c, Thuja 30c, Teucrium 30c",
     description:
       "platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec",
     category: "Mazda",
@@ -120,7 +120,7 @@ exports.data = [
   },
   {
     quantity: 12,
-    name: "Apis mel., Arsenicum alb., Calc. carb., Dulcamara, Graphites, Hepar sulph. calc., Hydrastis, Hydrofluoricum acidum, Kali carb., Lycopodium, Mezereum, Oleander, Petroleum, Phosphoricum ac., Phosphorus, Rhus toxicodendron, Selenium, Sepia, Silicea, Sulphur, Thuja occ.",
+    name: "Apis mel., Sulphur, Thuja occ.",
     description:
       "elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus",
     category: "Honda",
@@ -194,7 +194,7 @@ exports.data = [
     quantity: 69,
     name: "Silver Sulfadiazine",
     description:
-      "non velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci",
+      "non velit donec diam neque vestibulum eget  vestibulum ante ipsum primis in faucibus orci",
     category: "Toyota",
     is_deal: true,
   },
@@ -328,7 +328,7 @@ exports.data = [
     quantity: 63,
     name: "Olanzapine",
     description:
-      "sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien",
+      "sit amet consectetuer adipiscing ultrices phasellus id sapien in sapien",
     category: "BMW",
     is_deal: true,
   },
@@ -383,8 +383,7 @@ exports.data = [
   {
     quantity: 70,
     name: "galantamine hydrobromide",
-    description:
-      "lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus",
+    description: "lectus suspendisse potenti in eleifend quam a augue luctus",
     category: "Volkswagen",
     is_deal: false,
   },
@@ -392,7 +391,7 @@ exports.data = [
     quantity: 93,
     name: "bupivacaine",
     description:
-      "sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus",
+      "sed magna at nunc commodo placerat praesent  pede justo lacinia eget tincidunt eget tempus",
     category: "Mazda",
     is_deal: false,
   },
@@ -416,7 +415,7 @@ exports.data = [
     quantity: 70,
     name: "Benzocaine",
     description:
-      "fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh",
+      "fermentum donec ut mauris eget massa tempor eget eleifend luctus ultricies eu nibh",
     category: "Chevrolet",
     is_deal: false,
   },
@@ -512,7 +511,7 @@ exports.data = [
     quantity: 62,
     name: "Hamster Epithelium",
     description:
-      "sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis",
+      "sociis natoque penatibus et magnis dis parturient montes nasceturis sapien cum sociis",
     category: "GMC",
     is_deal: false,
   },
@@ -528,7 +527,7 @@ exports.data = [
     quantity: 98,
     name: "Pyrithione zinc",
     description:
-      "convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum",
+      "convallis nulla neque libero  amet sapien dignissim vestibulum",
     category: "Toyota",
     is_deal: true,
   },

@@ -1,14 +1,39 @@
-import React from "react";
-import { useCheckout } from "../../context/user/checkout-handler";
+import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useSetupStripe } from "../../context/user/checkout-handler";
+
+import Order from "./Order/Order";
+import Payment from "./Payment/Payment";
 
 export default function Checkout() {
-  const checkout = useCheckout();
+  const [stripePromise, setStripePromise] = useState(null);
+  const [stripeClientSecret, setStripeClientSecret] = useState(null);
+
+  const setupStripe = useSetupStripe(setStripePromise);
+
+  useEffect(() => {
+    setupStripe();
+  }, []);
 
   return (
-    <div>
-      <h1>Checkout</h1>
-
-      <button onClick={() => checkout(3)}>button for checkout</button>
-    </div>
+    <Routes>
+      <Route
+        index
+        element={<Order setStripeClientSecret={setStripeClientSecret} />}
+      />
+      <Route
+        path="order"
+        element={<Order setStripeClientSecret={setStripeClientSecret} />}
+      />
+      <Route
+        path="payment"
+        element={
+          <Payment
+            stripePromise={stripePromise}
+            stripeClientSecret={stripeClientSecret}
+          />
+        }
+      />
+    </Routes>
   );
 }

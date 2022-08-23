@@ -36,7 +36,7 @@ There are two(2) main subroutes
 
 This route corresponds to the route `https://localhost/auth` and the components are in `routes/auth` directory. This route has all authentication service in it
 
-There are four(4) main subroutes
+There are five(5) main subroutes
 
 - `/auth/phone` is the route that prompt user to enter their phone number. There should be a button to continue after user has entered their phone number, a link to email authentication in case user forget their phone number. This method of authentication has high priority
 - `/auth/phone/otpcode` is the route that prompt user to enter the OTP code they receive on their phone. There should be a limit on how many times they can try
@@ -52,7 +52,7 @@ In case we cannot find the user in database, there are two scenarios: if the use
 
 This route corresponds to the route `https://localhost/order` and the component are in `routes/order`. This will show all orders that are new and old. This is protected route, means that only authenticated user can access it
 
-There are two(2) main subroutes here
+There are five(5) main subroutes here
 
 - `/order` will show all orders. This means we can see what is the current order as well as orders that has been finished in the past
 - `/order/current` will show all current order
@@ -66,9 +66,10 @@ Per specification, we don't have the route to view detail of past order
 
 This route corresponds to the route `https://localhost/checkout` and the component are in `routes/checkout`. This will show the input fields to enter all shipping information as well as what is currently in the cart right now. This is protected route, means that only authenticated user can access it
 
-There are only one subroute here
+There are two subroutes here
 
-- `/checkout` will display input fields to enter all shipping information as well as what is currently in the cart right now. User when ready can click on the "Place order" button
+- `/checkout/order` will display input fields to enter all shipping information as well as what is currently in the cart right now. User when ready can click on the "Place order" button
+- `/checkout/payment` will display the input field for user to enter their payment information (like credit card number, Google pay, etc.). User should only see this by navigating from `/checkout` route
 
 We will not collect the credit cart information here nor we store credit card information on our database. We use Stripe to handle that. After user decide to place order, we will redirect them to a Stripe checkout session and let Stripe handle payment. If the payment is successful, we will redirect to the order page with the updated detail
 

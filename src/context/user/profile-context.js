@@ -23,6 +23,7 @@ export function useUpdateFirstName() {
 
   const { db } = useContext(AppContext);
 <<<<<<< HEAD
+<<<<<<< HEAD
   console.log("state: ", state);
 
   return async (name) => {
@@ -54,6 +55,25 @@ export function useUpdateFirstName() {
       name: state.firstName,
     });
 >>>>>>> upstream/main
+=======
+  console.log("state: ", state);
+
+  return async (name) => {
+    console.log("name: ", name);
+
+    try {
+      await setDoc(doc(db, "users", "first_name"), {
+        name: name,
+      });
+
+      dispatch({
+        type: SET_FIRST_NAME,
+        payload: { name: name },
+      });
+    } catch (error) {
+      console.log("useUpdateFirstName() error: ", error);
+    }
+>>>>>>> 84f258b0ecaf301cc618a78537e1ca1d78054b50
   };
 }
 
@@ -81,8 +101,6 @@ export function useUpdateLastName() {
 export function useUpdateShipping() {
   const { functions } = useContext(AppContext);
 
-  const updateShipping = httpsCallable(functions, "updateShipping");
-
   /**
    * function that will update user's shipping address
    *
@@ -92,10 +110,5 @@ export function useUpdateShipping() {
    *
    * after that, update local
    */
-  return async (address) => {
-    await updateShipping({
-      building: "CSE",
-      floorApartment: "3",
-    });
-  };
+  return async (address) => {};
 }

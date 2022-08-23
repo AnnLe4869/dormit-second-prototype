@@ -3,6 +3,7 @@ import styles from "../Auth.module.css";
 import callIcon from "../../../mock_data/images/callVector.png";
 import { Container } from "@mui/system";
 import { Link } from "react-router-dom";
+import { Box, Button, Typography } from "@mui/material";
 
 function Phone({ lostAccess }) {
   const inputRef = useRef();
@@ -18,18 +19,50 @@ function Phone({ lostAccess }) {
 
   return (
     <Container>
-      <div className={styles.centering}>
-        <img src={callIcon} className={styles.callIcon} />
+      <Box
+        sx={{
+          display: "flex",
+          textAlign: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          gap: "10px",
+        }}
+      >
+        <img alt="Call Icon" src={callIcon} className={styles.callIcon} />
 
-        <h1>Reset Phone Number</h1>
+        <Typography variant="h4" fontWeight="700">
+          Reset Phone Number
+        </Typography>
 
-        <p>
-          <span className={styles.purpleText}>Enter your phone number</span>{" "}
+        <Typography variant="body1">
+          <Box component="span" color="#7141FA">
+            Enter your phone number
+          </Box>{" "}
           below to stay updated again!
-        </p>
+        </Typography>
 
-        <div className={styles.inputDiv}>
-          <span className={styles.inputSpan}>Phone</span>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            maxWidth: "600px",
+            flexDirection: "column",
+            alignItems: "start",
+            margin: "10px 0",
+          }}
+        >
+          <Typography
+            variant="body1"
+            sx={{
+              fontWeight: "500",
+              fontSize: "small",
+              padding: "5px 0",
+            }}
+          >
+            Phone
+          </Typography>
           <input
             pattern="[0-9]"
             ref={inputRef}
@@ -39,15 +72,34 @@ function Phone({ lostAccess }) {
             placeholder="(xxx) xxx-xxxx"
             maxLength="10"
           ></input>
-        </div>
+        </Box>
 
         <Link
           className={styles.buttonLink}
           to={{ pathname: "/auth/phone/otpcode" }}
         >
-          <button className={styles.confirmButton}>Confirm</button>
+          <Button
+            disableRipple
+            variant="contained"
+            sx={{
+              backgroundColor: "#7141FA",
+              borderRadius: "999px",
+              color: "#ffffff",
+              padding: "10px 15px",
+              width: "100%",
+              fontWeight: "bold",
+              fontSize: "large",
+              border: "none",
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#7141FA",
+              },
+            }}
+          >
+            Confirm
+          </Button>
         </Link>
-      </div>
+      </Box>
     </Container>
   );
 }

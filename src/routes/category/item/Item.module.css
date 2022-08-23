@@ -87,7 +87,7 @@
 
 .addToCartButton {
   margin: 0 auto;
-  margin-top: 20%;
+  margin-top: 70px;
   width: 50%;
   height: 50px;
 
@@ -152,5 +152,6 @@
   .addToCartButton {
     width: 70%;
     height: 50px;
+    margin-top: 20%;
   }
 }

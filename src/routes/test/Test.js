@@ -9,7 +9,10 @@ import {
   useVerifyPhoneCode,
 } from "../../context/user/auth-handler";
 import { useCheckout } from "../../context/user/checkout-handler";
-import { useUpdateShipping, useUpdateFirstName } from "../../context/user/profile-context";
+import {
+  useUpdateShipping,
+  useUpdateFirstName,
+} from "../../context/user/profile-context";
 
 export default function Test() {
   const status = useCheckAuthenticationStatus();
@@ -46,11 +49,11 @@ export default function Test() {
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
-  }
+  };
   const handleFirstNameSubmit = (event) => {
     event.preventDefault();
     updateFirstName(firstName);
-  }
+  };
 
   const handleCheckout = async () => {
     // await updateShipping();
@@ -118,7 +121,11 @@ export default function Test() {
           <h1>Set User's First Name</h1>
           <form onSubmit={handleFirstNameSubmit}>
             <label form="phone-code">Enter phone code</label>
-            <input type="text" id="phone-code" onChange={handleFirstNameChange} />
+            <input
+              type="text"
+              id="phone-code"
+              onChange={handleFirstNameChange}
+            />
             <button>Submit</button>
           </form>
         </>

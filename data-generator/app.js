@@ -35,19 +35,19 @@ async function updateProducts() {
 
 async function createProduct({ name, description, quantity }) {
   // list of several tax ids available on Stripe
-  const taxIds = [
-    "txcd_41040002",
-    "txcd_41040008",
-    "txcd_41060006",
-    "txcd_40070005",
-    "txcd_40100001",
-    "txcd_37060012",
-    "txcd_35010000",
-    "txcd_37050001",
-    "txcd_33100200",
-    "txcd_40060003",
-    "txcd_40070005",
-  ];
+  // const taxIds = [
+  //   "txcd_41040002",
+  //   "txcd_41040008",
+  //   "txcd_41060006",
+  //   "txcd_40070005",
+  //   "txcd_40100001",
+  //   "txcd_37060012",
+  //   "txcd_35010000",
+  //   "txcd_37050001",
+  //   "txcd_33100200",
+  //   "txcd_40060003",
+  //   "txcd_40070005",
+  // ];
 
   // list of categories we have
   const categories = [
@@ -69,6 +69,7 @@ async function createProduct({ name, description, quantity }) {
     metadata: {
       quantity,
       category: categories[getRandomInt(categories.length)],
+      tax: getRandomInt(1000) / 100,
     },
     default_price_data: {
       currency: "usd",
@@ -76,18 +77,19 @@ async function createProduct({ name, description, quantity }) {
       unit_amount: getRandomInt(10000) + 1,
       tax_behavior: "inclusive",
     },
-    // get a random tax id from above list
-    tax_code: taxIds[getRandomInt(taxIds.length)],
     // get image of random id of size 100x100
     // image is generated from https://picsum.photos/
     images: [`https://picsum.photos/id/${getRandomInt(800) + 10}/100/100`],
   });
 }
 
-async function generateProducts(numberOfProduct) {
-  for (const item of data.splice(0, numberOfProduct)) {
+async function generateProducts(num, shift = 0) {
+  for (const item of data.splice(0 + shift, num + shift)) {
     await createProduct(item);
   }
 }
-
-updateProducts();
+/**
+ * make sure to run an appropriate number of asynchronous at the same time
+ * too many and your computer may not be able to handle it
+ */
+generateProducts(5, 15);
