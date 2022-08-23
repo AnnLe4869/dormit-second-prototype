@@ -1,21 +1,25 @@
 import React, { createContext } from "react";
 import { ACTIVATE_ALERT, DEACTIVATE_ALERT } from "../../constant";
 
-const AlertContext = createContext({
-  type: "INFO",
+export const AlertContext = createContext({
+  type: null,
   message: "actual message will be passed through",
   isActive: false,
 });
 
 function alertReducer(state, action) {
   switch (action.type) {
-    // action must of form {type: string, message: string}
+    // action must of form {type: string, payload: {type: string, message: string}}
     case ACTIVATE_ALERT:
-      return { ...action, isActive: true };
+      return {
+        type: action.payload.type,
+        message: action.payload.message,
+        isActive: true,
+      };
 
     // no need to pass action argument
     case DEACTIVATE_ALERT:
-      return { ...state, isActive: false };
+      return { ...state, message: null, isActive: false };
 
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -23,7 +27,7 @@ function alertReducer(state, action) {
   }
 }
 
-function AlertProvider({ children }) {
+export default function AlertProvider({ children }) {
   const [state, dispatch] = React.useReducer(alertReducer, {
     type: null,
     message: null,
@@ -35,5 +39,3 @@ function AlertProvider({ children }) {
     <AlertContext.Provider value={value}>{children}</AlertContext.Provider>
   );
 }
-
-export default AlertProvider;

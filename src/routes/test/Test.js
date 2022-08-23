@@ -9,6 +9,7 @@ import {
   useVerifyPhoneCode,
 } from "../../context/user/auth-handler";
 import { useCheckout } from "../../context/user/checkout-handler";
+import { useActivateErrorAlert } from "../../context/alert/alert-handler";
 import {
   useUpdateShipping,
   useUpdateFirstName,
@@ -19,6 +20,7 @@ export default function Test() {
   const signUp = useSignUp();
   const signOut = useSignOut();
   const checkout = useCheckout();
+  const activateErrorAlert = useActivateErrorAlert();
 
   const sendEmailCode = useSendCodeEmail();
   const verifyEmailCode = useVerifyEmailCode();
@@ -128,6 +130,12 @@ export default function Test() {
             />
             <button>Submit</button>
           </form>
+
+          {/**-------------------------------------------------------------------- */}
+          <h1>Show alert message</h1>
+          <button onClick={() => activateErrorAlert("error here")}>
+            Activate error
+          </button>
         </>
       )}
     </main>

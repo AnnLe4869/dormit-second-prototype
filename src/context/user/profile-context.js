@@ -22,11 +22,8 @@ export function useUpdateFirstName() {
    */
 
   const { db } = useContext(AppContext);
-  console.log("state: ", state);
 
   return async (name) => {
-    console.log("name: ", name);
-
     try {
       await setDoc(doc(db, "users", "first_name"), {
         name: name,

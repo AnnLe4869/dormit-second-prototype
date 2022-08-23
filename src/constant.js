@@ -7,6 +7,10 @@ export const UPDATE_ALL_PRODUCTS = "UPDATE ALL PRODUCTS";
 export const ADD_TO_CART = "ADD TO CART";
 
 // trigger alert to active
+export const INFO_TYPE = "info";
+export const SUCCESS_TYPE = "success";
+export const ERROR_TYPE = "error";
+export const WARNING_TYPE = "warning";
 export const ACTIVATE_ALERT = "ACTIVATE ALERT";
 export const DEACTIVATE_ALERT = "DEACTIVATE ALERT";
 

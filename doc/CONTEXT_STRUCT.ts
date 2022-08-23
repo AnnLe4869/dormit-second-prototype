@@ -8,7 +8,7 @@
  * -------------------------------------------------------------------------------------------------------------------------------------
  */
 type Alert = {
-  type: "ERROR" | "INFO";
+  type: "error" | "info" | "success" | "warning";
   message: string;
   isActive: boolean;
 };
