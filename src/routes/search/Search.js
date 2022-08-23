@@ -41,17 +41,17 @@ function Search() {
 
           <div>
             <div className={styles.categories}>
-              <CategoryTemplate className="Today's Special" image={today} link="todaysSpecial"/>
-              <CategoryTemplate className="Candy" image={candy} link="candy"/>
-              <CategoryTemplate className="Chips" image={chips} link="chips"/>
+              <CategoryTemplate className="Today's Special" image={today} name="Today's Special" link="todaysSpecial"/>
+              <CategoryTemplate className="Candy" image={candy} name="Candy" link="candy"/>
+              <CategoryTemplate className="Chips" image={chips} name="Chips" link="chips"/>
 
-              <CategoryTemplate className="Drinks" image={drinks} link="drinks"/>
-              <CategoryTemplate className="Snacks" image={snacks} link="snacks"/>
-              <CategoryTemplate className="Sweets" image={sweets} link="sweets"/>
+              <CategoryTemplate className="Drinks" image={drinks} name="" link="drinks"/>
+              <CategoryTemplate className="Snacks" image={snacks} name="" link="snacks"/>
+              <CategoryTemplate className="Sweets" image={sweets} name="" link="sweets"/>
 
-              <CategoryTemplate className="Ice Cream" image={icecream} link="icecream"/>
-              <CategoryTemplate className="Ready To Eat" image={readyToEat} link="readyToEat"/>
-              <CategoryTemplate className="Category" image={categoryImage} link="placeholder"/>
+              <CategoryTemplate className="Ice Cream" image={icecream} name="" link="icecream"/>
+              <CategoryTemplate className="Ready To Eat" image={readyToEat} name="" link="readyToEat"/>
+              <CategoryTemplate className="Category" image={categoryImage} name="" link="placeholder"/>
             </div>
           </div>
         </div>

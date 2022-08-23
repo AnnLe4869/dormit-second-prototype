@@ -21,6 +21,8 @@ import { mockLists } from '../../home/mockData';
 const Supplies = (props) => {
 
   let { category } = useParams();
+
+  console.log("props: ", props);
   
   const navigate = useNavigate();
   const navigateItems = () => {
