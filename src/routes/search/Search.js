@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
 import styles from "./Search.module.css";
 import CategoryMenu from "../../shared/categoryMenu/CategoryMenu";
@@ -23,12 +23,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 import Product from "../../shared/product/Product";
-import { mockProducts } from '../../mock_data/data/mockData.js';
+import { mockProducts } from "../../mock_data/data/mockData.js";
 
-import airplane from '../../assets/airplane.svg';
+import airplane from "../../assets/airplane.svg";
 
 function Search() {
-
   /*
    * useState() elements for the list of products and the search input field
    */
@@ -50,35 +49,34 @@ function Search() {
    * useEffect() that will set the empty state each time the search state is updated.
    */
   useEffect(() => {
-    if (search===""){
+    if (search === "") {
       console.log("empty!");
       setSearchCount(0);
       setEmpty(true);
-    }
-    else {
+    } else {
       setSearchCount(filteredProducts.length);
       setEmpty(false);
     }
-  }, [search])
+  }, [search]);
 
   /*
    * This will filter the rendered products based on the state of the query
    */
-  let filteredProducts = products.filter(product =>
+  let filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
-  )  
+  );
 
   /*
    * onChange() event for the search input field
    */
-  const handleChange = e => {
-      setSearch(e.target.value)
-  }
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
 
   function handleSubmit() {
     alert("Picking up!");
   }
-  
+
   return (
     <>
       <div className={styles.container}>
@@ -98,60 +96,114 @@ function Search() {
             </div>
           </header>
 
-          
-
-          {empty ? <></> : 
-          searchCount ? <h3 className={styles.resultsText}>{searchCount} results</h3>
-            : 
-            <>
+          {empty ? (
+            <></>
+          ) : searchCount ? (
             <h3 className={styles.resultsText}>{searchCount} results</h3>
+          ) : (
+            <>
+              <h3 className={styles.resultsText}>{searchCount} results</h3>
               <div className={styles.noResultsContainer}>
                 <h3 className={styles.noResultsText}>No results found</h3>
-                <p>We couldn't find "{search}". Sorry bestie. Want us to pick it up?</p>
-                <input className={styles.pickupTextField} type="text" value={search} onSubmit={handleSubmit}/>
-              
+                <p>
+                  We couldn't find "{search}". Sorry bestie. Want us to pick it
+                  up?
+                </p>
+                <input
+                  className={styles.pickupTextField}
+                  type="text"
+                  value={search}
+                  onSubmit={handleSubmit}
+                />
               </div>
             </>
-          }
-
-
+          )}
 
           <div className={styles.supplies}>
             <ul className={styles.bigItemList}>
               {/* if empty state is false, render filterProducts */}
-              {empty ? <></>
-                : filteredProducts.map(product => {
+              {empty ? (
+                <></>
+              ) : (
+                filteredProducts.map((product) => {
                   return (
-                    <li><Product 
-                      id={product.id} 
-                      name={product.name} 
-                      image={product.images[0]} 
-                      description={product.description}
-                      price={product.prices[0].unit_amount} 
-                      stock={product.metadata.quantity}
-                    /></li>
-                  )
-              })}
+                    <li>
+                      <Product
+                        id={product.id}
+                        name={product.name}
+                        image={product.images[0]}
+                        description={product.description}
+                        price={product.prices[0].unit_amount}
+                        stock={product.metadata.quantity}
+                      />
+                    </li>
+                  );
+                })
+              )}
             </ul>
           </div>
 
           <div>
             <div className={styles.categories}>
-              <CategoryMenu className="Today's Special" image={today} name="Today's Special" link="todays-special"/>
-              <CategoryMenu className="Candy" image={candy} name="Candy" link="candy"/>
-              <CategoryMenu className="Chips" image={chips} name="Chips" link="chips"/>
+              <CategoryMenu
+                className="Today's Special"
+                image={today}
+                name="Today's Special"
+                link="todays-special"
+              />
+              <CategoryMenu
+                className="Candy"
+                image={candy}
+                name="Candy"
+                link="candy"
+              />
+              <CategoryMenu
+                className="Chips"
+                image={chips}
+                name="Chips"
+                link="chips"
+              />
 
-              <CategoryMenu className="Drinks" image={drinks} name="" link="drinks"/>
-              <CategoryMenu className="Snacks" image={snacks} name="" link="snacks"/>
-              <CategoryMenu className="Sweets" image={sweets} name="" link="sweets"/>
+              <CategoryMenu
+                className="Drinks"
+                image={drinks}
+                name=""
+                link="drinks"
+              />
+              <CategoryMenu
+                className="Snacks"
+                image={snacks}
+                name=""
+                link="snacks"
+              />
+              <CategoryMenu
+                className="Sweets"
+                image={sweets}
+                name=""
+                link="sweets"
+              />
 
-              <CategoryMenu className="Ice Cream" image={icecream} name="" link="icecream"/>
-              <CategoryMenu className="Ready To Eat" image={readyToEat} name="" link="ready-to-eat"/>
-              <CategoryMenu className="Category" image={categoryImage} name="" link=""/>
+              <CategoryMenu
+                className="Ice Cream"
+                image={icecream}
+                name=""
+                link="icecream"
+              />
+              <CategoryMenu
+                className="Ready To Eat"
+                image={readyToEat}
+                name=""
+                link="ready-to-eat"
+              />
+              <CategoryMenu
+                className="Category"
+                image={categoryImage}
+                name=""
+                link=""
+              />
             </div>
           </div>
         </div>
-
       </div>
       <ViewCart numItems="X" totalAmount="X.XX" />
       <BottomNav />

@@ -76,10 +76,9 @@
   font-weight: 700;
 }
 
-.noResultsContainer p{
+.noResultsContainer p {
   font-size: 16px;
   line-height: 19px;
-
 }
 
 .noResultsText {
@@ -90,7 +89,7 @@
 }
 
 .pickupTextField {
-  background-image:url('../../assets/airplane.svg');
+  background-image: url("../../assets/airplane.svg");
   background-position-x: 260px;
   background-position-y: 16px;
   background-repeat: no-repeat;
@@ -102,7 +101,6 @@
   border-radius: 30px;
   border: none;
   padding: 20px;
-  
 }
 
 .pickupTextField:focus {

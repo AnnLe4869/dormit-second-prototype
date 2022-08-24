@@ -28,7 +28,7 @@ function App() {
 
         <Route path="/category">
           <Route index element={<Category />} />
-          <Route path=":id" element={<Category />}/>
+          <Route path=":id" element={<Category />} />
         </Route>
 
         {/*this is special route for testing only. Delete when done*/}

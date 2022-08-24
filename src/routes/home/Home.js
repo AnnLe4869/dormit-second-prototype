@@ -10,7 +10,7 @@ import Product from "../../shared/product/Product";
 import ViewCart from "../../shared/view-cart/ViewCart";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
-import CategoryNav from '../../shared/categoryNav/CategoryNav';
+import CategoryNav from "../../shared/categoryNav/CategoryNav";
 
 import apple from "../../assets/apple.png";
 import candy from "../../assets/Home/candy.svg";
@@ -62,9 +62,9 @@ export default function HomePage() {
    */
   const navigate = useNavigate();
 
-  function navigateCategory(link){
+  function navigateCategory(link) {
     navigate(`/category/${link}`);
-  };
+  }
 
   /**
    * mock product data

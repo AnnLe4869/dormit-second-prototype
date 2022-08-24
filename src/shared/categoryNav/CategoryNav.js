@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import styles from './CategoryNav.module.css';
+import styles from "./CategoryNav.module.css";
 import { headers, homepageStyles } from "../../routes/home/muiStyles";
 
 import { Typography } from "@mui/material";
@@ -8,10 +8,10 @@ import { Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-function CategoryNav( {originalSections} ) {
-    return (
-        <div className={styles.homeCategoryContainer}>
-            {/* <ul className={styles.homeCategoryNav2} id="categoryNav">
+function CategoryNav({ originalSections }) {
+  return (
+    <div className={styles.homeCategoryContainer}>
+      {/* <ul className={styles.homeCategoryNav2} id="categoryNav">
                 {originalSections.map((section, index) => (
                     <li className={styles.categoryCard}>
                     <img
@@ -42,8 +42,8 @@ function CategoryNav( {originalSections} ) {
                     )
                 }
             /> */}
-        </div>
-    )
+    </div>
+  );
 }
 
-export default CategoryNav
+export default CategoryNav;
