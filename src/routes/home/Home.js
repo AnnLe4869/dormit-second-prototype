@@ -1,13 +1,16 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useProducts } from "../../context/product/product-handler";
 import HomeCSS from "./Home.module.css";
 import { headers, homepageStyles } from "./muiStyles";
 
 import Header from "./Header";
-import ItemEntry from "../../shared/item-entry/ItemEntry";
+import Product from "../../shared/product/Product";
 import ViewCart from "../../shared/view-cart/ViewCart";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
+
+import CategoryNav from '../../shared/categoryNav/CategoryNav';
 
 import apple from "../../assets/apple.png";
 import candy from "../../assets/Home/candy.svg";
@@ -55,33 +58,42 @@ export default function HomePage() {
   const products = useProducts();
 
   /**
+   * useNavigate which is used to redirect to a category page (e.g. 'See All` for the Candy section)
+   */
+  const navigate = useNavigate();
+
+  function navigateCategory(link){
+    navigate(`/category/${link}`);
+  };
+
+  /**
    * mock product data
    */
   const mockSpecialItems = [
-    <ItemEntry
+    <Product
       id="innout"
       name="In-N-Out Burger"
       image={innout}
       price="3.45"
       stock={2}
     />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
   ];
 
   const mockForYouItems = [
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={2} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={2} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={2} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={2} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
   ];
 
   /**
@@ -93,6 +105,7 @@ export default function HomePage() {
       sectionListId: "specialsList",
       sectionName: "Specials",
       alt: "Specials",
+      link: "todaysSpecial",
       color: "#7140FA",
       backgroundColor: "#E5DCFF",
       imgSrc: specials,
@@ -104,6 +117,7 @@ export default function HomePage() {
       sectionListId: "candyList",
       sectionName: "Candy",
       alt: "Candy section",
+      link: "candy",
       color: "#D4162E",
       backgroundColor: "#FCBAC2",
       imgSrc: candy,
@@ -115,6 +129,7 @@ export default function HomePage() {
       sectionListId: "chipsList",
       sectionName: "Chips",
       alt: "Chips section",
+      link: "chips",
       color: "#BD653C",
       backgroundColor: "#FFD9C7",
       imgSrc: chips,
@@ -126,6 +141,7 @@ export default function HomePage() {
       sectionListId: "drinksList",
       sectionName: "Drinks",
       alt: "Drinks section",
+      link: "drinks",
       color: "#C79415",
       backgroundColor: "#FFE7AA",
       imgSrc: drinks,
@@ -137,6 +153,7 @@ export default function HomePage() {
       sectionListId: "readyList",
       sectionName: "Ready To Eat",
       alt: "Ready To Eat section",
+      link: "readyToEat",
       color: "#E28413",
       backgroundColor: "#FFDBB0",
       imgSrc: ready,
@@ -148,6 +165,7 @@ export default function HomePage() {
       sectionListId: "snacksList",
       sectionName: "Snacks",
       alt: "Snacks section",
+      link: "snacks",
       color: "#3C8D8A",
       backgroundColor: "#C8F0EE",
       imgSrc: snacks,
@@ -159,6 +177,7 @@ export default function HomePage() {
       sectionListId: "iceCreamList",
       sectionName: "Ice Cream",
       alt: "Ice Cream section",
+      link: "icecream",
       color: "#3C8D8A",
       backgroundColor: "#C8F0EE",
       imgSrc: icecream,
@@ -170,6 +189,7 @@ export default function HomePage() {
       sectionListId: "sweetsList",
       sectionName: "Sweets",
       alt: "Sweets section",
+      link: "sweets",
       color: "#AC23B9",
       backgroundColor: "#F8D7FB",
       imgSrc: sweets,
@@ -259,6 +279,7 @@ export default function HomePage() {
             <div className={HomeCSS.todaysSpecialHeader}>
               <Button
                 variant="contained"
+                onClick={() => navigateCategory("todays-special")}
                 sx={[
                   homepageStyles.seeAll,
                   {
@@ -362,6 +383,7 @@ export default function HomePage() {
 
                   <Button
                     variant="contained"
+                    onClick={() => navigateCategory(section.link)}
                     sx={[
                       homepageStyles.seeAll,
                       {

@@ -1,74 +1,191 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
 .container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+
+  min-height: 80px;
+  max-height: 100px;
+  height: 10vw;
+  width: 100%;
+  background-color: #7141fa;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  justify-content: center;
+  
+}
+
+.page {
   text-align: center;
-  margin-top: 3%;
-  margin-right: 9.6%;
-  margin-left: 9.6%;
-  margin-bottom: 9%;
+  margin-top: 125px;
+  margin-bottom: 100px;
+  width: 74%;
+  max-width: 1060px;
+}
+
+.supplies {
+  /* display: flex; */
+}
+
+.bigItemList {
+  padding: 4px 0;
+  grid-gap: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.bigItemList li {
+  margin-top: 50px;
+  display: inline-block;
+  width: 19.4%;
+  max-width: 200px;
+  min-width: 150px;
+  height: auto;
+}
+
+.back {
+  position: absolute;
+  padding: 0.8%, 0;
+  left: 30px;
+  /* top: 25px;
+  left: 30px; */
+  cursor: pointer;
+}
+
+.title {
+  color: white;
+  text-align: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: min(2.9vw, 34px);
+}
+
+
+.suggestions {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  padding-bottom: 10px;
+  padding-top: 50px;
+}
+
+.jumpToAnotherCategory {
+  padding-top: 80px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: left;
+
+  padding-left: 5%;
+  padding-bottom: 30px;
+}
+
+.item {
+  width: 10%;
+  height: 0%;
+  padding-top: 20%;
+
+  background: #c4c4c4;
+  border-style: none;
+  border-radius: 16px;
+  position: relative;
+}
+
+.suggestionContainer {
+  position: relative;
+}
+
+.suggestionInput {
+  box-sizing: border-box;
+  padding: 10px 100px 10px 20px;
+  border: 1px solid #c4c4c4;
+  border-radius: 30px;
+}
+
+.suggestionSubmit {
+  position: inherit;
+  left: -35px;
+  top: 7px;
+  background: transparent;
+  border: transparent;
 }
 
 .categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 30%);
-  grid-gap: 1rem;
-  justify-content: center;
-}
-
-.headerMargin {
-  margin-left: 7%;
-  margin-right: 7%;
-  padding-bottom: 40px;
-}
-
-.searchBar {
-  width: 100%;
-  height: 35px;
-  border: 0px solid #000000;
-  background-color: #f3f3f3;
-  border-radius: 8px;
-
-  padding: 10px 40px;
-}
-
-.searchBar::placeholder {
-  color: #686868;
-}
-
-.searchIcon {
-  content: "";
-  position: relative;
-  bottom: 0;
-  width: 20px;
-  float: left;
-  top: 30px;
-  left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, 30%); */
+  grid-column-gap: 0.4rem;
+  grid-row-gap: 3rem;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 768px) {
-  .container {
-    margin-right: 3%;
-    margin-left: 3%;
+
+
+  .title{
+    font-size: 26px;
+    line-height: 39px;
   }
 
-  .searchBar {
-    width: 90%;
-    margin-right: 3%;
+  .supplies {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0px;
+    justify-content: left;
+    margin-bottom: 50px;
+    grid-row-gap: 10px;
   }
 
-  .searchIcon {
-    position: absolute;
-    top: 57px;
-    left: 55px;
+  .page {
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 100px;
+    margin-right: 6%;
+    margin-left: 6%;
   }
 
-  .categories {
-    grid-template-columns: repeat(auto-fill, 40%); /* 2 */
+  .item {
+    width: 20%;
+    height: 0%;
+    padding-top: 20%;
+
+    background: #c4c4c4;
+    border-style: none;
+    border-radius: 16px;
+    position: relative;
   }
 
-  .headerMargin {
-    margin-left: 5%;
-    margin-right: 2%;
-    padding-top: 40px;
+  .suggestions {
+    padding-top: 0px;
   }
+
+  .jumpToAnotherCategory {
+    padding-top: 30px;
+    font-size: 110%;
+    padding-left: 5%;
+    padding-bottom: 10px;
+  }
+
+  /* .categories {
+    grid-template-columns: repeat(auto-fill, 40%);
+    grid-column-gap: 2rem;
+    grid-row-gap: 1rem;
+  } */
 }
