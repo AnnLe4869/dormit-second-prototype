@@ -1,25 +1,66 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
-.supplies {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
-  grid-column-gap: 50px;
-  grid-row-gap: 80px;
-  justify-content: center;
+.container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
-  height: 100px;
+  position: absolute;
+  top: 0;
+
+  min-height: 80px;
+  max-height: 100px;
+  height: 10vw;
+  width: 100%;
   background-color: #7141fa;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+
+  justify-content: center;
+  
+}
+
+.page {
+  text-align: center;
+  margin-top: 125px;
+  margin-bottom: 100px;
+  width: 74%;
+  max-width: 1060px;
+}
+
+.supplies {
+  /* display: flex; */
+}
+
+.bigItemList {
+  padding: 4px 0;
+  grid-gap: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.bigItemList li {
+  margin-top: 50px;
+  display: inline-block;
+  width: 19.4%;
+  max-width: 200px;
+  min-width: 150px;
+  height: auto;
 }
 
 .back {
-  position: relative;
-  top: 25px;
+  position: absolute;
+  padding: 0.8%, 0;
   left: 30px;
+  /* top: 25px;
+  left: 30px; */
   cursor: pointer;
 }
 
@@ -29,24 +70,11 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  font-size: 34px;
-  line-height: 51px;
-  height: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: min(2.9vw, 34px);
 }
 
-.page {
-  text-align: center;
-  margin-top: 100px;
-  margin-right: 6%;
-  margin-left: 6%;
-  margin-bottom: 6%;
-}
 
 .suggestions {
-  font-family: "SF Pro";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -99,13 +127,23 @@
 }
 
 .categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 30%);
-  grid-gap: 3rem;
-  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, 30%); */
+  grid-column-gap: 0.4rem;
+  grid-row-gap: 3rem;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 768px) {
+
+
+  .title{
+    font-size: 26px;
+    line-height: 39px;
+  }
+
   .supplies {
     display: flex;
     flex-wrap: wrap;
@@ -145,9 +183,9 @@
     padding-bottom: 10px;
   }
 
-  .categories {
+  /* .categories {
     grid-template-columns: repeat(auto-fill, 40%);
     grid-column-gap: 2rem;
     grid-row-gap: 1rem;
-  }
+  } */
 }

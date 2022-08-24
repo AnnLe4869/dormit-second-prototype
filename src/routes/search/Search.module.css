@@ -1,11 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
 .container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.content {
   text-align: center;
-  margin-top: 3%;
+  /* margin-top: 3%;
   margin-right: 9.6%;
   margin-left: 9.6%;
-  margin-bottom: 9%;
+  margin-bottom: 9%; */
+  width: 1060px;
 }
 
 .categories {
@@ -16,8 +24,6 @@
 }
 
 .headerMargin {
-  margin-left: 7%;
-  margin-right: 7%;
   padding-bottom: 40px;
 }
 
@@ -35,6 +41,24 @@
   color: #686868;
 }
 
+.bigItemList {
+  padding: 4px 0;
+  grid-gap: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.bigItemList li {
+  margin-top: 50px;
+  display: inline-block;
+  width: 19.4%;
+  max-width: 200px;
+  min-width: 150px;
+  height: auto;
+}
+
 .searchIcon {
   content: "";
   position: relative;
@@ -43,6 +67,57 @@
   float: left;
   top: 30px;
   left: 10px;
+}
+
+.resultsText {
+  text-align: left;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 700;
+}
+
+.noResultsContainer p{
+  font-size: 16px;
+  line-height: 19px;
+
+}
+
+.noResultsText {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.pickupTextField {
+  background-image:url('../../assets/airplane.svg');
+  background-position-x: 260px;
+  background-position-y: 16px;
+  background-repeat: no-repeat;
+  margin-top: 20px;
+  width: 300px;
+  height: 56px;
+  background-color: #7141fa;
+  color: #ffffff;
+  border-radius: 30px;
+  border: none;
+  padding: 20px;
+  
+}
+
+.pickupTextField:focus {
+  outline: none;
+}
+
+.categories {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, 30%); */
+  grid-column-gap: 0.4rem;
+  grid-row-gap: 3rem;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,6 +1,38 @@
 import ItemEntry from '../../shared/item-entry/ItemEntry';
 import apple from "../../assets/apple.png";
 import innout from '../../assets/innout.png';
+import dintaifung from '../../assets/dintaifung.png';
+
+const product1 = {
+    id: "prod_12characters",
+    name: "Din Tai Fung",
+    description: "Din Tai Fung is a bomb place in UTC",
+    images: ["../../assets/dintaifung.png"],
+
+    metadata: {
+        quantity: "5",
+        category: "todaysSpecial",
+        tax: "1.25"
+    },
+
+    prices: [
+        {
+            price_id: "price_13characterss",
+            product_id: "prod_12characters", //This is linked to `id`
+            currency: "USD",
+            unit_amount: 2000,
+        }
+        // ,
+        // {
+        //     price_id: "price_1234567890123",
+        //     product_id: "prod_12characters", //This is linked to `id`
+        //     currency: "USD",
+        //     unit_amount: 1450,
+        // },
+    ],
+
+    rank: "112"
+}
 
 const todaysSpecial = [
     <ItemEntry id="innout" name="In-N-Out Burger" image={innout} price="3.45" stock={2} />,

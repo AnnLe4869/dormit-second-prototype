@@ -25,7 +25,6 @@ function BottomNav() {
     const handleChange = (event, newValue) => {
         navigate(`/${newValue}`);
         setValue(newValue);
-        console.log("NEW VALUE: ", value);
     }
 
     return (
@@ -58,45 +57,6 @@ function BottomNav() {
                 sx={bottomNavStyles.bottomNavButton}
             />
         </BottomNavigation>
-
-        // <BottomNavigation
-        //     sx={bottomNavStyles.bottomNav}
-        //     value={value}
-        //     onChange={handleChange}
-        // >
-        //     <Grid container spacing={0}>
-        //         <Grid item xs={3} textAlign="center">
-        //             <BottomNavigationAction 
-        //                 label="Home" 
-        //                 value="/"
-        //                 icon={<HomeIcon sx={bottomNavStyles.buttonNavIcon} />} 
-        //                 sx={bottomNavStyles.bottomNavButton}
-        //             />
-        //         </Grid>
-        //         <Grid item xs={3} textAlign="center">
-        //             <BottomNavigationAction 
-        //                 label="Search" 
-        //                 value="/search"
-        //                 icon={<SearchIcon sx={bottomNavStyles.buttonNavIcon}/>} 
-        //                 sx={bottomNavStyles.bottomNavButton}
-        //             />
-        //         </Grid>
-        //         <Grid item xs={3} textAlign="center">
-        //             <BottomNavigationAction 
-        //                 label="Orders" 
-        //                 icon={<ReceiptLongIcon sx={bottomNavStyles.buttonNavIcon}/>} 
-        //                 sx={bottomNavStyles.bottomNavButton}
-        //             />
-        //         </Grid>
-        //         <Grid item xs={3} textAlign="center">
-        //             <BottomNavigationAction 
-        //                 label="Account" 
-        //                 icon={<PersonIcon sx={bottomNavStyles.buttonNavIcon}/>} 
-        //                 sx={bottomNavStyles.bottomNavButton}
-        //             />
-        //         </Grid>
-        //     </Grid>
-        // </BottomNavigation>
     )
 }
 

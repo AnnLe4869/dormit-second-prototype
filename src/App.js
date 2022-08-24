@@ -4,7 +4,6 @@ import { useInitializeApp } from "./context/app-context";
 import AccountPage from "./routes/account/Account";
 import AuthPage from "./routes/auth/Auth";
 import Category from "./routes/category/Category";
-import Supplies from "./routes/search/supplies/Supplies";
 import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/OrderPage";
@@ -29,7 +28,7 @@ function App() {
 
         <Route path="/category">
           <Route index element={<Category />} />
-          <Route path=":category" element={<Supplies />} />
+          <Route path=":id" element={<Category />}/>
         </Route>
 
         {/*this is special route for testing only. Delete when done*/}

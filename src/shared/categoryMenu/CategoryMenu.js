@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./CategoryTemplate.module.css";
+import styles from "./CategoryMenu.module.css";
 import { useNavigate } from "react-router-dom";
 
-const CategoryTemplate = (props) => {
+const CategoryMenu = (props) => {
   const navigate = useNavigate();
 
   const navigateCategory = () => {
@@ -15,4 +15,4 @@ const CategoryTemplate = (props) => {
     </div>
   );
 };
-export default CategoryTemplate;
+export default CategoryMenu;
