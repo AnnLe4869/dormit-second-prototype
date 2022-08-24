@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import CategoryTemplate from "../../shared/categoryTemplate/CategoryTemplate";
-import ItemEntry from "../../shared/product/Product";
+import CategoryMenu from "../../shared/categoryMenu/CategoryMenu";
+import Product from "../../shared/product/Product";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 import styles from "./Category.module.css";
@@ -48,7 +48,7 @@ function Category() {
 
         if (current.metadata.category === props.category || props.category === "/"){
             renderedProducts.push(
-                <ItemEntry 
+                <Product 
                   id={current.id} 
                   name={current.name} 
                   image={current.images[0]} 
@@ -114,17 +114,17 @@ function Category() {
           </div>
   
           <div className={styles.categories}>
-            <CategoryTemplate className="Today's Special" link="todays-special" image={today}/>
-            <CategoryTemplate className="Candy" link="candy" image={candy}/>
-            <CategoryTemplate className="Chips" link="chips" image={chips}/>
+            <CategoryMenu className="Today's Special" link="todays-special" image={today}/>
+            <CategoryMenu className="Candy" link="candy" image={candy}/>
+            <CategoryMenu className="Chips" link="chips" image={chips}/>
   
-            <CategoryTemplate className="Drinks" link="drinks"  image={drinks}/>
-            <CategoryTemplate className="Snacks" link="snacks"  image={snacks}/>
-            <CategoryTemplate className="Sweets" link="sweets"  image={sweets}/>
+            <CategoryMenu className="Drinks" link="drinks"  image={drinks}/>
+            <CategoryMenu className="Snacks" link="snacks"  image={snacks}/>
+            <CategoryMenu className="Sweets" link="sweets"  image={sweets}/>
   
-            <CategoryTemplate className="Ice Cream" link="icecream"  image={icecream}/>
-            <CategoryTemplate className="Ready To Eat" link="ready-to-eat" image={readyToEat}/>
-            <CategoryTemplate className="Category" link="/" image={categoryImage}/>
+            <CategoryMenu className="Ice Cream" link="icecream"  image={icecream}/>
+            <CategoryMenu className="Ready To Eat" link="ready-to-eat" image={readyToEat}/>
+            <CategoryMenu className="Category" link="/" image={categoryImage}/>
           </div>
         </div>
         <BottomNav />

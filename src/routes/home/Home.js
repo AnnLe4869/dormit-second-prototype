@@ -10,6 +10,8 @@ import Product from "../../shared/product/Product";
 import ViewCart from "../../shared/view-cart/ViewCart";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
+import CategoryNav from '../../shared/categoryNav/CategoryNav';
+
 import apple from "../../assets/apple.png";
 import candy from "../../assets/Home/candy.svg";
 import chips from "../../assets/Home/chips.svg";

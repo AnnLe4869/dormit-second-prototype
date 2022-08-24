@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from 'react'
 
 import styles from "./Search.module.css";
-import CategoryTemplate from "../../shared/categoryTemplate/CategoryTemplate";
+import CategoryMenu from "../../shared/categoryMenu/CategoryMenu";
 import SearchIcon from "@mui/icons-material/Search";
 
 /* CategoryImages components */
@@ -22,8 +22,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
-import ItemEntry from "../../shared/product/Product";
+import Product from "../../shared/product/Product";
 import { mockProducts } from '../../mock_data/data/mockData.js';
+
+import airplane from '../../assets/airplane.svg';
 
 function Search() {
 
@@ -106,7 +108,7 @@ function Search() {
               <div className={styles.noResultsContainer}>
                 <h3 className={styles.noResultsText}>No results found</h3>
                 <p>We couldn't find "{search}". Sorry bestie. Want us to pick it up?</p>
-                <input className={styles.pickupTextField} type="text" placeholder={search} onSubmit={handleSubmit}/>
+                <input className={styles.pickupTextField} type="text" value={search} onSubmit={handleSubmit}/>
               
               </div>
             </>
@@ -120,7 +122,7 @@ function Search() {
               {empty ? <></>
                 : filteredProducts.map(product => {
                   return (
-                    <li><ItemEntry 
+                    <li><Product 
                       id={product.id} 
                       name={product.name} 
                       image={product.images[0]} 
@@ -135,17 +137,17 @@ function Search() {
 
           <div>
             <div className={styles.categories}>
-              <CategoryTemplate className="Today's Special" image={today} name="Today's Special" link="todays-special"/>
-              <CategoryTemplate className="Candy" image={candy} name="Candy" link="candy"/>
-              <CategoryTemplate className="Chips" image={chips} name="Chips" link="chips"/>
+              <CategoryMenu className="Today's Special" image={today} name="Today's Special" link="todays-special"/>
+              <CategoryMenu className="Candy" image={candy} name="Candy" link="candy"/>
+              <CategoryMenu className="Chips" image={chips} name="Chips" link="chips"/>
 
-              <CategoryTemplate className="Drinks" image={drinks} name="" link="drinks"/>
-              <CategoryTemplate className="Snacks" image={snacks} name="" link="snacks"/>
-              <CategoryTemplate className="Sweets" image={sweets} name="" link="sweets"/>
+              <CategoryMenu className="Drinks" image={drinks} name="" link="drinks"/>
+              <CategoryMenu className="Snacks" image={snacks} name="" link="snacks"/>
+              <CategoryMenu className="Sweets" image={sweets} name="" link="sweets"/>
 
-              <CategoryTemplate className="Ice Cream" image={icecream} name="" link="icecream"/>
-              <CategoryTemplate className="Ready To Eat" image={readyToEat} name="" link="ready-to-eat"/>
-              <CategoryTemplate className="Category" image={categoryImage} name="" link=""/>
+              <CategoryMenu className="Ice Cream" image={icecream} name="" link="icecream"/>
+              <CategoryMenu className="Ready To Eat" image={readyToEat} name="" link="ready-to-eat"/>
+              <CategoryMenu className="Category" image={categoryImage} name="" link=""/>
             </div>
           </div>
         </div>

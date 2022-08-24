@@ -90,6 +90,10 @@
 }
 
 .pickupTextField {
+  background-image:url('../../assets/airplane.svg');
+  background-position-x: 260px;
+  background-position-y: 16px;
+  background-repeat: no-repeat;
   margin-top: 20px;
   width: 300px;
   height: 56px;
@@ -99,6 +103,10 @@
   border: none;
   padding: 20px;
   
+}
+
+.pickupTextField:focus {
+  outline: none;
 }
 
 .categories {
