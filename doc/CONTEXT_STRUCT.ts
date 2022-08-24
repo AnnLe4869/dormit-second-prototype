@@ -29,6 +29,7 @@ type Product = {
       quantity: string;
       category: string;
       tax: string;
+      isSpecial: "true" | "false";
     };
     prices: Array<{
       price_id: string; // must start with "price_" (e.g "price_1LV5VjBFL4Le4")
