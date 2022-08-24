@@ -5,7 +5,7 @@ import lays from '../images/lays.png';
 import spaghetti from '../../assets/spaghetti.png';
 import coke from '../images/coke.jpg';
 
-export const products = [
+export const mockProducts = [
     
     ///[0]
     {id: "prod_12characters",
@@ -280,7 +280,7 @@ export const products = [
     ///[8]
     {id: "prod_10dga2rf23fr2f",
     name: "Mom's Spaghetti",
-    description: "",
+    description: "His palms are sweaty",
     images: [spaghetti],
     metadata: {
         quantity: "4",

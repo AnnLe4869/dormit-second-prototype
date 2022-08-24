@@ -1,7 +1,8 @@
 import React from "react";
+import { useState, useEffect } from 'react'
 
 import styles from "./Search.module.css";
-import CategoryTemplate from "./categoryTemplate/CategoryTemplate";
+import CategoryTemplate from "../../shared/categoryTemplate/CategoryTemplate";
 import SearchIcon from "@mui/icons-material/Search";
 
 /* CategoryImages components */
@@ -21,10 +22,65 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
+import ItemEntry from "../../shared/product/Product";
+import { mockProducts } from '../../mock_data/data/mockData.js';
+
 function Search() {
+
+  /*
+   * useState() elements for the list of products and the search input field
+   */
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
+  const [empty, setEmpty] = useState(true);
+  const [searchCount, setSearchCount] = useState(0);
+
+  /*
+   * useEffect() will retrieve the products from the database and initiate
+   * the state of the list. For now it is using mock data from `mockData.js`.
+   */
+  useEffect(() => {
+    /* TODO: Retrieve products from database */
+    setProducts(mockProducts);
+  }, []);
+
+  /*
+   * useEffect() that will set the empty state each time the search state is updated.
+   */
+  useEffect(() => {
+    if (search===""){
+      console.log("empty!");
+      setSearchCount(0);
+      setEmpty(true);
+    }
+    else {
+      setSearchCount(filteredProducts.length);
+      setEmpty(false);
+    }
+  }, [search])
+
+  /*
+   * This will filter the rendered products based on the state of the query
+   */
+  let filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  )  
+
+  /*
+   * onChange() event for the search input field
+   */
+  const handleChange = e => {
+      setSearch(e.target.value)
+  }
+
+  function handleSubmit() {
+    alert("Picking up!");
+  }
+  
   return (
-      <div>
-        <div className={styles.container}>
+    <>
+      <div className={styles.container}>
+        <div className={styles.content}>
           <header className={styles.headerMargin}>
             <div>
               <SearchIcon
@@ -35,9 +91,47 @@ function Search() {
                 className={styles.searchBar}
                 type="search"
                 placeholder="Search DormIt"
+                onChange={handleChange}
               />
             </div>
           </header>
+
+          
+
+          {empty ? <></> : 
+          searchCount ? <h3 className={styles.resultsText}>{searchCount} results</h3>
+            : 
+            <>
+            <h3 className={styles.resultsText}>{searchCount} results</h3>
+              <div className={styles.noResultsContainer}>
+                <h3 className={styles.noResultsText}>No results found</h3>
+                <p>We couldn't find "{search}". Sorry bestie. Want us to pick it up?</p>
+                <input className={styles.pickupTextField} type="text" placeholder={search} onSubmit={handleSubmit}/>
+              
+              </div>
+            </>
+          }
+
+
+
+          <div className={styles.supplies}>
+            <ul className={styles.bigItemList}>
+              {/* if empty state is false, render filterProducts */}
+              {empty ? <></>
+                : filteredProducts.map(product => {
+                  return (
+                    <li><ItemEntry 
+                      id={product.id} 
+                      name={product.name} 
+                      image={product.images[0]} 
+                      description={product.description}
+                      price={product.prices[0].unit_amount} 
+                      stock={product.metadata.quantity}
+                    /></li>
+                  )
+              })}
+            </ul>
+          </div>
 
           <div>
             <div className={styles.categories}>
@@ -55,9 +149,11 @@ function Search() {
             </div>
           </div>
         </div>
-        <ViewCart numItems="X" totalAmount="X.XX" />
-        <BottomNav />
+
       </div>
+      <ViewCart numItems="X" totalAmount="X.XX" />
+      <BottomNav />
+    </>
   );
 }
 

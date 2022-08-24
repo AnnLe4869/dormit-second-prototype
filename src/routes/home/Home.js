@@ -6,7 +6,7 @@ import HomeCSS from "./Home.module.css";
 import { headers, homepageStyles } from "./muiStyles";
 
 import Header from "./Header";
-import ItemEntry from "../../shared/item-entry/ItemEntry";
+import Product from "../../shared/product/Product";
 import ViewCart from "../../shared/view-cart/ViewCart";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
@@ -53,30 +53,30 @@ export default function HomePage() {
    * Mock lists
    */
   const mockSpecialItems = [
-    <ItemEntry
+    <Product
       id="innout"
       name="In-N-Out Burger"
       image={innout}
       price="3.45"
       stock={2}
     />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
   ];
 
   const mockForYouItems = [
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={2} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={2} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={0} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={1} />,
-    <ItemEntry id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={2} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={2} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={0} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={1} />,
+    <Product id="apple" name="Apple" image={apple} price="Price" stock={5} />,
   ];
 
   // useRef() constants for page categories
@@ -303,7 +303,7 @@ export default function HomePage() {
             <div className={HomeCSS.todaysSpecialHeader}>
               <Button
                 variant="contained"
-                onClick={() => navigateCategory("todaysSpecial")}
+                onClick={() => navigateCategory("todays-special")}
                 sx={[
                   homepageStyles.seeAll,
                   {

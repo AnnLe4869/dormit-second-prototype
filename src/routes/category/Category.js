@@ -1,9 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import SuppliesTemplate from "./suppliesTemplate/SuppliesTemplate";
-import CategoryTemplate from "../search/categoryTemplate/CategoryTemplate";
-import ItemEntry from "../../shared/item-entry/ItemEntry";
+import CategoryTemplate from "../../shared/categoryTemplate/CategoryTemplate";
+import ItemEntry from "../../shared/product/Product";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 import styles from "./Category.module.css";
@@ -23,7 +22,7 @@ import categoryImage from "../../assets/CategoryImages/category.svg";
 
 import { categories } from './CategoryProps.js';
 
-import { products } from '../../mock_data/data/mockData.js';
+import { mockProducts } from '../../mock_data/data/mockData.js';
 
 function Category() {
 
@@ -43,13 +42,20 @@ function Category() {
     if (!props) props = categories[0];
 
     ///Iterate through all the products list. Push to renderedProducts if categories match
-    for (let i = 0; i < products.length; i++){
+    for (let i = 0; i < mockProducts.length; i++){
 
-        const current = products[i];
+        const current = mockProducts[i];
 
         if (current.metadata.category === props.category || props.category === "/"){
             renderedProducts.push(
-                <ItemEntry id={current.id} name={current.name} image={current.images[0]} price={current.prices[0].unit_amount} stock={current.metadata.quantity}/>
+                <ItemEntry 
+                  id={current.id} 
+                  name={current.name} 
+                  image={current.images[0]} 
+                  description={current.description}
+                  price={current.prices[0].unit_amount} 
+                  stock={current.metadata.quantity}
+                />
             )
         }
     }
@@ -63,7 +69,7 @@ function Category() {
     };
   
     return (
-      <div>
+      <div className={styles.container}>
         <header className={styles.header}>
           <NavigateBeforeIcon
             className={styles.back}
@@ -74,18 +80,13 @@ function Category() {
         </header>
         <div className={styles.page}>
           <div className={styles.supplies}>
-  
-            {renderedProducts.map((item) => {
-              return <>{item}</>;
-            })}
+
+            <ul className={styles.bigItemList}>
+              {renderedProducts.map((item) => {
+                return <li>{item}</li>;
+              })}
+            </ul>
             
-            {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((item) => (
-              <SuppliesTemplate
-                key={item}
-                className={styles.item}
-                link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
-              />
-            ))} */}
           </div>
   
           <div>
