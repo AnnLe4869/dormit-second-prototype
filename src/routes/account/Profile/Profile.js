@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../Account.module.css";
+import { Box } from "@mui/material";
+import { AccountBox } from "../muiStyles";
 
 export default function Profile() {
   const [isEditing, setIsEditing] = React.useState(false);
@@ -42,7 +44,7 @@ export default function Profile() {
     // passwordRef.current.value = student["password"];
   };
   return (
-    <div className={styles.boxes}>
+    <Box sx={AccountBox}>
       <div className={styles.head}>
         <h3 className={styles.boxTitle}>Profile</h3>
         <button
@@ -181,6 +183,6 @@ export default function Profile() {
           </button>
         </div>
       )}
-    </div>
+    </Box>
   );
 }

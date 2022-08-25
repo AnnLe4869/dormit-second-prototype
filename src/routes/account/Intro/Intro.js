@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../Account.module.css";
+import { Link, Typography } from "@mui/material";
 
 export default function Intro() {
   const student = {
@@ -7,16 +8,14 @@ export default function Intro() {
     pronoun: "he/him",
     college: "seventh",
   };
+
   let pfpIcon = "img";
   return (
-    <div className={styles.intro}>
+    <>
       <img src={pfpIcon} id={styles.pfp} alt="profile"></img>
-
-      <div className={styles.text}>
-        <h4>{"Hi, " + student["name"] + " (" + student["pronouns"] + ")"}</h4>
-        <h5>{"UCSD - " + student["college"] + " student"}</h5>
-        <a href="logout">Log Out</a>
-      </div>
-    </div>
+      <Typography variant="h1">{`Hi, ${student.name} (${student.pronoun})`}</Typography>
+      <Typography variant="h2">{`UCSD - ${student.college} student`}</Typography>
+      <Link href="logout">Log Out</Link>
+    </>
   );
 }

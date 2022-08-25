@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../Account.module.css";
+import { Box } from "@mui/material";
+import { AccountBox } from "../muiStyles";
 
 export default function Payment() {
   const addPaymentMethod = () => {};
@@ -10,7 +12,7 @@ export default function Payment() {
   ];
   let paymentIcon = "img";
   return (
-    <div className={styles.boxes}>
+    <Box sx={AccountBox}>
       <div className={styles.head}>
         <h3 className={styles.boxTitle}>Payment methods</h3>
         <img
@@ -39,6 +41,6 @@ export default function Payment() {
       <button className={styles.btn} onClick={addPaymentMethod}>
         Add payment method
       </button>
-    </div>
+    </Box>
   );
 }

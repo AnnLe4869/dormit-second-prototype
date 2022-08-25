@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "./Account.module.css";
+import { theme } from "./muiStyles";
+import { Container, ThemeProvider } from "@mui/material";
 
 import Intro from "./Intro/Intro";
 import Impact from "./Impact/Impact";
@@ -10,13 +11,15 @@ import Contact from "./Contact/Contact";
 
 export default function Account() {
   return (
-    <div className={styles.layout}>
-      <Intro />
-      <Impact />
-      <Profile />
-      <Payment />
-      <Referral />
-      <Contact />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="lg">
+        <Intro />
+        <Impact />
+        <Profile />
+        <Payment />
+        <Referral />
+        <Contact />
+      </Container>
+    </ThemeProvider>
   );
 }

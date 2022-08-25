@@ -1,5 +1,8 @@
 import React from "react";
 import styles from "../Account.module.css";
+import { Box } from "@mui/material";
+import { AccountBox } from "../muiStyles";
+
 export default function Contact() {
   let instagramImg = "img";
   let facebookImg = "img";
@@ -18,7 +21,7 @@ export default function Contact() {
   const openLinkedin = () => {};
 
   return (
-    <div className={styles.boxes}>
+    <Box sx={AccountBox}>
       <div className={styles.head}>
         <h3 className={styles.boxTitle}>Contact us</h3>
         <img
@@ -62,6 +65,6 @@ export default function Contact() {
           <a href="link">dormit.app</a> | team@dormit.app
         </p>
       </div>
-    </div>
+    </Box>
   );
 }

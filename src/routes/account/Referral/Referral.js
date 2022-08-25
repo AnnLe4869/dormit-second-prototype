@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../Account.module.css";
+import { Box } from "@mui/material";
+import { AccountBox } from "../muiStyles";
 
 export default function Referral() {
   let friendIcon = "img";
@@ -9,7 +11,7 @@ export default function Referral() {
   // copy referral link to clipboard
   const copyReferralLink = () => {};
   return (
-    <div className={styles.boxes}>
+    <Box sx={AccountBox}>
       <div className={styles.head}>
         <h3 className={styles.boxTitle}>Refer a friend</h3>
         <img
@@ -39,6 +41,6 @@ export default function Referral() {
           copy
         </button>
       </div>
-    </div>
+    </Box>
   );
 }
