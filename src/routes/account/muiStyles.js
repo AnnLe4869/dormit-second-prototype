@@ -32,7 +32,7 @@ export const theme = createTheme({
 
 export const AccountBox = {
   padding: "30px 60px",
-  margin: "50px",
+  margin: "70px 96px",
   border: "2px solid",
   borderColor: "#7141fa",
   borderRadius: "8px",

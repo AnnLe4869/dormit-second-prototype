@@ -12,7 +12,7 @@ import Contact from "./Contact/Contact";
 export default function Account() {
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ p: "70px 0" }}>
         <Intro />
         <Impact />
         <Profile />

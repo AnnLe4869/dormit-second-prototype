@@ -18,10 +18,11 @@
   margin-top: 5%;
 }
 
-.intro #pfp {
-  height: 60px;
-  width: 60px;
-  border-radius: 0.3rem;
+#pfp {
+  height: 75px;
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  border: #7141fa 2px solid;
 }
 
 .boxTitle {
