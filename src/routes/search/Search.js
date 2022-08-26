@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import styles from "./Search.module.css";
-import CategoryMenu from "../../shared/categoryMenu/CategoryMenu";
+import CategoryMenu from "../../shared/category-menu/CategoryMenu";
 import SearchIcon from "@mui/icons-material/Search";
 
 /* CategoryImages components */
@@ -50,7 +50,6 @@ function Search() {
    */
   useEffect(() => {
     if (search === "") {
-      console.log("empty!");
       setSearchCount(0);
       setEmpty(true);
     } else {
@@ -81,20 +80,19 @@ function Search() {
     <>
       <div className={styles.container}>
         <div className={styles.content}>
-          <header className={styles.headerMargin}>
-            <div>
-              <SearchIcon
-                className={styles.searchIcon}
-                style={{ color: "#686868" }}
-              />
-              <input
-                className={styles.searchBar}
-                type="search"
-                placeholder="Search DormIt"
-                onChange={handleChange}
-              />
-            </div>
-          </header>
+          <div className={styles.searchContainer}>
+            <SearchIcon
+              className={styles.searchIcon}
+              style={{ color: "#686868" }}
+            />
+            <input
+              className={styles.searchBar}
+              type="search"
+              placeholder="Search DormIt"
+              onChange={handleChange}
+            />
+          </div>
+
 
           {empty ? (
             <></>
@@ -145,12 +143,14 @@ function Search() {
 
           <div>
             <div className={styles.categories}>
+            
               <CategoryMenu
                 className="Today's Special"
                 image={today}
                 name="Today's Special"
                 link="todays-special"
               />
+            
               <CategoryMenu
                 className="Candy"
                 image={candy}
@@ -170,37 +170,42 @@ function Search() {
                 name=""
                 link="drinks"
               />
+          
               <CategoryMenu
                 className="Snacks"
                 image={snacks}
                 name=""
                 link="snacks"
               />
+            
               <CategoryMenu
                 className="Sweets"
                 image={sweets}
                 name=""
                 link="sweets"
               />
-
+            
               <CategoryMenu
                 className="Ice Cream"
                 image={icecream}
                 name=""
                 link="icecream"
               />
+            
               <CategoryMenu
                 className="Ready To Eat"
                 image={readyToEat}
                 name=""
                 link="ready-to-eat"
               />
+            
               <CategoryMenu
                 className="Category"
                 image={categoryImage}
                 name=""
                 link=""
               />
+              
             </div>
           </div>
         </div>

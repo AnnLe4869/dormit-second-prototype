@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import CategoryMenu from "../../shared/categoryMenu/CategoryMenu";
+import CategoryMenu from "../../shared/category-menu/CategoryMenu";
 import Product from "../../shared/product/Product";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
