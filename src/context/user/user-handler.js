@@ -19,15 +19,16 @@ export async function useInitializeUser() {
    * How this works: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
    */
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    let unsubscribeUser;
+    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       /**
        * if user already authenticated before, populate all the fields
        * do the same if user successfully authenticate
        */
       if (user) {
         // fetching user's data from database
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
+        const usersRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(usersRef);
         // get the current cart store in Context
         const cartInContext = userState.cart;
 
@@ -47,12 +48,12 @@ export async function useInitializeUser() {
         );
         const paymentStatus = pageURL.searchParams.get("redirect_status");
 
-        let data;
+        let userData;
 
-        if (docSnap.exists()) {
+        if (userSnap.exists()) {
           // user already exist, i.e user is not sign up for the first time
-          data = docSnap.data();
-          const cartInDb = data.cart;
+          userData = userSnap.data();
+          const cartInDb = userData.cart;
 
           /**
            * TODO: combine the current cart (in localStorage) with cart in database
@@ -77,26 +78,30 @@ export async function useInitializeUser() {
           // we create new entry in document "user" using user uid as id
           // get the current cart store in Context
           const cartInContext = userState.cart;
-          data = {
+          userData = {
             cart: cartInContext,
           };
-          await setDoc(docRef, data);
+          await setDoc(usersRef, userData);
         }
 
         userDispatch({
           type: INITIALIZE_USER_DETAILS,
           payload: {
             isAuthenticated: true,
-            ...data,
+            ...userData,
           },
         });
 
         /**
          * listen to realtime update on user's data
-         * we mostly interested in the current_order part
+         * in specific, the subcollection current_orders part
+         *
+         * see https://firebase.google.com/docs/firestore/query-data/listen#view_changes_between_snapshots
          */
-
-        onSnapshot(docRef, (doc) => {});
+        const currentOrdersRef = doc(db, "users", user.uid, "current_orders");
+        unsubscribeUser = onSnapshot(currentOrdersRef, (snapshot) => {
+          // TODO: update the context with this change
+        });
       } else {
         /**
          * if user sign out, free all user's related state in Context and in localStorage
@@ -107,5 +112,10 @@ export async function useInitializeUser() {
         window.location.href = "localhost:3000/";
       }
     });
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribeUser();
+    };
   }, []);
 }
