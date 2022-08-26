@@ -239,14 +239,14 @@ type users = Array<{
    * the user is waiting for the order to be delivered
    * the detail on what each field means can be seen in collection "processing_orders"
    * ****
-   * the reason for this to be an array of complete objects instead of just array of order's id
+   * the reason for this to be a collection of complete objects instead of just array of order's id
    * is because we want to listen to real change in order_status of "processing_orders"
    * while keeping the "processing_orders" data secret from normal user
    */
   current_orders: Array<Omit<ArrayElement<processing_orders>, "id">>;
 
   /**
-   * "past_orders" is an array of orders id that are completed
+   * "past_orders" is an ARRAY of orders id that are completed
    * this is not a collection but an array
    */
   past_orders: Array<string>;
