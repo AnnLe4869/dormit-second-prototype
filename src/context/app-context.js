@@ -37,12 +37,12 @@ export default function AppContextWrapper({
 export function useInitializeApp() {
   const { auth, db } = useContext(AppContext);
   const { dispatch: userDispatch, state: userState } = useContext(UserContext);
+
   /**
    * Track the user authentication status
    * If user sign out, refresh the page
    * How this works: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
    */
-
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       /**
@@ -56,12 +56,29 @@ export function useInitializeApp() {
         // get the current cart store in Context
         const cartInContext = userState.cart;
 
+        /**
+         * we want to retrieve the URL params to determine course of action
+         * if succeed, clear the cart in localStorage
+         *
+         * the URL for success look like this
+         * http://localhost:3000?payment_intent=pi_3LaxzvBFL4Le4n4L0aK4wlP8
+         * &payment_intent_client_secret=pi_3LaxzvBFL4Le4n4L0aK4wlP8_secret_DYg8f53sQaqtkghMNOJBhMPhE
+         * &redirect_status=succeeded
+         */
+        const pageURL = new URL(window.location.href);
+        const paymentIntentParam = pageURL.searchParams.get("payment_intent");
+        const paymentSecretParam = pageURL.searchParams.get(
+          "payment_intent_client_secret"
+        );
+        const paymentStatus = pageURL.searchParams.get("redirect_status");
+
         let data;
 
         if (docSnap.exists()) {
           // user already exist, i.e user is not sign up for the first time
           data = docSnap.data();
           const cartInDb = data.cart;
+
           if (
             cartInContext.length > 0 &&
             isArrayDifferent(cartInContext, cartInDb)
