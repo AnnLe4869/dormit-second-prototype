@@ -10,16 +10,6 @@ import styles from "./Category.module.css";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import SendIcon from "@mui/icons-material/Send";
 
-import today from "../../assets/CategoryImages/todays-special.svg";
-import candy from "../../assets/CategoryImages/candy.svg";
-import chips from "../../assets/CategoryImages/chips.svg";
-import drinks from "../../assets/CategoryImages/drinks.svg";
-import snacks from "../../assets/CategoryImages/snacks.svg";
-import sweets from "../../assets/CategoryImages/sweets.svg";
-import icecream from "../../assets/CategoryImages/icecream.svg";
-import readyToEat from "../../assets/CategoryImages/readytoeat.svg";
-import categoryImage from "../../assets/CategoryImages/category.svg";
-
 import { categories } from "./CategoryProps.js";
 
 import { mockProducts } from "../../mock_data/data/mockData.js";
@@ -112,31 +102,7 @@ function Category() {
           </p>
         </div>
 
-        <div className={styles.categories}>
-          <CategoryMenu
-            className="Today's Special"
-            link="todays-special"
-            image={today}
-          />
-          <CategoryMenu className="Candy" link="candy" image={candy} />
-          <CategoryMenu className="Chips" link="chips" image={chips} />
-
-          <CategoryMenu className="Drinks" link="drinks" image={drinks} />
-          <CategoryMenu className="Snacks" link="snacks" image={snacks} />
-          <CategoryMenu className="Sweets" link="sweets" image={sweets} />
-
-          <CategoryMenu
-            className="Ice Cream"
-            link="icecream"
-            image={icecream}
-          />
-          <CategoryMenu
-            className="Ready To Eat"
-            link="ready-to-eat"
-            image={readyToEat}
-          />
-          <CategoryMenu className="Category" link="/" image={categoryImage} />
-        </div>
+        <CategoryMenu/>
       </div>
       <BottomNav />
     </div>

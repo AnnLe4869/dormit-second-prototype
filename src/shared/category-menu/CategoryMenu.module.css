@@ -1,80 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
-
 .container {
-  position: relative;
-  width: 30%;
-  min-width: 170px;
-}
-
-.image {
-  cursor: pointer;
-  width: 100%;
-  height: auto;
-}
-
-.text {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 160%;
-  line-height: 36px;
-  margin-bottom: 20px;
-
-  color: #000000;
-  position: inherit;
-  bottom: 60px;
-}
-
-@media only screen and (max-width: 768px) {
-  .container {
-    position: relative;
-  }
-
-  .image {
-    width: 100%;
-  }
-
-  .text {
-    font-size: 120%;
-    bottom: 70px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, 30%); */
+  grid-column-gap: 0.4rem;
+  grid-row-gap: 3rem;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 @media only screen and (max-width: 900px) {
   .container {
-    width: 48%;
-    max-width: 320px;
-    min-width: 170px;
-  }
-
-  .image {
-    width: 100%;
-  }
-
-  .text {
-    font-size: 120%;
-    bottom: 70px;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-
-  .container {
-    width: 44%;
-    max-width: 320px;
-    min-width: 170px;
-  }
-
-  .container {
-    position: relative;
-  }
-
-  .image {
-    width: 100%;
-  }
-
-  .text {
-    font-size: 120%;
-    bottom: 70px;
+    grid-row-gap: 20px;
   }
 }

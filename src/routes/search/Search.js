@@ -5,17 +5,6 @@ import styles from "./Search.module.css";
 import CategoryMenu from "../../shared/category-menu/CategoryMenu";
 import SearchIcon from "@mui/icons-material/Search";
 
-/* CategoryImages components */
-import today from "../../assets/CategoryImages/todays-special.svg";
-import candy from "../../assets/CategoryImages/candy.svg";
-import chips from "../../assets/CategoryImages/chips.svg";
-import drinks from "../../assets/CategoryImages/drinks.svg";
-import snacks from "../../assets/CategoryImages/snacks.svg";
-import sweets from "../../assets/CategoryImages/sweets.svg";
-import icecream from "../../assets/CategoryImages/icecream.svg";
-import readyToEat from "../../assets/CategoryImages/readytoeat.svg";
-import categoryImage from "../../assets/CategoryImages/category.svg";
-
 /* ViewCart components */
 import ViewCart from "../../shared/view-cart/ViewCart";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -141,73 +130,9 @@ function Search() {
             </ul>
           </div>
 
-          <div>
-            <div className={styles.categories}>
-            
-              <CategoryMenu
-                className="Today's Special"
-                image={today}
-                name="Today's Special"
-                link="todays-special"
-              />
-            
-              <CategoryMenu
-                className="Candy"
-                image={candy}
-                name="Candy"
-                link="candy"
-              />
-              <CategoryMenu
-                className="Chips"
-                image={chips}
-                name="Chips"
-                link="chips"
-              />
 
-              <CategoryMenu
-                className="Drinks"
-                image={drinks}
-                name=""
-                link="drinks"
-              />
-          
-              <CategoryMenu
-                className="Snacks"
-                image={snacks}
-                name=""
-                link="snacks"
-              />
-            
-              <CategoryMenu
-                className="Sweets"
-                image={sweets}
-                name=""
-                link="sweets"
-              />
-            
-              <CategoryMenu
-                className="Ice Cream"
-                image={icecream}
-                name=""
-                link="icecream"
-              />
-            
-              <CategoryMenu
-                className="Ready To Eat"
-                image={readyToEat}
-                name=""
-                link="ready-to-eat"
-              />
-            
-              <CategoryMenu
-                className="Category"
-                image={categoryImage}
-                name=""
-                link=""
-              />
-              
-            </div>
-          </div>
+          <CategoryMenu/>
+
         </div>
       </div>
       <ViewCart numItems="X" totalAmount="X.XX" />
