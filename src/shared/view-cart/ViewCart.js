@@ -1,37 +1,62 @@
-import React from 'react'
-import { viewCartStyles } from '../../muiStyles.js';
-import Cart from "../../routes/home/Cart"
+import React, { useState } from "react";
+import { viewCartStyles } from "../../muiStyles.js";
+import Cart from "../../routes/home/Cart";
 
 /*
  * Material-UI Imports
  */
 import Button from "@mui/material/Button";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { Drawer } from "@mui/material";
 
-function ViewCart({numItems, totalAmount}) {
+function ViewCart({ numItems, totalAmount }) {
+  const [drawerState, setDrawerState] = useState(false);
+
+  const handleDrawerClose = () => {
+    setDrawerState(false);
+  };
+
+  const handleDrawerOpen = () => {
+    setDrawerState(true);
+  };
 
   return (
-    <Button sx={viewCartStyles.viewCartContainer}>
+    <>
+      <Button sx={viewCartStyles.viewCartContainer} onClick={handleDrawerOpen}>
         <Grid container spacing={0} sx={viewCartStyles.viewCartGrid}>
-            <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
-                <Typography variant="h5" color="secondary.main" fontWeight={600} marginBottom="6px">
-                    {numItems} Items
-                </Typography>
-            </Grid>
-            <Grid item xs={5} sx={viewCartStyles.viewCartText}>
-                <Typography variant="h3" color="secondary.main" fontWeight={600}>
-                    View Cart
-                </Typography>
-            </Grid>
-            <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
-                <Typography variant="h5" color="secondary.main" fontWeight={600} marginBottom="6px">
-                    ${totalAmount}
-                </Typography>
-            </Grid>
+          <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
+            <Typography
+              variant="h5"
+              color="secondary.main"
+              fontWeight={600}
+              marginBottom="6px"
+            >
+              {numItems} Items
+            </Typography>
+          </Grid>
+          <Grid item xs={5} sx={viewCartStyles.viewCartText}>
+            <Typography variant="h3" color="secondary.main" fontWeight={600}>
+              View Cart
+            </Typography>
+          </Grid>
+          <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
+            <Typography
+              variant="h5"
+              color="secondary.main"
+              fontWeight={600}
+              marginBottom="6px"
+            >
+              ${totalAmount}
+            </Typography>
+          </Grid>
         </Grid>
-    </Button>
-  )
+      </Button>
+      <Drawer anchor="bottom" open={drawerState} variant="temporary">
+        <Cart handleDrawerClose={handleDrawerClose} />
+      </Drawer>
+    </>
+  );
 }
 
-export default ViewCart
+export default ViewCart;

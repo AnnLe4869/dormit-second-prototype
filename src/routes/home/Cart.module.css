@@ -86,12 +86,11 @@
 }
 
 .promotionInput {
-  width: 439px;
+  width: 60%;
   height: inherit;
   border: 0;
   border-radius: 16px 0 0 16px;
   padding: 15px;
-  margin-right: -10px;
 }
 
 .viewAll {
@@ -108,7 +107,8 @@
   border-top: none;
   border-bottom: none;
   background: none;
-  width: 129px;
+  width: 40%;
+  max-width: 129px;
   height: inherit;
   justify-content: space-evenly;
   align-self: flex-end;
@@ -119,10 +119,11 @@ footer {
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
+  bottom: 0;
 }
 
 .total {
-  width: 580px;
+  width: 100%;
   margin-bottom: 10px;
   height: 30px;
   display: flex;
@@ -141,7 +142,8 @@ footer {
 }
 
 .reviewOrderButton {
-  width: 384px;
+  width: 100%;
+  max-width: 380px;
   height: 60px;
   background: #7141fa;
   border-radius: 30px;

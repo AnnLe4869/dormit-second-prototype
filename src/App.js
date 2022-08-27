@@ -24,7 +24,6 @@ import Order from "./routes/order/Order";
 import Cart from "./routes/home/Cart";
 import { Home } from "@mui/icons-material";
 
-
 function App() {
   useInitializeApp();
 
@@ -32,6 +31,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/cart" element={<Cart />} />
 
         <Route path="auth" element={<AuthPage />}>
           <Route index element={<Phone />} />
