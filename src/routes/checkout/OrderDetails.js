@@ -168,6 +168,13 @@ const OrderDetails = () => {
               </button>
             </div>
           </div>
+          <Divider
+            sx={{
+              width: "100%",
+              marginBottom: "25px",
+              maxWidth: "610px",
+            }}
+          />
           <Grid
             container
             sx={{
@@ -204,7 +211,7 @@ const OrderDetails = () => {
               height: "inherit",
               gap: "10px",
               display: "flex",
-              marginBottom: "30px",
+              marginBottom: "60px",
               alignItems: "center",
             }}
           >
@@ -223,13 +230,6 @@ const OrderDetails = () => {
               </ButtonGroup>
             </Grid>
           </Grid>{" "}
-          <Divider
-            sx={{
-              width: "100%",
-              marginBottom: "25px",
-              maxWidth: "610px",
-            }}
-          />
           <Button
             sx={{
               display: "flex",
