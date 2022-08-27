@@ -8,7 +8,7 @@
  * -------------------------------------------------------------------------------------------------------------------------------------
  */
 type Alert = {
-  type: "ERROR" | "INFO";
+  type: "error" | "info" | "success" | "warning";
   message: string;
   isActive: boolean;
 };
@@ -65,8 +65,8 @@ type User = {
    * current_orders is a collection and past_orders is an array of orders' id
    * we will fetch orders' data only when needed as it may be a lot
    */
-  current_orders: Array<Omit<processing_orders, "id">>;
-  past_orders: Array<Omit<completed_orders, "id">>;
+  current_orders: Array<processing_orders>;
+  past_orders: Array<completed_orders>;
 
   /**
    * these are Context data only

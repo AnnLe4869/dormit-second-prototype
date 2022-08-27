@@ -9,12 +9,14 @@ import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/OrderPage";
 import SearchPage from "./routes/search/Search";
 import Test from "./routes/test/Test";
+import AlertPopup from "./shared/alert-popup/AlertPopup";
 
 function App() {
   useInitializeApp();
 
   return (
     <Router>
+      <AlertPopup />
       <Routes>
         <Route path="/search" element={<SearchPage />} />
 

@@ -238,11 +238,12 @@ export const postCheckout = functions
           { merge: true }
         );
 
-        // reset the temp_order
+        // reset the temp_order and empty the user's cart
         batch.set(
           usersRef.doc(userId),
           {
             temp_order: null,
+            cart: [],
           },
           { merge: true }
         );
