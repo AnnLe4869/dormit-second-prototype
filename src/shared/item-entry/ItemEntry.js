@@ -33,13 +33,13 @@ const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
    */
   function checkStock(stock) {
     if (stock === 0) {
-      console.log("Out of stock");
+      // console.log("Out of stock");
       return <p>Out of stock</p>;
     } else if (stock === 1) {
-      console.log("Only 1 left!");
+      // console.log("Only 1 left!");
       return <p className={ItemCSS.purpleFont}>Only 1 left!</p>;
     } else if (stock < 4) {
-      console.log("Low in stock");
+      // console.log("Low in stock");
       return <p className={ItemCSS.purpleFont}>Low in stock</p>;
     }
     return;

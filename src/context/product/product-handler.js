@@ -20,8 +20,12 @@ export async function useInitializeProduct() {
    * May need some optimization latter as this will run every time we change route and go back to it
    */
   const func = useCallback(async () => {
-    // cache the data in local and only re-fetch if the data is deemed "stale"
-    const STALE_TIME = 1000 * 60 * 5;
+    /**
+     * cache the data in local and only re-fetch if the data is deemed "stale"
+     * on development, the value can be 1 seconds (1000 milliseconds)
+     * but in production, set this to more realistic value (like 5 minutes)
+     */
+    const STALE_TIME = 1000;
     const productLocal = JSON.parse(localStorage.getItem("products"));
     const timestamp = localStorage.getItem("timestamp");
 
@@ -37,17 +41,6 @@ export async function useInitializeProduct() {
         querySnapshot.forEach((doc) => {
           products.push({ ...doc.data(), id: doc.id });
         });
-
-        for (const product of products) {
-          const qSnap = await getDocs(
-            collection(db, "products", product.id, "prices")
-          );
-
-          product.prices = qSnap.docs.map((d) => ({
-            id: d.id,
-            ...d.data(),
-          }))[0];
-        }
 
         // store the result and query time to localStorage
         localStorage.setItem(
@@ -99,17 +92,6 @@ export function useUpdateProductImmediately() {
       querySnapshot.forEach((doc) => {
         products.push({ ...doc.data(), id: doc.id });
       });
-
-      for (const product of products) {
-        const qSnap = await getDocs(
-          collection(db, "products", product.id, "prices")
-        );
-
-        product.prices = qSnap.docs.map((d) => ({
-          id: d.id,
-          ...d.data(),
-        }))[0];
-      }
 
       // store the result and query time to localStorage
       localStorage.setItem(

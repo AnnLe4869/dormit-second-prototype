@@ -10,11 +10,11 @@ function productReducer(state, action) {
   switch (action.type) {
     case INITIALIZE_PRODUCTS: {
       // action is of form {type: INITIALIZE_PRODUCTS, payload: {products: []}}
-      return action.payload.products;
+      return { ...state, products: action.payload.products };
     }
     case UPDATE_ALL_PRODUCTS: {
       // action is of form {type: INITIALIZE_PRODUCTS, payload: {products: []}}
-      return action.payload.products;
+      return { ...state, products: action.payload.products };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
