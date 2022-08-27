@@ -3,6 +3,9 @@ import React, { createContext } from "react";
 import {
   ADD_TO_CART,
   DECREMENT_QUANTITY,
+  GET_ALL_ORDERS,
+  GET_CURRENT_ORDERS,
+  GET_PAST_ORDERS,
   INCREMENT_QUANTITY,
   INITIALIZE_USER_DETAILS,
   REMOVE_ITEM_FROM_CART,
@@ -204,6 +207,30 @@ function userReducer(state, action) {
         ...state,
         shipping: address,
       };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+    case GET_CURRENT_ORDERS: {
+      // action is {type: GET_CURRENT_ORDERS, payload: {orders: Array<processing_orders>}}
+      return;
+    }
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case GET_PAST_ORDERS: {
+      // action is {type: GET_PAST_ORDERS, payload: {orders: Array<completed_orders>}}
+      return;
+    }
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case GET_ALL_ORDERS: {
+      // action is {type: GET_ALL_ORDERS, payload: {currentOrders:Array<processing_orders>, pastOrders: Array<completed_orders>}}
+      return;
     }
 
     /**
