@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, 30%); */
+  grid-column-gap: 0.4rem;
+  grid-row-gap: 3rem;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+  .container {
+    grid-row-gap: 20px;
+  }
+}

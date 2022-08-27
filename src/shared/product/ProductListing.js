@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Item from './ProductDetails';
+import Item from "./ProductDetails";
 
 import Dialog from "@mui/material/Dialog";
-import styles from "./Product.module.css";
+import styles from "./ProductListing.module.css";
 
 /*
  * Imported Assets
@@ -13,24 +13,24 @@ import purplePlus from "../../assets/ItemEntry/purplePlus.svg";
 /*
  * Helper function that formats the price
  */
-function priceFormat(price){
+function priceFormat(price) {
   //Reverse toString the Number type of the price and store it in temp
   const temp = price.toString().split("").reverse().join("");
-  
+
   //Initialize return string
   let priceString = "";
 
-  for (let i = 0; i < temp.length; i++){
+  for (let i = 0; i < temp.length; i++) {
     priceString = temp[i] + priceString;
 
     //Add the decimal to seperate cents and dollars
-    if (i === 1){
+    if (i === 1) {
       priceString = "." + priceString;
     }
   }
 
   //If there are no digits for dollars, prepend a "0"
-  if (priceString.length === 3){
+  if (priceString.length === 3) {
     priceString = "0" + priceString;
   }
 
@@ -43,8 +43,8 @@ function priceFormat(price){
 /*
  * Helper function which returns description of item stock
  */
-function stockFormat(stock){
-  let stockDescription = <></>
+function stockFormat(stock) {
+  let stockDescription = <></>;
 
   if (stock === 0) {
     stockDescription = <p>Out of stock</p>;
@@ -57,7 +57,15 @@ function stockFormat(stock){
   return stockDescription;
 }
 
-const Product = ({ id, name, image, description, price, dealPrice, stock }) => {
+const ProductListing = ({
+  id,
+  name,
+  image,
+  description,
+  price,
+  dealPrice,
+  stock,
+}) => {
   //useState() constant for Plus/Check icon
   const [inCart, setInCart] = useState(false);
 
@@ -91,7 +99,10 @@ const Product = ({ id, name, image, description, price, dealPrice, stock }) => {
         </button>
 
         {/* Item image */}
-        <button className={styles.itemImage} onClick={() => setShowDetails((o) => !o)}>
+        <button
+          className={styles.itemImage}
+          onClick={() => setShowDetails((o) => !o)}
+        >
           <img src={image} alt="Item" />
         </button>
 
@@ -118,7 +129,12 @@ const Product = ({ id, name, image, description, price, dealPrice, stock }) => {
       <div>
         <Dialog fullScreen open={showDetails} onClose={setShowDetails}>
           <Item
-            id={id} name={name} image={image} description={description} price={formattedPrice} stock={stockDescription}
+            id={id}
+            name={name}
+            image={image}
+            description={description}
+            price={formattedPrice}
+            stock={stockDescription}
             onClose={setShowDetails}
             link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
           />
@@ -128,4 +144,4 @@ const Product = ({ id, name, image, description, price, dealPrice, stock }) => {
   );
 };
 
-export default Product;
+export default ProductListing;

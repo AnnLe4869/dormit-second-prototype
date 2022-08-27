@@ -22,7 +22,6 @@
   flex-direction: column;
 
   justify-content: center;
-  
 }
 
 .page {
@@ -72,7 +71,6 @@
   font-weight: 700;
   font-size: min(2.9vw, 34px);
 }
-
 
 .suggestions {
   font-style: normal;
@@ -137,9 +135,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-
-
-  .title{
+  .title {
     font-size: 26px;
     line-height: 39px;
   }

@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./CategoryMenu.module.css";
+import styles from "./CategoryMenuItem.module.css";
 import { useNavigate } from "react-router-dom";
 
-const CategoryMenu = (props) => {
+const CategoryMenuItem = (props) => {
   const navigate = useNavigate();
 
   const navigateCategory = () => {
@@ -11,8 +11,8 @@ const CategoryMenu = (props) => {
 
   return (
     <div className={styles.container} onClick={navigateCategory}>
-      <img className={styles.image} src={props.image} alt={props.className} />
+      <img className={styles.image} src={props.image} alt={props.name} />
     </div>
   );
 };
-export default CategoryMenu;
+export default CategoryMenuItem;

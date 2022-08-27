@@ -1,5 +1,4 @@
 export const bottomNavStyles = {
-
   bottomNav: {
     width: "100%",
     bottom: 0,
@@ -11,20 +10,20 @@ export const bottomNavStyles = {
     display: "flex",
     justifyContent: "space-evenly",
     "& .Mui-selected, .Mui-selected > svg": {
-        color: "#7141fa"
-    }
+      color: "#7141fa",
+    },
   },
 
   bottomNavButton: {
-      width: "100%",
+    width: "100%",
 
-      "&:hover": {
-          color: "#7141fa"
-      }
+    "&:hover": {
+      color: "#7141fa",
+    },
   },
 
   buttonNavIcon: {
-      height: "auto",
-      width: "22%"
-  }
+    height: "auto",
+    width: "22%",
+  },
 };
