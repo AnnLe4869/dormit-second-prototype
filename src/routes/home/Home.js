@@ -54,8 +54,6 @@ function scrollCategoryBack(element, object, pixels) {
 export default function HomePage() {
   const products = useProducts();
 
-  console.log(products);
-
   /**
    * mock product data
    */
