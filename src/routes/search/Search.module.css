@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.content {
+  text-align: center;
+  height: auto;
+  width: 73%;
+  max-width: 1060px;
+}
+
+.searchContainer {
+  position: relative;
+  width: 100%;
+  height: 46px;
+  margin-top: 45px;
+}
+
+.searchBar {
+  width: 100%;
+  height: 100%;
+  border: 0px solid #000000;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  font-size: 18px;
+
+  padding: 0 48px;
+}
+
+.searchBar::placeholder {
+  color: #686868;
+}
+
+.searchIcon {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  width: 20px;
+}
+
+.bigItemList {
+  padding: 4px 0;
+  grid-column-gap: 5%;
+  grid-row-gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.bigItemList li {
+  display: inline-block;
+  width: 19.4%;
+  max-width: 200px;
+  min-width: 150px;
+  height: auto;
+}
+
+.resultsText {
+  padding: 30px 0;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.noResultsContainer p {
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.noResultsText {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 700;
+}
+
+.pickupTextField {
+  background-image: url("../../assets/airplane.svg");
+  background-position-x: 260px;
+  background-position-y: 16px;
+  background-repeat: no-repeat;
+  margin-top: 20px;
+  width: 300px;
+  height: 56px;
+  background-color: #7141fa;
+  color: #ffffff;
+  border-radius: 30px;
+  border: none;
+  padding: 20px;
+}
+
+.pickupTextField:focus {
+  outline: none;
+}
+
+.categories {
+  width: 100%;
+  height: auto;
+  margin-top: 45px;
+  padding-bottom: 140px;
+  display: flex;
+  flex-wrap: wrap;
+  grid-column-gap: 18px;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, 30%); */
+  /* grid-column-gap: 0.4rem; */
+  grid-row-gap: 3rem;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 900px) {
+  .content {
+    width: 91%;
+  }
+
+  .searchContainer {
+    position: relative;
+    width: 100%;
+    height: 35px;
+    margin-top: 60px;
+  }
+
+  .searchBar {
+    width: 100%;
+    height: 46px;
+    border: 0px solid #000000;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    font-size: 18px;
+
+    padding: 12px 48px;
+  }
+
+  .searchBar::placeholder {
+    color: #686868;
+  }
+
+  .searchIcon {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 20px;
+  }
+
+  .categories {
+    margin-top: 25px;
+    grid-row-gap: 20px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .bigItemList {
+    justify-content: space-evenly;
+  }
+
+  .bigItemList li {
+    width: 40%;
+    max-width: 320px;
+    min-width: 170px;
+  }
+}

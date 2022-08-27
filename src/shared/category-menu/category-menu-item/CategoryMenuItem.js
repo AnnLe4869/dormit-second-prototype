@@ -1,18 +1,18 @@
 import React from "react";
-import styles from "./CategoryTemplate.module.css";
+import styles from "./CategoryMenuItem.module.css";
 import { useNavigate } from "react-router-dom";
 
-const CategoryTemplate = (props) => {
+const CategoryMenuItem = (props) => {
   const navigate = useNavigate();
 
   const navigateCategory = () => {
-    navigate("/category/supplies");
+    navigate(`/category/${props.link}`);
   };
 
   return (
     <div className={styles.container} onClick={navigateCategory}>
-      <img className={styles.image} src={props.link} alt={props.className} />
+      <img className={styles.image} src={props.image} alt={props.name} />
     </div>
   );
 };
-export default CategoryTemplate;
+export default CategoryMenuItem;

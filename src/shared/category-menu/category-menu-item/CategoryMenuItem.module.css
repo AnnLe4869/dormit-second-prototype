@@ -2,11 +2,13 @@
 
 .container {
   position: relative;
+  width: 30%;
+  min-width: 170px;
 }
 
 .image {
   cursor: pointer;
-  width: 80%;
+  width: 100%;
   height: auto;
 }
 
@@ -24,6 +26,44 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .container {
+    position: relative;
+  }
+
+  .image {
+    width: 100%;
+  }
+
+  .text {
+    font-size: 120%;
+    bottom: 70px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .container {
+    width: 48%;
+    max-width: 320px;
+    min-width: 170px;
+  }
+
+  .image {
+    width: 100%;
+  }
+
+  .text {
+    font-size: 120%;
+    bottom: 70px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .container {
+    width: 44%;
+    max-width: 320px;
+    min-width: 170px;
+  }
+
   .container {
     position: relative;
   }
