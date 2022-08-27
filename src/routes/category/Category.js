@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CategoryMenu from "../../shared/category-menu/CategoryMenu";
-import Product from "../../shared/product/Product";
+import ProductListing from "../../shared/product/ProductListing";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 import styles from "./Category.module.css";
@@ -39,7 +39,7 @@ function Category() {
       props.category === "/"
     ) {
       renderedProducts.push(
-        <Product
+        <ProductListing
           id={current.id}
           name={current.name}
           image={current.images[0]}

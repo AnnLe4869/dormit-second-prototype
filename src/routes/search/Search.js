@@ -7,14 +7,11 @@ import SearchIcon from "@mui/icons-material/Search";
 
 /* ViewCart components */
 import ViewCart from "../../shared/view-cart/ViewCart";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 
-import Product from "../../shared/product/Product";
+import ProductListing from "../../shared/product/ProductListing";
 import { mockProducts } from "../../mock_data/data/mockData.js";
-
-import airplane from "../../assets/airplane.svg";
 
 function Search() {
   /*
@@ -115,7 +112,7 @@ function Search() {
                 filteredProducts.map((product) => {
                   return (
                     <li>
-                      <Product
+                      <ProductListing
                         id={product.id}
                         name={product.name}
                         image={product.images[0]}

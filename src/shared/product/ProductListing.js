@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Item from "./ProductDetails";
 
 import Dialog from "@mui/material/Dialog";
-import styles from "./Product.module.css";
+import styles from "./ProductListing.module.css";
 
 /*
  * Imported Assets
@@ -57,7 +57,7 @@ function stockFormat(stock) {
   return stockDescription;
 }
 
-const Product = ({ id, name, image, description, price, dealPrice, stock }) => {
+const ProductListing = ({ id, name, image, description, price, dealPrice, stock }) => {
   //useState() constant for Plus/Check icon
   const [inCart, setInCart] = useState(false);
 
@@ -136,4 +136,4 @@ const Product = ({ id, name, image, description, price, dealPrice, stock }) => {
   );
 };
 
-export default Product;
+export default ProductListing;
