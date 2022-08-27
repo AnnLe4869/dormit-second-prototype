@@ -14,7 +14,6 @@
   max-width: 1060px;
 }
 
-
 .searchContainer {
   position: relative;
   width: 100%;
@@ -63,15 +62,12 @@
   height: auto;
 }
 
-
 .resultsText {
   padding: 30px 0;
   text-align: left;
   font-size: 18px;
   font-weight: 700;
 }
-
-
 
 .noResultsContainer p {
   font-size: 16px;
@@ -119,7 +115,6 @@
 }
 
 @media only screen and (max-width: 900px) {
-
   .content {
     width: 91%;
   }
@@ -130,7 +125,7 @@
     height: 35px;
     margin-top: 60px;
   }
-  
+
   .searchBar {
     width: 100%;
     height: 46px;
@@ -138,14 +133,14 @@
     background-color: #f3f3f3;
     border-radius: 8px;
     font-size: 18px;
-  
+
     padding: 12px 48px;
   }
-  
+
   .searchBar::placeholder {
     color: #686868;
   }
-  
+
   .searchIcon {
     content: "";
     position: absolute;
@@ -161,7 +156,6 @@
 }
 
 @media only screen and (max-width: 700px) {
-
   .bigItemList {
     justify-content: space-evenly;
   }
@@ -171,5 +165,4 @@
     max-width: 320px;
     min-width: 170px;
   }
-
 }

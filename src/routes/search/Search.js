@@ -16,7 +16,6 @@ import { mockProducts } from "../../mock_data/data/mockData.js";
 import { useProducts } from "../../context/product/product-handler";
 
 function Search() {
-
   const products = useProducts();
 
   /*
@@ -85,7 +84,6 @@ function Search() {
             />
           </div>
 
-
           {empty ? (
             <></>
           ) : searchCount ? (
@@ -133,9 +131,7 @@ function Search() {
             </ul>
           </div>
 
-
-          <CategoryMenu/>
-
+          <CategoryMenu />
         </div>
       </div>
       <ViewCart numItems="X" totalAmount="X.XX" />

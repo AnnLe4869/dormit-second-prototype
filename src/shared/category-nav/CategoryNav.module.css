@@ -29,7 +29,6 @@
   height: 85px;
 }
 
-
 @media screen and (max-width: 900px) {
   .container {
     height: 100px;

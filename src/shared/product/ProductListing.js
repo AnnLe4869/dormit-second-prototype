@@ -57,7 +57,15 @@ function stockFormat(stock) {
   return stockDescription;
 }
 
-const ProductListing = ({ id, name, image, description, price, dealPrice, stock }) => {
+const ProductListing = ({
+  id,
+  name,
+  image,
+  description,
+  price,
+  dealPrice,
+  stock,
+}) => {
   //useState() constant for Plus/Check icon
   const [inCart, setInCart] = useState(false);
 

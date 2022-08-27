@@ -102,7 +102,7 @@ function Category() {
           </p>
         </div>
 
-        <CategoryMenu/>
+        <CategoryMenu />
       </div>
       <BottomNav />
     </div>

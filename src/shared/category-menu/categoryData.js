@@ -10,57 +10,57 @@ import readyToEat from "../../assets/CategoryImages/readytoeat.svg";
 import categoryImage from "../../assets/CategoryImages/category.svg";
 
 export const categories = [
-    {
-        name: "Today's Special",
-        image: today,
-        link: "todays-special"
-    },
+  {
+    name: "Today's Special",
+    image: today,
+    link: "todays-special",
+  },
 
-    {
-        name: "Candy",
-        image: candy,
-        link: "candy"
-    },
+  {
+    name: "Candy",
+    image: candy,
+    link: "candy",
+  },
 
-    {
-        name: "Chips",
-        image: chips,
-        link: "chips"
-    },
+  {
+    name: "Chips",
+    image: chips,
+    link: "chips",
+  },
 
-    {
-        name: "Drinks",
-        image: drinks,
-        link: "drinks"
-    },
+  {
+    name: "Drinks",
+    image: drinks,
+    link: "drinks",
+  },
 
-    {
-        name: "Snacks",
-        image: snacks,
-        link: "snacks"
-    },
+  {
+    name: "Snacks",
+    image: snacks,
+    link: "snacks",
+  },
 
-    {
-        name: "Sweets",
-        image: sweets,
-        link: "sweets"
-    },
+  {
+    name: "Sweets",
+    image: sweets,
+    link: "sweets",
+  },
 
-    {
-        name: "Ice Cream",
-        image: icecream,
-        link: "ice-cream"
-    },
+  {
+    name: "Ice Cream",
+    image: icecream,
+    link: "ice-cream",
+  },
 
-    {
-        name: "Ready To Eat",
-        image: readyToEat,
-        link: "ready-to-eat"
-    },
+  {
+    name: "Ready To Eat",
+    image: readyToEat,
+    link: "ready-to-eat",
+  },
 
-    {
-        name: "Category",
-        image: categoryImage,
-        link: ""
-    }
-]
+  {
+    name: "Category",
+    image: categoryImage,
+    link: "",
+  },
+];

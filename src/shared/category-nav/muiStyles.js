@@ -1,5 +1,4 @@
 export const headers = {
-
   header6: {
     fontWeight: 400,
     fontSize: "16px",
@@ -22,7 +21,6 @@ export const headers = {
 };
 
 export const homepageStyles = {
-
   leftArrow: {
     position: "absolute",
     top: "30%",
