@@ -62,7 +62,10 @@ const ItemEntry = ({ id, name, image, price, dealPrice, stock }) => {
       </button>
 
       {/* Item Info (Price, Stock) */}
-      <section className={ItemCSS.itemInfo} style={stock ? {} : { color: "#686868" }}>
+      <section
+        className={ItemCSS.itemInfo}
+        style={stock ? {} : { color: "#686868" }}
+      >
         {dealPrice ? (
           <>
             <p className={ItemCSS.purpleFont}>${dealPrice}</p>

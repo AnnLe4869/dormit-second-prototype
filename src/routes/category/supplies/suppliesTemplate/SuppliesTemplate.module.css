@@ -1,0 +1,49 @@
+.suppliesItemContainer {
+  position: relative;
+}
+
+.image {
+  width: 80%;
+  height: auto;
+
+  border-style: none;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.plus {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  color: #7141fa;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(2.3);
+}
+
+.price {
+  font-family: "SF Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  color: #000000;
+  padding-top: 20px;
+  padding-bottom: 0px;
+}
+
+@media only screen and (max-width: 768px) {
+  .suppliesItemContainer {
+    position: relative;
+    width: 50%;
+    height: 50%;
+  }
+}

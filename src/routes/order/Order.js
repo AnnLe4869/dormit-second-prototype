@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Order.module.css";
-import BottomNav from "../../shared/bottom-nav/BottomNav";
 import productList from "../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import OrderView from "./OrderView/OrderView";
@@ -24,23 +23,20 @@ function Order() {
     (product) => product.status === "current"
   );
   return (
-    <>
-      <Container>
-        <div className={styles.centering}>
-          {/* all past orders with the products in the props */}
-          <h2>Current</h2>
-          {currentOrders.map((order, index) => (
-            <OrderView key={index} order={order} />
-          ))}
+    <Container>
+      <div className={styles.centering}>
+        {/* all past orders with the products in the props */}
+        <h2>Current</h2>
+        {currentOrders.map((order, index) => (
+          <OrderView key={index} order={order} />
+        ))}
 
-          <h2>Completed</h2>
-          {completedOrders.map((order, index) => (
-            <OrderView key={index} order={order} />
-          ))}
-        </div>
-      </Container>
-      <BottomNav currentPage="home" />
-    </>
+        <h2>Completed</h2>
+        {completedOrders.map((order, index) => (
+          <OrderView key={index} order={order} />
+        ))}
+      </div>
+    </Container>
   );
 }
 
