@@ -6,7 +6,6 @@ import AuthPage from "./routes/auth/Auth";
 import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/OrderPage";
-import Order from "./routes/order/Order";
 import SearchPage from "./routes/search/Search";
 import Supplies from "./routes/category/supplies/Supplies";
 import Category from "./routes/category/Category";
