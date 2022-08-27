@@ -13,11 +13,16 @@ import BottomNav from "../../shared/bottom-nav/BottomNav";
 import ProductListing from "../../shared/product/ProductListing";
 import { mockProducts } from "../../mock_data/data/mockData.js";
 
+import { useProducts } from "../../context/product/product-handler";
+
 function Search() {
+
+  const products = useProducts();
+
   /*
    * useState() elements for the list of products and the search input field
    */
-  const [products, setProducts] = useState([]);
+  const [productsState, setProductsState] = useState([]);
   const [search, setSearch] = useState("");
   const [empty, setEmpty] = useState(true);
   const [searchCount, setSearchCount] = useState(0);
@@ -28,7 +33,8 @@ function Search() {
    */
   useEffect(() => {
     /* TODO: Retrieve products from database */
-    setProducts(mockProducts);
+    console.log("firebase: ", products);
+    setProductsState(mockProducts);
   }, []);
 
   /*
@@ -47,7 +53,7 @@ function Search() {
   /*
    * This will filter the rendered products based on the state of the query
    */
-  let filteredProducts = products.filter((product) =>
+  let filteredProducts = productsState.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
