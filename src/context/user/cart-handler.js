@@ -175,7 +175,7 @@ export function useRemoveProductFromCart() {
  * TODO: write a function to track in case we accidentally call this more than one, and if we did, stop other old ones
  * Maybe try using useRef() to do this
  */
-export function useUpdateIntermittently(interval = 1000 * 60 * 5) {
+export function useUpdateCartIntermittently(interval = 1000 * 60 * 5) {
   const authUser = useUserAuthenticationDetail();
   const { db } = useContext(AppContext);
   const { state } = useContext(UserContext);
@@ -208,7 +208,7 @@ export function useUpdateIntermittently(interval = 1000 * 60 * 5) {
  * Update the content of the local cart into database
  * We perform this at the time of this function being called
  */
-export async function useUpdateImmediately() {
+export async function useUpdateCartImmediately() {
   const authUser = useUserAuthenticationDetail();
   const { db } = useContext(AppContext);
   const { state } = useContext(UserContext);
