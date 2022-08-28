@@ -14,6 +14,7 @@ import {
   SIGN_IN_USER,
   SIGN_OUT_USER,
   SIGN_UP_USER,
+  UPDATE_CURRENT_ORDER,
 } from "../../constant";
 
 export const UserContext = createContext({
@@ -213,24 +214,59 @@ function userReducer(state, action) {
      * ----------------------------------------------------------------------------------------
      */
     case GET_CURRENT_ORDERS: {
-      // action is {type: GET_CURRENT_ORDERS, payload: {orders: Array<processing_orders>}}
-      return;
+      // action is {type: GET_CURRENT_ORDERS, payload: {orders: Array<ProcessingOrder>}}
+      return {
+        ...state,
+        current_orders: action.payload.orders,
+      };
     }
     /**
      * ----------------------------------------------------------------------------------------
      */
 
     case GET_PAST_ORDERS: {
-      // action is {type: GET_PAST_ORDERS, payload: {orders: Array<completed_orders>}}
-      return;
+      // action is {type: GET_PAST_ORDERS, payload: {orders: Array<CompletedOrder>}}
+      return {
+        ...state,
+        past_orders: action.payload.orders,
+      };
     }
     /**
      * ----------------------------------------------------------------------------------------
      */
 
     case GET_ALL_ORDERS: {
-      // action is {type: GET_ALL_ORDERS, payload: {currentOrders:Array<processing_orders>, pastOrders: Array<completed_orders>}}
-      return;
+      // action is {type: GET_ALL_ORDERS, payload: {currentOrders:Array<ProcessingOrder>, pastOrders: Array<CompletedOrder>}}
+      return {
+        ...state,
+        current_orders: action.payload.currentOrders,
+        past_orders: action.payload.pastOrders,
+      };
+    }
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case UPDATE_CURRENT_ORDER: {
+      // action is {type: UPDATE_CURRENT_ORDER, payload: {order: ProcessingOrder}}
+      const orderIndex = state.current_orders.findIndex(
+        (order) => order.id === action.payload.order.id
+      );
+
+      if (orderIndex !== -1) {
+        throw new Error(
+          "The order doesn't exist in Context. Something is wrong"
+        );
+      }
+      return {
+        ...state,
+        current_orders: [
+          ...state.current_orders.filter(
+            (order) => order.id !== action.payload.order.id
+          ),
+          action.payload.order,
+        ],
+      };
     }
 
     /**

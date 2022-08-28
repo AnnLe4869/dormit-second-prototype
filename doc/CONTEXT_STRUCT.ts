@@ -65,8 +65,8 @@ type User = {
    * current_orders is a collection and past_orders is an array of orders' id
    * we will fetch orders' data only when needed as it may be a lot
    */
-  current_orders: Array<processing_orders>;
-  past_orders: Array<completed_orders>;
+  current_orders: Array<ProcessingOrder>;
+  past_orders: Array<CompletedOrder>;
 
   /**
    * these are Context data only
@@ -79,7 +79,7 @@ type User = {
  * processing_orders and completed_orders are not stored not fetched by client
  * the below are there for presentation purpose only
  */
-type processing_orders = {
+type ProcessingOrder = {
   id: string;
   payment_id: string;
   customer_id: string;
@@ -121,7 +121,7 @@ type processing_orders = {
   }>;
 };
 
-type completed_orders = {
+type CompletedOrder = {
   id: string;
   payment_id: string;
   customer_id: string;
