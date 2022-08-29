@@ -13,6 +13,8 @@ import { ProductContext } from "../product/product-context";
 import { UserContext } from "./user-context";
 
 import { useUserAuthenticationDetail } from "./auth-handler";
+import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
+import { updateCartItemLocStore } from "../../helper/updateCartItemLocStore";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -30,14 +32,19 @@ export function useSelectItem() {
   const { dispatch } = useContext(ProductContext);
 
   return (id) => {
-    if (!localStorage.getItem(id)) {
+    const localCart = getCartFromLocStore();
+
+    if (localCart.findIndex((item) => item.product_id === id) !== -1) {
       throw new Error(
         "Incorrect use of the function useSelectItem." +
-          "It should be used on product that has not been added to localStorage only"
+          "It should be used on product that has NOT been added to localStorage only"
       );
     }
-    const amount = 1;
-    localStorage.setItem(id, amount.toString());
+    const AMOUNT = 1;
+    updateCartItemLocStore({
+      productId: id,
+      quantity: AMOUNT,
+    });
     dispatch({
       type: ADD_TO_CART,
       payload: {
@@ -58,24 +65,21 @@ export function useIncrementItemCount() {
   const { dispatch } = useContext(ProductContext);
 
   return (id) => {
-    const data = localStorage.getItem(id);
-    // check whether the product was already in local storage or not
+    const localCart = getCartFromLocStore();
+    const data = localCart.find((item) => item.product_id === id);
+    // check whether the product was in localStorage or not
     if (!data) {
       throw new Error(
         "Incorrect use of the function useSelectItem." +
-          "The product should have existed in localStorage already"
+          "The product must have existed in localStorage"
       );
     }
 
-    const amount = parseInt(data);
-    if (isNaN(amount)) {
-      throw new Error(
-        "Incorrect use of the function useSelectItem." +
-          "The amount should be a number, but here it is not"
-      );
-    }
+    updateCartItemLocStore({
+      productId: id,
+      quantity: data.quantity + 1,
+    });
 
-    localStorage.setItem(id, (amount + 1).toString());
     dispatch({
       type: INCREMENT_QUANTITY,
       payload: {
@@ -97,34 +101,19 @@ export function useDecrementItemCount() {
   const { dispatch } = useContext(ProductContext);
 
   return (id) => {
-    const data = localStorage.getItem(id);
-    // check whether the product was already in local storage or not
+    const localCart = getCartFromLocStore();
+    const data = localCart.find((item) => item.product_id === id);
+    // check whether the product was in localStorage or not
     if (!data) {
       throw new Error(
         "Incorrect use of the function useSelectItem." +
-          "The product should have existed in localStorage already"
+          "The product must have existed in localStorage"
       );
     }
-
-    const amount = parseInt(data);
-    if (isNaN(amount)) {
-      throw new Error(
-        "Incorrect use of the function useSelectItem." +
-          "The amount should be a number, but here it is not"
-      );
-    }
-    if (amount <= 0) {
-      throw new Error(
-        "Something is wrong here. The amount should be a positive integer"
-      );
-    }
-
-    // when amount reach 0, remove it from cart
-    if (amount > 1) {
-      localStorage.setItem(id, (amount + 1).toString());
-    } else {
-      localStorage.removeItem(id);
-    }
+    updateCartItemLocStore({
+      productId: id,
+      quantity: data.quantity - 1,
+    });
 
     dispatch({
       type: DECREMENT_QUANTITY,
@@ -146,16 +135,19 @@ export function useRemoveProductFromCart() {
   const { dispatch } = useContext(ProductContext);
 
   return (id) => {
-    const data = localStorage.getItem(id);
-    // check whether the product was already in local storage or not
+    const localCart = getCartFromLocStore();
+    const data = localCart.find((item) => item.product_id === id);
+    // check whether the product was in localStorage or not
     if (!data) {
       throw new Error(
         "Incorrect use of the function useSelectItem." +
-          "The product should have existed in localStorage already"
+          "The product must have existed in localStorage"
       );
     }
-
-    localStorage.removeItem(id);
+    updateCartItemLocStore({
+      productId: id,
+      quantity: 0,
+    });
     dispatch({
       type: REMOVE_ITEM_FROM_CART,
       payload: {
@@ -175,7 +167,7 @@ export function useRemoveProductFromCart() {
  * TODO: write a function to track in case we accidentally call this more than one, and if we did, stop other old ones
  * Maybe try using useRef() to do this
  */
-export function useUpdateCartIntermittently(interval = 1000 * 60 * 5) {
+export function useUpdateDbCartIntermittently(interval = 1000 * 60 * 5) {
   const authUser = useUserAuthenticationDetail();
   const { db } = useContext(AppContext);
   const { state } = useContext(UserContext);
@@ -208,7 +200,7 @@ export function useUpdateCartIntermittently(interval = 1000 * 60 * 5) {
  * Update the content of the local cart into database
  * We perform this at the time of this function being called
  */
-export async function useUpdateCartImmediately() {
+export async function useUpdateDbCartImmediately() {
   const authUser = useUserAuthenticationDetail();
   const { db } = useContext(AppContext);
   const { state } = useContext(UserContext);

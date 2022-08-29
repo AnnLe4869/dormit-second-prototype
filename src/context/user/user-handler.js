@@ -6,9 +6,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 
 import { INITIALIZE_CART, INITIALIZE_USER_DETAILS } from "../../constant";
-import { isArrayDifferent } from "../../helper/isArrayDifferent";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
-
+import { isArrayDifferent } from "../../helper/isArrayDifferent";
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
 
 export async function useInitializeUser() {
