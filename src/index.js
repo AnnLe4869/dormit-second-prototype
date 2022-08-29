@@ -36,7 +36,7 @@ connectFunctionsEmulator(functions, "localhost", 5001);
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <AppContext db={db} auth={auth} storage={storage} functions={functions}>
+  <AppContext db={db} auth={auth} functions={functions}>
     <App />
   </AppContext>
 );

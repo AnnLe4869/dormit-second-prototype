@@ -10,13 +10,7 @@ import { useInitializeUser } from "./user/user-handler";
 // we create this context to pass the firestore reference to entire application
 export const AppContext = createContext(null);
 
-export default function AppContextWrapper({
-  children,
-  db,
-  auth,
-  storage,
-  functions,
-}) {
+export default function AppContextWrapper({ children, db, auth, functions }) {
   return (
     <AppContext.Provider value={{ db, auth, functions }}>
       <UserProvider>
