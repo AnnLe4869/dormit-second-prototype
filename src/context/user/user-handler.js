@@ -81,7 +81,7 @@ export async function useInitializeUser() {
           userData = {
             cart: cartInContext,
           };
-          await setDoc(usersRef, userData);
+          await setDoc(usersRef, userData, { merge: true });
         }
 
         userDispatch({
