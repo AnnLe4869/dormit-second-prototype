@@ -7,6 +7,7 @@ import {
   GET_CURRENT_ORDERS,
   GET_PAST_ORDERS,
   INCREMENT_QUANTITY,
+  INITIALIZE_CART,
   INITIALIZE_USER_DETAILS,
   REMOVE_ITEM_FROM_CART,
   SET_CHECKOUT_ADDRESS,
@@ -71,6 +72,14 @@ function userReducer(state, action) {
         ...state,
         ...action.payload,
       };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+    case INITIALIZE_CART: {
+      // action is {type: INITIALIZE_CART, payload: {cart: User.cart}}
+      return { ...state, cart: action.payload.cart };
     }
 
     /**

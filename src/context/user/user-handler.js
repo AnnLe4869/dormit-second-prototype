@@ -5,20 +5,36 @@ import { UserContext } from "./user-context";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 
-import { INITIALIZE_USER_DETAILS } from "../../constant";
+import { INITIALIZE_CART, INITIALIZE_USER_DETAILS } from "../../constant";
 import { isArrayDifferent } from "../../helper/isArrayDifferent";
+import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
+
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
 
 export async function useInitializeUser() {
   const { auth, db } = useContext(AppContext);
   const { dispatch: userDispatch, state: userState } = useContext(UserContext);
 
-  /**
-   * Track the user authentication status
-   * If user sign out, refresh the page
-   * How this works: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
-   */
   useEffect(() => {
+    /**
+     * load the cart (if there is) in localStorage to Context
+     * we always want to sync the cart in localStorage with cart in Context
+     */
+    const localCart = getCartFromLocStore();
+    if (!localCart) {
+      userDispatch({
+        type: INITIALIZE_CART,
+        payload: {
+          cart: localCart,
+        },
+      });
+    }
+
+    /**
+     * Track the user authentication status
+     * If user sign out, refresh the page
+     * How this works: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
+     */
     let unsubscribeUser;
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       /**
@@ -30,7 +46,7 @@ export async function useInitializeUser() {
         const usersRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(usersRef);
         // get the current cart store in Context
-        const cartInContext = userState.cart;
+        const contextCart = userState.cart;
 
         /**
          * we want to retrieve the URL params to determine course of action
@@ -49,9 +65,8 @@ export async function useInitializeUser() {
         const paymentStatus = pageURL.searchParams.get("redirect_status");
 
         let userData;
-
         if (userSnap.exists()) {
-          // user already exist, i.e user is not sign up for the first time
+          // user already exist, i.e user didn't sign up for the first time
           userData = userSnap.data();
           const cartInDb = userData.cart;
 
@@ -69,17 +84,16 @@ export async function useInitializeUser() {
            * Don't forget to update the cart, both in localStorage and in database
            */
           if (
-            cartInContext.length > 0 &&
-            isArrayDifferent(cartInContext, cartInDb)
+            contextCart.length > 0 &&
+            isArrayDifferent(contextCart, cartInDb)
           ) {
           }
         } else {
           // user first time sign in, i.e user sign up
           // we create new entry in document "user" using user uid as id
           // get the current cart store in Context
-          const cartInContext = userState.cart;
           userData = {
-            cart: cartInContext,
+            cart: contextCart,
           };
           await setDoc(usersRef, userData, { merge: true });
         }
