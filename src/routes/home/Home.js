@@ -23,6 +23,7 @@ import BottomNav from "../../shared/bottom-nav/BottomNav";
 import apple from "../../assets/apple.png";
 import todaysSpecialIcon from "../../assets/Home/todays-special-icon.svg";
 
+
 /*
  * Material-UI Imports
  */
@@ -31,12 +32,13 @@ import Button from "@mui/material/Button";
 import { borderRadius, fontWeight } from "@mui/system";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 import { theme } from "../../muiStyles";
 
 export default function HomePage() {
+
   const products = useProducts();
   console.log(products);
 
@@ -104,6 +106,7 @@ export default function HomePage() {
 
   return (
     <ThemeProvider theme={theme}>
+
       {/*********TODO: Mui **********/}
       <Header />
       <div className={HomeCSS.homeContainer}>
@@ -111,68 +114,40 @@ export default function HomePage() {
           {/* Navbar for Food Categories */}
 
           <section className={HomeCSS.homeCategoryNav}>
-            <Button
-              variant="outlined"
-              sx={homepageStyles.categoryButton}
-              onClick={(e) => scrollToCategory(0)}
-            >
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(0)}>
               <Typography variant="h4">Chips</Typography>
             </Button>
 
-            <Button
-              variant="outlined"
-              sx={homepageStyles.categoryButton}
-              onClick={(e) => scrollToCategory(1)}
-            >
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(1)}>
               <Typography variant="h4">Snacks</Typography>
             </Button>
 
-            <Button
-              variant="outlined"
-              sx={homepageStyles.categoryButton}
-              onClick={(e) => scrollToCategory(2)}
-            >
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(2)}>
               <Typography variant="h4">Energy</Typography>
             </Button>
 
-            <Button
-              variant="outlined"
-              sx={homepageStyles.categoryButton}
-              onClick={(e) => scrollToCategory(3)}
-            >
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(3)}>
               <Typography variant="h4">Drinks</Typography>
             </Button>
 
-            <Button
-              variant="outlined"
-              sx={homepageStyles.categoryButton}
-              onClick={(e) => scrollToCategory(4)}
-            >
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(4)}>
               <Typography variant="h4">Sweets</Typography>
             </Button>
 
-            <Button
-              variant="outlined"
-              sx={homepageStyles.categoryButton}
-              onClick={(e) => scrollToCategory(5)}
-            >
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(5)}>
               <Typography variant="h4">Ice Cream</Typography>
             </Button>
 
-            <Button
-              variant="outlined"
-              sx={homepageStyles.categoryButton}
-              onClick={(e) => scrollToCategory(6)}
-            >
+            <Button variant="outlined" sx={homepageStyles.categoryButton} onClick={(e) => scrollToCategory(6)}>
               <Typography variant="h4">Ready-to-eat</Typography>
             </Button>
           </section>
 
           {/* Bulletin */}
           <section className={HomeCSS.homeBulletin}>
-            <Box sx={homepageStyles.bulletinBox} />
-            <Box sx={homepageStyles.bulletinBox} />
-            <Box sx={homepageStyles.bulletinBox} />
+              <Box sx={homepageStyles.bulletinBox}/>
+              <Box sx={homepageStyles.bulletinBox}/>
+              <Box sx={homepageStyles.bulletinBox}/>
           </section>
 
           {/* Today's Special */}
@@ -194,9 +169,7 @@ export default function HomePage() {
 
           {/* For You Section */}
           <section className={HomeCSS.smallItemSection}>
-            <Typography variant="h3" color="primary">
-              For You
-            </Typography>
+            <Typography variant="h3" color="primary">For You</Typography>
             <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
@@ -206,9 +179,7 @@ export default function HomePage() {
 
           {/* Trending Section*/}
           <section className={HomeCSS.smallItemSection}>
-            <Typography variant="h3" color="primary">
-              Trending
-            </Typography>
+            <Typography variant="h3" color="primary">Trending</Typography>
             <ul className={HomeCSS.smallItemList}>
               {mockForYouItems.map((item) => {
                 return <li>{item}</li>;
@@ -218,9 +189,7 @@ export default function HomePage() {
 
           {/* Deals Section */}
           <section className={HomeCSS.smallItemSection}>
-            <Typography variant="h3" color="primary">
-              Deals
-            </Typography>
+            <Typography variant="h3" color="primary">Deals</Typography>
             <ul className={HomeCSS.smallItemList}>
               {mockDealItems.map((item) => {
                 return <li>{item}</li>;
@@ -230,6 +199,7 @@ export default function HomePage() {
 
           {/* Food Categories */}
           <section className={HomeCSS.categorySection}>
+
             {/* Chips Section */}
             {/*********TODO: Mui **********/}
             <div id="chipsSection" ref={chipsRef}>
@@ -323,7 +293,7 @@ export default function HomePage() {
           </section>
         </div>
       </div>
-      <ViewCart numItems="X" totalAmount="X.XX" />
+      <ViewCart numItems="X" totalAmount="X.XX"/>
       <BottomNav />
     </ThemeProvider>
   );

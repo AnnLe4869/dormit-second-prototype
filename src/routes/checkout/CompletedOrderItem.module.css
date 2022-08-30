@@ -1,0 +1,109 @@
+.Border {
+  margin-bottom: 10px;
+  width: 600px;
+  height: 103px;
+  display: flex;
+  border-color: blue;
+}
+
+.picture {
+  width: 90px;
+  height: 90px;
+  margin-top: 13px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.picture > .Count {
+  position: relative;
+  bottom: 104px;
+  left: 70px;
+  width: 35px;
+  height: 35px;
+  background: #7141fa;
+  border-radius: 20px;
+  border-color: #7141fa;
+  align-items: center;
+  font-family: "BlinkMacSystemFont";
+  justify-content: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  display: flex;
+  color: #ffffff;
+}
+
+.details {
+  width: 500px;
+  margin-top: 13px;
+  margin-left: 60px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.details > .name {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  color: #000000;
+}
+
+.details > .desc {
+  margin-top: 16px;
+  color: rgba(104, 104, 104, 0.8);
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.details > .price {
+  align-self: flex-end;
+  margin-top: 40px;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  align-items: center;
+  color: #686868;
+}
+
+@media screen and (max-width: 400px) {
+  .Border {
+    width: 350px;
+  }
+
+  .details {
+    width: 300px;
+    flex-wrap: nowrap;
+    height: 60px;
+    margin-left: 30px;
+    margin-top: 20px;
+  }
+
+  .details > .price {
+    align-self: start;
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 10px;
+  }
+
+  .details > .name {
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .details > .desc {
+    font-size: 12px;
+    line-height: 14px;
+    width: 65px;
+    margin-top: 10px;
+  }
+}
