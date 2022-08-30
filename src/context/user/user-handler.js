@@ -11,7 +11,9 @@ import { isArrayDifferent } from "../../helper/isArrayDifferent";
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
 import { initializeCartWithBlank } from "./cart-handler";
 
-export async function useInitializeUser() {
+export async function useInitializeUser1() {}
+
+export function useInitializeUser() {
   const { auth, db } = useContext(AppContext);
   const { dispatch: userDispatch, state: userState } = useContext(UserContext);
 

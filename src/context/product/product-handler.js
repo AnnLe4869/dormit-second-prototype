@@ -11,7 +11,7 @@ import { ProductContext } from "./product-context";
  * -----------------------------------------------------------------------------------
  */
 
-export async function useInitializeProduct() {
+export function useInitializeProduct() {
   const { dispatch: productDispatch } = useContext(ProductContext);
   const { db } = useContext(AppContext);
 
