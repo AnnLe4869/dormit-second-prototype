@@ -1,46 +1,26 @@
-import React from "react";
-import styles from "../Account.module.css";
-import { Box } from "@mui/material";
-import { AccountBox } from "../muiStyles";
+import React, { useState } from "react";
+import { Typography, Button, Box } from "@mui/material";
+import { AccountBox, ButtonStyles } from "../muiStyles";
+import PaymentOptionModal from "./PaymentOptionModal";
 
 export default function Payment() {
-  const addPaymentMethod = () => {};
-  // payment method
-  let savedPayments = [
-    { icon: "img", name: "name" },
-    { icon: "img2", name: "name2" },
-  ];
-  let paymentIcon = "img";
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box sx={AccountBox}>
-      <div className={styles.head}>
-        <h3 className={styles.boxTitle}>Payment methods</h3>
-        <img
-          src={paymentIcon}
-          className={styles.icon}
-          id={styles.paymentIcon}
-          alt="payment"
-        ></img>
-      </div>
-      <hr className={styles.lineDiv} id={styles.paymentLine} />
-      <h5>Saved payment methods</h5>
-      {savedPayments.map((paymentMethod, index) => {
-        return (
-          <div className={styles.rows}>
-            <img
-              scr={paymentMethod["icon"]}
-              className={styles.smallIcon}
-              alt="payment"
-            ></img>
-            <p>{paymentMethod["name"]}</p>
-          </div>
-        );
-      })}
-
-      {savedPayments.length === 0 && <p>No saved methods</p>}
-      <button className={styles.btn} onClick={addPaymentMethod}>
-        Add payment method
-      </button>
+      <Typography variant="title1">Payment Methods</Typography>
+      <br />
+      <Typography variant="title2" color="primary" sx={{ m: "20px 0" }}>
+        Saved payment methods
+      </Typography>
+      <br />
+      <Button onClick={handleOpen} variant="contained" sx={ButtonStyles}>
+        <Typography variant="callout" color="white">
+          Add payment method
+        </Typography>
+      </Button>
+      <PaymentOptionModal open={open} handleClose={handleClose} />
     </Box>
   );
 }

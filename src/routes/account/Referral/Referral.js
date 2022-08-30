@@ -1,46 +1,47 @@
 import React from "react";
-import styles from "../Account.module.css";
-import { Box } from "@mui/material";
+import { Typography, Box, Button, TextField, Grid } from "@mui/material";
 import { AccountBox } from "../muiStyles";
 
 export default function Referral() {
-  let friendIcon = "img";
-
-  // variables
-  let referalLink = "link";
-  // copy referral link to clipboard
-  const copyReferralLink = () => {};
   return (
     <Box sx={AccountBox}>
-      <div className={styles.head}>
-        <h3 className={styles.boxTitle}>Refer a friend</h3>
-        <img
-          src={friendIcon}
-          className={styles.icon}
-          id={styles.friendIcon}
-          alt="friend"
-        ></img>
-      </div>
-      <hr className={styles.lineDiv} id={styles.friendLine} />
+      <Typography variant="title1">Refer a Friend</Typography>
 
-      <p>
+      <Typography variant="body1">
         Get $10 in credits when someone signs up using your referral link. $10
         credit will be automatically applied to your account. You will be
         notified via email.
-      </p>
-      <p>Share this link</p>
-      <div className={styles.rowToColumn}>
-        <input
-          type="text"
-          value={referalLink}
-          style={{ width: "max(200px,30%)" }}
-          readOnly
-        ></input>
-        <br />
-        <button className={styles.btn} onClick={copyReferralLink}>
-          copy
-        </button>
-      </div>
+      </Typography>
+
+      <Grid
+        container
+        spacing={0.5}
+        sx={{ marginTop: "30px", minWidth: "260px" }}
+      >
+        <Grid item xs={3.5} sx={{ minWidth: "200px" }}>
+          <TextField
+            label="Share this link"
+            defaultValue="https://drm.it/ROqBkLmC"
+            size="small"
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <Button
+            variant="contained"
+            sx={{
+              textTransform: "none",
+              borderRadius: "30px",
+            }}
+          >
+            <Typography variant="body1" sx={{ fontWeight: "700" }}>
+              Copy
+            </Typography>
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

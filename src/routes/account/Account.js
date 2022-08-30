@@ -1,25 +1,29 @@
 import React from "react";
 import { theme } from "./muiStyles";
 import { Container, ThemeProvider } from "@mui/material";
+import Header from "../home/Header";
 
-import Intro from "./Intro/Intro";
 import Impact from "./Impact/Impact";
 import Profile from "./Profile/Profile";
 import Payment from "./Payment/Payment";
 import Referral from "./Referral/Referral";
 import Contact from "./Contact/Contact";
+import BottomNavMui from "../../shared/bottom-nav/BottomNav";
 
 export default function Account() {
   return (
-    <ThemeProvider theme={theme}>
-      <Container maxWidth="lg" sx={{ p: "70px 0" }}>
-        <Intro />
-        <Impact />
-        <Profile />
-        <Payment />
-        <Referral />
-        <Contact />
-      </Container>
-    </ThemeProvider>
+    <>
+      <Header />
+      <ThemeProvider theme={theme}>
+        <Container maxWidth="md" sx={{ p: "40px 0" }}>
+          <Profile />
+          <Payment />
+          <Impact />
+          <Referral />
+          <Contact />
+        </Container>
+      </ThemeProvider>
+      <BottomNavMui />
+    </>
   );
 }

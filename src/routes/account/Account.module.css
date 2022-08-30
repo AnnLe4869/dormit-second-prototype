@@ -19,10 +19,9 @@
 }
 
 #pfp {
-  height: 75px;
+  width: 100%;
   aspect-ratio: 1/1;
   border-radius: 8px;
-  border: #7141fa 2px solid;
 }
 
 .boxTitle {
@@ -51,33 +50,21 @@
   width: 100%;
 }
 
-.lineDiv {
-  display: block;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  border-style: inset;
-  border-width: 0.2rem;
-  border-color: blueviolet;
+.underlineContainer {
+  width: max-content;
+  margin-bottom: 20px;
 }
 
-#impactLine {
-  width: 20%;
+.underline {
+  margin-top: 6px;
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90.28deg, #7141fa 0%, #f2c491 100%);
 }
 
-#profileLine {
-  width: 11%;
-}
-
-#paymentLine {
-  width: 29%;
-}
-
-#friendLine {
-  width: 22%;
-}
-
-#contactLine {
-  width: 18%;
+.divider {
+  border: 2px solid black;
 }
 
 .head .icon {

@@ -1,45 +1,42 @@
 import React from "react";
 import styles from "../Account.module.css";
-import { Box } from "@mui/material";
-import { AccountBox } from "../muiStyles";
+import { Typography, Box, Button } from "@mui/material";
+import { AccountBox, ButtonStyles } from "../muiStyles";
 
 export default function Impact() {
-  const impactIcon = "img";
   const NUM_STUDENTS = 30;
   const CARBON_AMOUNT = 4;
   const NUM_RUSHER = 8;
 
   const student = {
-    name: "john",
-    college: "warren",
+    name: "Alex",
+    pronoun: "He/Him",
+    college: "Revelle",
   };
 
   const toSurvey = () => {};
   return (
     <Box sx={AccountBox}>
-      <div className={styles.head}>
-        <h3 className={styles.boxTitle}>Your Impact</h3>
-        <br />
-        <img src={impactIcon} className={styles.icon} alt="impact"></img>
-      </div>
-      <hr className={styles.lineDiv} id={styles.impactLine} />
-
-      <p>
-        {student["name"] + ", you are 1 of ("}
+      <Typography variant="title1">Your Impact</Typography>
+      <Typography>
+        {student.name + ", you are 1 of ("}
         <span className={styles.textColorPurp}>{NUM_STUDENTS}</span>
         {") " + student.college + " students who prevented "}
         <span className={styles.textColorPurp}>{CARBON_AMOUNT}</span>
         {"g carbon emissions and helped #"}
         <span className={styles.textColorPurp}>{NUM_RUSHER}</span>
         {" Rushers(s)!"}
-      </p>
-      <p>
+      </Typography>
+      <br />
+      <Typography variant="body1" sx={{ marginBottom: "20px" }}>
         Have some time to fill a quick optional survey? Share the link with a
         friend and get a shout out on Instagram!
-      </p>
-      <button className={styles.btn} onClick={toSurvey}>
-        Take me to survey
-      </button>
+      </Typography>
+      <Button variant="contained" sx={ButtonStyles}>
+        <Typography variant="callout" color="white">
+          Take me to survey
+        </Typography>
+      </Button>
     </Box>
   );
 }

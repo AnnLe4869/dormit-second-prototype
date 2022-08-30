@@ -1,7 +1,8 @@
 import React from "react";
+import { TextField, Typography, Grid, Box } from "@mui/material";
+import { AccountBox, textFieldStyles } from "../muiStyles";
+import profilePicture from "../../../assets/Account/profilePicture.webp";
 import styles from "../Account.module.css";
-import { Box } from "@mui/material";
-import { AccountBox } from "../muiStyles";
 
 export default function Profile() {
   const [isEditing, setIsEditing] = React.useState(false);
@@ -22,7 +23,10 @@ export default function Profile() {
   const buildingValue2 = "2";
   const buildingValue3 = "3";
 
-  const student = {};
+  const student = {
+    name: "Alex Smith",
+    pronoun: "They/them",
+  };
 
   const changeProfilePic = () => {};
   const editProfile = () => {
@@ -43,146 +47,82 @@ export default function Profile() {
     // emailRef.current.value = student["email"];
     // passwordRef.current.value = student["password"];
   };
+
   return (
     <Box sx={AccountBox}>
-      <div className={styles.head}>
-        <h3 className={styles.boxTitle}>Profile</h3>
-        <button
-          style={{ background: editIconImage }}
-          className={styles.editIcon}
-          onClick={editProfile}
-        ></button>
-        <img
-          src={profileIcon}
-          className={styles.icon}
-          id={styles.profileIcon}
-          alt="profile"
-        ></img>
-      </div>
-      <hr className={styles.lineDiv} id={styles.profileLine} />
-      <br />
+      <Typography variant="title1">Profile</Typography>
+      <Grid container alignItems="center" spacing={"18px"}>
+        <Grid item xs={1.2} sx={{ minWidth: "70px" }}>
+          <img src={profilePicture} id={styles.pfp} alt="profile"></img>
+        </Grid>
+        <Grid item sm={3.5} xs={4.5}>
+          <Typography variant="callout">Full Name</Typography>
+          <TextField
+            defaultValue={student.name}
+            size="small"
+            sx={textFieldStyles}
+          />
+        </Grid>
+        <Grid item sm={3.5} xs={4.5}>
+          <Typography variant="callout">Pronouns</Typography>
+          <TextField
+            value={student.pronoun}
+            size="small"
+            sx={textFieldStyles}
+          />
+        </Grid>
+      </Grid>
 
-      <div className={styles.rows}>
-        <button
-          style={{
-            background: profilePicUrl,
-            width: "60px",
-            height: "60px",
-          }}
-          onClick={changeProfilePic}
-        ></button>
-        <div className={styles.editItem}>
-          <div className={styles.editTop}>
-            <p>Full name</p>
-          </div>
-          <input
-            type="text"
-            size="8"
-            disabled={!isEditing}
-            defaultValue={student["name"]}
-            ref={nameRef}
-          ></input>
-        </div>
-      </div>
+      <Typography variant="title2">Default Location</Typography>
+      <Grid container alignItems="center" spacing={"18px"}>
+        <Grid item sm={3.5} xs={4.5}>
+          <Typography variant="callout">UCSD Building</Typography>
+        </Grid>
+        <Grid item sm={3.5} xs={4.5}>
+          <TextField
+            defaultValue="Ellicott Hall"
+            size="small"
+            sx={textFieldStyles}
+          />
+        </Grid>
+      </Grid>
 
-      <div className={styles.rows}>
-        <img
-          src={locationIcon}
-          className={styles.smallIcon}
-          alt="location"
-        ></img>
-        <h5 className={styles.textColorPurp}>Default Location</h5>
-      </div>
-      <br />
+      <Grid container alignItems="center" spacing={"18px"}>
+        <Grid item sm={3.5} xs={4.5}>
+          <Typography variant="callout">Floor / Apartment #</Typography>
+        </Grid>
+        <Grid item sm={3.5} xs={4.5}>
+          <TextField defaultValue="326" size="small" sx={textFieldStyles} />
+        </Grid>
+      </Grid>
 
-      <div className={styles.rowToColumn}>
-        <div className={styles.editItem}>
-          <p>UCSD Building</p>
-          <select disabled={!isEditing} ref={buildingRef}>
-            <option value={buildingValue1}>Building 1</option>
-            <option value={buildingValue2}>Display Text 2</option>
-            <option value={buildingValue3}>Display Text 3</option>
-          </select>
-        </div>
-        <div className={styles.editItem}>
-          <p>Floor #</p>
-          <input
-            type="text"
-            size="8"
-            disabled={!isEditing}
-            defaultValue={student["floor"]}
-            ref={floorRef}
-          ></input>
-        </div>
-        <div className={styles.editItem}>
-          <p>Apartment #</p>
-          <input
-            type="text"
-            size="8"
-            disabled={!isEditing}
-            defaultValue={student["apartment"]}
-            ref={aptRef}
-          ></input>
-        </div>
-      </div>
-      <br />
+      <Typography variant="title2">Contact Details</Typography>
 
-      <div className={styles.rows}>
-        <img
-          src={contactDeetIcon}
-          className={styles.smallIcon}
-          alt="contact"
-        ></img>
-        <h5 className={styles.textColorPurp}>Contact Details</h5>
-      </div>
-      <br />
-      <div className={styles.rowToColumn}>
-        <div className={styles.editItem}>
-          <p>Phone number</p>
-          <input
-            type="text"
-            size="8"
-            disabled={!isEditing}
-            defaultValue={student["phone"]}
-            ref={phoneRef}
-          ></input>
-        </div>
-        <div className={styles.editItem}>
-          <p>Email</p>
-          <input
-            type="text"
-            size="8"
-            disabled={!isEditing}
-            defaultValue={student["email"]}
-            ref={emailRef}
-          ></input>
-        </div>
-        <div className={styles.editItem}>
-          <p>Password</p>
-          <input
-            type="password"
-            size="8"
-            disabled={!isEditing}
-            defaultValue={student["password"]}
-            ref={passwordRef}
-          ></input>
-        </div>
-      </div>
+      <Grid container alignItems="center" spacing={"18px"}>
+        <Grid item sm={3.5} xs={4.5}>
+          <Typography variant="callout">Phone Number</Typography>
+        </Grid>
+        <Grid item sm={3.5} xs={4.5}>
+          <TextField
+            defaultValue="530-324-5656"
+            size="small"
+            sx={textFieldStyles}
+          />
+        </Grid>
+      </Grid>
 
-      {/* show buttons if editing */}
-      {isEditing && (
-        <div className={styles.rows}>
-          <button className="btn" onClick={saveProfileEdit}>
-            Save
-          </button>
-          <button
-            className={styles.btnInverseColor}
-            onClick={cancelProfileEdit}
-          >
-            Cancel
-          </button>
-        </div>
-      )}
+      <Grid container alignItems="center" spacing={"18px"}>
+        <Grid item sm={3.5} xs={4.5}>
+          <Typography variant="callout">Email</Typography>
+        </Grid>
+        <Grid item sm={3.5} xs={4.5}>
+          <TextField
+            defaultValue="alextest@test.com"
+            size="small"
+            sx={textFieldStyles}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 }
