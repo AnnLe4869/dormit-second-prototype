@@ -1,21 +1,19 @@
-import React from "react";
-import BottomNav from "../../shared/bottom-nav/BottomNav";
-import styles from "./OrderDetails.module.css";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
-  TextField,
-  Divider,
+  Box,
   Button,
   ButtonGroup,
   Container,
-  Box,
-  Typography,
+  Divider,
   Grid,
+  TextField,
+  Typography,
 } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import AppleIcon from "@mui/icons-material/Apple";
+import React from "react";
 import apple from "../../mock_data/images/apple.jpg";
+import styles from "./OrderDetails.module.css";
 
 const Details = () => {
   return (
