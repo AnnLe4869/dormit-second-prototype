@@ -130,7 +130,7 @@ export async function useInitializeUser() {
          * redirect will cause reload, which will detach the realtime listener - the result we want
          */
         // removeUserDataFromLocalStorage();
-        window.location.href = "localhost:3000";
+        // window.location.href = "http://localhost:3000";
       }
     });
   }, []);

@@ -19,19 +19,22 @@ import {
 } from "../../constant";
 
 export const UserContext = createContext({
-  id: null,
-  phone: null,
-  linked_email: null,
-  profile_img: null,
-  stripeId: null,
-  name: null,
-  shipping_address: null,
-  cart: [],
-  current_orders: null,
-  past_orders: null,
-  // the below are local to Context only
-  isAuthenticated: false,
-  isNewUser: false,
+  dispatch: () => {},
+  state: {
+    id: null,
+    phone: null,
+    linked_email: null,
+    profile_img: null,
+    stripeId: null,
+    name: null,
+    shipping_address: null,
+    cart: [],
+    current_orders: null,
+    past_orders: null,
+    // the below are local to Context only
+    isAuthenticated: false,
+    isNewUser: false,
+  },
 });
 
 // all actions must be pure, no side-effect
