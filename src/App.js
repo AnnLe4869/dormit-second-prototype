@@ -22,7 +22,6 @@ function App() {
       <AlertPopup />
       <Routes>
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/cart" element={<Cart />} />
 
         <Route path="/auth/*" element={<AuthPage />} />
 
@@ -41,7 +40,6 @@ function App() {
         <Route path="/test" element={<Test />} />
 
         <Route path="/" element={<Homepage />} exact />
-        <Route path="/complete" element={<CompletedOrder />} exact />
       </Routes>
     </Router>
   );
