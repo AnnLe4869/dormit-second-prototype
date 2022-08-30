@@ -1,13 +1,12 @@
-import React from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/system";
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useCheckAuthenticationStatus } from "../../context/user/auth-handler";
-import { Navigate } from "react-router-dom";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
 import Current from "./Current/Current";
+import Order from "./Order";
 import Past from "./Past/Past";
 import Selected from "./Selected/Selected";
-import Order from "./Order";
 
 export default function OrderPage() {
   const status = useCheckAuthenticationStatus();
