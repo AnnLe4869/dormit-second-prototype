@@ -14,129 +14,31 @@ import {
   useUpdateShipping,
   useUpdateFirstName,
 } from "../../context/user/profile-context";
+import { useProducts } from "../../context/product/product-handler";
+import {
+  useDecrementItemCount,
+  useIncrementItemCount,
+  useSelectItem,
+} from "../../context/user/cart-handler";
 
 export default function Test() {
   const status = useCheckAuthenticationStatus();
-  const signUp = useSignUp();
-  const signOut = useSignOut();
-  const checkout = useCheckout();
-  const activateErrorAlert = useActivateErrorAlert();
 
-  const sendEmailCode = useSendCodeEmail();
-  const verifyEmailCode = useVerifyEmailCode();
-  const sendPhoneCode = useSendCodeToPhone();
-  const verifyPhoneCode = useVerifyPhoneCode();
-  const updateShipping = useUpdateShipping();
-  const updateFirstName = useUpdateFirstName();
+  const selectItem = useSelectItem();
+  const incrementItem = useIncrementItemCount();
+  const decrementItem = useDecrementItemCount();
 
-  const [emailCode, setEmailCode] = useState("");
-  const [phoneCode, setPhoneCode] = useState("");
-  const [firstName, setFirstName] = useState("");
-
-  const handleEmailChange = (event) => {
-    setEmailCode(event.target.value);
-  };
-  const handleEmailSubmit = (event) => {
-    event.preventDefault();
-    verifyEmailCode("kunquan4869@gmail.com", emailCode);
-  };
-
-  const handlePhoneChange = (event) => {
-    setPhoneCode(event.target.value);
-  };
-  const handlePhoneSubmit = (event) => {
-    event.preventDefault();
-    verifyPhoneCode(phoneCode);
-  };
-
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-  const handleFirstNameSubmit = (event) => {
-    event.preventDefault();
-    updateFirstName(firstName);
-  };
-
-  const handleCheckout = async () => {
-    // await updateShipping();
-    await checkout(1235);
-  };
+  const products = useProducts();
 
   return (
     <main>
-      {status ? (
-        <>
-          <button onClick={signOut}>Sign out</button>
-          <div>
-            <button
-              onClick={() => {
-                updateShipping();
-              }}
-            >
-              Update shipping address
-            </button>
-          </div>
-
-          <button onClick={handleCheckout}>Checkout</button>
-        </>
+      <h1>Test</h1>
+      {products.length > 0 ? (
+        <button onClick={() => selectItem(products[5].id)}>
+          Add item {products[5].name} to cart
+        </button>
       ) : (
-        <>
-          <h1>Sign in with linked email</h1>
-          <button
-            onClick={() => {
-              sendEmailCode("kunquan4869@gmail.com");
-            }}
-          >
-            Send code to email
-          </button>
-          <form onSubmit={handleEmailSubmit}>
-            <label form="email-code">Enter code</label>
-            <input type="text" id="email-code" onChange={handleEmailChange} />
-            <button>Submit</button>
-          </form>
-          <hr />
-
-          {/**------------------------------------------------------------------- */}
-
-          <h1>Sign in with phone number</h1>
-          <button
-            onClick={() => {
-              sendPhoneCode("+12345358911");
-            }}
-            id="phone-sign-in-button"
-          >
-            Send code to phone number
-          </button>
-          <form onSubmit={handlePhoneSubmit}>
-            <label form="phone-code">Enter phone code</label>
-            <input type="text" id="phone-code" onChange={handlePhoneChange} />
-            <button>Submit</button>
-          </form>
-          <hr />
-          {/**------------------------------------------------------------------- */}
-
-          <h1>Sign in with Gmail</h1>
-          <button onClick={signUp}>Sign up with Gmail</button>
-          <hr />
-          {/**------------------------------------------------------------------- */}
-
-          <h1>Set User's First Name</h1>
-          <form onSubmit={handleFirstNameSubmit}>
-            <label form="phone-code">Enter phone code</label>
-            <input
-              type="text"
-              id="phone-code"
-              onChange={handleFirstNameChange}
-            />
-            <button>Submit</button>
-          </form>
-
-          {/**-------------------------------------------------------------------- */}
-          <h1>Show alert message</h1>
-          <button onClick={() => activateErrorAlert("error here")}>
-            Activate error
-          </button>
-        </>
+        <h2>Waiting for loading</h2>
       )}
     </main>
   );

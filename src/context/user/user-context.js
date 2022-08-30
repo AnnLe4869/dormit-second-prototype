@@ -92,7 +92,7 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         return {
           ...state,
           cart: [
@@ -125,7 +125,7 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         throw new Error("Incorrect product id is passed");
       } else {
         return {
@@ -152,7 +152,7 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         throw new Error("Incorrect product id is passed");
       } else {
         const currentQuantity = originalCart[existingItemIndex];
@@ -191,7 +191,7 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         throw new Error("Incorrect product id is passed");
       } else {
         return {

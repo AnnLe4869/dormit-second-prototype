@@ -9,6 +9,7 @@ import { INITIALIZE_CART, INITIALIZE_USER_DETAILS } from "../../constant";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
 import { isArrayDifferent } from "../../helper/isArrayDifferent";
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
+import { initializeCartWithBlank } from "./cart-handler";
 
 export async function useInitializeUser() {
   const { auth, db } = useContext(AppContext);
@@ -20,11 +21,19 @@ export async function useInitializeUser() {
      * we always want to sync the cart in localStorage with cart in Context
      */
     const localCart = getCartFromLocStore();
-    if (!localCart) {
+    if (localCart) {
       userDispatch({
         type: INITIALIZE_CART,
         payload: {
           cart: localCart,
+        },
+      });
+    } else {
+      initializeCartWithBlank();
+      userDispatch({
+        type: INITIALIZE_CART,
+        payload: {
+          cart: [],
         },
       });
     }
@@ -34,8 +43,7 @@ export async function useInitializeUser() {
      * If user sign out, refresh the page
      * How this works: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
      */
-    let unsubscribeUser;
-    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       /**
        * if user already authenticated before, populate all the fields
        * do the same if user successfully authenticate
@@ -112,7 +120,7 @@ export async function useInitializeUser() {
          * see https://firebase.google.com/docs/firestore/query-data/listen#view_changes_between_snapshots
          */
         const currentOrdersRef = doc(db, "users", user.uid, "current_orders");
-        unsubscribeUser = onSnapshot(currentOrdersRef, (snapshot) => {
+        onSnapshot(currentOrdersRef, (snapshot) => {
           // TODO: update the context with this change
         });
       } else {
@@ -121,14 +129,9 @@ export async function useInitializeUser() {
          * a possible way to clear out Context is to redirect user to another page
          * redirect will cause reload, which will detach the realtime listener - the result we want
          */
-        removeUserDataFromLocalStorage();
-        window.location.href = "localhost:3000/";
+        // removeUserDataFromLocalStorage();
+        window.location.href = "localhost:3000";
       }
     });
-
-    return () => {
-      unsubscribeAuth();
-      unsubscribeUser();
-    };
   }, []);
 }

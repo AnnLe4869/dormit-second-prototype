@@ -15,6 +15,7 @@ import { UserContext } from "./user-context";
 import { useUserAuthenticationDetail } from "./auth-handler";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
 import { updateCartItemLocStore } from "../../helper/updateCartItemLocStore";
+import { writeCartToLocStore } from "../../helper/writeCartToLocStore";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -23,18 +24,28 @@ import { updateCartItemLocStore } from "../../helper/updateCartItemLocStore";
  */
 
 /**
+ * initialize cart in localStorage with an empty array
+ */
+export function initializeCartWithBlank() {
+  writeCartToLocStore([]);
+}
+
+/**
  * return a function that when called, does the following:
  * select a product and put that product into the cart
  * only save the change locally and not to database
  * @param {string} id   :id of the product selected
  */
 export function useSelectItem() {
-  const { dispatch } = useContext(ProductContext);
+  const { dispatch } = useContext(UserContext);
 
   return (id) => {
     const localCart = getCartFromLocStore();
 
-    if (localCart.findIndex((item) => item.product_id === id) !== -1) {
+    if (
+      localCart &&
+      localCart.findIndex((item) => item.product_id === id) !== -1
+    ) {
       throw new Error(
         "Incorrect use of the function useSelectItem." +
           "It should be used on product that has NOT been added to localStorage only"
@@ -62,7 +73,7 @@ export function useSelectItem() {
  * @param {string} id   :id of the product
  */
 export function useIncrementItemCount() {
-  const { dispatch } = useContext(ProductContext);
+  const { dispatch } = useContext(UserContext);
 
   return (id) => {
     const localCart = getCartFromLocStore();
@@ -98,7 +109,7 @@ export function useIncrementItemCount() {
  * @param {string} id   :id of the product
  */
 export function useDecrementItemCount() {
-  const { dispatch } = useContext(ProductContext);
+  const { dispatch } = useContext(UserContext);
 
   return (id) => {
     const localCart = getCartFromLocStore();
@@ -132,7 +143,7 @@ export function useDecrementItemCount() {
  * @param {string} id   :id of the product
  */
 export function useRemoveProductFromCart() {
-  const { dispatch } = useContext(ProductContext);
+  const { dispatch } = useContext(UserContext);
 
   return (id) => {
     const localCart = getCartFromLocStore();

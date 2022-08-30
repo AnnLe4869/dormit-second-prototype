@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, connectAuthEmulator } from "firebase/auth";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
-import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { connectAuthEmulator, getAuth } from "firebase/auth";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import "stop-runaway-react-effects/hijack";
@@ -11,13 +11,10 @@ import firebaseConfig from "./firebase.config";
 import "./index.css";
 
 // this is to populate data only
-// when in production, admin will create item by hand and will add data to it
-import { getStorage } from "firebase/storage";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
-const storage = getStorage(app);
 const functions = getFunctions(app);
 /**
  * the function below connect the app with emulator
