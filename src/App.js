@@ -3,11 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useInitializeApp } from "./context/app-context";
 import AccountPage from "./routes/account/Account";
 import AuthPage from "./routes/auth/Auth";
+
 import Category from "./routes/category/Category";
+
 import CheckoutPage from "./routes/checkout/Checkout";
 import Homepage from "./routes/home/Home";
 import OrderPage from "./routes/order/OrderPage";
 import SearchPage from "./routes/search/Search";
+
 import Test from "./routes/test/Test";
 import AlertPopup from "./shared/alert-popup/AlertPopup";
 
