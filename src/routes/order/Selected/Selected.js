@@ -18,6 +18,11 @@ import { styled } from "@mui/material/styles";
 import msgIcon from "../../../mock_data/images/msgIcon.png";
 import PhoneIcon from "../../../mock_data/images/PhoneIcon.png";
 
+const order1 = {
+  products: [productList[23], productList[24], productList[25]],
+  status: "completed",
+};
+
 const steps = ["Placed", "Picking Up", "On the Way", "Received"];
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -44,15 +49,8 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
 }));
 
 function Order() {
-  const order1 = {
-    products: [productList[23], productList[24], productList[25]],
-    status: "current",
-  };
-
-  console.log(order1);
-
   return (
-    <Container>
+    <Container sx={{ paddingBottom: "50px" }}>
       <Box
         sx={{
           display: "flex",
@@ -75,7 +73,7 @@ function Order() {
       <Container maxWidth="sm">
         {/* Order */}
         <Typography variant="body1" fontSize="large" sx={{ my: "20px" }}>
-          <b>Current</b> • Arriving in <b>4 minutes</b>
+          <b>{order1.status}</b> • Arriving in <b>4 minutes</b>
         </Typography>
         <Box
           sx={{
@@ -101,6 +99,114 @@ function Order() {
             </Box>
           ))}
         </Box>
+
+        {/* Completed order information */}
+        {order1.status === "completed" ? (
+          <Box>
+            {/* Totals */}
+            <Divider
+              flexItem="true"
+              light="false"
+              variant="fullWidth"
+              sx={{ borderBottomWidth: "2px", my: "15px" }}
+            />
+            <Box
+              sx={{
+                width: "100%",
+                height: "30px",
+                display: "flex",
+                justifyContent: "space-between",
+                color: "#686868",
+              }}
+            >
+              <Typography variant="subtitle1" color="#686868">
+                Subtotal
+              </Typography>
+              <Typography variant="subtitle1" color="#686868">
+                $1.00
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "30px",
+                display: "flex",
+                justifyContent: "space-between",
+                color: "#686868",
+              }}
+            >
+              <Typography variant="subtitle1" color="#686868">
+                Tax
+              </Typography>
+              <Typography variant="subtitle1" color="#686868">
+                $1.00
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "30px",
+                display: "flex",
+                justifyContent: "space-between",
+                color: "#686868",
+              }}
+            >
+              <Typography variant="subtitle1" color="#686868">
+                Delivery
+              </Typography>
+              <Typography variant="subtitle1" color="#686868">
+                $1.95
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "30px",
+                display: "flex",
+                justifyContent: "space-between",
+                color: "#686868",
+              }}
+            >
+              <Typography variant="subtitle1" color="#686868">
+                Rusher Tip
+              </Typography>
+              <Typography variant="subtitle1" color="#686868">
+                $1.95
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "30px",
+                display: "flex",
+                justifyContent: "space-between",
+                color: "#686868",
+              }}
+            >
+              <Typography variant="subtitle1" color="#000000">
+                Total
+              </Typography>
+              <Typography variant="subtitle1" color="#000000">
+                $1.00
+              </Typography>
+            </Box>
+
+            {/* Address */}
+            <Divider
+              flexItem="true"
+              light="false"
+              variant="fullWidth"
+              sx={{ borderBottomWidth: "2px", my: "15px" }}
+            />
+            <Typography variant="h6" fontWeight="bold" sx={{ mb: "10px" }}>
+              Address
+            </Typography>
+            <Typography variant="subtitle1" color="#686868">
+              Black Hall 1234 <br />
+              UC San Diego
+            </Typography>
+          </Box>
+        ) : null}
 
         {/* Rusher info */}
         <Divider
@@ -145,42 +251,45 @@ function Order() {
           </Box>
         </Box>
 
-        <Divider
-          flexItem="true"
-          light="false"
-          variant="fullWidth"
-          sx={{ borderBottomWidth: "2px", my: "15px" }}
-        />
-
-        <Box sx={{ display: "flex", gap: "20px", flexDirection: "column" }}>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: "10px" }}>
-            Delivery Progress
-          </Typography>
-          <Stepper
-            connector={<QontoConnector />}
-            sx={{
-              width: "100%",
-              "& 	.MuiStepIcon-root": {
-                color: "#7141FA",
-                zIndex: 4,
-                "&.Mui-completed": {
-                  color: "#7141FA",
-                },
-                "&.Mui-active": {
-                  color: "#7141FA",
-                },
-              },
-            }}
-            activeStep={1}
-            alternativeLabel
-          >
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </Box>
+        {order1.status === "current" ? (
+          <>
+            <Divider
+              flexItem="true"
+              light="false"
+              variant="fullWidth"
+              sx={{ borderBottomWidth: "2px", my: "15px" }}
+            />
+            <Box sx={{ display: "flex", gap: "20px", flexDirection: "column" }}>
+              <Typography variant="h6" fontWeight="bold" sx={{ mb: "10px" }}>
+                Delivery Progress
+              </Typography>
+              <Stepper
+                connector={<QontoConnector />}
+                sx={{
+                  width: "100%",
+                  "& 	.MuiStepIcon-root": {
+                    color: "#7141FA",
+                    zIndex: 4,
+                    "&.Mui-completed": {
+                      color: "#7141FA",
+                    },
+                    "&.Mui-active": {
+                      color: "#7141FA",
+                    },
+                  },
+                }}
+                activeStep={1}
+                alternativeLabel
+              >
+                {steps.map((label) => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
+          </>
+        ) : null}
         <Box
           sx={{
             marginY: "40px",

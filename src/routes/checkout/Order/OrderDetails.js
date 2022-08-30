@@ -1,5 +1,5 @@
 import React from "react";
-import BottomNav from "../../shared/bottom-nav/BottomNav";
+import BottomNav from "../../../shared/bottom-nav/BottomNav";
 import styles from "./OrderDetails.module.css";
 import {
   TextField,
