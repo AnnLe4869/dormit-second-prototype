@@ -59,7 +59,7 @@ export function useSelectItem() {
     dispatch({
       type: ADD_TO_CART,
       payload: {
-        id,
+        product_id: id,
       },
     });
   };
@@ -94,7 +94,7 @@ export function useIncrementItemCount() {
     dispatch({
       type: INCREMENT_QUANTITY,
       payload: {
-        id,
+        product_id: id,
       },
     });
   };
@@ -129,7 +129,7 @@ export function useDecrementItemCount() {
     dispatch({
       type: DECREMENT_QUANTITY,
       payload: {
-        id,
+        product_id: id,
       },
     });
   };
@@ -162,7 +162,7 @@ export function useRemoveProductFromCart() {
     dispatch({
       type: REMOVE_ITEM_FROM_CART,
       payload: {
-        id,
+        product_id: id,
       },
     });
   };

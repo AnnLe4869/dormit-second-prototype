@@ -15,14 +15,14 @@ export function updateCartItemLocStore({ productId, quantity }) {
     }
   } else {
     if (quantity > 0) {
-      writeCartToLocStore(
+      writeCartToLocStore([
         ...localCart.filter((item) => item.product_id !== productId),
-        { product_id: productId, quantity }
-      );
+        { product_id: productId, quantity },
+      ]);
     } else {
-      writeCartToLocStore(
-        ...localCart.filter((item) => item.product_id !== productId)
-      );
+      writeCartToLocStore([
+        ...localCart.filter((item) => item.product_id !== productId),
+      ]);
     }
   }
 }

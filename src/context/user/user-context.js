@@ -158,7 +158,7 @@ function userReducer(state, action) {
       if (existingItemIndex === -1) {
         throw new Error("Incorrect product id is passed");
       } else {
-        const currentQuantity = originalCart[existingItemIndex];
+        const currentQuantity = originalCart[existingItemIndex].quantity;
 
         if (currentQuantity <= 1) {
           // we remove the item from the cart if this is the case

@@ -34,9 +34,20 @@ export default function Test() {
     <main>
       <h1>Test</h1>
       {products.length > 0 ? (
-        <button onClick={() => selectItem(products[5].id)}>
-          Add item {products[5].name} to cart
-        </button>
+        products.slice(1, 10).map((product) => (
+          <div key={product.id}>
+            <h1>Item {product.id} </h1>
+            <button onClick={() => selectItem(product.id)}>
+              Add item {product.name} to cart
+            </button>
+            <button onClick={() => incrementItem(product.id)}>
+              Increment item {product.name}
+            </button>
+            <button onClick={() => decrementItem(product.id)}>
+              Decrement item {product.name}
+            </button>
+          </div>
+        ))
       ) : (
         <h2>Waiting for loading</h2>
       )}
