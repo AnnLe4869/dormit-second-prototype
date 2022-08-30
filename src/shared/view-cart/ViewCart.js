@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { viewCartStyles } from "../../muiStyles.js";
-import Cart from "../../routes/home/Cart";
+import Cart from "./Cart";
 
 /*
  * Material-UI Imports

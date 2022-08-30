@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../home/CartItem.module.css";
+import styles from "./CartItem.module.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";

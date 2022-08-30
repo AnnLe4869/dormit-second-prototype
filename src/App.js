@@ -17,7 +17,7 @@ import CompletedOrder from "./routes/checkout/CompletedOrder";
 
 import Test from "./routes/test/Test";
 import Order from "./routes/order/Order";
-import Cart from "./routes/home/Cart";
+import Cart from "./shared/view-cart/Cart";
 import { Home } from "@mui/icons-material";
 
 function App() {

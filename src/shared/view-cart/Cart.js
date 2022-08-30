@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import CartItem from "./CartItem";
-import ItemEntry from "../../shared/item-entry/ItemEntry";
+import ItemEntry from "../item-entry/ItemEntry";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
