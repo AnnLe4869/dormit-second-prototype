@@ -1,35 +1,44 @@
-import React, { useState } from "react";
-import { Typography, Button, Box } from "@mui/material";
-import { AccountBox, ButtonStyles } from "../muiStyles";
-import PaymentMethodModal from "./PaymentMethodModal";
+import React from "react";
+import styles from "../Account.module.css";
 
 export default function Payment() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const addPaymentMethod = () => {};
+  // payment method
+  let savedPayments = [
+    { icon: "img", name: "name" },
+    { icon: "img2", name: "name2" },
+  ];
+  let paymentIcon = "img";
   return (
-    <Box sx={AccountBox}>
-      <Typography variant="h4">Payment Methods</Typography>
-      <Typography
-        variant="h6"
-        sx={{ fontWeight: "500", m: "13px 0 5px 0", color: "black" }}
-      >
-        Saved Payment Methods
-      </Typography>
+    <div className={styles.boxes}>
+      <div className={styles.head}>
+        <h3 className={styles.boxTitle}>Payment methods</h3>
+        <img
+          src={paymentIcon}
+          className={styles.icon}
+          id={styles.paymentIcon}
+          alt="payment"
+        ></img>
+      </div>
+      <hr className={styles.lineDiv} id={styles.paymentLine} />
+      <h5>Saved payment methods</h5>
+      {savedPayments.map((paymentMethod, index) => {
+        return (
+          <div className={styles.rows}>
+            <img
+              scr={paymentMethod["icon"]}
+              className={styles.smallIcon}
+              alt="payment"
+            ></img>
+            <p>{paymentMethod["name"]}</p>
+          </div>
+        );
+      })}
 
-      <Typography variant="body1" sx={{ mb: "20px" }}>
-        No Saved Methods
-      </Typography>
-      <Button onClick={handleOpen} variant="contained" sx={ButtonStyles}>
-        <Typography
-          color="white"
-          variant="body1"
-          sx={{ fontWeight: "700", color: "white" }}
-        >
-          Add Payment Method
-        </Typography>
-      </Button>
-      <PaymentMethodModal open={open} handleClose={handleClose} />
-    </Box>
+      {savedPayments.length === 0 && <p>No saved methods</p>}
+      <button className={styles.btn} onClick={addPaymentMethod}>
+        Add payment method
+      </button>
+    </div>
   );
 }
