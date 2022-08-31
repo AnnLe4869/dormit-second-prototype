@@ -10,11 +10,12 @@ service cloud.firestore {
       allow write: if (!request.resource.data.diff(resource.data).affectedKeys()
         .hasAny(['current_order']));
 
-      match /checkout_sessions/{id} {
-        allow read, write: if request.auth.uid == uid;
-      }
       match /payments/{id} {
         allow read: if request.auth.uid == uid;
+      }
+      match /current_orders/{id} {
+        allow read: if request.auth.uid == uid;
+        allow write: if false;
       }
       
     }

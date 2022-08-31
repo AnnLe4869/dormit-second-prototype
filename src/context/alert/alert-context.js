@@ -2,9 +2,12 @@ import React, { createContext } from "react";
 import { ACTIVATE_ALERT, DEACTIVATE_ALERT } from "../../constant";
 
 export const AlertContext = createContext({
-  type: null,
-  message: "actual message will be passed through",
-  isActive: false,
+  dispatch: () => {},
+  state: {
+    type: null,
+    message: "actual message will be passed through",
+    isActive: false,
+  },
 });
 
 function alertReducer(state, action) {

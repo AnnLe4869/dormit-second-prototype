@@ -1,51 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "../Auth.module.css";
-import callIcon from "../../../mock_data/images/callVector.png";
-import { Link } from "react-router-dom";
-import { Container } from "@mui/system";
 import { Box, Button, Typography } from "@mui/material";
+import { Container } from "@mui/system";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useVerifyPhoneCode } from "../../../context/user/auth-handler";
+import callIcon from "../../../mock_data/images/callVector.png";
+import styles from "../Auth.module.css";
 import { authStyles } from "../muiStyles";
 
-const authCode = new Array(6).fill(0);
-
-function Otpcode() {
+function Otpcode({ phoneNumber, confirmationResult }) {
   const [phoneCode, setPhoneCode] = useState("");
+  const navigate = useNavigate();
 
-  const [currentInput, setCurrentInput] = useState(0);
-  console.log(authCode);
-  let inputRef = useRef(null);
-  let buttonRef = useRef();
   const verifyPhoneCode = useVerifyPhoneCode();
-
-  // const handleOnchange = (index) => {
-  //   authCode.splice(index, 1, inputRef.current.value);
-
-  //   if (currentInput < 6) {
-  //     inputRef.current?.focus();
-  //     return setCurrentInput(currentInput + 1);
-  //   }
-
-  //   return;
-  // };
 
   const handleOnchange = (event) => {
     setPhoneCode(event.target.value);
   };
 
-  const check = async () => {
-    await verifyPhoneCode(phoneCode);
+  const handleSubmit = async () => {
+    const result = await verifyPhoneCode(phoneCode, confirmationResult);
+    if (result.isSuccess) {
+      if (result.isNewUser) {
+        navigate("/auth/signup");
+      } else {
+        navigate("/category");
+      }
+    }
   };
-
-  // useEffect(() => {
-  //   inputRef.current?.focus();
-
-  //   console.log(currentInput);
-
-  //   if (currentInput === 6) {
-  //     inputRef.current?.blur();
-  //   }
-  // }, [currentInput]);
 
   return (
     <Container>
@@ -57,7 +38,7 @@ function Otpcode() {
         <Typography variant="body1">
           We sent you an{" "}
           <Box component="span" color="#7141FA">
-            SMS code to (xxx) xxx-xxxx
+            SMS code to {phoneNumber}
           </Box>
         </Typography>
         <Box
@@ -68,31 +49,25 @@ function Otpcode() {
             textAlign: "left",
           }}
         >
-          <input type="text" onChange={handleOnchange}></input>
-          {/* {authCode.map((val, index) => {
-            return (
-              <input
-                key={index}
-                onChange={() => handleOnchange(index)}
-                type="number"
-                ref={index === currentInput ? inputRef : null}
-                className={styles.inputVerify}
-                placeholder={val}
-              ></input>
-            );
-          })} */}
+          <input
+            pattern="[0-9]"
+            value={phoneCode}
+            onChange={handleOnchange}
+            className={styles.inputPhone}
+            type="text"
+            maxLength="6"
+          ></input>
         </Box>
-        <Link className={styles.buttonLink} to={{ pathname: "/auth/signup" }}>
+        <div className={styles.buttonLink}>
           <Button
-            ref={buttonRef}
             disableRipple
             variant="contained"
             sx={authStyles.authButton}
-            onClick={check}
+            onClick={handleSubmit}
           >
             Confirm
           </Button>
-        </Link>
+        </div>
       </Box>
     </Container>
   );
