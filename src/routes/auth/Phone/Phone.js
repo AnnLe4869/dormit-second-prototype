@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PhoneInput from "react-phone-number-input/input";
 import { Link, useNavigate } from "react-router-dom";
 import { useSendCodeToPhone } from "../../../context/user/auth-handler";
@@ -12,9 +12,13 @@ function Phone({ phoneNumber, setPhoneNumber, setConfirmationResult }) {
   const navigate = useNavigate();
   const sendPhoneCode = useSendCodeToPhone();
 
-  const handleSubmit = () => {
-    sendPhoneCode(phoneNumber, setConfirmationResult);
-    navigate("/auth/phone/otpcode");
+  const handleSubmit = async () => {
+    const result = await sendPhoneCode(phoneNumber, setConfirmationResult);
+    if (result.isSuccess) {
+      navigate("/auth/phone/otpcode");
+    } else {
+      // show the error message here
+    }
   };
 
   return (
