@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CategoryMenu from "../../shared/category-menu/CategoryMenu";
@@ -14,7 +14,15 @@ import { categories } from "./CategoryProps.js";
 
 import { mockProducts } from "../../mock_data/data/mockData.js";
 
+import { useProducts } from "../../context/product/product-handler";
+
+import apple from "../../assets/apple.png";
+
+
 function Category() {
+
+  let products = useProducts();
+
   //Reset scroll to top
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
@@ -31,25 +39,45 @@ function Category() {
   if (!props) props = categories[0];
 
   ///Iterate through all the products list. Push to renderedProducts if categories match
-  for (let i = 0; i < mockProducts.length; i++) {
-    const current = mockProducts[i];
+  // for (let i = 0; i < products.length; i++) {
+  //   const current = products[i];
 
-    if (
-      current.metadata.category === props.category ||
-      props.category === "/"
-    ) {
-      renderedProducts.push(
-        <ProductListing
-          id={current.id}
-          name={current.name}
-          image={current.images[0]}
-          description={current.description}
-          price={current.prices[0].unit_amount}
-          stock={current.metadata.quantity}
-        />
-      );
+  //   if (
+  //     current.metadata.category === props.category ||
+  //     props.category === "/"
+  //   ) {
+  //     renderedProducts.push(
+  //       <ProductListing
+  //         id={current.id}
+  //         name={current.name}
+  //         image={current.images[0]}
+  //         description={current.description}
+  //         price={current.prices[0].unit_amount}
+  //         stock={current.metadata.quantity}
+  //       />
+  //     );
+  //   }
+  // }
+
+
+
+  const testFunction = async () => {
+
+    function GetProducts() {
+      return useProducts();
     }
+
+    const testOutput = GetProducts();
+    console.log("testOutput: ", testOutput);
   }
+
+  useEffect(() => {
+    testFunction();
+    return () => {
+      
+    }
+  })
+
 
   const navigateItems = () => {
     navigate(-1);
@@ -72,10 +100,38 @@ function Category() {
       <div className={styles.page}>
         <div className={styles.supplies}>
           <ul className={styles.bigItemList}>
-            {renderedProducts.map((item) => {
-              return <li>{item}</li>;
-            })}
+            {products.length > 0 ? (products.slice(1).map((product) => (
+              <li>
+                {/* <h4>{product.name}</h4>
+                {product.prices ? <h3>{product.prices[0].unit_amount}</h3> : <h3>loading prices...</h3>} */}
+
+                { (product.prices && product.images) ? 
+                <ProductListing
+                  id={product.id}
+                  name={product.name}
+                  image={product.images[0]}
+                  description={product.description}
+                  price={product.prices[0].unit_amount}
+                  stock={product.metadata.quantity}
+                /> :                 <ProductListing
+                id={product.id}
+                name={product.name}
+                image={apple}
+                description={product.description}
+                price={2000}
+                stock={10}
+              />
+                }
+
+
+
+
+              </li>)))
+              : <h2>Waiting for loading...</h2>}
+
           </ul>
+
+            
         </div>
 
         <div>

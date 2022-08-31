@@ -36,6 +36,10 @@ function Search() {
     setProductsState(mockProducts);
   }, []);
 
+  if (products.length > 0) {
+    console.log(products[1].prices[0].unit_amount);
+  }
+
   /*
    * useEffect() that will set the empty state each time the search state is updated.
    */
