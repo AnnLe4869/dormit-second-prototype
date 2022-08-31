@@ -1,24 +1,20 @@
-import React, { useRef } from "react";
-import styles from "../Auth.module.css";
-import callIcon from "../../../mock_data/images/callVector.png";
-import { Container } from "@mui/system";
-import { Link } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
+import { Container } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import PhoneInput from "react-phone-number-input/input";
+import { Link, useNavigate } from "react-router-dom";
 import { useSendCodeToPhone } from "../../../context/user/auth-handler";
+import callIcon from "../../../mock_data/images/callVector.png";
+import styles from "../Auth.module.css";
 import { authStyles } from "../muiStyles";
 
-function Phone() {
-  const inputRef = useRef();
-
+function Phone({ phoneNumber, setPhoneNumber, setConfirmationResult }) {
+  const navigate = useNavigate();
   const sendPhoneCode = useSendCodeToPhone();
 
-  //Regex to format 10 given numbers to an American phone number
-  const phoneFormat = () => {
-    let phoneNumber = inputRef.current.value;
-    inputRef.current.value = phoneNumber.replace(
-      /(\d{3})(\d{3})(\d{4})/,
-      "($1) $2-$3"
-    );
+  const handleSubmit = () => {
+    sendPhoneCode(phoneNumber, setConfirmationResult);
+    navigate("/auth/phone/otpcode");
   };
 
   return (
@@ -57,33 +53,29 @@ function Phone() {
           >
             Phone
           </Typography>
-          <input
-            pattern="[0-9]"
-            ref={inputRef}
-            onChange={phoneFormat}
-            className={styles.inputPhone}
-            type="text"
+
+          {/**Phone input field */}
+          <PhoneInput
+            country="US"
             placeholder="(xxx) xxx-xxxx"
-            maxLength="10"
-          ></input>
+            className={styles.inputPhone}
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+            smartCaret
+          />
         </Box>
 
-        <Link
-          className={styles.buttonLink}
-          to={{ pathname: "/auth/phone/otpcode" }}
-        >
+        <div className={styles.buttonLink}>
           <Button
             variant="contained"
             disableRipple
             sx={authStyles.authButton}
-            onClick={() => {
-              sendPhoneCode("+1" + inputRef.current.value);
-            }}
+            onClick={handleSubmit}
             id="phone-sign-in-button"
           >
             Confirm
           </Button>
-        </Link>
+        </div>
 
         <Link className={styles.buttonLink} to={{ pathname: "/auth/email" }}>
           <Typography
