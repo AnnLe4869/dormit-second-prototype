@@ -1,28 +1,21 @@
-import styles from "./Account.module.css";
-import { createTheme, Typography } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
-export const theme = createTheme({
-  fontFamily: "Poppins",
+const theme = createTheme({
   typography: {
-    title1: {
-      fontSize: 34,
+    fontFamily: "Poppins",
+    h4: {
       color: "#4214C3",
       fontWeight: 600,
     },
-    title2: {
-      fontSize: 24,
+    h6: {
       fontWeight: 700,
-      color: "#7141fa",
+      color: "#7141FA",
     },
-    callout: {
-      fontSize: 18,
-      color: "#341A7D",
+    subtitle1: {
       fontWeight: 700,
     },
     body1: {
-      fontSize: 18,
       fontWeight: 400,
-      color: "#341A7D",
     },
     subtext: {
       fontSize: 16,
@@ -43,45 +36,110 @@ export const theme = createTheme({
   },
 });
 
+export const responsiveTheme = responsiveFontSizes(theme);
+
 export const AccountBox = {
-  p: {
-    xs: "20px 15px",
-    sm: "40px 60px",
-    md: "40px 55px",
+  boxSize: "border-box",
+  backgroundColor: "rgba(124, 145, 244, 0.15)",
+  maxWidth: "700px",
+  minWidth: "350px",
+  width: {
+    xs: "90vw",
+    sm: "75vw",
+    md: "70vw",
+    lg: "55vw",
+    xl: "50vw",
   },
-  backgroundColor: "#F3EFFF",
-  borderRadius: "50px",
-  marginBottom: "45px",
+  p: {
+    xs: "22px",
+    sm: "25px",
+    md: "30px",
+    lg: "35px",
+    xl: "40px",
+  },
+  pt: {
+    xs: "16px",
+    sm: "18px",
+    md: "20px",
+    lg: "25px",
+  },
+  borderRadius: {
+    xs: "25px",
+    sm: "30px",
+    lg: "35px",
+    xl: "40px",
+  },
+
+  marginBottom: {
+    xs: "25px",
+    sm: "25px",
+    md: "30px",
+    lg: "35px",
+    xl: "35px",
+  },
 };
 
 export const ModalStyles = {
-  backgroundColor: "#FEFEFE",
-  backdropFilter: "blur(5px)",
-  border: "2px solid #ECECEC ",
-  borderRadius: "8px",
+  boxSize: "border-box",
+  backdropFilter: "blur(2px)",
+  backgroundColor: "#c8cce0",
+  maxWidth: "700px",
+  minWidth: "340px",
+  width: {
+    xs: "90vw",
+    sm: "75vw",
+    md: "70vw",
+    lg: "55vw",
+    xl: "50vw",
+  },
+  p: {
+    xs: "22px",
+    sm: "25px",
+    md: "30px",
+    lg: "35px",
+    xl: "40px",
+  },
+  pt: {
+    xs: "16px",
+    sm: "18px",
+    md: "20px",
+    lg: "25px",
+  },
+  borderRadius: {
+    xs: "25px",
+    sm: "30px",
+    lg: "35px",
+    xl: "40px",
+  },
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "35%",
-  p: 4,
 };
 
 export const ButtonStyles = {
   textTransform: "none",
   color: "white",
-  marginTop: "10px",
   borderRadius: "30px",
   backgroundColor: "#7141FA",
-  padding: "8px 26px",
+  p: "8px 26px",
+  fontWeight: "700",
 };
 
 export const textFieldStyles = {
   backgroundColor: "white",
   borderRadius: "5px",
-  width: "100%",
-  fieldset: {
-    borderColor: "#ffffff",
-  },
-  marginTop: "13px",
+  fieldset: { borderColor: "#fff" },
+};
+
+export const IconCircleStyles = {
+  boxSizing: "border-box",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "55px",
+  aspectRatio: "1/1",
+  backgroundColor: "white",
+  border: "3px solid #7141FA",
+  borderRadius: "50px",
 };

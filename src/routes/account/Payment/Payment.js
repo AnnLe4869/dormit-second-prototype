@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Button, Box } from "@mui/material";
 import { AccountBox, ButtonStyles } from "../muiStyles";
-import PaymentOptionModal from "./PaymentOptionModal";
+import PaymentMethodModal from "./PaymentMethodModal";
 
 export default function Payment() {
   const [open, setOpen] = useState(false);
@@ -9,18 +9,27 @@ export default function Payment() {
   const handleClose = () => setOpen(false);
   return (
     <Box sx={AccountBox}>
-      <Typography variant="title1">Payment Methods</Typography>
-      <br />
-      <Typography variant="title2" color="primary" sx={{ m: "20px 0" }}>
-        Saved payment methods
+      <Typography variant="h4">Payment Methods</Typography>
+      <Typography
+        variant="h6"
+        sx={{ fontWeight: "500", m: "13px 0 5px 0", color: "black" }}
+      >
+        Saved Payment Methods
       </Typography>
-      <br />
+
+      <Typography variant="body1" sx={{ mb: "20px" }}>
+        No Saved Methods
+      </Typography>
       <Button onClick={handleOpen} variant="contained" sx={ButtonStyles}>
-        <Typography variant="callout" color="white">
-          Add payment method
+        <Typography
+          color="white"
+          variant="body1"
+          sx={{ fontWeight: "700", color: "white" }}
+        >
+          Add Payment Method
         </Typography>
       </Button>
-      <PaymentOptionModal open={open} handleClose={handleClose} />
+      <PaymentMethodModal open={open} handleClose={handleClose} />
     </Box>
   );
 }

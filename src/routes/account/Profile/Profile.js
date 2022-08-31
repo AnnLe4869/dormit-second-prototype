@@ -5,121 +5,134 @@ import profilePicture from "../../../assets/Account/profilePicture.webp";
 import styles from "../Account.module.css";
 
 export default function Profile() {
-  const [isEditing, setIsEditing] = React.useState(false);
-  const nameRef = React.createRef();
-  const buildingRef = React.createRef();
-  const floorRef = React.createRef();
-  const aptRef = React.createRef();
-  const phoneRef = React.createRef();
-  const emailRef = React.createRef();
-  const passwordRef = React.createRef();
-
-  const editIconImage = "image";
-  const profilePicUrl = "imageUrl";
-  const locationIcon = "icon";
-  const contactDeetIcon = "icon";
-  const profileIcon = "img";
-  const buildingValue1 = "1";
-  const buildingValue2 = "2";
-  const buildingValue3 = "3";
-
-  const student = {
-    name: "Alex Smith",
-    pronoun: "They/them",
-  };
-
-  const changeProfilePic = () => {};
-  const editProfile = () => {
-    setIsEditing(true);
-  };
-  const saveProfileEdit = () => {
-    setIsEditing(false);
-  };
-  const cancelProfileEdit = () => {
-    setIsEditing(false);
-    // cancel edits on input fields
-    // reset to original values
-    // nameRef.current.value = student["name"];
-    // buildingRef.current.value = student["building"];
-    // floorRef.current.value = student["floor"];
-    // aptRef.current.value = student["apartment"];
-    // phoneRef.current.value = student["phone"];
-    // emailRef.current.value = student["email"];
-    // passwordRef.current.value = student["password"];
+  const user = {
+    name: "Alex Turner",
+    pronoun: "He/Him",
+    email: "alexturner@test.com",
+    phoneNumber: "530-324-5656",
+    college: "Revelle",
+    dorm: "Ellicott Hall",
+    dormNumber: "326",
   };
 
   return (
     <Box sx={AccountBox}>
-      <Typography variant="title1">Profile</Typography>
-      <Grid container alignItems="center" spacing={"18px"}>
-        <Grid item xs={1.2} sx={{ minWidth: "70px" }}>
+      <Typography variant="h4">Profile</Typography>
+      <Grid
+        container
+        alignItems="center"
+        spacing={{ xs: 1, sm: 1.5 }}
+        sx={{ pt: "13px", pb: "31px" }}
+      >
+        <Grid item xs={1.6} minWidth={75}>
           <img src={profilePicture} id={styles.pfp} alt="profile"></img>
         </Grid>
-        <Grid item sm={3.5} xs={4.5}>
-          <Typography variant="callout">Full Name</Typography>
+        <Grid item lg={3} md={3.5} xs={4} minWidth={125}>
+          <Typography variant="subtitle1" fontSize={{ xs: "13px", sm: "15px" }}>
+            Full Name
+          </Typography>
           <TextField
-            defaultValue={student.name}
+            defaultValue={user.name}
             size="small"
-            sx={textFieldStyles}
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "5px",
+              fieldset: { borderColor: "#fff" },
+              mt: "4px",
+            }}
+            InputProps={{ sx: { fontSize: "13px" } }}
           />
         </Grid>
-        <Grid item sm={3.5} xs={4.5}>
-          <Typography variant="callout">Pronouns</Typography>
+        <Grid item lg={3} md={3.5} xs={4} minWidth={113}>
+          <Typography variant="subtitle1" fontSize={{ xs: "13px", sm: "15px" }}>
+            Pronouns
+          </Typography>
           <TextField
-            value={student.pronoun}
+            value={user.pronoun}
             size="small"
-            sx={textFieldStyles}
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "5px",
+              fieldset: { borderColor: "#fff" },
+              mt: "4px",
+            }}
+            InputProps={{ sx: { fontSize: "13px" } }}
           />
         </Grid>
       </Grid>
 
-      <Typography variant="title2">Default Location</Typography>
-      <Grid container alignItems="center" spacing={"18px"}>
-        <Grid item sm={3.5} xs={4.5}>
-          <Typography variant="callout">UCSD Building</Typography>
+      <Typography variant="h6">Default Location</Typography>
+      <Grid container alignItems="center" spacing={"13px"}>
+        <Grid item xl={3.9} lg={4} md={4.7} sm={5.5} xs={6}>
+          <Typography variant="subtitle1" fontSize={{ xs: "13px", sm: "15px" }}>
+            UCSD Building
+          </Typography>
         </Grid>
-        <Grid item sm={3.5} xs={4.5}>
+        <Grid item sm={5.5} xs={6}>
           <TextField
-            defaultValue="Ellicott Hall"
+            defaultValue={user.dorm}
             size="small"
-            sx={textFieldStyles}
-          />
-        </Grid>
-      </Grid>
-
-      <Grid container alignItems="center" spacing={"18px"}>
-        <Grid item sm={3.5} xs={4.5}>
-          <Typography variant="callout">Floor / Apartment #</Typography>
-        </Grid>
-        <Grid item sm={3.5} xs={4.5}>
-          <TextField defaultValue="326" size="small" sx={textFieldStyles} />
-        </Grid>
-      </Grid>
-
-      <Typography variant="title2">Contact Details</Typography>
-
-      <Grid container alignItems="center" spacing={"18px"}>
-        <Grid item sm={3.5} xs={4.5}>
-          <Typography variant="callout">Phone Number</Typography>
-        </Grid>
-        <Grid item sm={3.5} xs={4.5}>
-          <TextField
-            defaultValue="530-324-5656"
-            size="small"
+            InputProps={{ sx: { fontSize: "13px" } }}
             sx={textFieldStyles}
           />
         </Grid>
       </Grid>
 
-      <Grid container alignItems="center" spacing={"18px"}>
-        <Grid item sm={3.5} xs={4.5}>
-          <Typography variant="callout">Email</Typography>
+      <Grid
+        container
+        alignItems="center"
+        spacing={"13px"}
+        sx={{ paddingBottom: "31px", pt: { xs: "5px", sm: "10px" } }}
+      >
+        <Grid item xl={3.9} lg={4} md={4.7} sm={5.5} xs={6}>
+          <Typography variant="subtitle1" fontSize={{ xs: "13px", sm: "15px" }}>
+            Floor/Apartment #
+          </Typography>
         </Grid>
-        <Grid item sm={3.5} xs={4.5}>
+        <Grid item sm={5.5} xs={6}>
           <TextField
-            defaultValue="alextest@test.com"
+            defaultValue={user.dormNumber}
             size="small"
             sx={textFieldStyles}
+            InputProps={{ sx: { fontSize: "13px" } }}
+          />
+        </Grid>
+      </Grid>
+
+      <Typography variant="h6">Contact Details</Typography>
+      <Grid container alignItems="center" spacing={"13px"}>
+        <Grid item xl={3.9} lg={4} md={4.7} sm={5.5} xs={6}>
+          <Typography variant="subtitle1" fontSize={{ xs: "13px", sm: "15px" }}>
+            Phone Number
+          </Typography>
+        </Grid>
+        <Grid item sm={5.5} xs={6}>
+          <TextField
+            defaultValue={user.phoneNumber}
+            size="small"
+            sx={textFieldStyles}
+            InputProps={{ sx: { fontSize: "13px" } }}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid
+        container
+        alignItems="center"
+        spacing={"13px"}
+        sx={{ pt: { xs: "5px", sm: "10px" } }}
+      >
+        <Grid item xl={3.9} lg={4} md={4.7} sm={5.5} xs={6}>
+          <Typography variant="subtitle1" fontSize={{ xs: "13px", sm: "15px" }}>
+            Email
+          </Typography>
+        </Grid>
+        <Grid item sm={5.5} xs={6}>
+          <TextField
+            defaultValue={user.email}
+            size="small"
+            sx={textFieldStyles}
+            InputProps={{ sx: { fontSize: "13px" } }}
           />
         </Grid>
       </Grid>

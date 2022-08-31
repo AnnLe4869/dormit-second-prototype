@@ -8,20 +8,23 @@ export default function Impact() {
   const CARBON_AMOUNT = 4;
   const NUM_RUSHER = 8;
 
-  const student = {
-    name: "Alex",
+  const user = {
+    name: "Alex Turner",
     pronoun: "He/Him",
+    email: "alextest@test.com",
+    phoneNumber: "530-324-5656",
     college: "Revelle",
+    dorm: "Ellicott Hall",
+    dormNumber: "326",
   };
 
-  const toSurvey = () => {};
   return (
     <Box sx={AccountBox}>
-      <Typography variant="title1">Your Impact</Typography>
-      <Typography>
-        {student.name + ", you are 1 of ("}
+      <Typography variant="h4">Your Impact</Typography>
+      <Typography sx={{ marginTop: "20px" }}>
+        {user.name + ", you are 1 of ("}
         <span className={styles.textColorPurp}>{NUM_STUDENTS}</span>
-        {") " + student.college + " students who prevented "}
+        {") " + user.college + " students who prevented "}
         <span className={styles.textColorPurp}>{CARBON_AMOUNT}</span>
         {"g carbon emissions and helped #"}
         <span className={styles.textColorPurp}>{NUM_RUSHER}</span>
@@ -32,8 +35,9 @@ export default function Impact() {
         Have some time to fill a quick optional survey? Share the link with a
         friend and get a shout out on Instagram!
       </Typography>
+
       <Button variant="contained" sx={ButtonStyles}>
-        <Typography variant="callout" color="white">
+        <Typography variant="body1" sx={{ fontWeight: "700", color: "white" }}>
           Take me to survey
         </Typography>
       </Button>

@@ -1,4 +1,5 @@
 import React from "react";
+import { AccountBox, IconCircleStyles } from "../muiStyles";
 import {
   Typography,
   IconButton,
@@ -7,46 +8,82 @@ import {
   Box,
   Link,
 } from "@mui/material";
-import { AccountBox } from "../muiStyles";
+
+import { ReactComponent as TikTokIcon } from "../../../assets/Account/tikTokIcon.svg";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Contact() {
   return (
     <Box sx={AccountBox}>
-      <Typography variant="title1">Contact Us</Typography>
-      <Box display="flex" justifyContent="center" gap={3}>
+      <Typography variant="h4">Contact Us</Typography>
+      <Box display="flex" justifyContent="center" gap={3} sx={{ mt: "20px" }}>
         <IconButton color="primary">
-          <Link href="https://www.instagram.com/dormitstore/">
-            <InstagramIcon sx={{ fontSize: "50px" }} />
-          </Link>
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.instagram.com/dormitstore/"
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <InstagramIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
         </IconButton>
+
         <IconButton color="primary">
-          <Link href="https://www.dormit.app/">
-            <FacebookIcon sx={{ fontSize: "50px" }} />
-          </Link>
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.dormit.app/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <FacebookIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
         </IconButton>
+
         <IconButton color="primary">
-          <Link href="https://www.linkedin.com/company/dormit/">
-            <LinkedInIcon sx={{ fontSize: "50px" }} />
-          </Link>
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.linkedin.com/company/dormit/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <LinkedInIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
         </IconButton>
+
         <IconButton color="primary">
-          <Link href="https://www.dormit.app/">
-            <GitHubIcon sx={{ fontSize: "50px" }} />
-          </Link>
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.linkedin.com/company/dormit/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <TikTokIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
         </IconButton>
       </Box>
-      <Box display="flex" justifyContent="center" m="20px 0">
+      <Box display="flex" justifyContent="center" alignItems="center" mt="20px">
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
-          spacing={2}
+          spacing={1}
         >
-          <Link href="https://www.dormit.app/">dormit.app</Link>
-          <Typography>team@dormit.app</Typography>
+          <Link href="https://www.dormit.app/" underline="none">
+            <Typography variant="body1" color="#7141FA">
+              dormit.app
+            </Typography>
+          </Link>
+          <Typography variant="body1">team@dormit.app</Typography>
         </Stack>
       </Box>
     </Box>
