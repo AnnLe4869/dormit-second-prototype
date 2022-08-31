@@ -3,7 +3,13 @@ import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  setDoc,
+} from "firebase/firestore";
 
 import { INITIALIZE_CART, INITIALIZE_USER_DETAILS } from "../../constant";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
@@ -91,12 +97,8 @@ export function useInitializeUser() {
            *
            * This combined cart is the new cart and should replace the old carts
            * Don't forget to update the cart, both in localStorage and in database
+           *
            */
-          if (
-            contextCart.length > 0 &&
-            isArrayDifferent(contextCart, cartInDb)
-          ) {
-          }
         } else {
           // user first time sign in, i.e user sign up
           // we create new entry in document "user" using user uid as id
@@ -121,7 +123,12 @@ export function useInitializeUser() {
          *
          * see https://firebase.google.com/docs/firestore/query-data/listen#view_changes_between_snapshots
          */
-        const currentOrdersRef = doc(db, "users", user.uid, "current_orders");
+        const currentOrdersRef = collection(
+          db,
+          "users",
+          user.uid,
+          "current_orders"
+        );
         onSnapshot(currentOrdersRef, (snapshot) => {
           // TODO: update the context with this change
         });
