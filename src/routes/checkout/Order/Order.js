@@ -31,9 +31,17 @@ export default function Order({ setStripeClientSecret }) {
     <div>
       <button onClick={handleCheckout}>Pay the charge</button>
       {authStatus ? (
-        <button onClick={signOut}>SIGN OUT</button>
+        <div>
+          <button onClick={() => navigate("/auth/signup")}>
+            NAVIGATE TO SIGN UP
+          </button>
+
+          <button onClick={signOut}>SIGN OUT</button>
+        </div>
       ) : (
-        <button onClick={() => navigate("/auth/phone")}>SIGN IN</button>
+        <div>
+          <button onClick={() => navigate("/auth/phone")}>SIGN IN</button>
+        </div>
       )}
     </div>
   );

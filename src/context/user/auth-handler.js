@@ -93,15 +93,25 @@ export function useGoogleSignIn() {
   return signIn;
 }
 
-export function useSetUpProfile() {}
+export function useSetUpProfile() {
+  const { auth, functions } = useContext(AppContext);
+  const updateUserProfile = httpsCallable(functions, "updateUserProfile");
+
+  return async (name, email) => {
+    if (!auth.currentUser) {
+      throw new Error("User must sign in first to do this action");
+    }
+    const { data } = await updateUserProfile({ name, email });
+    return data;
+  };
+}
 
 export function useSendCodeEmail() {
   const { functions } = useContext(AppContext);
-
   const sendCodeViaEmail = httpsCallable(functions, "sendCodeViaEmail");
 
   return async (email) => {
-    sendCodeViaEmail({ email });
+    await sendCodeViaEmail({ email });
   };
 }
 
