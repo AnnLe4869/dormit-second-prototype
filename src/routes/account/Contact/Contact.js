@@ -1,67 +1,91 @@
 import React from "react";
-import styles from "../Account.module.css";
+import { AccountBox, IconCircleStyles } from "../muiStyles";
+import {
+  Typography,
+  IconButton,
+  Stack,
+  Divider,
+  Box,
+  Link,
+} from "@mui/material";
+
+import { ReactComponent as TikTokIcon } from "../../../assets/Account/tikTokIcon.svg";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+
 export default function Contact() {
-  let instagramImg = "img";
-  let facebookImg = "img";
-  let tiktokImg = "img";
-  let linkedinImg = "img";
-
-  let contactIcon = "img";
-
-  // handle social media
-  const openInstagram = () => {};
-
-  const openFacebook = () => {};
-
-  const openTiktok = () => {};
-
-  const openLinkedin = () => {};
-
   return (
-    <div className={styles.boxes}>
-      <div className={styles.head}>
-        <h3 className={styles.boxTitle}>Contact us</h3>
-        <img
-          src={contactIcon}
-          className={styles.icon}
-          id={styles.contactIcon}
-          alt="contact"
-        ></img>
-      </div>
-      <hr className={styles.lineDiv} id={styles.contactLine} />
+    <Box sx={AccountBox}>
+      <Typography variant="h4">Contact Us</Typography>
+      <Box display="flex" justifyContent="center" gap={3} sx={{ mt: "20px" }}>
+        <IconButton color="primary">
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.instagram.com/dormitstore/"
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <InstagramIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
+        </IconButton>
 
-      <div className={styles.socialMedia}>
-        <div className={styles.rows}>
-          <button
-            style={{ background: instagramImg }}
-            className={styles.mediaIcon}
-            onClick={openInstagram}
-          ></button>
-          <button
-            style={{ background: facebookImg }}
-            className={styles.mediaIcon}
-            onClick={openFacebook}
-          ></button>
-        </div>
-        <div className={styles.rows}>
-          <button
-            style={{ background: tiktokImg }}
-            className={styles.mediaIcon}
-            onClick={openTiktok}
-          ></button>
-          <button
-            style={{ background: linkedinImg }}
-            className={styles.mediaIcon}
-            onClick={openLinkedin}
-          ></button>
-        </div>
-      </div>
+        <IconButton color="primary">
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.dormit.app/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <FacebookIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
+        </IconButton>
 
-      <div className="contactInfo">
-        <p>
-          <a href="link">dormit.app</a> | team@dormit.app
-        </p>
-      </div>
-    </div>
+        <IconButton color="primary">
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.linkedin.com/company/dormit/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <LinkedInIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
+        </IconButton>
+
+        <IconButton color="primary">
+          <Box sx={IconCircleStyles}>
+            <Link
+              href="https://www.linkedin.com/company/dormit/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <TikTokIcon sx={{ fontSize: "35px" }} />
+            </Link>
+          </Box>
+        </IconButton>
+      </Box>
+      <Box display="flex" justifyContent="center" alignItems="center" mt="20px">
+        <Stack
+          direction="row"
+          divider={<Divider orientation="vertical" flexItem />}
+          spacing={1}
+        >
+          <Link href="https://www.dormit.app/" underline="none">
+            <Typography variant="body1" color="#7141FA">
+              dormit.app
+            </Typography>
+          </Link>
+          <Typography variant="body1">team@dormit.app</Typography>
+        </Stack>
+      </Box>
+    </Box>
   );
 }
