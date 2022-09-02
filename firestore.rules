@@ -1,34 +1,84 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // rules for "products" collection
+    match /products/{id} {
+      // read is allowed
+      allow read: if true;
+      // write is NOT allowed
+      allow write: if false;
+    }
+
+    // rules for "users" collection
     match /users/{uid} {
-      allow read: if request.auth.uid == uid;
+      // only allow read if user uid match
+      allow read: if request.auth != null && request.auth.uid == uid;
 
+      allow write: if request.auth != null && request.auth.uid == uid &&
       // don't allow modify fields that is specified below
-      // in this case, user cannot modify the field current_order
+      // for example, in this case, user cannot modify the field phone, role, etc. field
       // more detail https://firebase.google.com/docs/firestore/security/rules-fields#allowing_only_certain_fields_to_be_changed
-      allow write: if (!request.resource.data.diff(resource.data).affectedKeys()
-        .hasAny(['current_order']));
+       (!request.resource.data.diff(resource.data).affectedKeys()
+        .hasAny(['phone', 'linked_email', 'stripeId', 'role', 'temp_order', 'past_orders']));
 
+      // only allow read if user uid match
+      // don't allow write on "payments" subcollection
       match /payments/{id} {
-        allow read: if request.auth.uid == uid;
-      }
-      match /current_orders/{id} {
-        allow read: if request.auth.uid == uid;
+        allow read: if request.auth != null && request.auth.uid == uid;
         allow write: if false;
       }
-      
-    }
 
-    match /products/{id} {
-      allow read: if true;
-
-      match /prices/{id} {
-        allow read: if true;
-      }
-      match /tax_rates/{id} {
-        allow read: if true;
+      // only allow read if user uid match
+      // don't allow write on "current_orders" subcollection
+      match /current_orders/{id} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+        allow write: if false;
       }
     }
+
+
+
+    // rules for "processing_orders" collection
+    match /processing_orders/{id} {
+      // no write allowed
+      allow write: if false;
+
+      // only allow read if the user order made the order (i.e customer_id == userId)
+      // or the rusher is assigned to the order (i.e rusher_id === userId)
+      allow read: if request.auth != null && 
+                    (request.auth.uid == resource.data.customer_id  
+                      || request.auth.uid == resource.data.rusher.rusher_id);
+    }
+
+
+    // rules for "completed_orders" collection
+    match /completed_orders/{id} {
+      // no write allowed
+      allow write: if false;
+
+      // only allow read if the user order made the order (i.e customer_id == userId)
+      // or the rusher is assigned to the order (i.e rusher_id === userId)
+      allow read: if request.auth != null && 
+                    (request.auth.uid == resource.data.customer_id  
+                      || request.auth.uid == resource.data.rusher.rusher_id);
+    }
+
+
+
+    // rules for "emails" collection
+    match /emails/{id} {
+      // no read or write access
+      // because no one should touch this
+      allow read, write: if false;
+    }
+
+
+    // rules for "configurations" collection
+    match /configurations/{id} {
+      // no read or write access
+      // because no one should touch this
+      allow read, write: if false;
+    }
+    
   }
 }

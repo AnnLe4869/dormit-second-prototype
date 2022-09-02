@@ -12,7 +12,7 @@ import { AlertContext } from "./alert-context";
 export function useActivateInfoAlert() {
   const { dispatch } = useContext(AlertContext);
 
-  return (message) => {
+  return (message, callback = () => {}) => {
     dispatch({
       type: ACTIVATE_ALERT,
       payload: {
@@ -20,13 +20,14 @@ export function useActivateInfoAlert() {
         message,
       },
     });
+    callback();
   };
 }
 
 export function useActivateWarningAlert() {
   const { dispatch } = useContext(AlertContext);
 
-  return (message) => {
+  return (message, callback = () => {}) => {
     dispatch({
       type: ACTIVATE_ALERT,
       payload: {
@@ -34,13 +35,14 @@ export function useActivateWarningAlert() {
         message,
       },
     });
+    callback();
   };
 }
 
 export function useActivateSuccessAlert() {
   const { dispatch } = useContext(AlertContext);
 
-  return (message) => {
+  return (message, callback = () => {}) => {
     dispatch({
       type: ACTIVATE_ALERT,
       payload: {
@@ -48,13 +50,14 @@ export function useActivateSuccessAlert() {
         message,
       },
     });
+    callback();
   };
 }
 
 export function useActivateErrorAlert() {
   const { dispatch } = useContext(AlertContext);
 
-  return (message) => {
+  return (message, callback = () => {}) => {
     dispatch({
       type: ACTIVATE_ALERT,
       payload: {
@@ -62,15 +65,17 @@ export function useActivateErrorAlert() {
         message,
       },
     });
+    callback();
   };
 }
 
 export function useDeactivateAlert() {
   const { dispatch } = useContext(AlertContext);
 
-  return () => {
+  return (callback = () => {}) => {
     dispatch({
       type: DEACTIVATE_ALERT,
     });
+    callback();
   };
 }
