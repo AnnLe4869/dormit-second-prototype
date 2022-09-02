@@ -102,36 +102,18 @@ function Category() {
           <ul className={styles.bigItemList}>
             {products.length > 0 ? (products.slice(1).map((product) => (
               <li>
-                {/* <h4>{product.name}</h4>
-                {product.prices ? <h3>{product.prices[0].unit_amount}</h3> : <h3>loading prices...</h3>} */}
-
-                { (product.prices && product.images) ? 
                 <ProductListing
                   id={product.id}
                   name={product.name}
-                  image={product.images[0]}
+                  image={product.images ? product.images[0] : apple}
                   description={product.description}
-                  price={product.prices[0].unit_amount}
-                  stock={product.metadata.quantity}
-                /> :                 <ProductListing
-                id={product.id}
-                name={product.name}
-                image={apple}
-                description={product.description}
-                price={2000}
-                stock={10}
-              />
-                }
-
-
-
-
+                  price={product.prices ? product.prices[0].unit_amount : "Price"}
+                  stock={product.metadata ? product.metadata.quantity : 2000}
+                /> 
               </li>)))
               : <h2>Waiting for loading...</h2>}
 
           </ul>
-
-            
         </div>
 
         <div>
