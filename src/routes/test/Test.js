@@ -46,6 +46,10 @@ export default function Test() {
             <button onClick={() => decrementItem(product.id)}>
               Decrement item {product.name}
             </button>
+
+            {product.prices ? <h3>{product.prices[0].unit_amount}</h3>
+            : <h3>Loading prices</h3>}
+            
           </div>
         ))
       ) : (

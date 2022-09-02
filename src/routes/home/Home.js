@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 /*
  * Hooks & helpers
@@ -39,6 +39,11 @@ import { homepageStyles } from "./muiStyles";
 export default function HomePage() {
   const products = useProducts();
 
+  useEffect(() => {
+    console.log("products: ", products)
+  }, [products])
+
+
   return (
     <>
       <Header />
@@ -55,7 +60,12 @@ export default function HomePage() {
            * Special sections
            * items in this section have different styling, thus has its own component
            */}
-          <SpecialSection section={originalSections[0]} />
+
+          {products.length > 0 
+            ? <SpecialSection section={originalSections[0]} database={products.slice(1)}/>
+            : <h3>Loading Specials...</h3>
+          }
+          
 
           {/**
            * sections for derived items - section which properties derived from data
@@ -73,7 +83,11 @@ export default function HomePage() {
            * sections for category items
            * we list all section except the Special section
            */}
-          <OriginalSections sections={originalSections} />
+
+          {products.length > 0 
+            ? <OriginalSections sections={originalSections} database={products.slice(1)} emuSections={products[0]}/>
+            : <h3>Loading Sections...</h3>
+          }
         </div>{" "}
         {/* homeContent */}
       </div>{" "}
