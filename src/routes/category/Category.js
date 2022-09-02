@@ -15,13 +15,14 @@ import { categories } from "./CategoryProps.js";
 import { mockProducts } from "../../mock_data/data/mockData.js";
 
 import { useProducts } from "../../context/product/product-handler";
+import { renderCategory } from "../../helper/renderProducts.js";
 
 import apple from "../../assets/apple.png";
 
 
 function Category() {
 
-  let products = useProducts();
+  let products = useProducts().slice(1);
 
   //Reset scroll to top
   document.body.scrollTop = 0;
@@ -60,25 +61,6 @@ function Category() {
   // }
 
 
-
-  const testFunction = async () => {
-
-    function GetProducts() {
-      return useProducts();
-    }
-
-    const testOutput = GetProducts();
-    console.log("testOutput: ", testOutput);
-  }
-
-  useEffect(() => {
-    testFunction();
-    return () => {
-      
-    }
-  })
-
-
   const navigateItems = () => {
     navigate(-1);
   };
@@ -100,17 +82,9 @@ function Category() {
       <div className={styles.page}>
         <div className={styles.supplies}>
           <ul className={styles.bigItemList}>
-            {products.length > 0 ? (products.slice(1).map((product) => (
-              <li>
-                <ProductListing
-                  id={product.id}
-                  name={product.name}
-                  image={product.images ? product.images[0] : apple}
-                  description={product.description}
-                  price={product.prices ? product.prices[0].unit_amount : "Price"}
-                  stock={product.metadata ? product.metadata.quantity : 2000}
-                /> 
-              </li>)))
+            {products.length > 0 ? (renderCategory(products, props.category, 0).map((product) => (
+              <li>{product}</li>
+              )))
               : <h2>Waiting for loading...</h2>}
 
           </ul>
