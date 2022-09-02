@@ -4,9 +4,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { green } from "@mui/material/colors";
 import * as React from "react";
 
-export default function CircularIntegration({ buttonName, loading, ...props }) {
+export function LoadingButton({ buttonName, loading, ...props }) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box>
       <Box sx={{ m: 1, position: "relative" }}>
         <Button variant="contained" disabled={loading} {...props}>
           {buttonName}

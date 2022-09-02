@@ -109,6 +109,8 @@ export function useInitializeUser() {
           await setDoc(usersRef, userData, { merge: true });
         }
 
+        await setDoc(usersRef, { cart: ["hello world"] }, { merge: true });
+
         userDispatch({
           type: INITIALIZE_USER_DETAILS,
           payload: {

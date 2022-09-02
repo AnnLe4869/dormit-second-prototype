@@ -8,7 +8,7 @@ service cloud.firestore {
       // in this case, user cannot modify the field current_order
       // more detail https://firebase.google.com/docs/firestore/security/rules-fields#allowing_only_certain_fields_to_be_changed
       allow write: if (!request.resource.data.diff(resource.data).affectedKeys()
-        .hasAny(['current_order']));
+        .hasAny(['temp_order']));
 
       match /payments/{id} {
         allow read: if request.auth.uid == uid;

@@ -1,17 +1,23 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Box, Button, Checkbox, Grid, Typography } from "@mui/material";
+import { Box, Checkbox, Grid, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
 import { useSetUpProfile } from "../../../context/user/auth-handler";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
+
 import styles from "../Auth.module.css";
 
 function Register() {
   const navigate = useNavigate();
   const setupProfile = useSetUpProfile();
+  const activateErrorAlert = useActivateErrorAlert();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -21,12 +27,14 @@ function Register() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     const result = await setupProfile(name, email);
     if (result.isSuccess) {
       navigate("/auth/register");
     } else {
       // should dispatch error alert
-      throw new Error(result.message);
+      activateErrorAlert(result.message);
+      setLoading(false);
     }
   };
 
@@ -144,7 +152,9 @@ function Register() {
           </Typography>
         </Box>
         <div className={styles.buttonLink}>
-          <Button
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
             variant="contained"
             disableRipple
             sx={{
@@ -162,9 +172,7 @@ function Register() {
               },
             }}
             onClick={handleSubmit}
-          >
-            Confirm
-          </Button>
+          />
         </div>
       </Box>
     </Container>

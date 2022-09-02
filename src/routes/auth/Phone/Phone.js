@@ -1,23 +1,37 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import PhoneInput from "react-phone-number-input/input";
 import { Link, useNavigate } from "react-router-dom";
+
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
 import { useSendCodeToPhone } from "../../../context/user/auth-handler";
 import callIcon from "../../../mock_data/images/callVector.png";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
 import styles from "../Auth.module.css";
 import { authStyles } from "../muiStyles";
 
 function Phone({ phoneNumber, setPhoneNumber, setConfirmationResult }) {
   const navigate = useNavigate();
+  const activateErrorAlert = useActivateErrorAlert();
   const sendPhoneCode = useSendCodeToPhone();
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async () => {
+    setLoading(true);
     const result = await sendPhoneCode(phoneNumber, setConfirmationResult);
     if (result.isSuccess) {
       navigate("/auth/phone/otpcode");
     } else {
-      // show the error message here
+      /**
+       * show the error message
+       * usually error only happen when firebase fails to send code to the phone number
+       * which is kind of rare
+       *
+       * if this doesn't work, just reload the page automatically and it will reset the Recaptcha
+       */
+      activateErrorAlert(result.message);
     }
   };
 
@@ -70,15 +84,15 @@ function Phone({ phoneNumber, setPhoneNumber, setConfirmationResult }) {
         </Box>
 
         <div className={styles.buttonLink}>
-          <Button
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
             variant="contained"
             disableRipple
             sx={authStyles.authButton}
             onClick={handleSubmit}
             id="phone-sign-in-button"
-          >
-            Confirm
-          </Button>
+          />
         </div>
 
         <Link className={styles.buttonLink} to={{ pathname: "/auth/email" }}>

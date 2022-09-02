@@ -178,8 +178,9 @@ export function useSendCodeToPhone() {
       };
     } catch (err) {
       /**
-       * when fail to send, ideally we want to refresh the page so user has new reCaptcha
+       * when fail to send, we clear the Recaptcha, allow user to try again
        */
+      appVerifier.clear();
       return {
         isSuccess: false,
         message: "Fail to send SMS code",
