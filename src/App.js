@@ -22,24 +22,17 @@ function App() {
       <AlertPopup />
       <Routes>
         <Route path="/search" element={<SearchPage />} />
-
         <Route path="/auth/*" element={<AuthPage />} />
-
         <Route path="/order*" element={<OrderPage />} />
-
         <Route path="/checkout/*" element={<CheckoutPage />} />
-
         <Route path="/account" element={<AccountPage />} />
-
         <Route path="/category">
           <Route index element={<Category />} />
           <Route path=":id" element={<Category />} />
         </Route>
-
+        <Route path="/" element={<Homepage />} exact />
         {/*this is special route for testing only. Delete when done*/}
         <Route path="/test" element={<Test />} />
-
-        <Route path="/" element={<Homepage />} exact />
       </Routes>
     </Router>
   );

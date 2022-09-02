@@ -20,6 +20,8 @@ export const SIGN_UP_USER = "SIGN UP";
 export const SIGN_OUT_USER = "SIGN OUT";
 export const INITIALIZE_USER_DETAILS = "INITIALIZE USER DETAILS";
 
+// initialize cart
+export const INITIALIZE_CART = "INITIALIZE CART";
 // change cart's items amount
 export const INCREMENT_QUANTITY = "INCREMENT QUANTITY";
 export const DECREMENT_QUANTITY = "DECREMENT QUANTITY";

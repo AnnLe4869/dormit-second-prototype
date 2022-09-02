@@ -1,51 +1,41 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "../Auth.module.css";
-import callIcon from "../../../mock_data/images/callVector.png";
-import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { Box, Button, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useVerifyPhoneCode } from "../../../context/user/auth-handler";
+import callIcon from "../../../mock_data/images/callVector.png";
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
+import styles from "../Auth.module.css";
 import { authStyles } from "../muiStyles";
 
-const authCode = new Array(6).fill(0);
-
-function Otpcode() {
-  const [phoneCode, setPhoneCode] = useState("");
-
-  const [currentInput, setCurrentInput] = useState(0);
-  console.log(authCode);
-  let inputRef = useRef(null);
-  let buttonRef = useRef();
+function Otpcode({ phoneNumber, confirmationResult }) {
+  const navigate = useNavigate();
   const verifyPhoneCode = useVerifyPhoneCode();
+  const activateErrorAlert = useActivateErrorAlert();
 
-  // const handleOnchange = (index) => {
-  //   authCode.splice(index, 1, inputRef.current.value);
-
-  //   if (currentInput < 6) {
-  //     inputRef.current?.focus();
-  //     return setCurrentInput(currentInput + 1);
-  //   }
-
-  //   return;
-  // };
+  const [phoneCode, setPhoneCode] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleOnchange = (event) => {
     setPhoneCode(event.target.value);
   };
 
-  const check = async () => {
-    await verifyPhoneCode(phoneCode);
+  const handleSubmit = async () => {
+    setLoading(true);
+    const result = await verifyPhoneCode(phoneCode, confirmationResult);
+    if (result.isSuccess) {
+      if (result.isNewUser) {
+        navigate("/auth/signup");
+      } else {
+        navigate("/category");
+      }
+    } else {
+      setLoading(false);
+      activateErrorAlert(result.message);
+    }
   };
-
-  // useEffect(() => {
-  //   inputRef.current?.focus();
-
-  //   console.log(currentInput);
-
-  //   if (currentInput === 6) {
-  //     inputRef.current?.blur();
-  //   }
-  // }, [currentInput]);
 
   return (
     <Container>
@@ -57,7 +47,7 @@ function Otpcode() {
         <Typography variant="body1">
           We sent you an{" "}
           <Box component="span" color="#7141FA">
-            SMS code to (xxx) xxx-xxxx
+            SMS code to {phoneNumber}
           </Box>
         </Typography>
         <Box
@@ -68,31 +58,25 @@ function Otpcode() {
             textAlign: "left",
           }}
         >
-          <input type="text" onChange={handleOnchange}></input>
-          {/* {authCode.map((val, index) => {
-            return (
-              <input
-                key={index}
-                onChange={() => handleOnchange(index)}
-                type="number"
-                ref={index === currentInput ? inputRef : null}
-                className={styles.inputVerify}
-                placeholder={val}
-              ></input>
-            );
-          })} */}
+          <input
+            pattern="[0-9]"
+            value={phoneCode}
+            onChange={handleOnchange}
+            className={styles.inputPhone}
+            type="text"
+            maxLength="6"
+          ></input>
         </Box>
-        <Link className={styles.buttonLink} to={{ pathname: "/auth/signup" }}>
-          <Button
-            ref={buttonRef}
+        <div className={styles.buttonLink}>
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
             disableRipple
             variant="contained"
             sx={authStyles.authButton}
-            onClick={check}
-          >
-            Confirm
-          </Button>
-        </Link>
+            onClick={handleSubmit}
+          />
+        </div>
       </Box>
     </Container>
   );

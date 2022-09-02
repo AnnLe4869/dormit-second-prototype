@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+
 import { viewCartStyles, headers } from "./muiStyles.js";
 import Cart from "./Cart";
 
-/*
- * Material-UI Imports
- */
+import { Drawer } from "@mui/material";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";

@@ -93,15 +93,25 @@ export function useGoogleSignIn() {
   return signIn;
 }
 
-export function useSetUpProfile() {}
+export function useSetUpProfile() {
+  const { auth, functions } = useContext(AppContext);
+  const updateUserProfile = httpsCallable(functions, "updateUserProfile");
+
+  return async (name, email) => {
+    if (!auth.currentUser) {
+      throw new Error("User must sign in first to do this action");
+    }
+    const { data } = await updateUserProfile({ name, email });
+    return data;
+  };
+}
 
 export function useSendCodeEmail() {
   const { functions } = useContext(AppContext);
-
   const sendCodeViaEmail = httpsCallable(functions, "sendCodeViaEmail");
 
   return async (email) => {
-    sendCodeViaEmail({ email });
+    await sendCodeViaEmail({ email });
   };
 }
 
@@ -139,8 +149,10 @@ export function useSendCodeToPhone() {
    *
    * after the code is sent, perform the callback
    * callback can be navigate to another page for entering the code
+   *
+   * the second params setConfirmationResult is used to store the value in Context
    */
-  return async (phoneNumber, callback = () => {}) => {
+  return async (phoneNumber, setConfirmationResult, callback = () => {}) => {
     const appVerifier = new RecaptchaVerifier(
       /**
        * this is the id for the phone number submit button
@@ -152,14 +164,27 @@ export function useSendCodeToPhone() {
       auth
     );
     try {
-      window.confirmationResult = await signInWithPhoneNumber(
+      const confirmationResult = await signInWithPhoneNumber(
         auth,
         phoneNumber,
         appVerifier
       );
+      setConfirmationResult(confirmationResult);
       callback();
+
+      return {
+        isSuccess: true,
+        message: "A code has been sent",
+      };
     } catch (err) {
-      throw new Error("Fail to send SMS message");
+      /**
+       * when fail to send, we clear the Recaptcha, allow user to try again
+       */
+      appVerifier.clear();
+      return {
+        isSuccess: false,
+        message: "Fail to send SMS code",
+      };
     }
   };
 }
@@ -174,15 +199,25 @@ export function useVerifyPhoneCode() {
    * if the code is not valid, do something else in the catch statement
    * probably display an error message
    */
-  return async (code) => {
-    const confirmationResult = window.confirmationResult;
+  return async (code, confirmationResult) => {
     try {
-      await confirmationResult.confirm(code);
+      const result = await confirmationResult.confirm(code);
       dispatch({
         type: SIGN_IN_USER,
       });
+
+      return {
+        isSuccess: true,
+        user: result.user,
+        // whether user is first-time sign in or not
+        isNewUser: result._tokenResponse.isNewUser,
+        message: "User has signed in successfully",
+      };
     } catch (error) {
-      // user couldn't sign in. Bad verification code?
+      return {
+        isSuccess: false,
+        message: "Fail to sign in. Bad verification code maybe",
+      };
     }
   };
 }

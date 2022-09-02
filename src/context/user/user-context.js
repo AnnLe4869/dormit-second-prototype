@@ -7,6 +7,7 @@ import {
   GET_CURRENT_ORDERS,
   GET_PAST_ORDERS,
   INCREMENT_QUANTITY,
+  INITIALIZE_CART,
   INITIALIZE_USER_DETAILS,
   REMOVE_ITEM_FROM_CART,
   SET_CHECKOUT_ADDRESS,
@@ -14,22 +15,26 @@ import {
   SIGN_IN_USER,
   SIGN_OUT_USER,
   SIGN_UP_USER,
+  UPDATE_CURRENT_ORDER,
 } from "../../constant";
 
 export const UserContext = createContext({
-  id: null,
-  phone: null,
-  linked_email: null,
-  profile_img: null,
-  stripeId: null,
-  name: null,
-  shipping_address: null,
-  cart: [],
-  current_orders: null,
-  past_orders: null,
-  // the below are local to Context only
-  isAuthenticated: false,
-  isNewUser: false,
+  dispatch: () => {},
+  state: {
+    id: null,
+    phone: null,
+    linked_email: null,
+    profile_img: null,
+    stripeId: null,
+    name: null,
+    shipping_address: null,
+    cart: [],
+    current_orders: null,
+    past_orders: null,
+    // the below are local to Context only
+    isAuthenticated: false,
+    isNewUser: false,
+  },
 });
 
 // all actions must be pure, no side-effect
@@ -75,6 +80,14 @@ function userReducer(state, action) {
     /**
      * ----------------------------------------------------------------------------------------
      */
+    case INITIALIZE_CART: {
+      // action is {type: INITIALIZE_CART, payload: {cart: User.cart}}
+      return { ...state, cart: action.payload.cart };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
     case ADD_TO_CART: {
       // action is {type: ADD_TO_CART, payload: {product_id: string}}
       const { cart: originalCart } = state;
@@ -82,7 +95,7 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         return {
           ...state,
           cart: [
@@ -115,7 +128,7 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         throw new Error("Incorrect product id is passed");
       } else {
         return {
@@ -142,10 +155,10 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         throw new Error("Incorrect product id is passed");
       } else {
-        const currentQuantity = originalCart[existingItemIndex];
+        const currentQuantity = originalCart[existingItemIndex].quantity;
 
         if (currentQuantity <= 1) {
           // we remove the item from the cart if this is the case
@@ -181,7 +194,7 @@ function userReducer(state, action) {
         (item) => item.product_id === action.payload.product_id
       );
 
-      if (existingItemIndex !== -1) {
+      if (existingItemIndex === -1) {
         throw new Error("Incorrect product id is passed");
       } else {
         return {
@@ -213,24 +226,59 @@ function userReducer(state, action) {
      * ----------------------------------------------------------------------------------------
      */
     case GET_CURRENT_ORDERS: {
-      // action is {type: GET_CURRENT_ORDERS, payload: {orders: Array<processing_orders>}}
-      return;
+      // action is {type: GET_CURRENT_ORDERS, payload: {orders: Array<ProcessingOrder>}}
+      return {
+        ...state,
+        current_orders: action.payload.orders,
+      };
     }
     /**
      * ----------------------------------------------------------------------------------------
      */
 
     case GET_PAST_ORDERS: {
-      // action is {type: GET_PAST_ORDERS, payload: {orders: Array<completed_orders>}}
-      return;
+      // action is {type: GET_PAST_ORDERS, payload: {orders: Array<CompletedOrder>}}
+      return {
+        ...state,
+        past_orders: action.payload.orders,
+      };
     }
     /**
      * ----------------------------------------------------------------------------------------
      */
 
     case GET_ALL_ORDERS: {
-      // action is {type: GET_ALL_ORDERS, payload: {currentOrders:Array<processing_orders>, pastOrders: Array<completed_orders>}}
-      return;
+      // action is {type: GET_ALL_ORDERS, payload: {currentOrders:Array<ProcessingOrder>, pastOrders: Array<CompletedOrder>}}
+      return {
+        ...state,
+        current_orders: action.payload.currentOrders,
+        past_orders: action.payload.pastOrders,
+      };
+    }
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case UPDATE_CURRENT_ORDER: {
+      // action is {type: UPDATE_CURRENT_ORDER, payload: {order: ProcessingOrder}}
+      const orderIndex = state.current_orders.findIndex(
+        (order) => order.id === action.payload.order.id
+      );
+
+      if (orderIndex !== -1) {
+        throw new Error(
+          "The order doesn't exist in Context. Something is wrong"
+        );
+      }
+      return {
+        ...state,
+        current_orders: [
+          ...state.current_orders.filter(
+            (order) => order.id !== action.payload.order.id
+          ),
+          action.payload.order,
+        ],
+      };
     }
 
     /**

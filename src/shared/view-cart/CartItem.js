@@ -6,7 +6,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 
-const Cart_item = ({ id, name, desc, quantity, photo, price }) => {
+const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   const [item, setitem] = useState(true);
   const [quan, setquantity] = useState(quantity);
 
@@ -198,4 +198,4 @@ const Cart_item = ({ id, name, desc, quantity, photo, price }) => {
   );
 };
 
-export default Cart_item;
+export default CartItem;

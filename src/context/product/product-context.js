@@ -3,7 +3,10 @@ import React, { createContext } from "react";
 import { INITIALIZE_PRODUCTS, UPDATE_ALL_PRODUCTS } from "../../constant";
 
 export const ProductContext = createContext({
-  products: [],
+  dispatch: () => {},
+  state: {
+    products: [],
+  },
 });
 
 function productReducer(state, action) {

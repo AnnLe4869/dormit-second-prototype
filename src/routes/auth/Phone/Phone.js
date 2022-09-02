@@ -1,24 +1,38 @@
-import React, { useRef } from "react";
-import styles from "../Auth.module.css";
-import callIcon from "../../../mock_data/images/callVector.png";
+import { Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { Link } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
+import React, { useState } from "react";
+import PhoneInput from "react-phone-number-input/input";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
 import { useSendCodeToPhone } from "../../../context/user/auth-handler";
+import callIcon from "../../../mock_data/images/callVector.png";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
+import styles from "../Auth.module.css";
 import { authStyles } from "../muiStyles";
 
-function Phone() {
-  const inputRef = useRef();
-
+function Phone({ phoneNumber, setPhoneNumber, setConfirmationResult }) {
+  const navigate = useNavigate();
+  const activateErrorAlert = useActivateErrorAlert();
   const sendPhoneCode = useSendCodeToPhone();
 
-  //Regex to format 10 given numbers to an American phone number
-  const phoneFormat = () => {
-    let phoneNumber = inputRef.current.value;
-    inputRef.current.value = phoneNumber.replace(
-      /(\d{3})(\d{3})(\d{4})/,
-      "($1) $2-$3"
-    );
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    const result = await sendPhoneCode(phoneNumber, setConfirmationResult);
+    if (result.isSuccess) {
+      navigate("/auth/phone/otpcode");
+    } else {
+      /**
+       * show the error message
+       * usually error only happen when firebase fails to send code to the phone number
+       * which is kind of rare
+       *
+       * if this doesn't work, just reload the page automatically and it will reset the Recaptcha
+       */
+      activateErrorAlert(result.message);
+    }
   };
 
   return (
@@ -57,33 +71,29 @@ function Phone() {
           >
             Phone
           </Typography>
-          <input
-            pattern="[0-9]"
-            ref={inputRef}
-            onChange={phoneFormat}
-            className={styles.inputPhone}
-            type="text"
+
+          {/**Phone input field */}
+          <PhoneInput
+            country="US"
             placeholder="(xxx) xxx-xxxx"
-            maxLength="10"
-          ></input>
+            className={styles.inputPhone}
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+            smartCaret
+          />
         </Box>
 
-        <Link
-          className={styles.buttonLink}
-          to={{ pathname: "/auth/phone/otpcode" }}
-        >
-          <Button
+        <div className={styles.buttonLink}>
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
             variant="contained"
             disableRipple
             sx={authStyles.authButton}
-            onClick={() => {
-              sendPhoneCode("+1" + inputRef.current.value);
-            }}
+            onClick={handleSubmit}
             id="phone-sign-in-button"
-          >
-            Confirm
-          </Button>
-        </Link>
+          />
+        </div>
 
         <Link className={styles.buttonLink} to={{ pathname: "/auth/email" }}>
           <Typography

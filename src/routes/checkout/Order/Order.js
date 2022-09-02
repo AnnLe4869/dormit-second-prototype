@@ -1,10 +1,16 @@
 import React from "react";
 import { useCheckout } from "../../../context/user/checkout-handler";
 import { useNavigate } from "react-router-dom";
+import {
+  useCheckAuthenticationStatus,
+  useSignOut,
+} from "../../../context/user/auth-handler";
 
 export default function Order({ setStripeClientSecret }) {
   const checkout = useCheckout();
   const navigate = useNavigate();
+  const signOut = useSignOut();
+  const authStatus = useCheckAuthenticationStatus();
 
   const handleCheckout = async () => {
     const { data } = await checkout({
@@ -24,6 +30,19 @@ export default function Order({ setStripeClientSecret }) {
   return (
     <div>
       <button onClick={handleCheckout}>Pay the charge</button>
+      {authStatus ? (
+        <div>
+          <button onClick={() => navigate("/auth/signup")}>
+            NAVIGATE TO SIGN UP
+          </button>
+
+          <button onClick={signOut}>SIGN OUT</button>
+        </div>
+      ) : (
+        <div>
+          <button onClick={() => navigate("/auth/phone")}>SIGN IN</button>
+        </div>
+      )}
     </div>
   );
 }
