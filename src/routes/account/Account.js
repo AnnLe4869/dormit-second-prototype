@@ -1,22 +1,37 @@
 import React from "react";
-import styles from "./Account.module.css";
+import { responsiveTheme } from "./muiStyles";
+import { Box, ThemeProvider } from "@mui/material";
+import Header from "../home/Header";
 
-import Intro from "./Intro/Intro";
-import Impact from "./Impact/Impact";
+import Logout from "./Logout/Logout";
 import Profile from "./Profile/Profile";
 import Payment from "./Payment/Payment";
+import Impact from "./Impact/Impact";
 import Referral from "./Referral/Referral";
 import Contact from "./Contact/Contact";
+import BottomNavMui from "../../shared/bottom-nav/BottomNav";
 
 export default function Account() {
   return (
-    <div className={styles.layout}>
-      <Intro />
-      <Impact />
-      <Profile />
-      <Payment />
-      <Referral />
-      <Contact />
-    </div>
+    <>
+      <Header />
+      <ThemeProvider theme={responsiveTheme}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Logout />
+          <Profile />
+          <Payment />
+          <Impact />
+          <Referral />
+          <Contact />
+        </Box>
+      </ThemeProvider>
+      <BottomNavMui />
+    </>
   );
 }
