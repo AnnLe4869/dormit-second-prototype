@@ -28,3 +28,6 @@ const testFunc = functions.firestore
   .onWrite(async () => {
     functions.logger.log("Hello world from testFunc");
   });
+
+fillCustomerInfo;
+testFunc;

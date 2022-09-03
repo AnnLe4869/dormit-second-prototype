@@ -1,10 +1,9 @@
 import { CollectionReference } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
-import { totp } from "otplib";
 import config from "../config";
 import { verifyEmail } from "../helper/helper";
 
-import { db, admin } from "../setup";
+import { db, admin, totp } from "../setup";
 
 /**
  * Verify the Otp code the user provide
@@ -77,9 +76,12 @@ export const verifyOtpCode = functions
         };
       }
       if (matchedUsers.size > 1) {
+        functions.logger.error(
+          `The email ${email} is linked to multiple accounts. This shouldn't happen`
+        );
         throw new functions.https.HttpsError(
           "internal",
-          `The email ${email} is linked to multiple accounts. This shouldn't happen`
+          `Something went wrong`
         );
       }
       const user = matchedUsers.docs[0];
