@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 /*
  * Hooks & helpers
@@ -35,9 +35,11 @@ import Box from "@mui/material/Box";
  */
 import HomeCSS from "./Home.module.css";
 import { homepageStyles } from "./muiStyles";
+import { UserContext } from "../../context/user/user-context";
 
 export default function HomePage() {
   const products = useProducts();
+  const { state } = useContext(UserContext);
 
   return (
     <>
@@ -78,7 +80,7 @@ export default function HomePage() {
         {/* homeContent */}
       </div>{" "}
       {/* homeContainer */}
-      <ViewCart numItems="X" totalAmount="X.XX" />
+      <ViewCart numItems={state.cart?.length} totalAmount="X.XX" />
       <BottomNav />
     </>
   );

@@ -7,7 +7,6 @@ import { Drawer } from "@mui/material";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Drawer } from "@mui/material";
 
 function ViewCart({ numItems, totalAmount }) {
   const [drawerState, setDrawerState] = useState(false);

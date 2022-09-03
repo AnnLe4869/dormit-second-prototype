@@ -1,5 +1,5 @@
 // React imports
-import { React, useState } from "react";
+import { React, useContext, useState } from "react";
 
 // Component import
 import {
@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import CartItem from "./CartItem";
-import ItemEntry from "../item-entry/ItemEntry";
+import ItemEntry from "../product/ProductListing";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
@@ -23,71 +23,31 @@ import styles from "./Cart.module.css";
 
 // Image import
 import apple from "../../mock_data/images/apple.jpg";
+import { UserContext } from "../../context/user/user-context";
+import { mockProducts } from "../../mock_data/data/mockData";
 
 const Cart = ({ handleDrawerClose }) => {
   const mockSuggestion = ["mock", "mock", "mock", "mock", "mock", "mock"];
+  const { state } = useContext(UserContext);
 
-  const mockCartItems = [
-    <CartItem
-      key={1}
-      desc="Apple"
-      price={1}
-      name="Apple"
-      photo={apple}
-      quantity={1}
-    />,
-    <CartItem
-      key={2}
-      desc="Banana"
-      price={10}
-      name="Banana"
-      photo={apple}
-      quantity={1}
-    />,
-    <CartItem
-      key={3}
-      desc="Chicken"
-      price={4}
-      name="Chicken"
-      photo={apple}
-      quantity={1}
-    />,
-  ];
+  const mockCartItems = [];
 
-  const mockMissingItems = [
-    <ItemEntry
-      key={1}
-      id="apple"
-      name="Apple"
-      image={apple}
-      price="Price"
-      stock={2}
-    />,
-    <ItemEntry
-      key={2}
-      id="apple"
-      name="Apple"
-      image={apple}
-      price="Price"
-      stock={0}
-    />,
-    <ItemEntry
-      key={3}
-      id="apple"
-      name="Apple"
-      image={apple}
-      price="Price"
-      stock={1}
-    />,
-    <ItemEntry
-      key={4}
-      id="apple"
-      name="Apple"
-      image={apple}
-      price="Price"
-      stock={5}
-    />,
-  ];
+  state.cart.map(({ product_id, quantity }) => {
+    const product = mockProducts.find(({ id }) => id === product_id);
+
+    const productComponent = (
+      <CartItem
+        key={product.id}
+        desc={product.description}
+        price={2}
+        name={product.name}
+        id={product.id}
+        photo={apple}
+        quantity={quantity}
+      />
+    );
+    mockCartItems.push(productComponent);
+  });
 
   const getSubTotal = () => {
     let total = 0;
