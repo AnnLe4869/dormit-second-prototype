@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
-import { mergeDbLocalCarts } from "../../helper/mergeDbLocalCarts";
 
 import { onAuthStateChanged } from "firebase/auth";
 import {
@@ -12,12 +11,16 @@ import {
   setDoc,
 } from "firebase/firestore";
 
-import { INITIALIZE_CART, INITIALIZE_USER_DETAILS } from "../../constant";
+import {
+  INITIALIZE_CART,
+  INITIALIZE_USER_DETAILS,
+  MERGE_CARTS,
+} from "../../constant";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
 import { isArrayDifferent } from "../../helper/isArrayDifferent";
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
 import { writeCartToLocStore } from "../../helper/writeCartToLocStore";
-import { initializeCartWithBlank } from "./cart-handler";
+import { initializeCartWithBlank, mergeDbLocalCarts } from "./cart-handler";
 
 export async function useInitializeUser1() {}
 
@@ -81,43 +84,28 @@ export function useInitializeUser() {
         );
         const paymentStatus = pageURL.searchParams.get("redirect_status");
 
-        /*
-        const contCart = [
-          { product_id: "prod_10dm593mjg23", quantity: 5 },
-          { product_id: "prod_10dm593mjg33", quantity: 2 },
-          { product_id: "prod_10dm54263234", quantity: 7 },
-        ];
-        const localCart = [
-          { product_id: "prod_10dm593mjg23", quantity: 1 },
-          { product_id: "prod_10dm593mjg33", quantity: 9 },
-          { product_id: "prod_10dm54263234", quantity: 6 },
-          { product_id: "prod_10dm54263237", quantity: 10 },
-        ];*/
-
+        /**
+         * Combine the cart in localStorage with cart in database
+         * For an item that is in either of the carts (or both carts),
+         * the combined cart will use the larger number out of two carts
+         *
+         * This combined cart should replace both old carts in localStorage and database
+         */
         let userData;
         if (userSnap.exists()) {
           // user already exist, i.e user didn't sign up for the first time
           userData = userSnap.data();
           const cartInDb = userData.cart;
+          const mergedCart = mergeDbLocalCarts(cartInDb, localCart);
 
-          mergeDbLocalCarts(cartInDb, localCart);
-
-          // Save merged cart to context??
-
-          /**
-           * TODO: combine the current cart (in localStorage) with cart in database
-           * for an item that is in either of the carts (or both carts),
-           * the combined cart will use the larger number out of two carts
-           *
-           * For example,
-           * if current cart (in localStorage) have 3 snacks, 1 coke and 2 candies
-           * cart in database have 2 snacks, 4 cokes and 1 peanuts
-           * then the combined cart will have 3 snacks, 4 cokes, 2 candies and 1 peanuts
-           *
-           * This combined cart is the new cart and should replace the old carts
-           * Don't forget to update the cart, both in localStorage and in database
-           *
-           */
+          // Set new mergedCart in local storage and context
+          writeCartToLocStore(mergedCart);
+          userDispatch({
+            type: MERGE_CARTS,
+            payload: {
+              ...mergedCart,
+            },
+          });
         } else {
           // user first time sign in, i.e user sign up
           // we create new entry in document "user" using user uid as id

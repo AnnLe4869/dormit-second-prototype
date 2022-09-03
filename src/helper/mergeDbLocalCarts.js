@@ -1,5 +1,3 @@
-import { writeCartToLocStore } from "./writeCartToLocStore";
-
 export function mergeDbLocalCarts(cartInDb, localCart) {
   // Sort cart items by order of id's
   let sortedCart = [...cartInDb, ...localCart].sort((a, b) => {
@@ -26,6 +24,5 @@ export function mergeDbLocalCarts(cartInDb, localCart) {
     }
   }
 
-  // Set new mergedCart in local storage cart
-  writeCartToLocStore(mergedCart);
+  return mergedCart;
 }

@@ -88,6 +88,14 @@ function userReducer(state, action) {
     /**
      * ----------------------------------------------------------------------------------------
      */
+    case MERGE_CARTS: {
+      // action is {type: MERGE_CARTS, payload: {cart: mergedCart}}
+      return { ...state, cart: [action.payload.cart] };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
     case ADD_TO_CART: {
       // action is {type: ADD_TO_CART, payload: {product_id: string}}
       const { cart: originalCart } = state;
