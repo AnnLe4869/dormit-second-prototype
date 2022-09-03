@@ -17,6 +17,10 @@ import ItemEntry from "../product/ProductListing";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Box, Button, Container, Divider, Typography } from "@mui/material";
+import ItemEntry from "../item-entry/ItemEntry";
+import CartItem from "./CartItem";
 
 // Style import
 import styles from "./Cart.module.css";

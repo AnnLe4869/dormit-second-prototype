@@ -7,7 +7,9 @@ import Button from "@mui/material/Button";
 import HomeCSS from "../Home.module.css";
 import { headers, homepageStyles } from "../muiStyles.js";
 
-function OriginalSections({ sections }) {
+import { renderCategory } from "../../../helper/renderProducts.js";
+
+function OriginalSections({ sections, database, emuSections }) {
   /**
    * useNavigate which is used to redirect to a category page (e.g. 'See All` for the Candy section)
    */
@@ -19,11 +21,12 @@ function OriginalSections({ sections }) {
 
   return (
     <>
-      {sections
-        .filter((section) => section.sectionId !== "specialsSection")
-        .map((section) => (
+      {sections.filter((section) => section.sectionId !== "specialsSection")
+        .map((section, index) => (
           <section className={HomeCSS.categoryContainer} id={section.sectionId}>
             <hr className={HomeCSS.sectionBarTop} />
+            {console.log("currIndex: ", index)}
+            {console.log("emuSections: ", emuSections)}
             <div className={HomeCSS.categoryHeader}>
               <img src={section.imgSrc} alt={section.alt} />
               <Typography sx={headers.header3}>
@@ -36,10 +39,10 @@ function OriginalSections({ sections }) {
                 sx={[
                   homepageStyles.seeAll,
                   {
-                    color: section.color,
-                    backgroundColor: section.backgroundColor,
+                    color: emuSections.categories[index].category_style.color,
+                    backgroundColor: emuSections.categories[index].category_style.background_color,
                     "&:hover": {
-                      backgroundColor: section.backgroundColor,
+                      backgroundColor: emuSections.categories[index].category_style.background_color,
                     },
                   },
                 ]}
@@ -53,7 +56,7 @@ function OriginalSections({ sections }) {
                 className={HomeCSS.categoryItemList}
                 id={section.sectionListId}
               >
-                {section.displayedItems.map((item) => {
+                {renderCategory(database, emuSections.categories[index].category_name, 6).map((item) => {
                   return <li>{item}</li>;
                 })}
               </ul>

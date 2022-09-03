@@ -1,11 +1,14 @@
 import React from "react";
 import styles from "../Auth.module.css";
-import callIcon from "../../../mock_data/images/callVector.png";
 import { Container } from "@mui/system";
 import { Link } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
 
-function Phone({ lostAccess }) {
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
+
+function Phone() {
   return (
     <Container>
       <Box
@@ -19,7 +22,7 @@ function Phone({ lostAccess }) {
           gap: "10px",
         }}
       >
-        <img alt="call icon" src={callIcon} className={styles.callIcon} />
+        <EmailIcon sx={{ height: "15%", width: "inherit", color: "#7140FA" }} />
 
         <Typography variant="h4" fontWeight="700">
           Lost access to your phone?
