@@ -20,7 +20,8 @@ import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
 import { isArrayDifferent } from "../../helper/isArrayDifferent";
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
 import { writeCartToLocStore } from "../../helper/writeCartToLocStore";
-import { initializeCartWithBlank, mergeDbLocalCarts } from "./cart-handler";
+import { mergeDbLocalCarts } from "../../helper/mergeDbLocalCarts";
+import { initializeCartWithBlank } from "./cart-handler";
 
 export async function useInitializeUser1() {}
 
@@ -67,15 +68,14 @@ export function useInitializeUser() {
         const userSnap = await getDoc(usersRef);
         // get the current cart store in Context
         const contextCart = userState.cart;
-        console.log(userState);
         /**
          * we want to retrieve the URL params to determine course of action
-         * if succeed, clear the cart in localStorage
          *
          * the URL for success look like this
          * http://localhost:3000?payment_intent=pi_3LaxzvBFL4Le4n4L0aK4wlP8
          * &payment_intent_client_secret=pi_3LaxzvBFL4Le4n4L0aK4wlP8_secret_DYg8f53sQaqtkghMNOJBhMPhE
          * &redirect_status=succeeded
+         *
          */
         const pageURL = new URL(window.location.href);
         const paymentIntentParam = pageURL.searchParams.get("payment_intent");
@@ -83,6 +83,9 @@ export function useInitializeUser() {
           "payment_intent_client_secret"
         );
         const paymentStatus = pageURL.searchParams.get("redirect_status");
+
+        // If payment succeeded, clear the cart in localStorage
+        if (paymentStatus === "succeeded") removeUserDataFromLocalStorage();
 
         /**
          * Combine the cart in localStorage with cart in database
@@ -113,7 +116,6 @@ export function useInitializeUser() {
           userData = {
             cart: contextCart,
           };
-          console.log(userData);
           await setDoc(usersRef, userData, { merge: true });
         }
 
