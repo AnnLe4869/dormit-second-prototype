@@ -10,7 +10,6 @@ import { headers } from "../muiStyles.js";
 
 import { useProducts } from "../../../context/product/product-handler";
 
-
 /*
  * Imported assets
  */
@@ -22,7 +21,6 @@ import ready from "../../../assets/Home/ready.svg";
 import snacks from "../../../assets/Home/snacks.svg";
 import specials from "../../../assets/Home/specials.svg";
 import sweets from "../../../assets/Home/sweets.svg";
-
 
 const mockForYouItems = [
   <ProductListing

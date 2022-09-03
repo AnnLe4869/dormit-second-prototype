@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 /*
  * Hooks & helpers
@@ -9,21 +9,21 @@ import { useProducts } from "../../context/product/product-handler";
  * Components
  */
 import Header from "./Header";
-import SpecialSection from "./sections/SpecialSection";
-import OriginalSections from "./sections/OriginalSections";
 import DerivedSections from "./sections/DerivedSections";
+import OriginalSections from "./sections/OriginalSections";
+import SpecialSection from "./sections/SpecialSection";
 
 /*
  * Shared components
  */
+import BottomNav from "../../shared/bottom-nav/BottomNav";
 import CategoryNav from "../../shared/category-nav/CategoryNav";
 import ViewCart from "../../shared/view-cart/ViewCart";
-import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 /*
  * Imported data
  */
-import { originalSections, derivedSections } from "./sections/sectionData.js";
+import { derivedSections, originalSections } from "./sections/sectionData.js";
 
 /*
  * Material UI Imports
@@ -38,11 +38,6 @@ import { homepageStyles } from "./muiStyles";
 
 export default function HomePage() {
   const products = useProducts();
-
-  useEffect(() => {
-    console.log("products: ", products)
-  }, [products])
-
 
   return (
     <>
@@ -61,11 +56,14 @@ export default function HomePage() {
            * items in this section have different styling, thus has its own component
            */}
 
-          {products.length > 0 
-            ? <SpecialSection section={originalSections[0]} database={products.slice(1)}/>
-            : <h3>Loading Specials...</h3>
-          }
-          
+          {products.length > 0 ? (
+            <SpecialSection
+              section={originalSections[0]}
+              database={products.slice(1)}
+            />
+          ) : (
+            <h3>Loading Specials...</h3>
+          )}
 
           {/**
            * sections for derived items - section which properties derived from data
@@ -84,10 +82,15 @@ export default function HomePage() {
            * we list all section except the Special section
            */}
 
-          {products.length > 0 
-            ? <OriginalSections sections={originalSections} database={products.slice(1)} emuSections={products[0]}/>
-            : <h3>Loading Sections...</h3>
-          }
+          {products.length > 0 ? (
+            <OriginalSections
+              sections={originalSections}
+              database={products.slice(1)}
+              emuSections={products[0]}
+            />
+          ) : (
+            <h3>Loading Sections...</h3>
+          )}
         </div>{" "}
         {/* homeContent */}
       </div>{" "}
