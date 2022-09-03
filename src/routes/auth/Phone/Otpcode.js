@@ -59,7 +59,6 @@ function Otpcode({ phoneNumber, confirmationResult }) {
           }}
         >
           <input
-            pattern="[0-9]"
             value={phoneCode}
             onChange={handleOnchange}
             className={styles.inputPhone}
