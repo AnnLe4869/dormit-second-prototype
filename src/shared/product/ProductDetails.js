@@ -6,6 +6,10 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import {
+  useIncrementItemCount,
+  useSelectItem,
+} from "../../context/user/cart-handler";
 
 /*
 id={id} name={name} image={image} description={description} price={price} stock={stock}
@@ -14,9 +18,14 @@ id={id} name={name} image={image} description={description} price={price} stock=
 
 const ProductDetails = (props) => {
   const [count, setCount] = React.useState(1);
+  const selectItem = useSelectItem();
+  const incrementItemCount = useIncrementItemCount();
 
   const addToCart = () => {
-    alert("Added to cart!");
+    selectItem(props.id);
+    for (let i = 1; i < count; i++) {
+      incrementItemCount(props.id);
+    }
   };
 
   return (
