@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
+import { mergeDbLocalCarts } from "../../helper/mergeDbLocalCarts";
 
 import { onAuthStateChanged } from "firebase/auth";
 import {
@@ -15,6 +16,7 @@ import { INITIALIZE_CART, INITIALIZE_USER_DETAILS } from "../../constant";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
 import { isArrayDifferent } from "../../helper/isArrayDifferent";
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
+import { writeCartToLocStore } from "../../helper/writeCartToLocStore";
 import { initializeCartWithBlank } from "./cart-handler";
 
 export async function useInitializeUser1() {}
@@ -62,7 +64,7 @@ export function useInitializeUser() {
         const userSnap = await getDoc(usersRef);
         // get the current cart store in Context
         const contextCart = userState.cart;
-
+        console.log(userState);
         /**
          * we want to retrieve the URL params to determine course of action
          * if succeed, clear the cart in localStorage
@@ -79,11 +81,28 @@ export function useInitializeUser() {
         );
         const paymentStatus = pageURL.searchParams.get("redirect_status");
 
+        /*
+        const contCart = [
+          { product_id: "prod_10dm593mjg23", quantity: 5 },
+          { product_id: "prod_10dm593mjg33", quantity: 2 },
+          { product_id: "prod_10dm54263234", quantity: 7 },
+        ];
+        const localCart = [
+          { product_id: "prod_10dm593mjg23", quantity: 1 },
+          { product_id: "prod_10dm593mjg33", quantity: 9 },
+          { product_id: "prod_10dm54263234", quantity: 6 },
+          { product_id: "prod_10dm54263237", quantity: 10 },
+        ];*/
+
         let userData;
         if (userSnap.exists()) {
           // user already exist, i.e user didn't sign up for the first time
           userData = userSnap.data();
           const cartInDb = userData.cart;
+
+          mergeDbLocalCarts(cartInDb, localCart);
+
+          // Save merged cart to context??
 
           /**
            * TODO: combine the current cart (in localStorage) with cart in database
@@ -106,6 +125,7 @@ export function useInitializeUser() {
           userData = {
             cart: contextCart,
           };
+          console.log(userData);
           await setDoc(usersRef, userData, { merge: true });
         }
 
