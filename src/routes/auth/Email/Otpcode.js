@@ -1,56 +1,52 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "../Auth.module.css";
-import callIcon from "../../../mock_data/images/callVector.png";
-import { Link } from "react-router-dom";
-import { Container } from "@mui/system";
 import { Box, Button, Typography } from "@mui/material";
+import { Container } from "@mui/system";
+import { Link, useNavigate } from "react-router-dom";
+import EmailIcon from "@mui/icons-material/Email";
+import { useEffect, useRef, useState } from "react";
 
-const authCode = new Array(6).fill(0);
+import styles from "../Auth.module.css";
+import { authStyles } from "../muiStyles";
 
-function Otpcode() {
-  const [currentInput, setCurrentInput] = useState(0);
-  let inputRef = useRef(null);
-  let buttonRef = useRef();
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
+import { useVerifyEmailCode } from "../../../context/user/auth-handler";
 
-  const handleOnchange = (index) => {
-    authCode.splice(index, 1, inputRef.current.value);
+function Otpcode({ email }) {
+  const navigate = useNavigate();
+  const verifyEmailCode = useVerifyEmailCode();
+  const activateErrorAlert = useActivateErrorAlert();
 
-    if (currentInput < 5) {
-      inputRef.current?.focus();
-      return setCurrentInput(currentInput + 1);
-    }
+  const [emailCode, setEmailCode] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    inputRef.current?.blur();
-    buttonRef.current.click();
-    return;
+  const handleOnchange = (event) => {
+    setEmailCode(event.target.value);
   };
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  });
+  const handleSubmit = async () => {
+    setLoading(true);
+    const result = await verifyEmailCode(email, emailCode);
+    if (result.isSuccess) {
+      navigate("/category");
+    } else {
+      setLoading(false);
+      activateErrorAlert(result.message);
+    }
+  };
 
   return (
     <Container>
-      <Box
-        sx={{
-          display: "flex",
-          textAlign: "center",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          gap: "10px",
-        }}
-      >
-        <img alt="Call Icon" src={callIcon} className={styles.callIcon} />
+      <Box sx={authStyles.centerComponents}>
+        <EmailIcon sx={{ height: "15%", width: "inherit", color: "#7140FA" }} />
+
         <Typography variant="h4" fontWeight="700">
           Verification
         </Typography>
         <Typography variant="body1">
-          We sent you a
+          We sent you a code from
           <Box component="span" color="#7141FA">
             {" "}
-            code from dormit@gmail.com
+            dormit@gmail.com
           </Box>
         </Typography>
         <Box
@@ -61,46 +57,25 @@ function Otpcode() {
             textAlign: "left",
           }}
         >
-          {authCode.map((val, index) => {
-            return (
-              <input
-                key={index}
-                onChange={() => handleOnchange(index)}
-                type="number"
-                ref={index === currentInput ? inputRef : null}
-                className={styles.inputVerify}
-                placeholder={val}
-              ></input>
-            );
-          })}
+          <input
+            value={emailCode}
+            onChange={handleOnchange}
+            className={styles.inputPhone}
+            type="text"
+            maxLength="6"
+          ></input>
         </Box>
 
-        <Link
-          className={styles.buttonLink}
-          to={{ pathname: "/auth/email/reset" }}
-        >
-          <Button
-            ref={buttonRef}
+        <div className={styles.buttonLink}>
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
+            onClick={handleSubmit}
             disableRipple
             variant="contained"
-            sx={{
-              backgroundColor: "#7141FA",
-              borderRadius: "999px",
-              color: "#ffffff",
-              padding: "10px 15px",
-              width: "100%",
-              fontWeight: "bold",
-              fontSize: "large",
-              border: "none",
-              cursor: "pointer",
-              "&:hover": {
-                backgroundColor: "#7141FA",
-              },
-            }}
-          >
-            Confirm
-          </Button>
-        </Link>
+            sx={authStyles.authButton}
+          />
+        </div>
       </Box>
     </Container>
   );

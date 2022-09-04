@@ -4,7 +4,7 @@ import { db } from "../setup";
 /**
  * fill out all fields necessary for testing
  */
-export const fillCustomerInfo = functions
+const fillCustomerInfo = functions
   .runWith({
     // allows the function to use environment secret STRIPE_API_KEY
     secrets: ["STRIPE_API_KEY"],
@@ -15,7 +15,7 @@ export const fillCustomerInfo = functions
 
     await db.collection("users").doc(uid).set(
       {
-        link_email: "hello@gmail.com",
+        linked_email: "hello@gmail.com",
         profile_img: "dummy.png",
         name: "josh",
       },
@@ -23,8 +23,11 @@ export const fillCustomerInfo = functions
     );
   });
 
-export const testFunc = functions.firestore
+const testFunc = functions.firestore
   .document("users/{userId}/payments/{paymentId}")
   .onWrite(async () => {
     functions.logger.log("Hello world from testFunc");
   });
+
+fillCustomerInfo;
+testFunc;

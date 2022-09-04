@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CategoryMenu from "../../shared/category-menu/CategoryMenu";
@@ -14,7 +14,16 @@ import { categories } from "./CategoryProps.js";
 
 import { mockProducts } from "../../mock_data/data/mockData.js";
 
+import { useProducts } from "../../context/product/product-handler";
+import { renderCategory } from "../../helper/renderProducts.js";
+
+import apple from "../../assets/apple.png";
+
+
 function Category() {
+
+  let products = useProducts().slice(1);
+
   //Reset scroll to top
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
@@ -31,25 +40,26 @@ function Category() {
   if (!props) props = categories[0];
 
   ///Iterate through all the products list. Push to renderedProducts if categories match
-  for (let i = 0; i < mockProducts.length; i++) {
-    const current = mockProducts[i];
+  // for (let i = 0; i < products.length; i++) {
+  //   const current = products[i];
 
-    if (
-      current.metadata.category === props.category ||
-      props.category === "/"
-    ) {
-      renderedProducts.push(
-        <ProductListing
-          id={current.id}
-          name={current.name}
-          image={current.images[0]}
-          description={current.description}
-          price={current.prices[0].unit_amount}
-          stock={current.metadata.quantity}
-        />
-      );
-    }
-  }
+  //   if (
+  //     current.metadata.category === props.category ||
+  //     props.category === "/"
+  //   ) {
+  //     renderedProducts.push(
+  //       <ProductListing
+  //         id={current.id}
+  //         name={current.name}
+  //         image={current.images[0]}
+  //         description={current.description}
+  //         price={current.prices[0].unit_amount}
+  //         stock={current.metadata.quantity}
+  //       />
+  //     );
+  //   }
+  // }
+
 
   const navigateItems = () => {
     navigate(-1);
@@ -72,9 +82,11 @@ function Category() {
       <div className={styles.page}>
         <div className={styles.supplies}>
           <ul className={styles.bigItemList}>
-            {renderedProducts.map((item) => {
-              return <li>{item}</li>;
-            })}
+            {products.length > 0 ? (renderCategory(products, props.category, 0).map((product) => (
+              <li>{product}</li>
+              )))
+              : <h2>Waiting for loading...</h2>}
+
           </ul>
         </div>
 

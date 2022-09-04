@@ -7,7 +7,10 @@ import Button from "@mui/material/Button";
 import HomeCSS from "../Home.module.css";
 import { headers, homepageStyles } from "../muiStyles.js";
 
-function SpecialSection({ section }) {
+import { renderSpecials } from "../../../helper/renderProducts.js";
+
+
+function SpecialSection({ section, database }) {
   /**
    * useNavigate which is used to redirect to a category page (e.g. 'See All` for the Candy section)
    */
@@ -46,7 +49,7 @@ function SpecialSection({ section }) {
       </div>
 
       <ul className={HomeCSS.bigItemList}>
-        {section.displayedItems.map((item) => {
+        {renderSpecials(database, 4).map((item) => {
           return <li>{item}</li>;
         })}
       </ul>

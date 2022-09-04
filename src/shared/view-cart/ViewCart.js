@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+
+import { viewCartStyles, headers } from "./muiStyles.js";
 import Cart from "./Cart";
-import { headers, viewCartStyles } from "./muiStyles.js";
 
 import { Drawer } from "@mui/material";
 import Button from "@mui/material/Button";

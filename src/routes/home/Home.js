@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 /*
  * Hooks & helpers
@@ -9,21 +9,21 @@ import { useProducts } from "../../context/product/product-handler";
  * Components
  */
 import Header from "./Header";
-import SpecialSection from "./sections/SpecialSection";
-import OriginalSections from "./sections/OriginalSections";
 import DerivedSections from "./sections/DerivedSections";
+import OriginalSections from "./sections/OriginalSections";
+import SpecialSection from "./sections/SpecialSection";
 
 /*
  * Shared components
  */
+import BottomNav from "../../shared/bottom-nav/BottomNav";
 import CategoryNav from "../../shared/category-nav/CategoryNav";
 import ViewCart from "../../shared/view-cart/ViewCart";
-import BottomNav from "../../shared/bottom-nav/BottomNav";
 
 /*
  * Imported data
  */
-import { originalSections, derivedSections } from "./sections/sectionData.js";
+import { derivedSections, originalSections } from "./sections/sectionData.js";
 
 /*
  * Material UI Imports
@@ -35,9 +35,11 @@ import Box from "@mui/material/Box";
  */
 import HomeCSS from "./Home.module.css";
 import { homepageStyles } from "./muiStyles";
+import { UserContext } from "../../context/user/user-context";
 
 export default function HomePage() {
   const products = useProducts();
+  const { state } = useContext(UserContext);
 
   return (
     <>
@@ -55,7 +57,15 @@ export default function HomePage() {
            * Special sections
            * items in this section have different styling, thus has its own component
            */}
-          <SpecialSection section={originalSections[0]} />
+
+          {products.length > 0 ? (
+            <SpecialSection
+              section={originalSections[0]}
+              database={products.slice(1)}
+            />
+          ) : (
+            <h3>Loading Specials...</h3>
+          )}
 
           {/**
            * sections for derived items - section which properties derived from data
@@ -73,12 +83,21 @@ export default function HomePage() {
            * sections for category items
            * we list all section except the Special section
            */}
-          <OriginalSections sections={originalSections} />
+
+          {products.length > 0 ? (
+            <OriginalSections
+              sections={originalSections}
+              database={products.slice(1)}
+              emuSections={products[0]}
+            />
+          ) : (
+            <h3>Loading Sections...</h3>
+          )}
         </div>{" "}
         {/* homeContent */}
       </div>{" "}
       {/* homeContainer */}
-      <ViewCart numItems="X" totalAmount="X.XX" />
+      <ViewCart numItems={state.cart?.length} totalAmount="X.XX" />
       <BottomNav />
     </>
   );
