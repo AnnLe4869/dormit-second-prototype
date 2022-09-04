@@ -181,6 +181,9 @@ type users = Array<{
   linked_email: string;
   /**
    * address to the profile image
+   * for now, we will use svg string that uniquely generated for the user
+   * reason is implementation and security: using a link to image can allow abuse of such link,
+   * and to prevent abuse require setting up some measures, which I currently don't know how to do
    */
   profile_img: string;
   /**
