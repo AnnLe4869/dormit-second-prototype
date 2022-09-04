@@ -8,7 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { httpsCallable } from "firebase/functions";
-import { SIGN_IN_USER, SIGN_OUT_USER, SIGN_UP_USER } from "../../constant";
+import { SIGN_IN_USER, SIGN_OUT_USER } from "../../constant";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 

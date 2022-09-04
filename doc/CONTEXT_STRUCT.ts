@@ -89,6 +89,10 @@ type ProcessingOrder = {
     phone: string;
     text: string;
   };
+  /**
+   * we don't use replacement_option in Context - just here so that developer aware they exist
+   * when the data is fetched from database
+   */
   replacement_option: 0 | 1 | 2 | 3;
 
   order_time: string;
