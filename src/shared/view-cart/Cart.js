@@ -1,34 +1,19 @@
 // React imports
-import { React, useContext, useState } from "react";
+import { React, useContext } from "react";
 
 // Component import
-import {
-  Drawer,
-  ImageList,
-  ImageListItem,
-  Divider,
-  Box,
-  Container,
-  Button,
-  Typography,
-} from "@mui/material";
-import CartItem from "./CartItem";
-import ItemEntry from "../product/ProductListing";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
-import ItemEntry from "../item-entry/ItemEntry";
 import CartItem from "./CartItem";
 
 // Style import
 import styles from "./Cart.module.css";
 
 // Image import
-import apple from "../../mock_data/images/apple.jpg";
 import { UserContext } from "../../context/user/user-context";
 import { mockProducts } from "../../mock_data/data/mockData";
+import apple from "../../mock_data/images/apple.jpg";
 
 const Cart = ({ handleDrawerClose }) => {
   const mockSuggestion = ["mock", "mock", "mock", "mock", "mock", "mock"];

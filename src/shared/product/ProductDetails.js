@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import styles from "./ProductDetails.module.css";
-import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import React from "react";
 import {
   useIncrementItemCount,
   useSelectItem,
 } from "../../context/user/cart-handler";
+import styles from "./ProductDetails.module.css";
 
 /*
 id={id} name={name} image={image} description={description} price={price} stock={stock}

@@ -21,12 +21,11 @@ function OriginalSections({ sections, database, emuSections }) {
 
   return (
     <>
-      {sections.filter((section) => section.sectionId !== "specialsSection")
+      {sections
+        .filter((section) => section.sectionId !== "specialsSection")
         .map((section, index) => (
           <section className={HomeCSS.categoryContainer} id={section.sectionId}>
             <hr className={HomeCSS.sectionBarTop} />
-            {console.log("currIndex: ", index)}
-            {console.log("emuSections: ", emuSections)}
             <div className={HomeCSS.categoryHeader}>
               <img src={section.imgSrc} alt={section.alt} />
               <Typography sx={headers.header3}>
@@ -40,9 +39,13 @@ function OriginalSections({ sections, database, emuSections }) {
                   homepageStyles.seeAll,
                   {
                     color: emuSections.categories[index].category_style.color,
-                    backgroundColor: emuSections.categories[index].category_style.background_color,
+                    backgroundColor:
+                      emuSections.categories[index].category_style
+                        .background_color,
                     "&:hover": {
-                      backgroundColor: emuSections.categories[index].category_style.background_color,
+                      backgroundColor:
+                        emuSections.categories[index].category_style
+                          .background_color,
                     },
                   },
                 ]}
@@ -56,9 +59,11 @@ function OriginalSections({ sections, database, emuSections }) {
                 className={HomeCSS.categoryItemList}
                 id={section.sectionListId}
               >
-                {renderCategory(database, emuSections.categories[index].category_name, 6).map((item) => {
-                  return <li>{item}</li>;
-                })}
+                {renderCategory(
+                  database,
+                  emuSections.categories[index].category_name,
+                  6
+                ).map((item) => item)}
               </ul>
             </div>
           </section>
