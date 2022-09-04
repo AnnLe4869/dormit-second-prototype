@@ -324,6 +324,16 @@ type processing_orders = Array<{
   };
 
   /**
+   * each value represent an option
+   * ***
+   * 0: call customer before replacing item(s)
+   * 1: text customer before replacing item(s)
+   * 2: don't need to inform customer before replacing item(s)
+   * 3: don't replacing item(s)t and refund the cost of the item(s)
+   */
+  replacement_option: 0 | 1 | 2 | 3;
+
+  /**
    * time that you successfully complete the transaction,
    * counted as milliseconds since EPOCH time
    */

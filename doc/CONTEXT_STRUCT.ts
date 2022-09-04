@@ -89,6 +89,8 @@ type ProcessingOrder = {
     phone: string;
     text: string;
   };
+  replacement_option: 0 | 1 | 2 | 3;
+
   order_time: string;
   until_delivered: string | null;
   process_stage: -1 | 0 | 1 | 2 | 3;
