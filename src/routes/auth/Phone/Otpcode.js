@@ -1,23 +1,29 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useVerifyPhoneCode } from "../../../context/user/auth-handler";
 import callIcon from "../../../mock_data/images/callVector.png";
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
 import styles from "../Auth.module.css";
 import { authStyles } from "../muiStyles";
 
 function Otpcode({ phoneNumber, confirmationResult }) {
-  const [phoneCode, setPhoneCode] = useState("");
   const navigate = useNavigate();
-
   const verifyPhoneCode = useVerifyPhoneCode();
+  const activateErrorAlert = useActivateErrorAlert();
+
+  const [phoneCode, setPhoneCode] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleOnchange = (event) => {
     setPhoneCode(event.target.value);
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     const result = await verifyPhoneCode(phoneCode, confirmationResult);
     if (result.isSuccess) {
       if (result.isNewUser) {
@@ -25,6 +31,9 @@ function Otpcode({ phoneNumber, confirmationResult }) {
       } else {
         navigate("/category");
       }
+    } else {
+      setLoading(false);
+      activateErrorAlert(result.message);
     }
   };
 
@@ -50,7 +59,6 @@ function Otpcode({ phoneNumber, confirmationResult }) {
           }}
         >
           <input
-            pattern="[0-9]"
             value={phoneCode}
             onChange={handleOnchange}
             className={styles.inputPhone}
@@ -59,14 +67,14 @@ function Otpcode({ phoneNumber, confirmationResult }) {
           ></input>
         </Box>
         <div className={styles.buttonLink}>
-          <Button
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
             disableRipple
             variant="contained"
             sx={authStyles.authButton}
             onClick={handleSubmit}
-          >
-            Confirm
-          </Button>
+          />
         </div>
       </Box>
     </Container>

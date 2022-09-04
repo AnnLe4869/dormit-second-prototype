@@ -5,19 +5,30 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
+import {
+  useDecrementItemCount,
+  useIncrementItemCount,
+  useRemoveProductFromCart,
+} from "../../context/user/cart-handler";
 
 const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   const [item, setitem] = useState(true);
   const [quan, setquantity] = useState(quantity);
+  const incrementCount = useIncrementItemCount();
+  const decrementCount = useDecrementItemCount();
+  const removeProductFromCart = useRemoveProductFromCart();
 
   const toggleDel = () => {
+    removeProductFromCart(id);
     setitem(false);
   };
   const increase = () => {
     setquantity(quan + 1);
+    incrementCount(id);
   };
   const decrease = () => {
     setquantity(quan - 1);
+    decrementCount(id);
   };
 
   useEffect(() => {

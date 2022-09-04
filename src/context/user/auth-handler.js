@@ -42,30 +42,6 @@ export function useUserAuthenticationDetail() {
   }
   return auth.currentUser;
 }
-/**
- * Sign up
- * @returns signUp function
- */
-export function useSignUp() {
-  const { auth } = useContext(AppContext);
-  const { dispatch } = useContext(UserContext);
-  const signUp = useCallback(async () => {
-    const provider = new GoogleAuthProvider();
-    /**
-     * TODO: do some error handling
-     * For example, what if user stop authenticate midway
-     */
-    try {
-      await signInWithPopup(auth, provider);
-      dispatch({ type: SIGN_UP_USER });
-    } catch (err) {
-      console.log(err);
-      throw new Error("sign in fail");
-    }
-  }, [auth, dispatch]);
-
-  return signUp;
-}
 
 /**
  * Sign in with Google
@@ -93,15 +69,26 @@ export function useGoogleSignIn() {
   return signIn;
 }
 
-export function useSetUpProfile() {}
+export function useSetUpProfile() {
+  const { auth, functions } = useContext(AppContext);
+  const updateUserProfile = httpsCallable(functions, "updateUserProfile");
+
+  return async (name, email) => {
+    if (!auth.currentUser) {
+      throw new Error("User must sign in first to do this action");
+    }
+    const { data } = await updateUserProfile({ name, email });
+    return data;
+  };
+}
 
 export function useSendCodeEmail() {
   const { functions } = useContext(AppContext);
-
   const sendCodeViaEmail = httpsCallable(functions, "sendCodeViaEmail");
 
   return async (email) => {
-    sendCodeViaEmail({ email });
+    const { data } = await sendCodeViaEmail({ email });
+    return data;
   };
 }
 
@@ -120,13 +107,11 @@ export function useVerifyEmailCode() {
       code,
     });
 
-    if (!data.isSuccess) {
-      // display the error message to the user
-      console.error(data.message);
+    if (data.isSuccess) {
+      await signInWithCustomToken(auth, data.token);
+      dispatch({ type: SIGN_IN_USER });
     }
-
-    await signInWithCustomToken(auth, data.token);
-    dispatch({ type: SIGN_IN_USER });
+    return data;
   };
 }
 
@@ -168,8 +153,9 @@ export function useSendCodeToPhone() {
       };
     } catch (err) {
       /**
-       * when fail to send, ideally we want to refresh the page so user has new reCaptcha
+       * when fail to send, we clear the Recaptcha, allow user to try again
        */
+      appVerifier.clear();
       return {
         isSuccess: false,
         message: "Fail to send SMS code",

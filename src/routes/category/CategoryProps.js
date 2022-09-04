@@ -6,6 +6,6 @@ export const categories = [
   { id: "drinks", title: "Drinks", category: "drinks" },
   { id: "snacks", title: "Snacks", category: "snacks" },
   { id: "sweets", title: "Sweets", category: "sweets" },
-  { id: "icecream", title: "Ice Cream", category: "icecream" },
-  { id: "ready-to-eat", title: "Ready To Eat", category: "readyToEat" },
+  { id: "icecream", title: "Ice Cream", category: "ice-scream" },
+  { id: "ready-to-eat", title: "Ready To Eat", category: "ready-to-eat" },
 ];

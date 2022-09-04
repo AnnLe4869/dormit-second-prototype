@@ -1,12 +1,42 @@
-import React from "react";
-import styles from "../Auth.module.css";
-import accountVector from "../../../mock_data/images/accountVector.png";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Box, Checkbox, Grid, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { Link } from "react-router-dom";
-import { Box, Button, Checkbox, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Register({ nextStep }) {
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
+import { useSetUpProfile } from "../../../context/user/auth-handler";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
+
+import styles from "../Auth.module.css";
+
+function Register() {
+  const navigate = useNavigate();
+  const setupProfile = useSetUpProfile();
+  const activateErrorAlert = useActivateErrorAlert();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    const result = await setupProfile(name, email);
+    if (result.isSuccess) {
+      navigate("/auth/register");
+    } else {
+      // should dispatch error alert
+      activateErrorAlert(result.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <Container maxWidth="md">
@@ -21,10 +51,8 @@ function Register({ nextStep }) {
           gap: "10px",
         }}
       >
-        <img
-          alt="Account Icon"
-          src={accountVector}
-          className={styles.callIcon}
+        <AccountCircleIcon
+          sx={{ height: "15%", width: "inherit", color: "#7140FA" }}
         />
         <Typography variant="h4" fontWeight="700">
           Create account
@@ -32,11 +60,9 @@ function Register({ nextStep }) {
         <Typography variant="body1">
           One more step to{" "}
           <Box component="span" color="#7141FA">
-            nutricious victory
+            nutritious victory
           </Box>
         </Typography>
-
-        {/* Inputs */}
 
         <Grid
           container
@@ -69,10 +95,13 @@ function Register({ nextStep }) {
             >
               Full Name
             </Typography>
+            {/** Name input field  */}
             <input
-              className={styles.inputAccount}
               type="text"
               placeholder="Name"
+              className={styles.inputAccount}
+              value={name}
+              onChange={handleNameChange}
             ></input>
           </Grid>
           <Grid
@@ -96,10 +125,13 @@ function Register({ nextStep }) {
             >
               Email
             </Typography>
+            {/** Email input field  */}
             <input
-              className={styles.inputAccount}
-              type="text"
+              type="email"
               placeholder="email@address.com"
+              className={styles.inputAccount}
+              value={email}
+              onChange={handleEmailChange}
             ></input>
           </Grid>
         </Grid>
@@ -112,15 +144,17 @@ function Register({ nextStep }) {
             textAlign: "left",
           }}
         >
-          <Checkbox {...label} color="primary" />
+          <Checkbox aria-label="checkbox" color="primary" />
 
           <Typography variant="body1">
             By entering this phone number, you agree with Dormit’s <br /> Terms
             & Conditions and Privacy Policy
           </Typography>
         </Box>
-        <Link to="/auth/register" className={styles.buttonLink}>
-          <Button
+        <div className={styles.buttonLink}>
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
             variant="contained"
             disableRipple
             sx={{
@@ -137,11 +171,9 @@ function Register({ nextStep }) {
                 backgroundColor: "#7141FA",
               },
             }}
-            onClick={nextStep}
-          >
-            Confirm
-          </Button>
-        </Link>
+            onClick={handleSubmit}
+          />
+        </div>
       </Box>
     </Container>
   );

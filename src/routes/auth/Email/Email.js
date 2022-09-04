@@ -1,11 +1,52 @@
-import React from "react";
-import styles from "../Auth.module.css";
-import callIcon from "../../../mock_data/images/callVector.png";
+import EmailIcon from "@mui/icons-material/Email";
+import { Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { Link } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../Auth.module.css";
 
-function Phone({ lostAccess }) {
+import { verifyEmailFormat } from "../../../helper/verifyEmailFormat";
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
+import { useSendCodeEmail } from "../../../context/user/auth-handler";
+import { LoadingButton } from "../../../shared/loading-button/LoadingButton";
+
+function Email({ email, setEmail }) {
+  const navigate = useNavigate();
+  const activateErrorAlert = useActivateErrorAlert();
+  const sendEmailCode = useSendCodeEmail();
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+
+    /**
+     * perform some quick validation on the email format here
+     * if it doesn't look like an email, display error message
+     */
+    if (!verifyEmailFormat(email)) {
+      activateErrorAlert("This doesn't look like an email. Please try again");
+      setLoading(false);
+      return;
+    }
+
+    const result = await sendEmailCode(email);
+    if (result.isSuccess) {
+      navigate("/auth/email/otpcode");
+    } else {
+      /**
+       * show the error message
+       * error should happen very rarely and if it does,
+       * often it is fatal error that is server-related
+       */
+      activateErrorAlert("Something went wrong. Please try again");
+      setLoading(false);
+    }
+  };
+
   return (
     <Container>
       <Box
@@ -19,7 +60,7 @@ function Phone({ lostAccess }) {
           gap: "10px",
         }}
       >
-        <img alt="call icon" src={callIcon} className={styles.callIcon} />
+        <EmailIcon sx={{ height: "15%", width: "inherit", color: "#7140FA" }} />
 
         <Typography variant="h4" fontWeight="700">
           Lost access to your phone?
@@ -54,17 +95,19 @@ function Phone({ lostAccess }) {
           </Typography>
           <input
             placeholder="johndoe@example.com"
+            type="email"
+            required
             className={styles.inputPhone}
-            type="text"
-            maxLength="10"
+            value={email}
+            onChange={handleChange}
           ></input>
         </Box>
 
-        <Link
-          className={styles.buttonLink}
-          to={{ pathname: "/auth/email/otpcode" }}
-        >
-          <Button
+        <div className={styles.buttonLink}>
+          <LoadingButton
+            buttonName="Confirm"
+            loading={loading}
+            onClick={handleSubmit}
             disableRipple
             variant="contained"
             sx={{
@@ -81,13 +124,11 @@ function Phone({ lostAccess }) {
                 backgroundColor: "#7141FA",
               },
             }}
-          >
-            Confirm
-          </Button>
-        </Link>
+          />
+        </div>
       </Box>
     </Container>
   );
 }
 
-export default Phone;
+export default Email;
