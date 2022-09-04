@@ -1,6 +1,7 @@
 import { checkout } from "./func/checkout";
 import { postCheckout } from "./func/postCheckout";
 import { sendCodeViaEmail } from "./func/sendCodeViaEmail";
+import { setDefaultUserImg } from "./func/setDefaultUserImg";
 import {
   createCustomer,
   getStripePublishableKey,
@@ -14,6 +15,7 @@ import { verifyOtpCode } from "./func/verifyOtpCode";
 export {
   getStripePublishableKey,
   createCustomer,
+  setDefaultUserImg,
   handleStripeWebhookEvents,
   checkout,
   postCheckout,
