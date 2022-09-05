@@ -54,13 +54,13 @@ service cloud.firestore {
     // rules for "completed_orders" collection
     match /completed_orders/{id} {
       // no write allowed
-      allow read, write: if true;
+      allow write: if false;
 
-      // // only allow read if the user order made the order (i.e customer_id == userId)
-      // // or the rusher is assigned to the order (i.e rusher_id === userId)
-      // allow read: if request.auth != null && 
-      //               (request.auth.uid == resource.data.customer_id  
-      //                 || request.auth.uid == resource.data.rusher.rusher_id);
+      // only allow read if the user order made the order (i.e customer_id == userId)
+      // or the rusher is assigned to the order (i.e rusher_id === userId)
+      allow read: if request.auth != null && 
+                    (request.auth.uid == resource.data.customer_id  
+                      || request.auth.uid == resource.data.rusher.rusher_id);
     }
 
 
