@@ -72,11 +72,18 @@ type User = {
   current_orders: Array<ProcessingOrder>;
 
   /**
-   * these are Context data only, used to control app behavior
+   * these below are Context data only, used to control app behavior
    * means we won't find this data in the collection "users"
    */
   isAuthenticated: boolean;
   isNewUser: boolean;
+  /**
+   * pastOrders contains detail of SOME orders listed in past_orders field
+   * this MAY OR MAY NOT have all orders listed in past_orders field
+   * because there may be a lot of orders in past_orders and user don't often scroll back too long,
+   * we only fetch about 10 past orders on route `/order`
+   * and on route `/order/past` will fetch all orders
+   */
   pastOrders: Array<CompletedOrder>;
 };
 
