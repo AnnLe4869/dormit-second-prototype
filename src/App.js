@@ -12,6 +12,8 @@ import OrderPage from "./routes/order/OrderPage";
 import SearchPage from "./routes/search/Search";
 
 import Test from "./routes/test/Test";
+import OtherTest from "./routes/test/OtherTest";
+
 import AlertPopup from "./shared/alert-popup/AlertPopup";
 
 function App() {

@@ -6,6 +6,7 @@ import {
   where,
   collection,
   documentId,
+  FieldPath,
 } from "firebase/firestore";
 
 import { AppContext } from "../app-context";
@@ -21,11 +22,11 @@ export function useInitializeAllOrders() {
   const { db, auth } = useContext(AppContext);
   const { state, dispatch } = useContext(UserContext);
 
-  if (!auth.currentUser) {
-    throw new Error("User needs to be authenticated");
-  }
-
   return async () => {
+    if (!auth.currentUser) {
+      throw new Error("User needs to be authenticated");
+    }
+    state.past_orders = state.past_orders ? state.past_orders : [null];
     try {
       const { currentOrders, pastOrders } = await runTransaction(
         db,

@@ -61,8 +61,6 @@ export function useCheckout() {
         replacement_option: replacementOption,
       });
 
-      console.log(data);
-
       return data;
     } catch (error) {
       throw new Error(error);

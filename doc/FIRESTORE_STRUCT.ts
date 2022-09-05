@@ -288,7 +288,7 @@ type users = Array<{
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
- * "processing_order" is collection of orders that are in processed
+ * "processing_orders" is collection of orders that are in processed
  * the order only in processed only after user has successfully paid the cost of the order
  * ****
  * only user that has their id match the customer_id of the document OR the user is a rusher
@@ -443,7 +443,7 @@ type processing_orders = Array<{
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
- * "past_orders" is a collection of orders that are completed
+ * "completed_orders" is a collection of orders that are completed
  * by completed, it means the order either successfully delivered, or be refunded, or canceled, etc.
  * for now, per company requirement, orders cannot be cancelled or refund
  * the structure for this is pretty much the same as "current_orders",
@@ -482,7 +482,7 @@ type completed_orders = Array<{
   final_status: number;
   rusher: {
     rusher_id: string;
-  };
+  } | null;
   amount_total: number;
   shipping_fee: number;
   rusher_tip: number;
