@@ -240,7 +240,7 @@ function userReducer(state, action) {
       // action is {type: GET_PAST_ORDERS, payload: {orders: Array<CompletedOrder>}}
       return {
         ...state,
-        past_orders: action.payload.orders,
+        pastOrders: action.payload.orders,
       };
     }
     /**
@@ -252,7 +252,7 @@ function userReducer(state, action) {
       return {
         ...state,
         current_orders: action.payload.currentOrders,
-        past_orders: action.payload.pastOrders,
+        pastOrders: action.payload.pastOrders,
       };
     }
     /**

@@ -9,7 +9,6 @@ export default function Test() {
 
   useEffect(() => {
     if (state.isAuthenticated) {
-      console.log("hello world");
       initializeOrders();
     }
   }, [state.isAuthenticated]);

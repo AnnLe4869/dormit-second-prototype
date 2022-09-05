@@ -1,18 +1,16 @@
-import { useContext, useEffect } from "react";
 import {
-  doc,
-  runTransaction,
-  query,
-  where,
   collection,
   documentId,
-  FieldPath,
+  getDocs,
+  query,
+  where,
 } from "firebase/firestore";
+import { useContext } from "react";
 
 import { AppContext } from "../app-context";
 
-import { UserContext } from "./user-context";
 import { GET_ALL_ORDERS } from "../../constant";
+import { UserContext } from "./user-context";
 
 /**
  * return a function that when called will
@@ -26,68 +24,51 @@ export function useInitializeAllOrders() {
     if (!auth.currentUser) {
       throw new Error("User needs to be authenticated");
     }
-    state.past_orders = state.past_orders ? state.past_orders : [null];
     try {
-      const { currentOrders, pastOrders } = await runTransaction(
+      const userCurrentOrdersRef = collection(
         db,
-        async (transaction) => {
-          const completedOrdersQuery = query(
-            collection(db, "completed_order"),
-            where(documentId(), "in", state.past_orders)
-          );
-          const userCurrentOrdersRef = doc(
-            db,
-            "users",
-            auth.currentUser.uid,
-            "current_orders"
-          );
-
-          const userCurrentOrdersSnap = await transaction.get(
-            userCurrentOrdersRef
-          );
-          if (!userCurrentOrdersSnap.exists()) {
-            throw new Error(
-              "User either doesn't have any current order or some error happened"
-            );
-          }
-          /**
-           * push all current orders detail into an array
-           * we will return this array later
-           */
-          const userCurrentOrders = [];
-          userCurrentOrdersSnap.forEach((doc) => {
-            userCurrentOrders.push({
-              id: doc.id,
-              ...doc.data(),
-            });
-          });
-
-          /**
-           * get all past (i.e completed) orders from the collection "completed_orders"
-           */
-          const userPastOrdersSnap = await transaction.get(
-            completedOrdersQuery
-          );
-          const userPastOrders = [];
-          userPastOrdersSnap.forEach((doc) => {
-            userPastOrders.push({
-              id: doc.id,
-              ...doc.data(),
-            });
-          });
-
-          return {
-            currentOrders: userCurrentOrders,
-            pastOrders: userPastOrders,
-          };
-        }
+        "users",
+        auth.currentUser.uid,
+        "current_orders"
       );
 
+      /**
+       * get all current orders
+       */
+      const userCurrentOrdersSnap = await getDocs(userCurrentOrdersRef);
+      const userCurrentOrders = [];
+      if (!userCurrentOrdersSnap.empty) {
+        userCurrentOrdersSnap.forEach((doc) => {
+          userCurrentOrders.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+      }
+
+      /**
+       * get all past orders
+       */
+      const userPastOrders = [];
+      if (state.past_orders && state.past_orders.length > 0) {
+        const completedOrdersQuery = query(
+          collection(db, "completed_orders"),
+          where(documentId(), "in", state.past_orders)
+        );
+        const userPastOrdersSnap = await getDocs(completedOrdersQuery);
+        userPastOrdersSnap.forEach((doc) => {
+          userPastOrders.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+      }
       dispatch({
         type: GET_ALL_ORDERS,
         payload: {
-          currentOrders,
-          pastOrders,
+          currentOrders:
+            userCurrentOrders.length > 0 ? userCurrentOrders : null,
+          pastOrders: userPastOrders.length > 0 ? userPastOrders : null,
         },
       });
     } catch (err) {

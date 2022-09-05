@@ -34,7 +34,7 @@ function App() {
         </Route>
         <Route path="/" element={<Homepage />} exact />
         {/*this is special route for testing only. Delete when done*/}
-        <Route path="/test" element={<Test />} />
+        <Route path="/test" element={<OtherTest />} />
       </Routes>
     </Router>
   );
