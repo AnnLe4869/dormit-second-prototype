@@ -90,7 +90,7 @@ export const completeOrder = functions.firestore
      */
     batch.create(completedOrdersRef.doc(orderId), {
       payment_id: order.payment_id,
-      customer_id: order.payment_id,
+      customer_id: order.customer_id,
       order_time: order.order_time,
 
       /**

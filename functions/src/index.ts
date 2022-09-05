@@ -27,7 +27,6 @@ export {
    * this is for testing purpose only
    * remove when in development
    */
-  completeOrder,
-  // fillCustomerInfo,
-  // testFunc,
+  // completeOrder,
 };
+completeOrder;

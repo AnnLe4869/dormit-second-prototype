@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   useCheckAuthenticationStatus,
   useSendCodeEmail,
@@ -22,9 +22,15 @@ import {
 } from "../../context/user/cart-handler";
 import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/user/user-context";
+import { AppContext } from "../../context/app-context";
+
+import { doc, setDoc, writeBatch } from "firebase/firestore";
 
 export default function Test() {
   const status = useCheckAuthenticationStatus();
+  const { state } = useContext(UserContext);
+  const { db, auth } = useContext(AppContext);
 
   const selectItem = useSelectItem();
   const incrementItem = useIncrementItemCount();
@@ -40,6 +46,24 @@ export default function Test() {
   const handleClick = () => {
     removeUserDataFromLocalStorage();
   };
+
+  useEffect(() => {
+    async function update() {
+      const pastOrders = state.past_orders;
+      const batch = writeBatch(db);
+
+      for (const orderId of pastOrders) {
+        batch.update(doc(db, "completed_orders", orderId), {
+          customer_id: auth.currentUser.uid,
+        });
+      }
+      await batch.commit();
+    }
+
+    if (status) {
+      update();
+    }
+  }, [status]);
 
   return (
     <main>

@@ -200,7 +200,7 @@ export const checkout = functions
       const tempOrder: User["temp_order"] = {
         payment_id: paymentIntent.id,
 
-        customer_id: userDetail.stripeId,
+        customer_id: context.auth.uid,
         customer_name: userDetail.name,
         customer_img: userDetail.profile_img,
         customer_contact: {
