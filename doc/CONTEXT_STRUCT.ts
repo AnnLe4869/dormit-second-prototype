@@ -61,18 +61,23 @@ type User = {
   }>;
 
   /**
-   * current_orders and past_orders are not fetched and populated when we fetch user's data
-   * current_orders is a collection and past_orders is an array of orders' id
-   * we will fetch orders' data only when needed as it may be a lot
+   * past_orders is an array of orders' id
+   */
+  past_orders: Array<string>;
+  /**
+   * current_orders is not fetched and populated when we fetch user's data
+   * current_orders is a collection
+   * we will fetch current_orders' data only when needed as it may be a lot
    */
   current_orders: Array<ProcessingOrder>;
-  past_orders: Array<CompletedOrder>;
 
   /**
-   * these are Context data only
+   * these are Context data only, used to control app behavior
+   * means we won't find this data in the collection "users"
    */
   isAuthenticated: boolean;
   isNewUser: boolean;
+  pastOrders: Array<CompletedOrder>;
 };
 
 /**
