@@ -99,7 +99,10 @@ export function useInitializeUser() {
           // user already exist, i.e user didn't sign up for the first time
           userData = userSnap.data();
           const cartInDb = userData.cart;
-          const mergedCart = mergeDbLocalCarts(cartInDb, localCart);
+          const mergedCart =
+            paymentStatus === "succeeded"
+              ? []
+              : mergeDbLocalCarts(cartInDb, localCart);
 
           // Set new mergedCart in local storage and context
           writeCartToLocStore(mergedCart);
