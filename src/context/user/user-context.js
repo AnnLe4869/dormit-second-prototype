@@ -8,6 +8,7 @@ import {
   GET_ALL_PAST_ORDERS,
   INCREMENT_QUANTITY,
   INITIALIZE_CART,
+  MERGE_CARTS,
   INITIALIZE_USER_DETAILS,
   REMOVE_ITEM_FROM_CART,
   SET_CHECKOUT_ADDRESS,
@@ -84,6 +85,14 @@ function userReducer(state, action) {
      */
     case INITIALIZE_CART: {
       // action is {type: INITIALIZE_CART, payload: {cart: User.cart}}
+      return { ...state, cart: action.payload.cart };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+    case MERGE_CARTS: {
+      // action is {type: MERGE_CARTS, payload: {cart: mergedCart}}
       return { ...state, cart: action.payload.cart };
     }
 
