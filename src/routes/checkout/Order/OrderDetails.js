@@ -1,26 +1,26 @@
-import React from "react";
-import BottomNav from "../../../shared/bottom-nav/BottomNav";
-import styles from "./OrderDetails.module.css";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
-  TextField,
-  Divider,
+  Box,
   Button,
   ButtonGroup,
   Container,
-  Box,
-  Typography,
+  Divider,
   Grid,
+  TextField,
+  Typography,
 } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import AppleIcon from "@mui/icons-material/Apple";
-import apple from "../../mock_data/images/apple.jpg";
+import React from "react";
+import apple from "../../../mock_data/images/apple.jpg";
+import styles from "./OrderDetails.module.css";
 
 const Details = () => {
   return (
     <div className={styles.box}>
       <div className={styles.outerPicture}>
+        <img className={styles.images} src={apple}></img>
+        <img className={styles.images} src={apple}></img>
         <img className={styles.images} src={apple}></img>
         <img className={styles.images} src={apple}></img>
       </div>
@@ -144,7 +144,7 @@ const OrderDetails = () => {
               />
             </div>
           </div>
-          <Divider
+          {/* <Divider
             sx={{
               width: "100%",
               marginBottom: "25px",
@@ -167,7 +167,7 @@ const OrderDetails = () => {
                 <NavigateNextIcon />
               </button>
             </div>
-          </div>
+          </div> */}
           <Divider
             sx={{
               width: "100%",

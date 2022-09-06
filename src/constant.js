@@ -36,9 +36,10 @@ export const SET_CHECKOUT_PAYMENT = "SET CHECKOUT PAYMENT";
 export const PLACE_ORDER = "PLACE ORDER";
 
 // fetch order data
-export const GET_CURRENT_ORDERS = "GET CURRENT ORDERS";
+export const GET_ALL_CURRENT_ORDERS = "GET ALL CURRENT ORDERS";
+export const GET_ALL_PAST_ORDERS = "GET ALL PAST ORDERS";
 export const GET_PAST_ORDERS = "GET PAST ORDERS";
-export const GET_ALL_ORDERS = "GET ALL ORDERS";
+export const GET_ORDERS = "GET ALL ORDERS";
 // update order data
 export const UPDATE_CURRENT_ORDER = "UPDATE CURRENT ORDER";
 
