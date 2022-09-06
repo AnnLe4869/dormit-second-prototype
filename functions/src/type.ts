@@ -162,6 +162,7 @@ export type Processing_order = {
      */
     text: string;
   };
+  replacement_option: 0 | 1 | 2 | 3;
 
   /**
    * time that you successfully complete the transaction,
@@ -289,6 +290,7 @@ export type Completed_order = {
    */
   payment_id: string;
   customer_id: string;
+
   order_time: string;
   /**
    * delivery_time and final_status value depends on each other

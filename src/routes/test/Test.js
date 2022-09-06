@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   useCheckAuthenticationStatus,
   useSendCodeEmail,
@@ -20,6 +20,12 @@ import {
   useIncrementItemCount,
   useSelectItem,
 } from "../../context/user/cart-handler";
+import { removeUserDataFromLocalStorage } from "../../helper/removeCartFromLocalStorage";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/user/user-context";
+import { AppContext } from "../../context/app-context";
+
+import { doc, setDoc, writeBatch } from "firebase/firestore";
 
 export default function Test() {
   const status = useCheckAuthenticationStatus();
@@ -29,10 +35,22 @@ export default function Test() {
   const decrementItem = useDecrementItemCount();
 
   const products = useProducts();
+  const navigate = useNavigate();
+
+  const moveToCheckout = () => {
+    navigate("/checkout");
+  };
+
+  const handleClick = () => {
+    removeUserDataFromLocalStorage();
+  };
 
   return (
     <main>
       <h1>Test</h1>
+      <button onClick={moveToCheckout}>Move to checkout</button>
+
+      <button onClick={handleClick}>Clear cart</button>
       {products.length > 0 ? (
         products.slice(1, 10).map((product) => (
           <div key={product.id}>
@@ -47,9 +65,11 @@ export default function Test() {
               Decrement item {product.name}
             </button>
 
-            {product.prices ? <h3>{product.prices[0].unit_amount}</h3>
-            : <h3>Loading prices</h3>}
-            
+            {product.prices ? (
+              <h3>{product.prices[0].unit_amount}</h3>
+            ) : (
+              <h3>Loading prices</h3>
+            )}
           </div>
         ))
       ) : (

@@ -12,6 +12,8 @@ import OrderPage from "./routes/order/OrderPage";
 import SearchPage from "./routes/search/Search";
 
 import Test from "./routes/test/Test";
+import OtherTest from "./routes/test/OtherTest";
+
 import AlertPopup from "./shared/alert-popup/AlertPopup";
 
 function App() {
@@ -32,7 +34,7 @@ function App() {
         </Route>
         <Route path="/" element={<Homepage />} exact />
         {/*this is special route for testing only. Delete when done*/}
-        <Route path="/test" element={<Test />} />
+        <Route path="/test" element={<OtherTest />} />
       </Routes>
     </Router>
   );

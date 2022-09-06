@@ -24,7 +24,8 @@ import { Product, User } from "../type";
  *                  floor_apartment: string;
  *               },
  *         rusher_tip: number,
- *         message: string
+ *         message: string,
+ *         replacement_option: number
  *      }
  */
 
@@ -69,6 +70,9 @@ export const checkout = functions
     const shippingAddress = data.shipping_address as User["shipping_address"];
     const rusherTip = parseInt(data.rusher_tip ? data.rusher_tip : 0);
     const message = data.message ? data.message : "";
+    const replacementOption = data.replacement_option
+      ? data.replacement_option
+      : 0;
 
     if (!cart) {
       throw new functions.https.HttpsError(
@@ -196,13 +200,14 @@ export const checkout = functions
       const tempOrder: User["temp_order"] = {
         payment_id: paymentIntent.id,
 
-        customer_id: userDetail.stripeId,
+        customer_id: context.auth.uid,
         customer_name: userDetail.name,
         customer_img: userDetail.profile_img,
         customer_contact: {
           phone: userDetail.phone,
           text: userDetail.phone,
         },
+        replacement_option: replacementOption,
 
         order_time: EPOCH_CURRENT_TIME,
         until_delivered: null,
@@ -250,6 +255,7 @@ export const checkout = functions
        * -------------------------------------------------------------------------------------------------------------------
        */
       return {
+        isSuccess: true,
         clientSecret: paymentIntent.client_secret,
       };
     } catch (error) {
@@ -257,6 +263,9 @@ export const checkout = functions
       functions.logger.error(
         `Error: cannot create checkout for user with uid ${context.auth.uid}`
       );
-      throw new functions.https.HttpsError("internal", "Something went wrong");
+      return {
+        isSuccess: false,
+        message: "something went wrong",
+      };
     }
   });

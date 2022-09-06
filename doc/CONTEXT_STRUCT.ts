@@ -61,18 +61,30 @@ type User = {
   }>;
 
   /**
-   * current_orders and past_orders are not fetched and populated when we fetch user's data
-   * current_orders is a collection and past_orders is an array of orders' id
-   * we will fetch orders' data only when needed as it may be a lot
+   * past_orders is an array of orders' id
+   */
+  past_orders: Array<string>;
+  /**
+   * current_orders is not fetched and populated when we fetch user's data
+   * current_orders is a collection
+   * we will fetch current_orders' data only when needed as it may be a lot
    */
   current_orders: Array<ProcessingOrder>;
-  past_orders: Array<CompletedOrder>;
 
   /**
-   * these are Context data only
+   * these below are Context data only, used to control app behavior
+   * means we won't find this data in the collection "users"
    */
   isAuthenticated: boolean;
   isNewUser: boolean;
+  /**
+   * pastOrders contains detail of SOME orders listed in past_orders field
+   * this MAY OR MAY NOT have all orders listed in past_orders field
+   * because there may be a lot of orders in past_orders and user don't often scroll back too long,
+   * we only fetch about 10 past orders on route `/order`
+   * and on route `/order/past` will fetch all orders
+   */
+  pastOrders: Array<CompletedOrder>;
 };
 
 /**
@@ -89,6 +101,12 @@ type ProcessingOrder = {
     phone: string;
     text: string;
   };
+  /**
+   * we don't use replacement_option in Context - just here so that developer aware they exist
+   * when the data is fetched from database
+   */
+  replacement_option: 0 | 1 | 2 | 3;
+
   order_time: string;
   until_delivered: string | null;
   process_stage: -1 | 0 | 1 | 2 | 3;

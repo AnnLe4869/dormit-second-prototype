@@ -68,8 +68,9 @@ This route corresponds to the route `https://localhost/checkout` and the compone
 
 There are two subroutes here
 
-- `/checkout/order` will display input fields to enter all shipping information as well as what is currently in the cart right now. User when ready can click on the "Place order" button
-- `/checkout/payment` will display the input field for user to enter their payment information (like credit card number, Google pay, etc.). User should only see this by navigating from `/checkout` route
+- `/checkout/address` will display the delivery address and notes field for user to enter. This will be displayed first after user click "Review order" button in the cart view
+- `/checkout/order` will display input fields to enter all shipping information as well as what is currently in the cart right now (following after user complete the `/checkout/address`). User when ready can click on the "Place order" button
+- `/checkout/payment` will display the input field for user to enter their payment information (like credit card number, Google pay, etc.). User should only see this after complete the previous steps (`/checkout/address` and `/checkout/order` parts)
 
 We will not collect the credit cart information here nor we store credit card information on our database. We use Stripe to handle that. After user decide to place order, we will redirect them to a Stripe checkout session and let Stripe handle payment. If the payment is successful, we will redirect to the order page with the updated detail
 
