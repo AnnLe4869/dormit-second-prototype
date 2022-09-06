@@ -12,6 +12,7 @@
   width: 24%;
   min-width: 36px;
   min-height: 36px;
+  z-index: 1;
   overflow: hidden;
   border: none;
   background-color: rgb(0, 0, 0, 0);
