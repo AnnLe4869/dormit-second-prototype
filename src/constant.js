@@ -22,6 +22,9 @@ export const INITIALIZE_USER_DETAILS = "INITIALIZE USER DETAILS";
 
 // initialize cart
 export const INITIALIZE_CART = "INITIALIZE CART";
+// merge db and local carts
+export const MERGE_CARTS = "INITIALIZE CARTS";
+
 // change cart's items amount
 export const INCREMENT_QUANTITY = "INCREMENT QUANTITY";
 export const DECREMENT_QUANTITY = "DECREMENT QUANTITY";

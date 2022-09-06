@@ -15,7 +15,10 @@ import { UserContext } from "./user-context";
 import { useUserAuthenticationDetail } from "./auth-handler";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
 import { updateCartItemLocStore } from "../../helper/updateCartItemLocStore";
-import { writeCartToLocStore } from "../../helper/writeCartToLocStore";
+import {
+  writeCartToLocStore,
+  mergeDbLocalCarts,
+} from "../../helper/writeCartToLocStore";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
