@@ -6,7 +6,7 @@ import { Skeleton, Box, Fade } from "@mui/material";
  * @see [Image loading patterns](https://material.io/guidelines/patterns/loading-images.html)
  */
 
-export function Image({ image }) {
+export function Image({ image, ...props }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -20,11 +20,12 @@ export function Image({ image }) {
               height: "100%",
               borderRadius: "16px",
             }}
+            {...props}
           />
         </Box>
       )}
       <Fade in={loaded}>
-        <img src={image} onLoad={() => setLoaded(true)} />
+        <img src={image} onLoad={() => setLoaded(true)} {...props} />
       </Fade>
     </>
   );
