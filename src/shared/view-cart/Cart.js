@@ -6,71 +6,68 @@ import CloseIcon from "@mui/icons-material/Close";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import CartItem from "./CartItem";
+import { useProducts } from "../../context/product/product-handler";
 
 // Style import
 import styles from "./Cart.module.css";
 
 // Image import
 import { UserContext } from "../../context/user/user-context";
-import { mockProducts } from "../../mock_data/data/mockData";
 import apple from "../../mock_data/images/apple.jpg";
 
 const Cart = ({ handleDrawerClose }) => {
   const mockSuggestion = ["mock", "mock", "mock", "mock", "mock", "mock"];
   const { state } = useContext(UserContext);
 
-  const mockCartItems = [];
+  const cartItems = [];
+  const products = useProducts();
 
   state.cart.map(({ product_id, quantity }) => {
-    const product = mockProducts.find(({ id }) => id === product_id);
-
+    const product = products.find(({ id }) => id === product_id);
     const productComponent = (
       <CartItem
         key={product.id}
         desc={product.description}
-        price={2}
+        price={product.prices[0].unit_amount / 100}
         name={product.name}
         id={product.id}
         photo={apple}
         quantity={quantity}
       />
     );
-    mockCartItems.push(productComponent);
+    cartItems.push(productComponent);
   });
 
   const getSubTotal = () => {
-    let total = 0;
-    mockCartItems.forEach((element) => {
-      total += element.props.price * element.props.quantity;
+    let subTotal = 0;
+    cartItems.forEach((element) => {
+      subTotal += element.props.price * element.props.quantity;
     });
-    return <div>${total}</div>;
+    return subTotal;
   };
 
   const getTax = () => {
-    let total = 0;
-    mockCartItems.forEach((element) => {
-      total += element.props.price * element.props.quantity;
-    });
-    let tax = total * 0.07;
-    return <div>${tax}</div>;
+    let taxRate = 0.07;
+    // Round tax calculation to nearest 100th
+    return Math.round(getSubTotal() * taxRate * 100) / 100;
+  };
+
+  const getDeliveryFee = () => {
+    const deliveryFee = 1.95;
+    return deliveryFee;
   };
 
   const getTotal = () => {
-    let subTotal = 0;
-    mockCartItems.forEach((element) => {
-      subTotal += element.props.price * element.props.quantity;
-    });
-    let tax = subTotal * 0.07;
-    let total = subTotal + tax + 1.95;
-    return <div>${total}</div>;
+    let total = getSubTotal() + getTax() + getDeliveryFee();
+    return Math.round(total * 100) / 100;
   };
 
   const getTotalCount = () => {
     let count = 0;
-    mockCartItems.forEach((element) => {
+    cartItems.forEach((element) => {
       count += element.props.quantity;
     });
-    return <div>{count} Items</div>;
+    return count;
   };
 
   return (
@@ -124,7 +121,7 @@ const Cart = ({ handleDrawerClose }) => {
             marginBottom: "30px",
           }}
         >
-          {mockCartItems.map((item) => {
+          {cartItems.map((item) => {
             return item;
           })}
         </Box>
@@ -186,7 +183,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Subtotal</Typography>
-          <Typography variant="h6">{getSubTotal()}</Typography>
+          <Typography variant="h6">${getSubTotal()}</Typography>
         </Box>
         <Box
           sx={{
@@ -199,7 +196,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Tax</Typography>
-          <Typography variant="h6">{getTax()}</Typography>
+          <Typography variant="h6">${getTax()}</Typography>
         </Box>
         <Box
           sx={{
@@ -212,7 +209,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Delivery</Typography>
-          <Typography variant="h6">$1.95</Typography>
+          <Typography variant="h6">${getDeliveryFee()}</Typography>
         </Box>
         <Box
           sx={{
@@ -225,7 +222,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Total</Typography>
-          <Typography variant="h6">{getTotal()}</Typography>
+          <Typography variant="h6">${getTotal()}</Typography>
         </Box>
         <Box
           sx={{
@@ -254,9 +251,9 @@ const Cart = ({ handleDrawerClose }) => {
               },
             }}
           >
-            <div>{getTotalCount()}</div>
+            <div>{getTotalCount()} items</div>
             <div>Review Order</div>
-            <div>{getTotal()}</div>
+            <div>${getTotal()}</div>
           </Button>
         </Box>
 
