@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState } from "react";
 import { Skeleton, Box, Fade } from "@mui/material";
 
 /**
@@ -13,19 +12,11 @@ export function Image({ image }) {
   return (
     <>
       {loaded ? null : (
-        <Box
-          sx={{
-            width: "100%",
-            aspectRatio: "1/1",
-            cursor: "pointer",
-            borderRadius: "16px",
-          }}
-        >
+        <Box sx={{ aspectRatio: "1/1" }}>
           <Skeleton
             animation="wave"
             variant="rectangular"
             sx={{
-              width: "100%",
               height: "100%",
               borderRadius: "16px",
             }}
