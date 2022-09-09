@@ -41,11 +41,6 @@ export default function HomePage() {
   const products = useProducts();
   const { state } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log("products: ", products)
-  }, [products])
-
-
   return (
     <>
       <Header />

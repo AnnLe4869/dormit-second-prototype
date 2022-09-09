@@ -65,17 +65,11 @@ export default function Test() {
               Decrement item {product.name}
             </button>
 
-<<<<<<< HEAD
-            {product.prices ? <h3>{product.prices[0].unit_amount}</h3>
-            : <h3>Loading prices</h3>}
-            
-=======
             {product.prices ? (
               <h3>{product.prices[0].unit_amount}</h3>
             ) : (
               <h3>Loading prices</h3>
             )}
->>>>>>> dcf1a0138b9056c8f21eaf341e216272b9871164
           </div>
         ))
       ) : (
