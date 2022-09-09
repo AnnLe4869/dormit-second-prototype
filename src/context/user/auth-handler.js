@@ -8,7 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { httpsCallable } from "firebase/functions";
-import { SIGN_IN_USER, SIGN_OUT_USER, SIGN_UP_USER } from "../../constant";
+import { SIGN_IN_USER, SIGN_OUT_USER } from "../../constant";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 
@@ -41,30 +41,6 @@ export function useUserAuthenticationDetail() {
     throw new Error("User is not authenticated");
   }
   return auth.currentUser;
-}
-/**
- * Sign up
- * @returns signUp function
- */
-export function useSignUp() {
-  const { auth } = useContext(AppContext);
-  const { dispatch } = useContext(UserContext);
-  const signUp = useCallback(async () => {
-    const provider = new GoogleAuthProvider();
-    /**
-     * TODO: do some error handling
-     * For example, what if user stop authenticate midway
-     */
-    try {
-      await signInWithPopup(auth, provider);
-      dispatch({ type: SIGN_UP_USER });
-    } catch (err) {
-      console.log(err);
-      throw new Error("sign in fail");
-    }
-  }, [auth, dispatch]);
-
-  return signUp;
 }
 
 /**
@@ -111,7 +87,8 @@ export function useSendCodeEmail() {
   const sendCodeViaEmail = httpsCallable(functions, "sendCodeViaEmail");
 
   return async (email) => {
-    await sendCodeViaEmail({ email });
+    const { data } = await sendCodeViaEmail({ email });
+    return data;
   };
 }
 
@@ -130,13 +107,11 @@ export function useVerifyEmailCode() {
       code,
     });
 
-    if (!data.isSuccess) {
-      // display the error message to the user
-      console.error(data.message);
+    if (data.isSuccess) {
+      await signInWithCustomToken(auth, data.token);
+      dispatch({ type: SIGN_IN_USER });
     }
-
-    await signInWithCustomToken(auth, data.token);
-    dispatch({ type: SIGN_IN_USER });
+    return data;
   };
 }
 

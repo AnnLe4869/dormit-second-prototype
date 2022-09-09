@@ -34,6 +34,10 @@ export type ArrayElement<ArrayType extends readonly unknown[]> =
  * all the fields EXCEPT for subcollection "prices" are from Stripe Product object
  * all the fields below are not all info stored in firestore, but these are guaranteed to be presented when you fetch data
  * complete fields, see https://stripe.com/docs/api/products/object
+ *
+ * These special document below, semantically speaking, should be in "configuration" collection.
+ * However, doing so will require some adjustment to the current codebase and we don't have time at the moment
+ *
  * ****
  * ****
  * ****
@@ -61,6 +65,20 @@ export type ArrayElement<ArrayType extends readonly unknown[]> =
  * The requirement for the svg file is that it must be colored
  *
  * category_style is for styling the button color associated with the category (see the Figma design for more detail)
+ * ****
+ * ****
+ * ****
+ * **SPECIAL DOCUMENT IN COLLECTION**:
+ * there is a document with id "shipping_fee" that specify the shipping fee cost. The document look like this
+ *
+ * {
+ *  id: "shipping_fee",
+ *  price: string
+ * }
+ *
+ * the price is a string that count the shipping fee in cent (so $1.95 will be stored as "195")
+ *
+ * this price must ALWAYS IN SYNC with the price in the cloud function config file SHIPPING_FEE
  * ---------------------------------------------------------------------------------------------------------------------------------------
  */
 type products = Array<{
@@ -163,6 +181,9 @@ type users = Array<{
   linked_email: string;
   /**
    * address to the profile image
+   * for now, we will use svg string that uniquely generated for the user
+   * reason is implementation and security: using a link to image can allow abuse of such link,
+   * and to prevent abuse require setting up some measures, which I currently don't know how to do
    */
   profile_img: string;
   /**
@@ -267,7 +288,7 @@ type users = Array<{
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
- * "processing_order" is collection of orders that are in processed
+ * "processing_orders" is collection of orders that are in processed
  * the order only in processed only after user has successfully paid the cost of the order
  * ****
  * only user that has their id match the customer_id of the document OR the user is a rusher
@@ -304,6 +325,16 @@ type processing_orders = Array<{
      */
     text: string;
   };
+
+  /**
+   * each value represent an option
+   * ***
+   * 0: call customer before replacing item(s)
+   * 1: text customer before replacing item(s)
+   * 2: don't need to inform customer before replacing item(s)
+   * 3: don't replacing item(s)t and refund the cost of the item(s)
+   */
+  replacement_option: 0 | 1 | 2 | 3;
 
   /**
    * time that you successfully complete the transaction,
@@ -412,7 +443,7 @@ type processing_orders = Array<{
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------------------------
- * "past_orders" is a collection of orders that are completed
+ * "completed_orders" is a collection of orders that are completed
  * by completed, it means the order either successfully delivered, or be refunded, or canceled, etc.
  * for now, per company requirement, orders cannot be cancelled or refund
  * the structure for this is pretty much the same as "current_orders",
@@ -451,7 +482,7 @@ type completed_orders = Array<{
   final_status: number;
   rusher: {
     rusher_id: string;
-  };
+  } | null;
   amount_total: number;
   shipping_fee: number;
   rusher_tip: number;

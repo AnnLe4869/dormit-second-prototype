@@ -30,9 +30,14 @@ export function useSetupStripe(setStripePromise) {
 export function useCheckout() {
   const { auth, functions } = useContext(AppContext);
   const checkout = httpsCallable(functions, "checkout");
-  const { state: userState } = useContext(UserContext);
 
-  return async ({ shippingAddress = {}, tip = 0, message = "" }) => {
+  return async ({
+    cart,
+    shippingAddress = {},
+    tip = 0,
+    message = "",
+    replacementOption = 0,
+  }) => {
     try {
       if (!auth.currentUser) {
         throw new Error("Checkout require user to sign in");
@@ -44,32 +49,19 @@ export function useCheckout() {
         !shippingAddress.floor_apartment
       ) {
         throw new Error(
-          "invalid-argument",
           `The "shipping_address" argument must be an object with fields campus, building and floor_apartment`
         );
       }
 
-      // const cart = userState.cart ? userState.cart : [];
-
-      const cart = [
-        {
-          product_id: "prod_MHIeRk3AeN3Bgx",
-          quantity: 3,
-        },
-        {
-          product_id: "prod_MHIeAvbFJ0dtnV",
-          quantity: 5,
-        },
-      ];
-
-      const clientSecret = await checkout({
+      const { data } = await checkout({
         cart,
         shipping_address: shippingAddress,
         rusher_tip: tip,
         message,
+        replacement_option: replacementOption,
       });
 
-      return clientSecret;
+      return data;
     } catch (error) {
       throw new Error(error);
     }

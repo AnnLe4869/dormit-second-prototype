@@ -12,7 +12,7 @@ export default function Auth() {
   const status = useCheckAuthenticationStatus();
   const [confirmationResult, setConfirmationResult] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
 
   return (
     <>
@@ -53,8 +53,16 @@ export default function Auth() {
               }
             />
             {/** For email authentication */}
-            <Route exact path="email" element={<Email />} />
-            <Route exact path="email/otpcode" element={<OtpcodeEmail />} />
+            <Route
+              exact
+              path="email"
+              element={<Email email={email} setEmail={setEmail} />}
+            />
+            <Route
+              exact
+              path="email/otpcode"
+              element={<OtpcodeEmail email={email} />}
+            />
           </>
         ) : (
           <>

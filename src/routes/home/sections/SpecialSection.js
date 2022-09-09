@@ -9,7 +9,6 @@ import { headers, homepageStyles } from "../muiStyles.js";
 
 import { renderSpecials } from "../../../helper/renderProducts.js";
 
-
 function SpecialSection({ section, database }) {
   /**
    * useNavigate which is used to redirect to a category page (e.g. 'See All` for the Candy section)

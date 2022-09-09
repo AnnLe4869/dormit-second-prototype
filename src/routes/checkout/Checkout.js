@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { useSetupStripe } from "../../context/user/checkout-handler";
 
 import Order from "./Order/Order";
+import OrderDetail from "./Order/OrderDetails";
 import Payment from "./Payment/Payment";
 
 export default function Checkout() {

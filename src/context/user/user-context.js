@@ -3,11 +3,12 @@ import React, { createContext } from "react";
 import {
   ADD_TO_CART,
   DECREMENT_QUANTITY,
-  GET_ALL_ORDERS,
-  GET_CURRENT_ORDERS,
-  GET_PAST_ORDERS,
+  GET_ORDERS,
+  GET_ALL_CURRENT_ORDERS,
+  GET_ALL_PAST_ORDERS,
   INCREMENT_QUANTITY,
   INITIALIZE_CART,
+  MERGE_CARTS,
   INITIALIZE_USER_DETAILS,
   REMOVE_ITEM_FROM_CART,
   SET_CHECKOUT_ADDRESS,
@@ -16,6 +17,7 @@ import {
   SIGN_OUT_USER,
   SIGN_UP_USER,
   UPDATE_CURRENT_ORDER,
+  GET_PAST_ORDERS,
 } from "../../constant";
 
 export const UserContext = createContext({
@@ -34,6 +36,7 @@ export const UserContext = createContext({
     // the below are local to Context only
     isAuthenticated: false,
     isNewUser: false,
+    pastOrders: null,
   },
 });
 
@@ -82,6 +85,14 @@ function userReducer(state, action) {
      */
     case INITIALIZE_CART: {
       // action is {type: INITIALIZE_CART, payload: {cart: User.cart}}
+      return { ...state, cart: action.payload.cart };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+    case MERGE_CARTS: {
+      // action is {type: MERGE_CARTS, payload: {cart: mergedCart}}
       return { ...state, cart: action.payload.cart };
     }
 
@@ -225,8 +236,8 @@ function userReducer(state, action) {
     /**
      * ----------------------------------------------------------------------------------------
      */
-    case GET_CURRENT_ORDERS: {
-      // action is {type: GET_CURRENT_ORDERS, payload: {orders: Array<ProcessingOrder>}}
+    case GET_ALL_CURRENT_ORDERS: {
+      // action is {type: GET_ALL_CURRENT_ORDERS, payload: {orders: Array<ProcessingOrder>}}
       return {
         ...state,
         current_orders: action.payload.orders,
@@ -236,23 +247,34 @@ function userReducer(state, action) {
      * ----------------------------------------------------------------------------------------
      */
 
-    case GET_PAST_ORDERS: {
-      // action is {type: GET_PAST_ORDERS, payload: {orders: Array<CompletedOrder>}}
+    case GET_ALL_PAST_ORDERS: {
+      // action is {type: GET_ALL_PAST_ORDERS, payload: {orders: Array<CompletedOrder>}}
       return {
         ...state,
-        past_orders: action.payload.orders,
+        pastOrders: action.payload.orders,
       };
     }
     /**
      * ----------------------------------------------------------------------------------------
      */
 
-    case GET_ALL_ORDERS: {
-      // action is {type: GET_ALL_ORDERS, payload: {currentOrders:Array<ProcessingOrder>, pastOrders: Array<CompletedOrder>}}
+    case GET_PAST_ORDERS: {
+      // action is {type: GET_ALL_PAST_ORDERS, payload: {orders: Array<CompletedOrder>}}
+      return {
+        ...state,
+        pastOrders: [...state.pastOrders, ...action.payload.orders],
+      };
+    }
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case GET_ORDERS: {
+      // action is {type: GET_ORDERS, payload: {currentOrders:Array<ProcessingOrder>, pastOrders: Array<CompletedOrder>}}
       return {
         ...state,
         current_orders: action.payload.currentOrders,
-        past_orders: action.payload.pastOrders,
+        pastOrders: action.payload.pastOrders,
       };
     }
     /**

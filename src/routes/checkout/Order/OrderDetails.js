@@ -12,13 +12,15 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import apple from "../../mock_data/images/apple.jpg";
+import apple from "../../../mock_data/images/apple.jpg";
 import styles from "./OrderDetails.module.css";
 
 const Details = () => {
   return (
     <div className={styles.box}>
       <div className={styles.outerPicture}>
+        <img className={styles.images} src={apple}></img>
+        <img className={styles.images} src={apple}></img>
         <img className={styles.images} src={apple}></img>
         <img className={styles.images} src={apple}></img>
       </div>
@@ -142,7 +144,7 @@ const OrderDetails = () => {
               />
             </div>
           </div>
-          <Divider
+          {/* <Divider
             sx={{
               width: "100%",
               marginBottom: "25px",
@@ -165,7 +167,7 @@ const OrderDetails = () => {
                 <NavigateNextIcon />
               </button>
             </div>
-          </div>
+          </div> */}
           <Divider
             sx={{
               width: "100%",

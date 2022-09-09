@@ -10,7 +10,6 @@ import { headers } from "../muiStyles.js";
 
 import { useProducts } from "../../../context/product/product-handler";
 
-
 /*
  * Imported assets
  */

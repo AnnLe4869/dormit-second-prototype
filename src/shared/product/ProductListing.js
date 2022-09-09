@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Item from "./ProductDetails";
+import { Image } from "../loading-image/Image";
 
 import Dialog from "@mui/material/Dialog";
 import styles from "./ProductListing.module.css";
@@ -7,8 +8,14 @@ import styles from "./ProductListing.module.css";
 /*
  * Imported Assets
  */
+
 import greenCheck from "../../assets/ItemEntry/greenCheck.svg";
 import purplePlus from "../../assets/ItemEntry/purplePlus.svg";
+import {
+  useRemoveProductFromCart,
+  useSelectItem,
+} from "../../context/user/cart-handler";
+import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
 
 /*
  * Helper function that formats the price
@@ -68,6 +75,8 @@ const ProductListing = ({
 }) => {
   //useState() constant for Plus/Check icon
   const [inCart, setInCart] = useState(false);
+  const selectItem = useSelectItem();
+  const removeProductFromCart = useRemoveProductFromCart();
 
   //useState() to show item details popup window
   const [showDetails, setShowDetails] = useState(false);
@@ -84,7 +93,23 @@ const ProductListing = ({
   function toggleCorner() {
     added = !added;
     setInCart(added);
+    if (added) {
+      selectItem(id);
+    }
+
+    if (!added) {
+      removeProductFromCart(id);
+    }
   }
+
+  useEffect(() => {
+    const localCart = getCartFromLocStore();
+    const data = localCart.find((item) => item.product_id === id);
+
+    if (data) {
+      setInCart(true);
+    }
+  }, []);
 
   return (
     <>
@@ -103,7 +128,7 @@ const ProductListing = ({
           className={styles.itemImage}
           onClick={() => setShowDetails((o) => !o)}
         >
-          <img src={image} alt="Item" />
+          <Image image={image} style={styles} />
         </button>
 
         {/* Item Info (Price, Stock) */}
