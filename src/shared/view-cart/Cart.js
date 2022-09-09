@@ -29,6 +29,7 @@ const Cart = ({ handleDrawerClose }) => {
         key={product.id}
         desc={product.description}
         price={product.prices[0].unit_amount / 100}
+        tax={product.metadata.tax / 100}
         name={product.name}
         id={product.id}
         photo={apple}
@@ -40,16 +41,19 @@ const Cart = ({ handleDrawerClose }) => {
 
   const getSubTotal = () => {
     let subTotal = 0;
-    cartItems.forEach((element) => {
-      subTotal += element.props.price * element.props.quantity;
+    cartItems.forEach((item) => {
+      subTotal += item.props.price * item.props.quantity;
     });
     return subTotal;
   };
 
   const getTax = () => {
-    let taxRate = 0.07;
-    // Round tax calculation to nearest 100th
-    return Math.round(getSubTotal() * taxRate * 100) / 100;
+    let taxTotal = 0;
+    cartItems.forEach((item) => {
+      taxTotal += item.props.tax * item.props.price * item.props.quantity;
+    });
+    // Round tax total to nearest 100th
+    return Math.round(taxTotal * 100) / 100;
   };
 
   const getDeliveryFee = () => {
@@ -59,7 +63,7 @@ const Cart = ({ handleDrawerClose }) => {
 
   const getTotal = () => {
     let total = getSubTotal() + getTax() + getDeliveryFee();
-    return Math.round(total * 100) / 100;
+    return total;
   };
 
   const getTotalCount = () => {
