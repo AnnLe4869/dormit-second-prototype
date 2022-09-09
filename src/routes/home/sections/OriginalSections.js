@@ -21,12 +21,8 @@ function OriginalSections({ sections, database, emuSections }) {
 
   return (
     <>
-<<<<<<< HEAD
-      {sections.filter((section) => section.sectionId !== "specialsSection")
-=======
       {sections
         .filter((section) => section.sectionId !== "specialsSection")
->>>>>>> dcf1a0138b9056c8f21eaf341e216272b9871164
         .map((section, index) => (
           <section className={HomeCSS.categoryContainer} id={section.sectionId}>
             <hr className={HomeCSS.sectionBarTop} />
@@ -45,11 +41,6 @@ function OriginalSections({ sections, database, emuSections }) {
                   homepageStyles.seeAll,
                   {
                     color: emuSections.categories[index].category_style.color,
-<<<<<<< HEAD
-                    backgroundColor: emuSections.categories[index].category_style.background_color,
-                    "&:hover": {
-                      backgroundColor: emuSections.categories[index].category_style.background_color,
-=======
                     backgroundColor:
                       emuSections.categories[index].category_style
                         .background_color,
@@ -57,7 +48,6 @@ function OriginalSections({ sections, database, emuSections }) {
                       backgroundColor:
                         emuSections.categories[index].category_style
                           .background_color,
->>>>>>> dcf1a0138b9056c8f21eaf341e216272b9871164
                     },
                   },
                 ]}
@@ -71,17 +61,11 @@ function OriginalSections({ sections, database, emuSections }) {
                 className={HomeCSS.categoryItemList}
                 id={section.sectionListId}
               >
-<<<<<<< HEAD
-                {renderCategory(database, emuSections.categories[index].category_name, 6).map((item) => {
-                  return <li>{item}</li>;
-                })}
-=======
                 {renderCategory(
                   database,
                   emuSections.categories[index].category_name,
                   6
                 ).map((item) => item)}
->>>>>>> dcf1a0138b9056c8f21eaf341e216272b9871164
               </ul>
             </div>
           </section>
