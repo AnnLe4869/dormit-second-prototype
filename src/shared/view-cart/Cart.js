@@ -29,43 +29,31 @@ const Cart = ({ handleDrawerClose }) => {
         key={product.id}
         desc={product.description}
         price={product.prices[0].unit_amount}
-        tax={parseInt(product.metadata.tax) / 100}
+        taxRate={parseInt(product.metadata.tax) / 100}
         name={product.name}
         id={product.id}
         photo={apple}
-        quantity={quantity}
+        quantity={parseInt(quantity)}
       />
     );
     cartItems.push(productComponent);
   });
 
-  const getSubTotal = () => {
-    let subTotal = 0;
-    cartItems.forEach((item) => {
-      subTotal += item.props.price * item.props.quantity;
-    });
-    return subTotal / 100;
-  };
-
-  const getTax = () => {
-    let taxTotal = 0;
-    cartItems.forEach((item) => {
-      console.log(item.props.tax);
-      taxTotal += item.props.tax * item.props.price * item.props.quantity;
-    });
-    // Round tax total to nearest 100th
-    return Math.ceil(taxTotal / 100);
-  };
-
   const getDeliveryFee = () => {
     const shippingFee = products.find((item) => item.id === "shipping_fee");
-    return parseInt(shippingFee.price) / 100;
+    return parseInt(shippingFee.price);
   };
 
-  const getTotal = () => {
-    let total = getSubTotal() + getTax() + getDeliveryFee();
-    return Math.round(total * 100) / 100;
-  };
+  let subTotal = 0;
+  let tax = 0;
+  let total = 0;
+
+  cartItems.forEach((item) => {
+    subTotal += item.props.price * item.props.quantity;
+    tax += subTotal * item.props.taxRate;
+  });
+  //Round up math
+  total = Math.ceil(subTotal + tax + getDeliveryFee());
 
   const getTotalCount = () => {
     let count = 0;
@@ -188,7 +176,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Subtotal</Typography>
-          <Typography variant="h6">${getSubTotal()}</Typography>
+          <Typography variant="h6">${subTotal / 100}</Typography>
         </Box>
         <Box
           sx={{
@@ -201,7 +189,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Tax</Typography>
-          <Typography variant="h6">${getTax()}</Typography>
+          <Typography variant="h6">${Math.round(tax) / 100}</Typography>
         </Box>
         <Box
           sx={{
@@ -214,7 +202,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Delivery</Typography>
-          <Typography variant="h6">${getDeliveryFee()}</Typography>
+          <Typography variant="h6">${getDeliveryFee() / 100}</Typography>
         </Box>
         <Box
           sx={{
@@ -227,7 +215,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Total</Typography>
-          <Typography variant="h6">${getTotal()}</Typography>
+          <Typography variant="h6">${total / 100}</Typography>
         </Box>
         <Box
           sx={{
@@ -258,7 +246,7 @@ const Cart = ({ handleDrawerClose }) => {
           >
             <div>{getTotalCount()} items</div>
             <div>Review Order</div>
-            <div>${getTotal()}</div>
+            <div>${total / 100}</div>
           </Button>
         </Box>
 
