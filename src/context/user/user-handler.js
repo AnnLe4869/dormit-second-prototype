@@ -68,6 +68,7 @@ export function useInitializeUser() {
         const userSnap = await getDoc(usersRef);
         // get the current cart store in Context
         const contextCart = userState.cart;
+
         /**
          * we want to retrieve the URL params to determine course of action
          *
@@ -104,14 +105,15 @@ export function useInitializeUser() {
               ? []
               : mergeDbLocalCarts(cartInDb, localCart);
 
-          // Set new mergedCart in local storage and context
+          // Set new mergedCart in local storage
+          userData.cart = mergedCart;
           writeCartToLocStore(mergedCart);
-          userDispatch({
-            type: MERGE_CARTS,
-            payload: {
-              ...mergedCart,
-            },
-          });
+          // userDispatch({
+          //   type: MERGE_CARTS,
+          //   payload: {
+          //     cart: mergedCart,
+          //   },
+          // });
         } else {
           // user first time sign in, i.e user sign up
           // we create new entry in document "user" using user uid as id
@@ -125,8 +127,8 @@ export function useInitializeUser() {
         userDispatch({
           type: INITIALIZE_USER_DETAILS,
           payload: {
-            isAuthenticated: true,
             ...userData,
+            isAuthenticated: true,
           },
         });
 
