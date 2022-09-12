@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Item from "./ProductDetails";
+import { Image } from "../loading-image/Image";
 
 import Dialog from "@mui/material/Dialog";
 import styles from "./ProductListing.module.css";
@@ -7,6 +8,7 @@ import styles from "./ProductListing.module.css";
 /*
  * Imported Assets
  */
+
 import greenCheck from "../../assets/ItemEntry/greenCheck.svg";
 import purplePlus from "../../assets/ItemEntry/purplePlus.svg";
 import {
@@ -126,7 +128,7 @@ const ProductListing = ({
           className={styles.itemImage}
           onClick={() => setShowDetails((o) => !o)}
         >
-          <img src={image} alt="Item" />
+          <Image image={image} style={styles} />
         </button>
 
         {/* Item Info (Price, Stock) */}

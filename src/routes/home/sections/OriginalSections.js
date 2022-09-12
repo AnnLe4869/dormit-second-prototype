@@ -26,6 +26,8 @@ function OriginalSections({ sections, database, emuSections }) {
         .map((section, index) => (
           <section className={HomeCSS.categoryContainer} id={section.sectionId}>
             <hr className={HomeCSS.sectionBarTop} />
+            {console.log("currIndex: ", index)}
+            {console.log("emuSections: ", emuSections)}
             <div className={HomeCSS.categoryHeader}>
               <img src={section.imgSrc} alt={section.alt} />
               <Typography sx={headers.header3}>
