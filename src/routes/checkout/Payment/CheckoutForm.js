@@ -1,11 +1,24 @@
-import { PaymentElement } from "@stripe/react-stripe-js";
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 import { useState } from "react";
-import { useStripe, useElements } from "@stripe/react-stripe-js";
+
+import CircularProgress from "@mui/material/CircularProgress";
+import { green } from "@mui/material/colors";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+
+import styles from "./CheckoutForm.module.css";
+
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-  const [message, setMessage] = useState(null);
+
+  const activateErrorAlert = useActivateErrorAlert();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -33,24 +46,68 @@ export default function CheckoutForm() {
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
+      activateErrorAlert(error.message);
     } else {
-      setMessage("An unexpected error occurred.");
+      activateErrorAlert("An unexpected error occurred.");
     }
 
     setIsLoading(false);
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
-      {/* Show any error or success messages*/}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <Container
+      sx={{
+        minHeight: "80vh",
+        width: {
+          lg: "60%",
+          md: "80%",
+          xs: "100%",
+        },
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <form
+        id="payment-form"
+        style={{
+          width: "100%",
+        }}
+        className={styles.paymentForm}
+        onSubmit={handleSubmit}
+      >
+        <Typography variant="h4" fontWeight="700" sx={{ mb: 6 }}>
+          Payment
+        </Typography>
+
+        <PaymentElement id="payment-element" />
+
+        <button
+          id="submit"
+          className={styles.paymentButton}
+          disabled={isLoading || !stripe || !elements}
+          style={{
+            position: "relative",
+          }}
+        >
+          <span id="button-text">
+            Pay now
+            {isLoading && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  color: green[500],
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  marginTop: "-12px",
+                  marginLeft: "-12px",
+                }}
+              />
+            )}
+          </span>
+        </button>
+      </form>
+    </Container>
   );
 }
