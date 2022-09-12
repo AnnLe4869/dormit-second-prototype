@@ -1,5 +1,6 @@
 // React imports
 import { React, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Component import
 import CloseIcon from "@mui/icons-material/Close";
@@ -7,12 +8,14 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import CartItem from "./CartItem";
 import { useProducts } from "../../context/product/product-handler";
+import OrderDetails from "../../routes/checkout/Order/OrderDetails";
 
 // Style import
 import styles from "./Cart.module.css";
 
 // Image import
 import { UserContext } from "../../context/user/user-context";
+import { mockProducts } from "../../mock_data/data/mockData";
 import apple from "../../mock_data/images/apple.jpg";
 
 const Cart = ({ handleDrawerClose }) => {
@@ -21,6 +24,8 @@ const Cart = ({ handleDrawerClose }) => {
 
   const cartItems = [];
   const products = useProducts();
+
+  const navigate = useNavigate();
 
   state.cart.map(({ product_id, quantity }) => {
     const product = products.find(({ id }) => id === product_id);
@@ -232,6 +237,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Button
+            onClick={() => navigate("/checkout/order2")}
             sx={{
               marginBottom: "30px",
               width: "100%",

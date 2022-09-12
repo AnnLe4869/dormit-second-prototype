@@ -11,7 +11,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useProducts } from "../../../context/product/product-handler";
+
+import { UserContext } from "../../../context/user/user-context";
+
 import apple from "../../../mock_data/images/apple.jpg";
 import styles from "./OrderDetails.module.css";
 
@@ -50,11 +55,43 @@ const Details = () => {
 };
 
 const OrderDetails = () => {
+
+  const navigate = useNavigate();
+
+  //Fetch the products
+  const products = useProducts().slice(1).filter((product) => {
+    if (product.name && product.images && product.prices){
+      return true;
+    }
+    else return false;
+  });
+
+  //Fetch the cart state
+  const { state } = useContext(UserContext);
+
+  const cartItems = [];
+
+  useEffect(() => {
+    console.log("state: ", state);
+  }, [state])
+
+  useEffect(() => {
+    console.log("cartItems: ", cartItems);
+  }, [cartItems])
+
+
+  // state.cart.map(({ product_id, quantity }) => {
+  //   const product = products.find(({ id }) => id === product_id);
+  //   cartItems.push(product);
+  // });
+
+
+
   return (
     <>
       <header>
         <button className={styles.back}>
-          <ArrowBackIosIcon fontSize="large" />
+          <ArrowBackIosIcon fontSize="large" onClick={() => navigate(-1)}/>
         </button>
         <p> Order Details </p>
       </header>
