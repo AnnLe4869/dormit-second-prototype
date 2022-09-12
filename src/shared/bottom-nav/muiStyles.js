@@ -7,6 +7,7 @@ export const bottomNavStyles = {
     maxHeight: 70,
     borderTop: "2px solid #B8B8B8",
     position: "fixed",
+    zIndex: "1",
     display: "flex",
     justifyContent: "space-evenly",
     "& .Mui-selected, .Mui-selected > svg": {

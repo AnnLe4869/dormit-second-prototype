@@ -16,6 +16,7 @@ export const headers = {
 export const viewCartStyles = {
   viewCartContainer: {
     position: "fixed",
+    zIndex: "1",
     left: "50%",
     transform: "translateX(-50%)",
     bottom: "115px",

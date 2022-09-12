@@ -108,7 +108,6 @@ function Email({ email, setEmail }) {
             buttonName="Confirm"
             loading={loading}
             onClick={handleSubmit}
-            disableRipple
             variant="contained"
             sx={{
               backgroundColor: "#7141FA",

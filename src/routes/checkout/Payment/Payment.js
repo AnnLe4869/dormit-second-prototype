@@ -5,7 +5,6 @@ import CheckoutForm from "./CheckoutForm";
 export default function Payment({ stripePromise, stripeClientSecret }) {
   return (
     <>
-      <h1>Payment</h1>
       {stripeClientSecret && stripePromise && (
         <Elements
           stripe={stripePromise}

@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import styles from "./Search.module.css";
 import CategoryMenu from "../../shared/category-menu/CategoryMenu";
@@ -10,32 +10,32 @@ import SearchIcon from "@mui/icons-material/Search";
 import ViewCart from "../../shared/view-cart/ViewCart";
 
 import BottomNav from "../../shared/bottom-nav/BottomNav";
-
 import ProductListing from "../../shared/product/ProductListing";
-import { mockProducts } from "../../mock_data/data/mockData.js";
 
 import { useProducts } from "../../context/product/product-handler";
+import { UserContext } from "../../context/user/user-context";
 
 function Search() {
-  const products = useProducts();
 
   /*
-   * useState() elements for the list of products and the search input field
+   * First fetch products and filter products without name images or prices
    */
-  const [productsState, setProductsState] = useState([]);
+  const products = useProducts().slice(1).filter((product) => {
+    if (product.name && product.images && product.prices){
+      return true;
+    }
+    else return false;
+  });
+
+  const { state } = useContext(UserContext);
+
+  /*
+   * useState() elements for the search input field, the search count, and if the
+   * field is empty
+   */
   const [search, setSearch] = useState("");
-  const [empty, setEmpty] = useState(true);
   const [searchCount, setSearchCount] = useState(0);
-
-  /*
-   * useEffect() will retrieve the products from the database and initiate
-   * the state of the list. For now it is using mock data from `mockData.js`.
-   */
-  useEffect(() => {
-    /* TODO: Retrieve products from database */
-    console.log("firebase: ", products);
-    setProductsState(mockProducts);
-  }, []);
+  const [empty, setEmpty] = useState(true);
 
   /*
    * useEffect() that will set the empty state each time the search state is updated.
@@ -53,9 +53,9 @@ function Search() {
   /*
    * This will filter the rendered products based on the state of the query
    */
-  let filteredProducts = productsState.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-  );
+  let filteredProducts = products.filter((product) => {
+    return product.name.toLowerCase().includes(search.toLowerCase())
+  });
 
   /*
    * onChange() event for the search input field
@@ -135,7 +135,7 @@ function Search() {
           <CategoryMenu />
         </div>
       </div>
-      <ViewCart numItems="X" totalAmount="X.XX" />
+      <ViewCart numItems={state.cart?.length} totalAmount="X.XX" />
       <BottomNav />
     </>
   );
