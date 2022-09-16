@@ -9,6 +9,7 @@ import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import CartItem from "./CartItem";
 import { useProducts } from "../../context/product/product-handler";
 import OrderDetails from "../../routes/checkout/Order/OrderDetails";
+import { convertToDollar } from "../../helper/convertToDollar";
 
 // Style import
 import styles from "./Cart.module.css";
@@ -33,11 +34,12 @@ const Cart = ({ handleDrawerClose }) => {
       <CartItem
         key={product.id}
         desc={product.description}
-        price={product.prices[0].unit_amount / 100}
+        price={product.prices[0].unit_amount}
+        taxRate={parseFloat(product.metadata.tax) / 100}
         name={product.name}
         id={product.id}
         photo={apple}
-        quantity={quantity}
+        quantity={parseInt(quantity)}
       />
     );
     cartItems.push(productComponent);
@@ -45,26 +47,27 @@ const Cart = ({ handleDrawerClose }) => {
 
   const getSubTotal = () => {
     let subTotal = 0;
-    cartItems.forEach((element) => {
-      subTotal += element.props.price * element.props.quantity;
+    cartItems.forEach((item) => {
+      subTotal += item.props.price * item.props.quantity;
     });
     return subTotal;
   };
 
   const getTax = () => {
-    let taxRate = 0.07;
-    // Round tax calculation to nearest 100th
-    return Math.round(getSubTotal() * taxRate * 100) / 100;
+    let taxTotal = 0;
+    cartItems.forEach((item) => {
+      taxTotal += item.props.price * item.props.quantity * item.props.taxRate;
+    });
+    return Math.round(taxTotal);
   };
 
   const getDeliveryFee = () => {
-    const deliveryFee = 1.95;
-    return deliveryFee;
+    const shippingFee = products.find((item) => item.id === "shipping_fee");
+    return parseFloat(shippingFee.price);
   };
 
   const getTotal = () => {
-    let total = getSubTotal() + getTax() + getDeliveryFee();
-    return Math.round(total * 100) / 100;
+    return getSubTotal() + getTax() + getDeliveryFee();
   };
 
   const getTotalCount = () => {
@@ -188,7 +191,9 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Subtotal</Typography>
-          <Typography variant="h6">${getSubTotal()}</Typography>
+          <Typography variant="h6">
+            ${convertToDollar(getSubTotal())}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -201,7 +206,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Tax</Typography>
-          <Typography variant="h6">${getTax()}</Typography>
+          <Typography variant="h6">${convertToDollar(getTax())}</Typography>
         </Box>
         <Box
           sx={{
@@ -214,7 +219,9 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Delivery</Typography>
-          <Typography variant="h6">${getDeliveryFee()}</Typography>
+          <Typography variant="h6">
+            ${convertToDollar(getDeliveryFee())}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -227,7 +234,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Typography variant="h6">Total</Typography>
-          <Typography variant="h6">${getTotal()}</Typography>
+          <Typography variant="h6">${convertToDollar(getTotal())}</Typography>
         </Box>
         <Box
           sx={{
@@ -259,7 +266,7 @@ const Cart = ({ handleDrawerClose }) => {
           >
             <div>{getTotalCount()} items</div>
             <div>Review Order</div>
-            <div>${getTotal()}</div>
+            <div>${convertToDollar(getTotal())}</div>
           </Button>
         </Box>
 

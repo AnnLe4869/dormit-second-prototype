@@ -128,7 +128,7 @@ const ProductListing = ({
           className={styles.itemImage}
           onClick={() => setShowDetails((o) => !o)}
         >
-          <Image image={image} style={styles} />
+          <Image image={image} />
         </button>
 
         {/* Item Info (Price, Stock) */}
