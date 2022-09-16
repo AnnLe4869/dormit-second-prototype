@@ -11,34 +11,54 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../../context/product/product-handler";
 
 import { UserContext } from "../../../context/user/user-context";
 
+import { getTotal, getTotalCount } from "../../../helper/getTotalsAndFees.js";
+
 import apple from "../../../mock_data/images/apple.jpg";
 import styles from "./OrderDetails.module.css";
 
-const Details = () => {
+const RUSHER_TIP_1 = 1.5;
+const RUSHER_TIP_2 = 2;
+const RUSHER_TIP_3 = 2.5;
+
+
+const Details = ({currentCart, rusherTip}) => {
+
+  
+
   return (
     <div className={styles.box}>
       <div className={styles.outerPicture}>
-        <img className={styles.images} src={apple}></img>
-        <img className={styles.images} src={apple}></img>
-        <img className={styles.images} src={apple}></img>
-        <img className={styles.images} src={apple}></img>
+        {currentCart && currentCart.map((item, index)=>{
+          if (index < 4) return <img className={styles.images} src={item.image} />
+        })}
       </div>
       <div className={styles.details}>
-        <Typography fontWeight="700" variant="h6" className={styles.row}>
-          Item Name, Item Name
+        <Typography fontWeight="700" variant="h6" className={styles.names}>
+          {currentCart && currentCart.map((item, index) => {
+
+            if (index < 4){
+              return <span className={styles.name}>{item.name}</span>
+            }
+
+            if (index === 4 && currentCart.length > 4){
+              return "..."
+
+            }
+
+          })}
         </Typography>
         <div className={styles.row}>
           <Typography fontWeight="500" variant="h6">
             Item Count
           </Typography>
           <Typography fontWeight="500" variant="h6">
-            2
+            {getTotalCount(currentCart)}
           </Typography>
         </div>
         <div className={styles.row}>
@@ -46,7 +66,7 @@ const Details = () => {
             Total
           </Typography>
           <Typography fontWeight="500" variant="h6">
-            $11.75
+            ${getTotal(currentCart) + rusherTip}
           </Typography>
         </div>
       </div>
@@ -56,35 +76,67 @@ const Details = () => {
 
 const OrderDetails = () => {
 
-  const navigate = useNavigate();
+  const cartProducts = [];
+  const cartProductsQuantities = [];
 
-  //Fetch the products
+  const navigate = useNavigate();
+  const { state } = useContext(UserContext);
+
+  const otherTipRef = useRef("");
+
+  const [rusherTip, setRusherTip] = useState(0);
+  const [showOtherTip, setShowOtherTip] = useState(false);
+  const [otherTip, setOtherTip] = useState("");
+
+  /*
+  object = {
+    price: ,
+    quantity: ,
+    tax: ,
+  }
+
+  */
+
   const products = useProducts().slice(1).filter((product) => {
-    if (product.name && product.images && product.prices){
-      return true;
-    }
+    if (product.name && product.images && product.prices && product.id) return true;
     else return false;
   });
 
-  //Fetch the cart state
-  const { state } = useContext(UserContext);
+  console.log("products: ", products)
+  console.log("cart: ", state.cart);
 
-  const cartItems = [];
+  if (state.cart && products.length > 0){
+    state.cart.map(({ product_id, quantity }) => {
+      const product = products.find((current) => current.id === product_id);
 
-  useEffect(() => {
-    console.log("state: ", state);
-  }, [state])
+      cartProductsQuantities.push({
+        name: product.name,
+        image: product.images[0],
+        price: product.prices[0].unit_amount,
+        quantity: quantity,
+        tax: product.metadata.tax
+      });
 
-  useEffect(() => {
-    console.log("cartItems: ", cartItems);
-  }, [cartItems])
+      cartProducts.push(product);
+    });
+  }
 
+  //Print the state.cart (prod_id, quantity)
+  if (state.cart) {
+    console.log("Count: ", getTotalCount(state.cart));
+  }
 
-  // state.cart.map(({ product_id, quantity }) => {
-  //   const product = products.find(({ id }) => id === product_id);
-  //   cartItems.push(product);
-  // });
+  //Print the combined cartProductQuantites and total price
+  if (cartProductsQuantities.length > 0){
+    console.log("cartProductsQuantities: ", cartProductsQuantities);
+    console.log("Total: ", getTotal(cartProductsQuantities))
+  }
 
+  function handleTip(tip){
+    console.log("other tip: ", tip)
+    setShowOtherTip(false);
+    setRusherTip(tip);
+  }
 
 
   return (
@@ -116,7 +168,7 @@ const OrderDetails = () => {
             >
               Order Summary
             </Typography>
-            <Details />
+            <Details currentCart={cartProductsQuantities} rusherTip={rusherTip}/>
           </div>
           <Divider
             sx={{
@@ -233,13 +285,41 @@ const OrderDetails = () => {
                 variant="contained"
                 sx={{ "border-radius": "20px", width: "100%" }}
               >
-                <button className={styles.tipButton}>$1.50</button>
-                <button className={styles.tipButton}>$2.00</button>
-                <button className={styles.tipButton}>$2.50</button>
-                <button className={styles.tipButton}>Other</button>
+                <button className={styles.tipButton} onClick={() => handleTip(RUSHER_TIP_1)}>$1.50</button>
+                <button className={styles.tipButton} onClick={() => handleTip(RUSHER_TIP_2)}>$2.00</button>
+                <button className={styles.tipButton} onClick={() => handleTip(RUSHER_TIP_3)}>$2.50</button>
+                <button className={styles.tipButton} onClick={() => setShowOtherTip(true)}>Other</button>
               </ButtonGroup>
             </Grid>
           </Grid>
+          <h2>Rusher Other Tip: {otherTip}</h2>
+          {showOtherTip && 
+            <div className={styles.otherTipBox}>
+            <Typography width={"100%"} variant="body1">
+              Other Tip
+            </Typography>
+            <TextField
+              onChange={() => {
+                setOtherTip(otherTipRef.current.value)
+                setRusherTip(parseInt(otherTip))
+              }}
+              inputRef={otherTipRef}
+              type={"number"}
+              id="outlined-basic"
+              required
+              variant="outlined"
+              sx={{
+                height: "inherit",
+                backgroundColor: "#EEEEEE",
+                width: "50%",
+                "@media screen and (max-width: 900px)": {
+                  marginRight: "none"
+                },
+              }}
+            />
+            </div>
+          
+          }
           <Grid
             container
             sx={{
