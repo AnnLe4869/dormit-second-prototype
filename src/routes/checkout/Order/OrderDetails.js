@@ -26,6 +26,9 @@ const RUSHER_TIP_1 = 1.5;
 const RUSHER_TIP_2 = 2;
 const RUSHER_TIP_3 = 2.5;
 
+const BUILDING = "UCSD Building";
+const FLOOR = "1/12";
+const NOTES = "Leave it at my door";
 
 const Details = ({currentCart, rusherTip}) => {
 
@@ -138,6 +141,19 @@ const OrderDetails = () => {
     setRusherTip(tip);
   }
 
+  useEffect(() => {
+    console.log("otherTip: ", otherTip)
+  }, [otherTip])
+
+
+  useEffect(() => {
+    console.log("rusherTip: ", rusherTip)
+  }, [rusherTip])
+
+  useEffect(() => {
+    console.log("UserContext state: ", state);
+  }, [state])
+
 
   return (
     <>
@@ -191,7 +207,7 @@ const OrderDetails = () => {
               </Typography>
               <TextField
                 id="outlined-basic"
-                label="UCSD Building"
+                value="UCSD Building"
                 variant="outlined"
                 required
                 sx={{
@@ -206,9 +222,10 @@ const OrderDetails = () => {
                 Floor / Apartment #
               </Typography>
               <TextField
+                readOnly
                 id="outlined-basic"
-                label="1/12"
                 required
+                value="floor"
                 variant="outlined"
                 sx={{
                   height: "inherit",
@@ -223,7 +240,7 @@ const OrderDetails = () => {
               </Typography>
               <TextField
                 id="outlined-basic"
-                label="Notes"
+                value="Leave it at my door"
                 variant="outlined"
                 sx={{
                   height: "inherit",
@@ -301,7 +318,7 @@ const OrderDetails = () => {
             <TextField
               onChange={() => {
                 setOtherTip(otherTipRef.current.value)
-                setRusherTip(parseInt(otherTip))
+                setRusherTip(otherTip)
               }}
               inputRef={otherTipRef}
               type={"number"}
