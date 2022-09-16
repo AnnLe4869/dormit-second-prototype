@@ -113,6 +113,12 @@ const OrderDetails = () => {
   console.log("products: ", products)
   console.log("cart: ", state.cart);
 
+  // state.shipping_address = {
+  //   campus: "UCSD",
+  //   building: "CSE",
+  //   floor_apartment: "Floor 3",
+  // };
+
   if (state.cart && products.length > 0){
     state.cart.map(({ product_id, quantity }) => {
       const product = products.find((current) => current.id === product_id);
@@ -217,13 +223,13 @@ const OrderDetails = () => {
 
             <div className={styles.input}>
               <img src={building} alt=""/>
-              <Typography width={"100%"} variant="h6">
+              <Typography width={"100%"} variant="h7">
                 UCSD Building
               </Typography>
 
               <div className={styles.grayBox}>
                 <Typography width={"100%"} variant="h6">
-                  UCSD Building
+                  {(state.shipping_address && state.shipping_address.building) && state.shipping_address.building}
                 </Typography>
               </div>
 
@@ -241,18 +247,19 @@ const OrderDetails = () => {
             </div>
             <div className={styles.input}>
               <img src={stairs} alt=""/>
-              <Typography width={"100%"} variant="h6">
+              <Typography width={"100%"} variant="h7">
                 Floor / Apartment #
               </Typography>
               <div className={styles.grayBox}>
                 <Typography width={"100%"} variant="h6">
-                  Floor
+                  {(state.shipping_address && state.shipping_address.floor_apartment) && state.shipping_address.floor_apartment}
+
                 </Typography>
               </div>
             </div>
             <div className={styles.input}>
               <img src={notes} alt=""/>
-              <Typography width={"100%"} variant="h6">
+              <Typography width={"100%"} variant="h7">
                 Notes for Rusher
               </Typography>
               <div className={styles.grayBox}>
@@ -261,6 +268,30 @@ const OrderDetails = () => {
                 </Typography>
               </div>
             </div>
+
+            { (!state.shipping_address || !state.shipping_address.campus || !state.shipping_address.building || !state.shipping_address.floor_apartment) && 
+              <div className={styles.noAddress} >
+                <Typography 
+                  width={"100%"} 
+                  variant="h7" 
+                  sx={{
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    transitionDuration: "0.1s",
+                    "&:hover": {
+                      opacity: 0.8
+                    }
+                  }} 
+                  onClick={() => {alert("Address page")}}
+                >
+                  You haven't set a location yet. Click here to set one!
+                </Typography>
+              </div>
+            }
+
+
+
+
           </div>
           {/* <Divider
             sx={{
@@ -306,7 +337,13 @@ const OrderDetails = () => {
             }}
           >
             <Grid item xs={12} md={3}>
-              <Typography variant="body1">Rusher Tip</Typography>
+            <Typography
+              fontWeight="700"
+              fontFamily="BlinkMacSystemFont"
+              variant="h5"
+            >
+              Rusher Tip
+            </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
               <ButtonGroup
@@ -324,7 +361,7 @@ const OrderDetails = () => {
           <h2>Rusher Other Tip: {otherTip}</h2>
           {showOtherTip && 
             <div className={styles.otherTipBox}>
-            <Typography width={"100%"} variant="body1">
+            <Typography width={"100%"} variant="h7">
               Other Tip
             </Typography>
             <TextField
@@ -362,7 +399,7 @@ const OrderDetails = () => {
             }}
           >
             <Grid item xs={12} md={3}>
-              <Typography variant="body1">Replacement Items</Typography>
+              <Typography variant="h7">Replacement Items</Typography>
             </Grid>
             <Grid item xs={12} md={8}>
               <ButtonGroup

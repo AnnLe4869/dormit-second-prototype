@@ -39,7 +39,6 @@ header > p {
   margin-left: 6px;
   margin-top: 2px;
   float: inline-end;
-  color: #7140fa;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,6 +73,14 @@ header > p {
   align-items: center;
   position: relative;
 }
+
+.noAddress {
+  width: auto;
+  padding: 8px;
+  text-align: center;
+  color: #7140fa;
+}
+
 
 .outerPicture {
   min-width: 125px;
