@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+
 header {
   width: 100%;
   height: 60px;
@@ -23,6 +26,31 @@ header > p {
   color: #7140fa;
   background: none;
   border: 0;
+}
+
+.addressLine {
+  display: flex;
+  align-items: center;
+  height: 53px;
+}
+
+.addressButton {
+  cursor: pointer;
+  margin-left: 6px;
+  margin-top: 2px;
+  float: inline-end;
+  color: #7140fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+  transition-duration: 0.1s;
+}
+
+.addressButton:hover {
+  margin-left: 8px;
+  opacity: 0.6;
 }
 
 .body {
@@ -113,13 +141,31 @@ header > p {
 }
 
 .addressBox > .input {
+  padding-left: 10px;
   width: 100%;
   display: flex;
   border-radius: 5px;
   margin: 15px 0;
+  grid-gap: 15px;
   align-items: center;
   justify-content: space-between;
   height: 53px;
+}
+
+.input img {
+  height: 80%;
+}
+
+.grayBox {
+  background-color: #EEEEEE;
+  width: 100%;
+  height: inherit;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  border-radius: 10px;
+  overflow-x: hidden;
 }
 
 .paymentBox {

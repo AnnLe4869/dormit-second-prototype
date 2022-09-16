@@ -1,4 +1,5 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
@@ -21,6 +22,10 @@ import { getTotal, getTotalCount } from "../../../helper/getTotalsAndFees.js";
 
 import apple from "../../../mock_data/images/apple.jpg";
 import styles from "./OrderDetails.module.css";
+
+import building from "../../../assets/OrderDetails/building.svg";
+import stairs from "../../../assets/OrderDetails/stairs.svg";
+import notes from "../../../assets/OrderDetails/notes.svg";
 
 const RUSHER_TIP_1 = 1.5;
 const RUSHER_TIP_2 = 2;
@@ -194,18 +199,35 @@ const OrderDetails = () => {
             }}
           />
           <div className={styles.addressBox}>
-            <Typography
-              fontWeight="700"
-              fontFamily="BlinkMacSystemFont"
-              variant="h5"
-            >
-              Address
-            </Typography>
+
+            <div className={styles.addressLine}>
+              <Typography
+                fontWeight="700"
+                fontFamily="BlinkMacSystemFont"
+                variant="h5"
+              >
+                Address
+              </Typography>
+              <button className={styles.addressButton}>
+                <ArrowForwardIosIcon fontSize="medium" onClick={() => {alert("Address Page")}}/>
+              </button>
+            </div>
+
+
+
             <div className={styles.input}>
-              <Typography width={"100%"} variant="body1">
+              <img src={building} alt=""/>
+              <Typography width={"100%"} variant="h6">
                 UCSD Building
               </Typography>
-              <TextField
+
+              <div className={styles.grayBox}>
+                <Typography width={"100%"} variant="h6">
+                  UCSD Building
+                </Typography>
+              </div>
+
+              {/* <TextField
                 id="outlined-basic"
                 value="UCSD Building"
                 variant="outlined"
@@ -215,39 +237,29 @@ const OrderDetails = () => {
                   backgroundColor: "#EEEEEE",
                   width: "100%",
                 }}
-              />
+              /> */}
             </div>
             <div className={styles.input}>
-              <Typography width={"100%"} variant="body1">
+              <img src={stairs} alt=""/>
+              <Typography width={"100%"} variant="h6">
                 Floor / Apartment #
               </Typography>
-              <TextField
-                readOnly
-                id="outlined-basic"
-                required
-                value="floor"
-                variant="outlined"
-                sx={{
-                  height: "inherit",
-                  backgroundColor: "#EEEEEE",
-                  width: "100%",
-                }}
-              />
+              <div className={styles.grayBox}>
+                <Typography width={"100%"} variant="h6">
+                  Floor
+                </Typography>
+              </div>
             </div>
             <div className={styles.input}>
-              <Typography width={"100%"} variant="body1">
+              <img src={notes} alt=""/>
+              <Typography width={"100%"} variant="h6">
                 Notes for Rusher
               </Typography>
-              <TextField
-                id="outlined-basic"
-                value="Leave it at my door"
-                variant="outlined"
-                sx={{
-                  height: "inherit",
-                  backgroundColor: "#EEEEEE",
-                  width: "100%",
-                }}
-              />
+              <div className={styles.grayBox}>
+                <Typography width={"100%"} variant="h6" noWrap>
+                  Leave it at my door
+                </Typography>
+              </div>
             </div>
           </div>
           {/* <Divider
