@@ -35,7 +35,6 @@ export default function Address() {
 
       // Upon login, check for shipping_address data
       if (userData.shipping_address) {
-        // User shipping_address already exists
         // Set shipping_address data from database in user context
         userDispatch({
           type: SET_CHECKOUT_ADDRESS,
@@ -44,7 +43,6 @@ export default function Address() {
           },
         });
       } else {
-        // No shipping_address data
         // Set new shipping_address entry for user in database
         let shippingData = {
           shipping_address: {
