@@ -35,6 +35,7 @@ header > p {
 }
 
 .addressButton {
+  color: #7141fa;
   cursor: pointer;
   margin-left: 6px;
   margin-top: 2px;
@@ -171,7 +172,7 @@ header > p {
   display: flex;
   align-items: center;
   padding: 0 15px;
-  border-radius: 10px;
+  border-radius: 6px;
   overflow-x: hidden;
 }
 
@@ -227,6 +228,7 @@ header > p {
   max-width: 610px;
   width: 100%;
   height: inherit;
+  margin-top: 0px;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
@@ -332,4 +334,19 @@ header > p {
   border: none;
   margin-bottom: 10px;
   cursor: pointer;
+}
+
+
+.bottomButtons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 15px;
+}
+
+@media screen and (max-width: 900px) {
+  .bottomButtons{
+    justify-content: space-evenly;
+  }
 }

@@ -5,6 +5,8 @@ function getSubTotal(productQuantity){
         const adjustedPrice = element.price / 100
         subTotal += ( adjustedPrice + (adjustedPrice * element.tax / 100 )) * element.quantity
     });
+
+    console.log("subTotal: ", subTotal);
     return subTotal;
   };
 
@@ -16,6 +18,7 @@ const getDeliveryFee = () => {
 export function getTotal(productQuantity){
     const subTotal = getSubTotal(productQuantity);
     let total = subTotal + getDeliveryFee();
+    console.log("getTotal: ", ((total * 100) / 100))
     return Math.round(total * 100) / 100;
 };
 
