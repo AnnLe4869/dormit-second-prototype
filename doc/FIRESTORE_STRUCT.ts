@@ -145,6 +145,15 @@ type products = Array<{
    **** can be ignored for now
    */
   rank: string;
+
+  /**
+   * this value indicates whether the product in in "On Sale" session or not
+   * this must sync with the number of price in the "prices" field and correctly reflect it
+   * the reason we need this is because of Typesense - it cannot make query that look for array of certain length
+   * and the only way to find items on sale is via the number of price in prices array (if more than 1 then it's on sale)
+   * or check on this field
+   */
+  isOnSale: boolean;
 }>;
 
 /**

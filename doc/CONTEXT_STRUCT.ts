@@ -39,6 +39,7 @@ type Product = {
     }>;
 
     rank: string;
+    isOnSale: boolean;
   }>;
 };
 
@@ -72,11 +73,19 @@ type User = {
   current_orders: Array<ProcessingOrder>;
 
   /**
+   * ----------------------------------------------------------------
    * these below are Context data only, used to control app behavior
    * means we won't find this data in the collection "users"
+   * ----------------------------------------------------------------
    */
   isAuthenticated: boolean;
   isNewUser: boolean;
+  /**
+   * message from customer to the rusher
+   * until the payment is made, the message just stay in the customer's machine
+   * when payment is made, this is cleared as the message is saved to order detail
+   */
+  message: string;
   /**
    * pastOrders contains detail of SOME orders listed in past_orders field
    * this MAY OR MAY NOT have all orders listed in past_orders field
