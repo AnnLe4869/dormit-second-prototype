@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { ButtonStyles, responsiveTheme, textFieldStyles } from "./muiStyles";
 export default function Address() {
-  const { dispatch: userDispatch } = useContext(UserContext);
+  const { dispatch: userDispatch, state: userState } = useContext(UserContext);
   const { auth, db } = useContext(AppContext);
 
   const [loading, setLoading] = useState(false);
@@ -29,37 +29,23 @@ export default function Address() {
   const apartmentNumberRef = useRef();
   const messageRef = useRef();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      const userData = await getDoc(doc(db, "users", user.uid));
+  console.log(userState);
 
-      // Upon login, check for shipping_address data
-      if (userData.shipping_address) {
-        // Set shipping_address data from database in user context
-        userDispatch({
-          type: SET_CHECKOUT_ADDRESS,
-          payload: {
-            shipping_address: userData.shipping_address,
-          },
-        });
-      } else {
-        // Set new shipping_address entry for user in database
-        let shippingData = {
-          shipping_address: {
-            campus: "",
-            building: "",
-            floor_apartment: "",
-          },
-        };
-        await setDoc(userData, shippingData, { merge: true });
-      }
-    });
+  // Set shipping_address data from database in user context
+  useEffect(() => {
+    const userData = userState;
+    if (userData.shipping_address) {
+      userDispatch({
+        type: SET_CHECKOUT_ADDRESS,
+        payload: {
+          shipping_address: userData.shipping_address,
+        },
+      });
+    }
   }, []);
 
   // User submits new shipping address data
   const handleSubmit = async () => {
-    const usersRef = doc(db, "users", auth.currentUser.uid);
-
     setLoading(true);
 
     let shippingData = {
@@ -67,6 +53,7 @@ export default function Address() {
         campus: "UCSD",
         building: buildingRef.current.value,
         floor_apartment: apartmentNumberRef.current.value,
+        message: messageRef.current.value,
       },
     };
 
@@ -77,6 +64,7 @@ export default function Address() {
     });
 
     // Update address in database
+    const usersRef = doc(db, "users", auth.currentUser.uid);
     await setDoc(usersRef, shippingData, { merge: true });
 
     // Turn off loading state once shippingData has succesfully been set in database
