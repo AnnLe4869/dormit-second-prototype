@@ -27,6 +27,6 @@ export {
    * this is for testing purpose only
    * remove when in development
    */
-  initiateTypesense,
 };
+initiateTypesense;
 completeOrder;

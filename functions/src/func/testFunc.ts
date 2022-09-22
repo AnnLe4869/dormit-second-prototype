@@ -131,7 +131,6 @@ export const initiateTypesense = functions
   })
   .firestore.document("products/{productId}")
   .onWrite(async () => {
-    functions.logger.log("hello world");
     const TYPESENSE_HOST =
       process.env.TYPESENSE_HOST || "search.dormitdelivery.com";
     const TYPESENSE_API_KEY = process.env.TYPESENSE_API_KEY || "wrong api key";
@@ -150,28 +149,42 @@ export const initiateTypesense = functions
     /**
      * create the schema
      */
-    if (await client.collections("products").retrieve()) {
+
+    try {
       await client.collections().create({
         name: "products",
-        fields: [{ name: ".*", type: "auto" }],
-        default_sorting_field: "rank",
+        fields: [
+          { name: ".*", type: "auto" },
+          /**
+           * "prices" is an array of object
+           * typesense doesn't support this
+           * with this option, we basically exclude it from using this field for searching
+           */
+          {
+            name: "prices",
+            type: "auto",
+            index: false,
+          },
+        ],
       });
+
+      /**
+       * retrieve all products
+       */
+      const productsRef = db.collection(
+        "products"
+      ) as CollectionReference<Product>;
+
+      const productsDetail: Array<Product & { id: string }> = [];
+      const firestoreProductsData = await productsRef
+        .where(FieldPath.documentId(), "not-in", ["categories", "shipping_fee"])
+        .get();
+      firestoreProductsData.forEach(async (snapshot) => {
+        productsDetail.push({ ...snapshot.data(), id: snapshot.id });
+      });
+
+      client.collections("products").documents().import(productsDetail);
+    } catch (err) {
+      functions.logger.error(err);
     }
-
-    /**
-     * retrieve all products
-     */
-    const productsRef = db.collection(
-      "products"
-    ) as CollectionReference<Product>;
-
-    const productsDetail: Array<Product & { id: string }> = [];
-    const firestoreProductsData = await productsRef
-      .where(FieldPath.documentId(), "not-in", ["categories", "shipping_fee"])
-      .get();
-    firestoreProductsData.forEach(async (snapshot) => {
-      productsDetail.push({ ...snapshot.data(), id: snapshot.id });
-    });
-
-    functions.logger.log(productsDetail);
   });
