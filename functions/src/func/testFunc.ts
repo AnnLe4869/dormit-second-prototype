@@ -1,6 +1,17 @@
-import { CollectionReference, FieldValue } from "firebase-admin/firestore";
+import {
+  CollectionReference,
+  FieldValue,
+  FieldPath,
+} from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
-import { ArrayElement, Completed_order, Processing_order, User } from "../type";
+import {
+  ArrayElement,
+  Completed_order,
+  Processing_order,
+  Product,
+  User,
+} from "../type";
+import Typesense from "typesense";
 
 import { db } from "../setup";
 
@@ -112,4 +123,55 @@ export const completeOrder = functions.firestore
      * commit the batch
      */
     await batch.commit();
+  });
+
+export const initiateTypesense = functions
+  .runWith({
+    secrets: ["TYPESENSE_API_KEY"],
+  })
+  .firestore.document("products/{productId}")
+  .onWrite(async () => {
+    functions.logger.log("hello world");
+    const TYPESENSE_HOST =
+      process.env.TYPESENSE_HOST || "search.dormitdelivery.com";
+    const TYPESENSE_API_KEY = process.env.TYPESENSE_API_KEY || "wrong api key";
+    const client = new Typesense.Client({
+      nodes: [
+        {
+          host: TYPESENSE_HOST,
+          port: 443,
+          protocol: "https",
+        },
+      ],
+      apiKey: TYPESENSE_API_KEY,
+      connectionTimeoutSeconds: 2 * 60,
+    });
+
+    /**
+     * create the schema
+     */
+    if (await client.collections("products").retrieve()) {
+      await client.collections().create({
+        name: "products",
+        fields: [{ name: ".*", type: "auto" }],
+        default_sorting_field: "rank",
+      });
+    }
+
+    /**
+     * retrieve all products
+     */
+    const productsRef = db.collection(
+      "products"
+    ) as CollectionReference<Product>;
+
+    const productsDetail: Array<Product & { id: string }> = [];
+    const firestoreProductsData = await productsRef
+      .where(FieldPath.documentId(), "not-in", ["categories", "shipping_fee"])
+      .get();
+    firestoreProductsData.forEach(async (snapshot) => {
+      productsDetail.push({ ...snapshot.data(), id: snapshot.id });
+    });
+
+    functions.logger.log(productsDetail);
   });

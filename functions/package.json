@@ -19,7 +19,8 @@
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
     "otplib": "^12.0.1",
-    "stripe": "^9.11.0"
+    "stripe": "^9.11.0",
+    "typesense": "^1.4.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.12.0",

@@ -7,7 +7,7 @@ import {
   getStripePublishableKey,
   handleStripeWebhookEvents,
 } from "./func/stripe";
-import { completeOrder } from "./func/testFunc";
+import { completeOrder, initiateTypesense } from "./func/testFunc";
 import { updateEmail } from "./func/updateEmail";
 import { updateUserProfile } from "./func/updateUserProfile";
 import { verifyOtpCode } from "./func/verifyOtpCode";
@@ -27,6 +27,6 @@ export {
    * this is for testing purpose only
    * remove when in development
    */
-  // completeOrder,
+  initiateTypesense,
 };
 completeOrder;
