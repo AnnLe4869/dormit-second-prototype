@@ -23,7 +23,11 @@ export default function Address() {
 
   const handleSubmit = async () => {
     setLoading(true);
-    await updateShipping(buildingRef, apartmentNumberRef, messageRef);
+    await updateShipping(
+      buildingRef.current.value.toString(),
+      apartmentNumberRef.current.value.toString(),
+      messageRef.current.value.toString()
+    );
     setLoading(false);
   };
 

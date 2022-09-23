@@ -55,13 +55,13 @@ export function useUpdateShipping() {
    *
    * after that, update local
    */
-  return async (buildingRef, apartmentNumberRef, messageRef) => {
+  return async (building, apartmentNumber, message) => {
     let shippingData = {
       shipping_address: {
         campus: "UCSD",
-        building: buildingRef.current.value,
-        floor_apartment: apartmentNumberRef.current.value,
-        message: messageRef.current.value,
+        building: building,
+        floor_apartment: apartmentNumber,
+        message: message,
       },
     };
 
