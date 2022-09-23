@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 
-import { SET_CHECKOUT_ADDRESS } from "../../constant.js";
-import { SET_FIRST_NAME } from "../../constant.js";
+import { SET_NAME, SET_MESSAGE, SET_CHECKOUT_ADDRESS } from "../../constant.js";
 
 import { doc, setDoc } from "firebase/firestore";
 
