@@ -29,15 +29,19 @@ import building from "../../../assets/OrderDetails/building.svg";
 import stairs from "../../../assets/OrderDetails/stairs.svg";
 import notes from "../../../assets/OrderDetails/notes.svg";
 
+import { headers } from "./muiStyles.js";
+
 const RUSHER_TIP_1 = 1.5;
 const RUSHER_TIP_2 = 2;
 const RUSHER_TIP_3 = 2.5;
+
+const MINTIP = 0
 
 const BUILDING = "UCSD Building";
 const FLOOR = "1/12";
 const NOTES = "Leave it at my door";
 
-const MESSAGE = "Leave it at my door"
+const MESSAGE = "Leave it at my doorLeave it at my doorLeave it at my doorLeave it at my doorLeave it at my doorLeave it at my door"
 
 function currencyFormat(num) {
   console.log(typeof num)
@@ -73,19 +77,35 @@ const Details = ({currentCart, rusherTip}) => {
           })}
         </Typography>
         <div className={styles.row}>
-          <Typography fontWeight="500" variant="h6">
+          <Typography sx={headers.header3}>
             Item Count
           </Typography>
-          <Typography fontWeight="500" variant="h6">
+          <Typography sx={headers.header6}>
             {getTotalCount(currentCart)}
           </Typography>
         </div>
         <div className={styles.row}>
-          <Typography fontWeight="500" variant="h6">
+          <Typography sx={headers.header3}>
+            Subtotal
+          </Typography>
+          <Typography sx={headers.header6}>
+            ${getTotal(currentCart).toFixed(2)}
+          </Typography>
+        </div>
+        <div className={styles.row}>
+          <Typography sx={headers.header3}>
+            Tip
+          </Typography>
+          <Typography sx={headers.header6}>
+            ${rusherTip.toFixed(2)}
+          </Typography>
+        </div>
+        <div className={styles.row}>
+          <Typography sx={headers.header3}>
             Total
           </Typography>
-          <Typography fontWeight="500" variant="h6">
-            ${getTotal(currentCart) + rusherTip}
+          <Typography sx={headers.header6}>
+            ${(getTotal(currentCart) + rusherTip).toFixed(2)}
           </Typography>
         </div>
       </div>
@@ -107,25 +127,17 @@ const OrderDetails = (setStripeClientSecret) => {
 
   const [rusherTip, setRusherTip] = useState(0);
   const [showOtherTip, setShowOtherTip] = useState(false);
-  const [otherTip, setOtherTip] = useState("");
+  const [otherTip, setOtherTip] = useState(0);
   const [replacementOption, setReplacementOption] = useState(0);
 
-  /*
-  object = {
-    price: ,
-    quantity: ,
-    tax: ,
-  }
+  let isDisabled = (!state.shipping_address || !state.shipping_address.campus || !state.shipping_address.building || !state.shipping_address.floor_apartment)
 
-  */
+
 
   const products = useProducts().slice(1).filter((product) => {
     if (product.name && product.images && product.prices && product.id) return true;
     else return false;
   });
-
-  console.log("products: ", products)
-  console.log("cart: ", state.cart);
 
   state.shipping_address = {
     campus: "UCSD",
@@ -166,17 +178,32 @@ const OrderDetails = (setStripeClientSecret) => {
     setRusherTip(tip);
   }
 
-  function handleOtherTipChange(){
+  const handleOtherTipChange = (e) => {
 
-    if ( !(otherTipRef.current.value) || (otherTipRef.current.value === "")){
-      setRusherTip(0)
+    console.log("event: ", e)
+    const value = Number(e.target.value.replace(".", "")) / 100;
+    console.log("value type: ", typeof value);
+
+    console.log("value: ", value)
+    console.log("parseInt: ", parseInt(value))
+    console.log("parseFloat: ", parseFloat(value))
+
+    if (otherTip.toString().length > 10 && value > otherTip){
+      return;
     }
+
+    if (e.nativeEvent.data === "-"){
+      e.preventDefault();
+    }
+
+    else if (value === "" || !value){
+      setOtherTip(0);
+      setRusherTip(0);
+    }
+
     else {
-
-
-      //console.log(typeof parseInt(otherTipRef.current.value))
-
-      setRusherTip( currencyFormat(parseInt(otherTipRef.current.value)) )
+      setOtherTip(value);
+      setRusherTip(value);
     }
   }
 
@@ -195,6 +222,7 @@ const OrderDetails = (setStripeClientSecret) => {
 
 
   const handleCheckout = async () => {
+    alert("checking out")
     const data = await checkout({
       cart: state.cart,
       shippingAddress: state.shipping_address,
@@ -230,12 +258,7 @@ const OrderDetails = (setStripeClientSecret) => {
           }}
         >
           <div className={styles.paymentBox}>
-            <Typography
-              fontWeight="700"
-              fontFamily="BlinkMacSystemFont"
-              variant="h5"
-              marginBottom={"15px"}
-            >
+            <Typography marginBottom={"15px"} sx={headers.header2} >
               Order Summary
             </Typography>
             <Details currentCart={cartProductsQuantities} rusherTip={rusherTip}/>
@@ -271,7 +294,7 @@ const OrderDetails = (setStripeClientSecret) => {
               </Typography>
 
               <div className={styles.grayBox}>
-                <Typography width={"100%"} variant="h6" noWrap>
+                <Typography width={"100%"} sx={headers.header6} noWrap>
                   {(state.shipping_address && state.shipping_address.building) && state.shipping_address.building}
                 </Typography>
               </div>
@@ -283,7 +306,7 @@ const OrderDetails = (setStripeClientSecret) => {
                 Floor / Apartment #
               </Typography>
               <div className={styles.grayBox}>
-                <Typography width={"100%"} variant="h6" noWrap>
+                <Typography width={"100%"} sx={headers.header6} noWrap>
                   {(state.shipping_address && state.shipping_address.floor_apartment) && state.shipping_address.floor_apartment}
 
                 </Typography>
@@ -294,10 +317,9 @@ const OrderDetails = (setStripeClientSecret) => {
               <Typography width={"100%"} variant="h7">
                 Notes for Rusher
               </Typography>
-              <div className={styles.grayBox}>
-                <Typography width={"100%"} variant="h6" noWrap>
-                  {MESSAGE}
-                </Typography>
+              <div className={styles.grayBox2}>
+                <p className={styles.notesRusher}>{MESSAGE}</p>
+
               </div>
             </div>
 
@@ -352,6 +374,7 @@ const OrderDetails = (setStripeClientSecret) => {
           <Divider
             sx={{
               width: "100%",
+              // marginTop: "25px",
               marginBottom: "25px",
               maxWidth: "610px",
             }}
@@ -393,12 +416,13 @@ const OrderDetails = (setStripeClientSecret) => {
           {showOtherTip && 
             <div className={styles.otherTipBox}>
               <Typography width={"100%"} variant="h7">
-                Other Tip
+                Other Tip $
               </Typography>
               <TextField
                 onChange={handleOtherTipChange}
-                inputRef={otherTipRef}
+                value={otherTip.toFixed(2)}
                 type={"number"}
+                min={MINTIP}
                 id="outlined-basic"
                 required
                 variant="outlined"
@@ -450,10 +474,7 @@ const OrderDetails = (setStripeClientSecret) => {
           <div className={styles.bottomButtons}>
 
             <Button
-              onClick={() => {
-                state.cart = [];
-                navigate(-1)
-              }}
+              onClick={() => {navigate(-1)}}
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -483,9 +504,10 @@ const OrderDetails = (setStripeClientSecret) => {
               Cancel
             </Button>
             <Button
-              onClick={handleCheckout}
-              disabled={(!state.shipping_address || !state.shipping_address.campus || !state.shipping_address.building || !state.shipping_address.floor_apartment)}
-                sx={{
+              
+              onClick={!isDisabled && handleCheckout}
+
+                sx={[{
                 display: "flex",
                 flexDirection: "row",
                 width: "80%",
@@ -504,11 +526,12 @@ const OrderDetails = (setStripeClientSecret) => {
                 color: "white",
                 border: "none",
                 marginBottom: "10px",
+                "&:hover": {background: "#7141fa"},
                 "@media screen and (max-width: 900px)": {
                   width: "60%",
                   fontSize: "22px"
                 }
-              }}
+              }, isDisabled && { opacity: "0.5", cursor: "none"}]}
             >
               <CreditCardIcon fontSize="large" />
               Place Order
