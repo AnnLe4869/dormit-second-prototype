@@ -197,7 +197,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
               fontSize="27px"
               variant="body1"
             >
-              ${price * quantity}
+              ${(price / 100) * quantity}
             </Typography>
             <Counter />
           </Box>

@@ -18,6 +18,7 @@ import {
   SIGN_UP_USER,
   UPDATE_CURRENT_ORDER,
   GET_PAST_ORDERS,
+  SET_MESSAGE,
 } from "../../constant";
 
 export const UserContext = createContext({
@@ -317,6 +318,23 @@ function userReducer(state, action) {
         ...state,
         name: name,
       };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case SET_MESSAGE: {
+      // action is {type: SET_MESSAGE, payload: {message: string}}
+      const message = action.payload.message;
+      if (message === undefined) {
+        throw new Error("You are missing the message field");
+      } else {
+        return {
+          ...state,
+          message,
+        };
+      }
     }
 
     /**
