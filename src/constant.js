@@ -52,3 +52,4 @@ export const UPDATE_HANDLING_PROCESS = "UPDATE HANDLING PROCESS";
 export const SET_FIRST_NAME = "SET FIRST NAME";
 export const SET_LAST_NAME = "SET LAST NAME";
 export const SET_NAME = "SET NAME";
+export const SET_MESSAGE = "SET MESSAGE";
