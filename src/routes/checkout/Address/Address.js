@@ -1,11 +1,5 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
-
-import { onAuthStateChanged } from "firebase/auth";
-import { AppContext } from "../../../context/app-context";
-import { UserContext } from "../../../context/user/user-context";
-import { SET_CHECKOUT_ADDRESS } from "../../../constant";
-
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import React, { useState, useRef } from "react";
+import { useUpdateShipping } from "../../../context/user/profile-context";
 
 import {
   ThemeProvider,
@@ -19,55 +13,17 @@ import {
 } from "@mui/material";
 import { ButtonStyles, responsiveTheme, textFieldStyles } from "./muiStyles";
 export default function Address() {
-  const { dispatch: userDispatch, state: userState } = useContext(UserContext);
-  const { auth, db } = useContext(AppContext);
-
-  const [loading, setLoading] = useState(false);
-
-  // Reference values of inputs
   const buildingRef = useRef();
   const apartmentNumberRef = useRef();
   const messageRef = useRef();
 
-  console.log(userState);
+  const updateShipping = useUpdateShipping();
 
-  // Set shipping_address data from database in user context
-  useEffect(() => {
-    const userData = userState;
-    if (userData.shipping_address) {
-      userDispatch({
-        type: SET_CHECKOUT_ADDRESS,
-        payload: {
-          shipping_address: userData.shipping_address,
-        },
-      });
-    }
-  }, []);
+  const [loading, setLoading] = useState(false);
 
-  // User submits new shipping address data
   const handleSubmit = async () => {
     setLoading(true);
-
-    let shippingData = {
-      shipping_address: {
-        campus: "UCSD",
-        building: buildingRef.current.value,
-        floor_apartment: apartmentNumberRef.current.value,
-        message: messageRef.current.value,
-      },
-    };
-
-    // Update address in context
-    userDispatch({
-      type: SET_CHECKOUT_ADDRESS,
-      payload: shippingData,
-    });
-
-    // Update address in database
-    const usersRef = doc(db, "users", auth.currentUser.uid);
-    await setDoc(usersRef, shippingData, { merge: true });
-
-    // Turn off loading state once shippingData has succesfully been set in database
+    await updateShipping(buildingRef, apartmentNumberRef, messageRef);
     setLoading(false);
   };
 

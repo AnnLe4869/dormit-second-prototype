@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "../app-context";
 import { UserContext } from "./user-context";
 
+import { SET_CHECKOUT_ADDRESS } from "../../constant.js";
 import { SET_FIRST_NAME } from "../../constant.js";
 
 import { doc, setDoc } from "firebase/firestore";
@@ -61,8 +62,8 @@ export function useUpdateLastName() {
  * return a function that when called will update user's shipping address
  */
 export function useUpdateShipping() {
-  const { functions } = useContext(AppContext);
-
+  const { auth, db } = useContext(AppContext);
+  const { dispatch } = useContext(UserContext);
   /**
    * function that will update user's shipping address
    *
@@ -72,5 +73,24 @@ export function useUpdateShipping() {
    *
    * after that, update local
    */
-  return async (address) => {};
+  return async (buildingRef, apartmentNumberRef, messageRef) => {
+    let shippingData = {
+      shipping_address: {
+        campus: "UCSD",
+        building: buildingRef.current.value,
+        floor_apartment: apartmentNumberRef.current.value,
+        message: messageRef.current.value,
+      },
+    };
+
+    // Update address in context
+    dispatch({
+      type: SET_CHECKOUT_ADDRESS,
+      payload: shippingData,
+    });
+
+    // Update address in database
+    const usersRef = doc(db, "users", auth.currentUser.uid);
+    await setDoc(usersRef, shippingData, { merge: true });
+  };
 }
