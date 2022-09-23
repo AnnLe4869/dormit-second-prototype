@@ -13,14 +13,10 @@ export function LoadingButton({ buttonName, loading, ...props }) {
         </Button>
         {loading && (
           <CircularProgress
-            size={24}
+            size={22}
             sx={{
-              color: green[500],
+              color: "#e1d6ff",
               position: "absolute",
-              top: "50%",
-              left: "50%",
-              marginTop: "-12px",
-              marginLeft: "-12px",
             }}
           />
         )}
