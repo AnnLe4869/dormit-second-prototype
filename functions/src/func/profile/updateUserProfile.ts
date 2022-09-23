@@ -1,15 +1,16 @@
 import { CollectionReference } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
-import { verifyEmail } from "../helper/helper";
+import { verifyEmail } from "../../helper/helper";
 
-import { db } from "../setup";
+import { db } from "../../setup";
 
 /**
- * update user's email
+ * update user's profile
+ *
  * Params for the functions
- * @params  {email: string}
+ * @params  {name: string, email: string}
  */
-export const updateEmail = functions
+export const updateUserProfile = functions
   .runWith({
     // no more than 20 instances of the function should be running at once.
     // More on https://cloud.google.com/functions/docs/configuring/max-instances
@@ -29,8 +30,15 @@ export const updateEmail = functions
         `The function must be called with the argument "email" containing the email address you want to change.`
       );
     }
+    if (!data.name) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        `The function must be called with the argument "name" containing the name you want to change.`
+      );
+    }
 
     const email: string = data.email.trim();
+    const name: string = data.name.trim();
 
     if (!verifyEmail(email)) {
       throw new functions.https.HttpsError(
@@ -39,11 +47,12 @@ export const updateEmail = functions
       );
     }
 
-    const usersRef = db.collection("users") as CollectionReference<{
-      linked_email: string;
-    }>;
-
     try {
+      const usersRef = db.collection("users") as CollectionReference<{
+        name: string;
+        linked_email: string;
+      }>;
+
       /**
        * find users that have the linked_email field match the given email
        * if there is such user, we cannot change our user's linked_email to the given email
@@ -63,16 +72,17 @@ export const updateEmail = functions
        * find current user and update its detail
        */
       usersRef.doc(context.auth.uid).update({
+        name,
         linked_email: email,
       });
 
       return {
         isSuccess: true,
-        message: "the user's email has been updated",
+        message: "the user's profile has been updated",
       };
     } catch (error) {
       functions.logger.error(
-        `Error: fail to update email for user with uid ${context.auth.uid} with email ${data.email}`,
+        `Error: fail to update profile for user with uid ${context.auth.uid} with email ${data.email}`,
         (error as Error).message
       );
 

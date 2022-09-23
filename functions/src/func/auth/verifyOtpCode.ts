@@ -1,9 +1,9 @@
 import { CollectionReference } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
-import config from "../config";
-import { verifyEmail } from "../helper/helper";
+import config from "../../config";
+import { verifyEmail } from "../../helper/helper";
 
-import { db, admin, totp } from "../setup";
+import { db, admin, totp } from "../../setup";
 
 /**
  * Verify the Otp code the user provide

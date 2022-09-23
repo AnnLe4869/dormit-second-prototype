@@ -1,11 +1,11 @@
 import { CollectionReference, FieldPath } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import Stripe from "stripe";
-import config from "../config";
-import { findCheapestPrice } from "../helper/helper";
+import config from "../../config";
+import { findCheapestPrice } from "../../helper/helper";
 
-import { db } from "../setup";
-import { Product, User } from "../type";
+import { db } from "../../setup";
+import { Product, User } from "../../type";
 
 /**
  * when being called, create a PaymentIntent and send the client secret back to caller

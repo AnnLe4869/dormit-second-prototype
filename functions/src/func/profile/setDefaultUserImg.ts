@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
-import { identicon } from "../helper/helper";
-import { db } from "../setup";
+import { identicon } from "../../helper/helper";
+import { db } from "../../setup";
 
 export const setDefaultUserImg = functions.auth
   .user()

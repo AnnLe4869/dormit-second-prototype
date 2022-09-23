@@ -1,16 +1,16 @@
-import { checkout } from "./func/checkout";
-import { postCheckout } from "./func/postCheckout";
-import { sendCodeViaEmail } from "./func/sendCodeViaEmail";
-import { setDefaultUserImg } from "./func/setDefaultUserImg";
+import { checkout } from "./func/payment/checkout";
+import { postCheckout } from "./func/payment/postCheckout";
+import { sendCodeViaEmail } from "./func/auth/sendCodeViaEmail";
+import { setDefaultUserImg } from "./func/profile/setDefaultUserImg";
 import {
   createCustomer,
   getStripePublishableKey,
   handleStripeWebhookEvents,
 } from "./func/stripe";
 import { completeOrder, initiateTypesense } from "./func/testFunc";
-import { updateEmail } from "./func/updateEmail";
-import { updateUserProfile } from "./func/updateUserProfile";
-import { verifyOtpCode } from "./func/verifyOtpCode";
+import { updateEmail } from "./func/profile/updateEmail";
+import { updateUserProfile } from "./func/profile/updateUserProfile";
+import { verifyOtpCode } from "./func/auth/verifyOtpCode";
 
 export {
   getStripePublishableKey,

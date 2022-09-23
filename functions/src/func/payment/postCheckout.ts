@@ -1,10 +1,10 @@
 import { CollectionReference, FieldPath } from "firebase-admin/firestore";
 import * as functions from "firebase-functions";
 import Stripe from "stripe";
-import config from "../config";
+import config from "../../config";
 
-import { db } from "../setup";
-import { ArrayElement, Processing_order, Product, User } from "../type";
+import { db } from "../../setup";
+import { ArrayElement, Processing_order, Product, User } from "../../type";
 
 // Initialize stripe
 const apiVersion = "2020-08-27";
