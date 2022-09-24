@@ -2,7 +2,6 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import ClearIcon from '@mui/icons-material/Clear';
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
   Box,
   Button,
@@ -13,46 +12,32 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../../context/product/product-handler";
 import { useCheckout } from "../../../context/user/checkout-handler";
-
 import { UserContext } from "../../../context/user/user-context";
 
 import { getTotal, getTotalCount } from "../../../helper/getTotalsAndFees.js";
-
-import apple from "../../../mock_data/images/apple.jpg";
-import styles from "./OrderDetails.module.css";
 
 import building from "../../../assets/OrderDetails/building.svg";
 import stairs from "../../../assets/OrderDetails/stairs.svg";
 import notes from "../../../assets/OrderDetails/notes.svg";
 
 import { headers } from "./muiStyles.js";
+import styles from "./OrderDetails.module.css";
 
 const RUSHER_TIP_1 = 1.5;
 const RUSHER_TIP_2 = 2;
 const RUSHER_TIP_3 = 2.5;
-
 const MINTIP = 0
 
+const CAMPUS = "UCSD";
 const BUILDING = "UCSD Building";
 const FLOOR = "1/12";
-const NOTES = "Leave it at my door";
-
-const MESSAGE = "Leave it at my doorLeave it at my doorLeave it at my doorLeave it at my doorLeave it at my doorLeave it at my door"
-
-function currencyFormat(num) {
-  console.log(typeof num)
-  console.log(typeof (num/100))
-  console.log(typeof (num/100).toFixed(2))
-  return (Math.round(num)/100)
-}
+const MESSAGE = "Leave it at myr"
 
 const Details = ({currentCart, rusherTip}) => {
-
-  
 
   return (
     <div className={styles.box}>
@@ -77,7 +62,7 @@ const Details = ({currentCart, rusherTip}) => {
           })}
         </Typography>
         <div className={styles.row}>
-          <Typography sx={headers.header3}>
+          <Typography sx={headers.header4}>
             Item Count
           </Typography>
           <Typography sx={headers.header6}>
@@ -85,7 +70,7 @@ const Details = ({currentCart, rusherTip}) => {
           </Typography>
         </div>
         <div className={styles.row}>
-          <Typography sx={headers.header3}>
+          <Typography sx={headers.header4}>
             Subtotal
           </Typography>
           <Typography sx={headers.header6}>
@@ -93,7 +78,7 @@ const Details = ({currentCart, rusherTip}) => {
           </Typography>
         </div>
         <div className={styles.row}>
-          <Typography sx={headers.header3}>
+          <Typography sx={headers.header4}>
             Tip
           </Typography>
           <Typography sx={headers.header6}>
@@ -101,7 +86,7 @@ const Details = ({currentCart, rusherTip}) => {
           </Typography>
         </div>
         <div className={styles.row}>
-          <Typography sx={headers.header3}>
+          <Typography sx={headers.header4}>
             Total
           </Typography>
           <Typography sx={headers.header6}>
@@ -115,85 +100,76 @@ const Details = ({currentCart, rusherTip}) => {
 
 const OrderDetails = (setStripeClientSecret) => {
 
-  const checkout = useCheckout();
-
-  const cartProducts = [];
-  const cartProductsQuantities = [];
-
   const navigate = useNavigate();
+  const checkout = useCheckout();
   const { state } = useContext(UserContext);
 
-  const otherTipRef = useRef("");
-
   const [rusherTip, setRusherTip] = useState(0);
-  const [showOtherTip, setShowOtherTip] = useState(false);
   const [otherTip, setOtherTip] = useState(0);
+
+  ///useState flag that toggles the `Other Tip` field 
+  const [showOtherTip, setShowOtherTip] = useState(false);
   const [replacementOption, setReplacementOption] = useState(0);
 
+  const cartProducts = [];
+
+  ///Boolean flag that indicates if the `PLACE ORDER` button should be disabled or not
   let isDisabled = (!state.shipping_address || !state.shipping_address.campus || !state.shipping_address.building || !state.shipping_address.floor_apartment)
 
-
-
+  ///Fetch products from emulator and filter products without fields
   const products = useProducts().slice(1).filter((product) => {
     if (product.name && product.images && product.prices && product.id) return true;
     else return false;
   });
 
+  ///Set the userState's `shipping_address` field
   state.shipping_address = {
-    campus: "UCSD",
-    building: "CSE",
-    floor_apartment: "Floor 3",
+    campus: CAMPUS,
+    // building: BUILDING,
+    floor_apartment: FLOOR,
   };
 
+  /* 
+   * Iterate through the cart and add to cartProducts the product data from `useProduct`
+   * and the quantities from `UserContext`
+   */
   if (state.cart && products.length > 0){
     state.cart.map(({ product_id, quantity }) => {
       const product = products.find((current) => current.id === product_id);
 
-      cartProductsQuantities.push({
+      cartProducts.push({
         name: product.name,
         image: product.images[0],
         price: product.prices[0].unit_amount,
         quantity: quantity,
         tax: product.metadata.tax
       });
-
-      cartProducts.push(product);
     });
   }
 
-  //Print the state.cart (prod_id, quantity)
-  if (state.cart) {
-    console.log("Count: ", getTotalCount(state.cart));
-  }
-
-  //Print the combined cartProductQuantites and total price
-  if (cartProductsQuantities.length > 0){
-    console.log("cartProductsQuantities: ", cartProductsQuantities);
-    console.log("Total: ", getTotal(cartProductsQuantities))
-  }
-
+  /*
+   * This function will handle the normal tip buttons (not Other Tip)
+   */
   function handleTip(tip){
-    console.log("other tip: ", tip)
     setShowOtherTip(false);
     setRusherTip(tip);
   }
 
+  /*
+   * This function will handle the input field for Other Tip
+   */
   const handleOtherTipChange = (e) => {
 
-    console.log("event: ", e)
     const value = Number(e.target.value.replace(".", "")) / 100;
-    console.log("value type: ", typeof value);
 
-    console.log("value: ", value)
-    console.log("parseInt: ", parseInt(value))
-    console.log("parseFloat: ", parseFloat(value))
-
+    ///Return if user is attempting to add an amount over 9 digits (cents included)
     if (otherTip.toString().length > 10 && value > otherTip){
       return;
     }
 
+    ///Return if user enters the "-" character
     if (e.nativeEvent.data === "-"){
-      e.preventDefault();
+      return;
     }
 
     else if (value === "" || !value){
@@ -206,20 +182,6 @@ const OrderDetails = (setStripeClientSecret) => {
       setRusherTip(value);
     }
   }
-
-  useEffect(() => {
-    console.log("otherTip: ", otherTip)
-  }, [otherTip])
-
-
-  useEffect(() => {
-    console.log("rusherTip: ", rusherTip)
-  }, [rusherTip])
-
-  useEffect(() => {
-    console.log("UserContext state: ", state);
-  }, [state])
-
 
   const handleCheckout = async () => {
     alert("checking out")
@@ -261,7 +223,7 @@ const OrderDetails = (setStripeClientSecret) => {
             <Typography marginBottom={"15px"} sx={headers.header2} >
               Order Summary
             </Typography>
-            <Details currentCart={cartProductsQuantities} rusherTip={rusherTip}/>
+            <Details currentCart={cartProducts} rusherTip={rusherTip}/>
           </div>
           <Divider
             sx={{
@@ -284,8 +246,6 @@ const OrderDetails = (setStripeClientSecret) => {
                 <ArrowForwardIosIcon fontSize="medium" onClick={() => {alert("Address Page")}}/>
               </button>
             </div>
-
-
 
             <div className={styles.input}>
               <img src={building} alt=""/>
@@ -342,39 +302,11 @@ const OrderDetails = (setStripeClientSecret) => {
                 </Typography>
               </div>
             }
-
-
-
-
           </div>
-          {/* <Divider
-            sx={{
-              width: "100%",
-              marginBottom: "25px",
-              maxWidth: "610px",
-            }}
-          />
-          <div className={styles.paymentBox}>
-            <Typography
-              fontWeight="700"
-              fontFamily="BlinkMacSystemFont"
-              variant="h5"
-            >
-              Payment
-            </Typography>
-            <div className={styles.input}>
-              <Typography variant="h6">Discover Card 4414</Typography>
-              <button
-                style={{ border: "0", background: "none", cursor: "pointer" }}
-              >
-                <NavigateNextIcon />
-              </button>
-            </div>
-          </div> */}
+
           <Divider
             sx={{
               width: "100%",
-              // marginTop: "25px",
               marginBottom: "25px",
               maxWidth: "610px",
             }}
