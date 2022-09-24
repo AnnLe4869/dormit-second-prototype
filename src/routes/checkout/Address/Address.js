@@ -1,5 +1,9 @@
 import React, { useState, useRef } from "react";
-import { useUpdateShipping } from "../../../context/user/profile-context";
+import {
+  useUpdateMessage,
+  useUpdateShipping,
+} from "../../../context/user/profile-context";
+import { useActivateErrorAlert } from "../../../context/alert/alert-handler";
 
 import {
   ThemeProvider,
@@ -18,16 +22,24 @@ export default function Address() {
   const messageRef = useRef();
 
   const updateShipping = useUpdateShipping();
+  const updateMessage = useUpdateMessage();
+  const activateErrorAlert = useActivateErrorAlert();
 
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     setLoading(true);
-    await updateShipping(
+
+    const { isSuccess, message } = await updateShipping(
       buildingRef.current.value.toString(),
-      apartmentNumberRef.current.value.toString(),
-      messageRef.current.value.toString()
+      apartmentNumberRef.current.value.toString()
     );
+    if (!isSuccess) {
+      activateErrorAlert(message);
+      setLoading(false);
+      return;
+    }
+    updateMessage(messageRef.current.value.toString());
     setLoading(false);
   };
 
