@@ -11,6 +11,11 @@ import { completeOrder, initiateTypesense } from "./func/testFunc";
 import { updateEmail } from "./func/profile/updateEmail";
 import { updateUserProfile } from "./func/profile/updateUserProfile";
 import { verifyOtpCode } from "./func/auth/verifyOtpCode";
+import {
+  onProductCreateTs,
+  onProductDeleteTs,
+  onProductUpdateTs,
+} from "./func/typesense";
 
 export {
   getStripePublishableKey,
@@ -23,6 +28,9 @@ export {
   verifyOtpCode,
   updateEmail,
   updateUserProfile,
+  onProductCreateTs,
+  onProductUpdateTs,
+  onProductDeleteTs,
   /**
    * this is for testing purpose only
    * remove when in development
