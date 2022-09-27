@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import { green } from "@mui/material/colors";
+import { purple } from "@mui/material/colors";
 import * as React from "react";
 
 export function LoadingButton({ buttonName, loading, ...props }) {
@@ -13,9 +13,9 @@ export function LoadingButton({ buttonName, loading, ...props }) {
         </Button>
         {loading && (
           <CircularProgress
-            size={24}
+            size={22}
             sx={{
-              color: green[500],
+              color: purple[500],
               position: "absolute",
               top: "50%",
               left: "50%",
