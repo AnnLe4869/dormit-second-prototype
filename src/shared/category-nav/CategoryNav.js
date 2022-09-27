@@ -1,10 +1,10 @@
 import React from "react";
+import { convertToCamelCase } from "../../helper/convertToCamelCase";
 
 import styles from "./CategoryNav.module.css";
 import { headers, homepageStyles } from "./muiStyles";
 
 import { Typography } from "@mui/material";
-
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
@@ -37,14 +37,20 @@ function CategoryNav({ navItems }) {
   return (
     <div className={styles.container}>
       <ul className={styles.navbar} id="categoryNav">
-        {navItems.map((section) => (
+        {navItems.categories.map((category) => (
           <li className={styles.navItem}>
-            <img
-              src={section.imgSrc}
-              alt={section.alt}
-              onClick={(e) => scrollToCategory(section.sectionId)}
+            <div
+              dangerouslySetInnerHTML={{ __html: category.category_icon }}
+              onClick={() => {
+                scrollToCategory(
+                  convertToCamelCase(category.category_name) + "Section"
+                );
+              }}
             />
-            <Typography sx={headers.header6}>{section.name}</Typography>
+            <Typography sx={headers.header6}>
+              {category.category_name[0].toUpperCase() +
+                category.category_name.slice(1)}
+            </Typography>
           </li>
         ))}
       </ul>

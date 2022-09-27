@@ -23,10 +23,8 @@
   text-align: center;
 }
 
-.navItem img {
+.navItem svg {
   cursor: pointer;
-  width: 85px;
-  height: 85px;
 }
 
 @media screen and (max-width: 900px) {

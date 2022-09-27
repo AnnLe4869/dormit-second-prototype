@@ -22,7 +22,6 @@ import snacks from "../../../assets/Home/snacks.svg";
 import specials from "../../../assets/Home/specials.svg";
 import sweets from "../../../assets/Home/sweets.svg";
 
-
 const mockForYouItems = [
   <ProductListing
     id="apple"

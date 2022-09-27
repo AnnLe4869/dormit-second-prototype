@@ -51,20 +51,21 @@ export default function HomePage() {
            * items in this section will feature clickable icons that will scroll to a
            * section in the page
            */}
-          <CategoryNav navItems={originalSections} />
-
+          {products.length > 0 ? (
+            <CategoryNav navItems={products[0]} />
+          ) : (
+            <h3>Loading...</h3>
+          )}
           {/**
            * Special sections
            * items in this section have different styling, thus has its own component
            */}
 
-          {products.length > 0 ? (
+          {products.length > 0 && (
             <SpecialSection
               section={originalSections[0]}
               database={products.slice(1)}
             />
-          ) : (
-            <h3>Loading Specials...</h3>
           )}
 
           {/**
