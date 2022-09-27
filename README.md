@@ -51,24 +51,48 @@ For the most part, a component is not shared between route. But at the moment, t
 
 The header, although sounds like something that should be shared, isn't actually one as. From the UI design, I see that the header are different between routes and no duplication here
 
-## How to start Firebase
+## How to start Firebase for development
 
-After you cloned the project down to your computer, follow these steps to set up your firebase
+- Create a firebase project of your own. Make sure you select free product. Create a web app under it.
+- Copy the config file there
+- Create a file in `src` directory and name it `firebase.config.js`. Parse this content to the file
 
-- Create a firebase project and then install the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments) and [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email). Follow all instructions there
+        ```js
+         const config = {
+            apiKey: "AIzaSyB6lM1pWV-\_UbtQ-6b4HcI",
+            authDomain: "test-ap8.firebaseapp.com",
+            projectId: "test-a8",
+            storageBucket: "test-a8.appspot.com",
+            messagingSenderId: "259605004643",
+            appId: "1:259643:web:6057ad3215c251d38d1356",
+            measurementId: "G-33DDZ8",
+         };
 
-- For the [Firebase Stripe Extension](https://firebase.google.com/products/extensions/stripe-firestore-stripe-payments), you should choose option "Sync" for the "Sync new users to Stripe customers and Cloud Firestore". After you install the extension, don't forget to setup Stripe Webhook as instructed by the extension (see the section Configure Stripe webhooks or [POSTINSTALL instruction](https://github.com/stripe/stripe-firebase-extensions/blob/master/firestore-stripe-payments/POSTINSTALL.md)). The overall setup look like this
+         export default config;
+      ```
 
-  ```bash
-  CUSTOMERS_COLLECTION=users
-  DELETE_STRIPE_CUSTOMERS=Auto delete
-  LOCATION=us-west2
-  PRODUCTS_COLLECTION=products
-  STRIPE_CONFIG_COLLECTION=configuration
-  SYNC_USERS_ON_CREATE=Sync
-  STRIPE_API_KEY=rk_test_51LFbOFBFL4Le4n4LMEoeONWCjmqo73EUhFozs0LoJ4NIPctxx4w004BoFeBrd
-  STRIPE_WEBHOOK_SECRET=whsec_LYb6SrfCBNwjRQU5
-  ```
+  Replace the content inside the `config` part with your own config from your Firebase
+
+- In the `functions` directory, create a file named `.secret.local` and parse these in
+
+        ```bash
+         STRIPE_SECRET_KEY=rk_test_51LFbOFBFL4Le4n4LZag4a9VoQs1yhJD2l
+         STRIPE_WEBHOOK_SECRET=whsec_05764f2e090
+         OTP_SECRET=helloworld1d
+         TYPESENSE_API_KEY=bo4cgKwvFtPp2ER
+        ```
+
+  The exact value for each key can be provided by the team lead, or you can find one by yourselves
+
+- Install all extensions locally. At the moment, we only have one extension [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email), and we use this extension for only one feature. This means, you can either remove the extension (by removing it from `firebase.json` - but make sure to put it back when you commit code to codebase), or you can install the extension locally and just enter some dummy data to the prompt. We just want the extension to start without error when the emulator start
+
+- Start the emulator
+
+Make sure you don't track the file `firebase.config.js` and `.secret.local` with Git
+
+## How to start Firebase for production
+
+- Create a firebase project and then install the [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email). Follow all instructions there
 
 - For [Firebase Trigger mail](https://firebase.google.com/products/extensions/firebase-firestore-send-email), we have to set up a SMTP connection URI and SMTP password. I am using Sendgrid because it's free and easiest to set up. The overall setup would look like this
 
