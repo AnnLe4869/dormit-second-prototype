@@ -40,7 +40,9 @@ function CategoryNav({ navItems }) {
         {navItems.map((section) => (
           <li className={styles.navItem}>
             <img
-              src={section.imgSrc}
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(
+                section.category_icon
+              )}`}
               alt={section.alt}
               onClick={(e) => scrollToCategory(section.sectionId)}
             />

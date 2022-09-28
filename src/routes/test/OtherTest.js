@@ -15,8 +15,8 @@ export default function Test() {
 
   useEffect(() => {
     if (state.isAuthenticated) {
-      initializeOrders();
-      // initializePast();
+      // initializeOrders();
+      initializePast();
     }
   }, [state.isAuthenticated]);
 
