@@ -23,11 +23,11 @@ export default function Checkout() {
         element={<Order setStripeClientSecret={setStripeClientSecret} />}
       />
       <Route
-        path="order"
+        path="order-test"
         element={<Order setStripeClientSecret={setStripeClientSecret} />}
       />
       <Route
-        path="order2"
+        path="order"
         element={<OrderDetail setStripeClientSecret={setStripeClientSecret}/>}
       />
       <Route
