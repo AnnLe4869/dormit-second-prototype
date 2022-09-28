@@ -23,7 +23,7 @@ import ViewCart from "../../shared/view-cart/ViewCart";
 /*
  * Imported data
  */
-import { derivedSections, originalSections } from "./sections/sectionData.js";
+import { derivedSections } from "./sections/sectionData.js";
 
 /*
  * Material UI Imports
@@ -52,7 +52,7 @@ export default function HomePage() {
            * section in the page
            */}
           {products.length > 0 ? (
-            <CategoryNav navItems={products[0]} />
+            <CategoryNav navItems={products[0].categories} />
           ) : (
             <h3>Loading...</h3>
           )}
@@ -63,7 +63,9 @@ export default function HomePage() {
 
           {products.length > 0 && (
             <SpecialSection
-              section={originalSections[0]}
+              section={
+                products[0].categories[products[0].categories.length - 1]
+              }
               database={products.slice(1)}
             />
           )}
@@ -87,9 +89,8 @@ export default function HomePage() {
 
           {products.length > 0 ? (
             <OriginalSections
-              sections={originalSections}
-              database={products.slice(1)}
-              emuSections={products[0]}
+              sections={products[0].categories}
+              products={products.slice(1)}
             />
           ) : (
             <h3>Loading Sections...</h3>

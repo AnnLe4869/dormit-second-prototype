@@ -20,7 +20,10 @@ function SpecialSection({ section, database }) {
   }
 
   return (
-    <section className={HomeCSS.todaysSpecial} id={section.sectionId}>
+    <section
+      className={HomeCSS.todaysSpecial}
+      id={section.category_name + "Section"}
+    >
       <hr className={HomeCSS.sectionBarTop} />
       <div className={HomeCSS.todaysSpecialHeader}>
         <Button
@@ -29,17 +32,17 @@ function SpecialSection({ section, database }) {
           sx={[
             homepageStyles.seeAll,
             {
-              color: section.color,
-              backgroundColor: section.backgroundColor,
+              color: section.category_style.color,
+              backgroundColor: section.category_style.background_color,
               "&:hover": {
-                backgroundColor: section.backgroundColor,
+                backgroundColor: section.category_style.background_color,
               },
             },
           ]}
         >
           <Typography sx={headers.seeAllFont}>See All</Typography>
         </Button>
-        <Typography sx={headers.header2}>{section.sectionName}</Typography>
+        <Typography sx={headers.header2}>Specials</Typography>
         <Typography
           sx={[headers.header3, { color: "#969696", fontWeight: 400 }]}
         >

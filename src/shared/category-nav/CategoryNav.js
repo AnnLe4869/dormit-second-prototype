@@ -1,5 +1,5 @@
 import React from "react";
-import { convertToCamelCase } from "../../helper/convertToCamelCase";
+import { convertToUpperCase } from "../../helper/convertToUpperCase";
 
 import styles from "./CategoryNav.module.css";
 import { headers, homepageStyles } from "./muiStyles";
@@ -37,19 +37,16 @@ function CategoryNav({ navItems }) {
   return (
     <div className={styles.container}>
       <ul className={styles.navbar} id="categoryNav">
-        {navItems.categories.map((category) => (
+        {navItems.map((category) => (
           <li className={styles.navItem}>
             <div
               dangerouslySetInnerHTML={{ __html: category.category_icon }}
               onClick={() => {
-                scrollToCategory(
-                  convertToCamelCase(category.category_name) + "Section"
-                );
+                scrollToCategory(category.category_name + "Section");
               }}
             />
             <Typography sx={headers.header6}>
-              {category.category_name[0].toUpperCase() +
-                category.category_name.slice(1)}
+              {convertToUpperCase(category.category_name)}
             </Typography>
           </li>
         ))}
