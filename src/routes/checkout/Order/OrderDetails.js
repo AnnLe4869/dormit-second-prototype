@@ -30,7 +30,12 @@ import styles from "./OrderDetails.module.css";
 const RUSHER_TIP_1 = 1.5;
 const RUSHER_TIP_2 = 2;
 const RUSHER_TIP_3 = 2.5;
+const OTHER = 0;
 const MINTIP = 0
+
+const REPLACEMENT_0 = 0;
+const REPLACEMENT_1 = 1;
+const REPLACEMENT_2 = 2;
 
 const CAMPUS = "UCSD";
 const BUILDING = "UCSD Building";
@@ -104,12 +109,14 @@ const OrderDetails = (setStripeClientSecret) => {
   const checkout = useCheckout();
   const { state } = useContext(UserContext);
 
-  const [rusherTip, setRusherTip] = useState(0);
+  const [rusherTip, setRusherTip] = useState(RUSHER_TIP_1);
   const [otherTip, setOtherTip] = useState(0);
 
   ///useState flag that toggles the `Other Tip` field 
   const [showOtherTip, setShowOtherTip] = useState(false);
-  const [replacementOption, setReplacementOption] = useState(0);
+  const [replacementOption, setReplacementOption] = useState(REPLACEMENT_0);
+
+  const [selectedTip, setSelectedTip] = useState(RUSHER_TIP_1);
 
   const cartProducts = [];
 
@@ -125,7 +132,7 @@ const OrderDetails = (setStripeClientSecret) => {
   ///Set the userState's `shipping_address` field
   state.shipping_address = {
     campus: CAMPUS,
-    // building: BUILDING,
+    building: BUILDING,
     floor_apartment: FLOOR,
   };
 
@@ -338,10 +345,30 @@ const OrderDetails = (setStripeClientSecret) => {
                 variant="contained"
                 sx={{ "border-radius": "20px", width: "100%" }}
               >
-                <button className={styles.tipButton} onClick={() => handleTip(RUSHER_TIP_1)}>$1.50</button>
-                <button className={styles.tipButton} onClick={() => handleTip(RUSHER_TIP_2)}>$2.00</button>
-                <button className={styles.tipButton} onClick={() => handleTip(RUSHER_TIP_3)}>$2.50</button>
-                <button className={styles.tipButton} onClick={() => setShowOtherTip(true)}>Other</button>
+                <button 
+                  className={selectedTip === RUSHER_TIP_1 ? `${styles.tipButton} ${styles.selected}` : styles.tipButton} 
+                  onClick={() => {setRusherTip(RUSHER_TIP_1); setShowOtherTip(false); setSelectedTip(RUSHER_TIP_1)}}
+                >
+                  $1.50
+                </button>
+                <button 
+                  className={selectedTip === RUSHER_TIP_2 ? `${styles.tipButton} ${styles.selected}` : styles.tipButton} 
+                  onClick={() => {setRusherTip(RUSHER_TIP_2); setShowOtherTip(false); setSelectedTip(RUSHER_TIP_2)}}
+                >
+                  $2.00
+                </button>
+                <button 
+                  className={selectedTip === RUSHER_TIP_3 ? `${styles.tipButton} ${styles.selected}` : styles.tipButton} 
+                  onClick={() => {setRusherTip(RUSHER_TIP_3); setShowOtherTip(false); setSelectedTip(RUSHER_TIP_3)}}
+                >
+                  $2.50
+                </button>
+                <button 
+                  className={selectedTip === OTHER ? `${styles.tipButton} ${styles.selected}` : styles.tipButton} 
+                  onClick={() => {setRusherTip(otherTip); setShowOtherTip(true); setSelectedTip(OTHER)}}
+                >
+                  Other
+                </button>
               </ButtonGroup>
             </Grid>
           </Grid>
@@ -391,14 +418,30 @@ const OrderDetails = (setStripeClientSecret) => {
               >Replacement Items</Typography>
             </Grid>
             <Grid item xs={12} md={8}>
+
               <ButtonGroup
                 disableElevation
                 variant="contained"
                 sx={{ "border-radius": "20px", width: "100%" }}
               >
-                <button onClick={() => setReplacementOption(0)} className={styles.replaceButton}>Pick for me</button>
-                <button onClick={() => setReplacementOption(1)} className={styles.replaceButton}>Call me</button>
-                <button onClick={() => setReplacementOption(2)} className={styles.replaceButton}>Refund me</button>
+                <button 
+                  className={replacementOption === REPLACEMENT_0 ? `${styles.replaceButton} ${styles.selected}` : styles.replaceButton} 
+                  onClick={() => {setReplacementOption(REPLACEMENT_0)}}
+                >
+                  Pick for me
+                </button>
+                <button 
+                  className={replacementOption === REPLACEMENT_1 ? `${styles.replaceButton} ${styles.selected}` : styles.replaceButton} 
+                  onClick={() => {setReplacementOption(REPLACEMENT_1)}}
+                >
+                  Call me
+                </button>
+                <button 
+                  className={replacementOption === REPLACEMENT_2 ? `${styles.replaceButton} ${styles.selected}` : styles.replaceButton} 
+                  onClick={() => {setReplacementOption(REPLACEMENT_2)}}
+                >
+                  Refund me
+                </button>
               </ButtonGroup>
             </Grid>
           </Grid>{" "}
@@ -412,18 +455,19 @@ const OrderDetails = (setStripeClientSecret) => {
                 flexDirection: "row",
                 width: "20%",
                 maxWidth: "420px",
-                gap: "4px",
+                gap: "0px",
+                textAlign: "center",
                 justifyContent: "center",
                 alignItems: "center",
                 height: "60px",
-                background: "none",
+                background: "#ff6363",
                 borderRadius: "20px",
                 fontFamily: "Poppins",
                 fontStyle: "normal",
                 fontWeight: "700",
                 fontSize: "18px",
                 lineHeight: "36px",
-                color: "#ff6363",
+                color: "#ffffff",
                 border: "none",
                 marginBottom: "10px",
                 textTransform: "none",
@@ -463,7 +507,7 @@ const OrderDetails = (setStripeClientSecret) => {
                   width: "60%",
                   fontSize: "22px"
                 }
-              }, isDisabled && { opacity: "0.5", cursor: "none"}]}
+              }, (!state.shipping_address || !state.shipping_address.campus || !state.shipping_address.building || !state.shipping_address.floor_apartment) && { opacity: "0.5", cursor: "none"}]}
             >
               <CreditCardIcon fontSize="large" />
               Place Order

@@ -279,6 +279,11 @@ header > p {
   border: inherit;
 }
 
+.tipButton.selected {
+  color: #ffffff;
+  background: #7141fa;
+}
+
 .tipButton:nth-child(1) {
   border-radius: 20px 0 0 20px;
 }
@@ -287,10 +292,10 @@ header > p {
   border-radius: 0 20px 20px 0;
 }
 
-.tipButton:focus {
+/* .tipButton:focus {
   background: #7141fa;
   color: white;
-}
+} */
 
 .replacement {
   width: 100%;
@@ -328,6 +333,11 @@ header > p {
   font-size: 16px;
 }
 
+.replaceButton.selected {
+  background: #7141fa;
+  color: #ffffff;
+}
+
 .replaceButton:nth-child(1) {
   border-radius: 20px 0 0 20px;
 }
@@ -336,10 +346,10 @@ header > p {
   border-radius: 0 20px 20px 0;
 }
 
-.replaceButton:focus {
+/* .replaceButton:focus {
   background: #7141fa;
   color: white;
-}
+} */
 
 .placeOrder {
   display: flex;
