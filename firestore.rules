@@ -6,7 +6,7 @@ service cloud.firestore {
       // read is allowed
       allow read: if true;
       // write is NOT allowed
-      allow write: if true;
+      allow write: if false;
     }
 
     // rules for "users" collection

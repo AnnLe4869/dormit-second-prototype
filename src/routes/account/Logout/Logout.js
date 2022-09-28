@@ -1,7 +1,14 @@
 import React from "react";
 import { Button, Box, Typography } from "@mui/material";
+import { useSignOut } from "../../../context/user/auth-handler";
 
 export default function Logout() {
+  const logout = useSignOut();
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <Box
       sx={{
@@ -55,6 +62,7 @@ export default function Logout() {
         <Typography
           variant="body1"
           sx={{ fontWeight: "700", color: "#7141FA" }}
+          onClick={handleClick}
         >
           Log Out
         </Typography>
