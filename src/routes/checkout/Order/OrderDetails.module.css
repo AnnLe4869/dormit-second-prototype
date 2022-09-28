@@ -83,7 +83,6 @@ header > p {
   color: #7140fa;
 }
 
-
 .outerPicture {
   min-width: 125px;
   min-height: 125px;
@@ -166,7 +165,7 @@ header > p {
 }
 
 .grayBox {
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   width: 100%;
   height: inherit;
   text-align: right;
@@ -179,7 +178,7 @@ header > p {
 
 .grayBox2 {
   margin-top: 40px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   width: 100%;
   height: 90px;
   text-align: right;
@@ -372,7 +371,6 @@ header > p {
   cursor: pointer;
 }
 
-
 .bottomButtons {
   width: 100%;
   display: flex;
@@ -382,7 +380,7 @@ header > p {
 }
 
 @media screen and (max-width: 900px) {
-  .bottomButtons{
+  .bottomButtons {
     justify-content: space-evenly;
   }
 }

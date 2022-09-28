@@ -19,9 +19,7 @@ import { renderCategory } from "../../helper/renderProducts.js";
 
 import apple from "../../assets/apple.png";
 
-
 function Category() {
-
   let products = useProducts().slice(1);
 
   //Reset scroll to top
@@ -60,7 +58,6 @@ function Category() {
   //   }
   // }
 
-
   const navigateItems = () => {
     navigate(-1);
   };
@@ -82,11 +79,13 @@ function Category() {
       <div className={styles.page}>
         <div className={styles.supplies}>
           <ul className={styles.bigItemList}>
-            {products.length > 0 ? (renderCategory(products, props.category, 0).map((product) => (
-              <li>{product}</li>
-              )))
-              : <h2>Waiting for loading...</h2>}
-
+            {products.length > 0 ? (
+              renderCategory(products, props.category, 0).map((product) => (
+                <li>{product}</li>
+              ))
+            ) : (
+              <h2>Waiting for loading...</h2>
+            )}
           </ul>
         </div>
 

@@ -42,8 +42,8 @@ export default function HomePage() {
   const { state } = useContext(UserContext);
 
   useEffect(() => {
-    console.log("products: ", products)
-  }, [products])
+    console.log("products: ", products);
+  }, [products]);
 
   return (
     <>

@@ -244,7 +244,7 @@ const Cart = ({ handleDrawerClose }) => {
           }}
         >
           <Button
-            onClick={() => navigate("/checkout/order2")}
+            onClick={() => navigate("/checkout/order")}
             sx={{
               marginBottom: "30px",
               width: "100%",
