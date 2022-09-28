@@ -18,6 +18,7 @@ import {
   SIGN_UP_USER,
   UPDATE_CURRENT_ORDER,
   GET_PAST_ORDERS,
+  SET_MESSAGE,
 } from "../../constant";
 
 export const UserContext = createContext({
@@ -222,14 +223,14 @@ function userReducer(state, action) {
      */
 
     case SET_CHECKOUT_ADDRESS: {
-      // action is {type: SET_CHECKOUT_ADDRESS, payload: {address: {campus:string, building: string, floor_apartment: string}}}
-      const address = action.payload.address;
+      // action is {type: SET_CHECKOUT_ADDRESS, payload: {shipping_address: {campus:string, building: string, floor_apartment: string}}}
+      const address = action.payload.shipping_address;
       if (address === undefined) {
         throw new Error("You are missing the address field");
       }
       return {
         ...state,
-        shipping: address,
+        shipping_address: address,
       };
     }
 
@@ -317,6 +318,23 @@ function userReducer(state, action) {
         ...state,
         name: name,
       };
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------------
+     */
+
+    case SET_MESSAGE: {
+      // action is {type: SET_MESSAGE, payload: {message: string}}
+      const message = action.payload.message;
+      if (message === undefined) {
+        throw new Error("You are missing the message field");
+      } else {
+        return {
+          ...state,
+          message,
+        };
+      }
     }
 
     /**
