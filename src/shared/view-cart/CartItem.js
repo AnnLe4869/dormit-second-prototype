@@ -10,6 +10,7 @@ import {
   useIncrementItemCount,
   useRemoveProductFromCart,
 } from "../../context/user/cart-handler";
+import { useActivateErrorAlert } from "../../context/alert/alert-handler";
 
 const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   const [item, setitem] = useState(true);
@@ -17,9 +18,11 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   const incrementCount = useIncrementItemCount();
   const decrementCount = useDecrementItemCount();
   const removeProductFromCart = useRemoveProductFromCart();
+  const activateErrorAlert = useActivateErrorAlert();
 
   const toggleDel = () => {
     removeProductFromCart(id);
+    activateErrorAlert(`${name} removed from cart!`);
     setitem(false);
   };
   const increase = () => {
@@ -34,9 +37,8 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   useEffect(() => {
     if (quan <= 0) {
       setquantity(0);
-      setTimeout(() => {
-        setitem(false);
-      }, 600);
+      activateErrorAlert(`${name} removed from cart!`);
+      setitem(false);
     }
   }, [quan]);
 

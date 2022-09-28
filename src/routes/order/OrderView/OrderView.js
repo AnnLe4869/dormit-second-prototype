@@ -1,14 +1,15 @@
 import React from "react";
 import styles from "../Order.module.css";
 import apple from "../../../mock_data/images/apple.jpg";
-import msgIcon from "../../../mock_data/images/msgIcon.png";
-import PhoneIcon from "../../../mock_data/images/PhoneIcon.png";
+// import msgIcon from "../../../mock_data/images/msgIcon.png";
+import msgIcon from "../../../assets/Order/message.svg";
+import PhoneIcon from "../../../assets/Order/phone.svg";
+// import PhoneIcon from "../../../mock_data/images/PhoneIcon.png";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 
-function OrderView({ order }) {
-  const totalProducts = order.products.length;
-  console.log(order);
+function OrderView({ order, status }) {
+  const totalProducts = order.items.length;
 
   return (
     <Box
@@ -36,7 +37,7 @@ function OrderView({ order }) {
           gridRow: "span 2",
         }}
       >
-        {order.products.map((product, index) => (
+        {order?.items.map((product, index) => (
           <Box
             key={index}
             sx={{
@@ -76,7 +77,7 @@ function OrderView({ order }) {
           <Typography variant="h6" fontWeight={"600"}>
             {
               //mapping over products from props
-              order.products.map((product, index) => {
+              order?.items.map((product, index) => {
                 return (
                   <Typography
                     variant="h6"
@@ -84,7 +85,7 @@ function OrderView({ order }) {
                     fontWeight="600"
                     key={index}
                   >
-                    {(index ? ", " : "") + product.name}
+                    {(index ? ", " : "") + product.product_name}
                   </Typography>
                 );
               })
@@ -93,13 +94,13 @@ function OrderView({ order }) {
 
           <Typography variant="body1">March 22 at 08:05 pm</Typography>
           <Typography variant="body1">
-            $11.55 • {order.products.length} item
-            {order.products.length > 1 ? "s" : ""}
+            $11.55 • {order.items.length} item
+            {order.items.length > 1 ? "s" : ""}
           </Typography>
           <Typography variant="body1">Complete</Typography>
         </Box>
       </Box>
-      {order.status === "completed" ? (
+      {status === "completed" ? (
         <Box
           sx={{
             display: "flex",
@@ -162,8 +163,8 @@ function OrderView({ order }) {
           <Box sx={{ display: "flex", gap: 1 }}>
             <Button
               sx={{
-                width: "40px",
-                height: "40px",
+                width: "50px",
+                height: "50px",
                 outline: "none",
                 border: "none",
                 backgroundColor: "none",
@@ -171,12 +172,12 @@ function OrderView({ order }) {
                 overflow: "hidden",
               }}
             >
-              <img src={PhoneIcon} />
+              <img style={{ height: "100%" }} src={PhoneIcon} />
             </Button>
             <Button
               sx={{
-                width: "40px",
-                height: "40px",
+                width: "50px",
+                height: "50px",
                 outline: "none",
                 border: "none",
                 backgroundColor: "none",
@@ -184,7 +185,7 @@ function OrderView({ order }) {
                 overflow: "hidden",
               }}
             >
-              <img src={msgIcon} />
+              <img style={{ height: "100%" }} src={msgIcon} />
             </Button>
           </Box>
         </Box>
