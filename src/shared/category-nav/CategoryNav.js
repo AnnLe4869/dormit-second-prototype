@@ -39,8 +39,9 @@ function CategoryNav({ navItems }) {
       <ul className={styles.navbar} id="categoryNav">
         {navItems.map((category) => (
           <li className={styles.navItem}>
-            <div
-              dangerouslySetInnerHTML={{ __html: category.category_icon }}
+            <img
+              src={`data:image/svg+xml;base64,${btoa(category.category_icon)}`}
+              alt={convertToUpperCase(category.category_name)}
               onClick={() => {
                 scrollToCategory(category.category_name + "Section");
               }}
