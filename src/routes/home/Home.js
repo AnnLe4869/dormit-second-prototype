@@ -41,14 +41,6 @@ export default function HomePage() {
   const products = useProducts();
   const { state } = useContext(UserContext);
 
-  const categoriesArray = products.find(
-    (element) => element.id === "categories"
-  );
-
-  const specials = categoriesArray?.categories.find(
-    ({ category_name }) => category_name === "specials"
-  );
-
   return (
     <>
       <Header />
@@ -59,17 +51,18 @@ export default function HomePage() {
            * items in this section will feature clickable icons that will scroll to a
            * section in the page
            */}
-          {categoriesArray?.categories.length > 0 ? (
-            <CategoryNav navItems={categoriesArray?.categories} />
-          ) : null}
+          <CategoryNav navItems={originalSections} />
 
           {/**
            * Special sections
            * items in this section have different styling, thus has its own component
            */}
 
-          {specials ? (
-            <SpecialSection section={specials} database={products.slice(1)} />
+          {products.length > 0 ? (
+            <SpecialSection
+              section={originalSections[0]}
+              database={products.slice(1)}
+            />
           ) : (
             <h3>Loading Specials...</h3>
           )}
@@ -91,9 +84,9 @@ export default function HomePage() {
            * we list all section except the Special section
            */}
 
-          {categoriesArray?.categories?.length > 0 ? (
+          {products.length > 0 ? (
             <OriginalSections
-              sections={categoriesArray?.categories}
+              sections={originalSections}
               database={products.slice(1)}
               emuSections={products[0]}
             />
