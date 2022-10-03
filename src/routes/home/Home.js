@@ -4,7 +4,9 @@ import React, { useContext, useEffect } from "react";
  * Hooks & helpers
  */
 import { useProducts } from "../../context/product/product-handler";
-
+import { getCategories } from "../../helper/getProductsCategories";
+import { getSection } from "../../helper/getProductsCategories";
+import { getProducts } from "../../helper/getProductsCategories";
 /*
  * Components
  */
@@ -23,7 +25,7 @@ import ViewCart from "../../shared/view-cart/ViewCart";
 /*
  * Imported data
  */
-import { derivedSections, originalSections } from "./sections/sectionData.js";
+import { derivedSections } from "./sections/sectionData.js";
 
 /*
  * Material UI Imports
@@ -55,20 +57,21 @@ export default function HomePage() {
            * items in this section will feature clickable icons that will scroll to a
            * section in the page
            */}
-          <CategoryNav navItems={originalSections} />
-
+          {products.length > 0 ? (
+            <CategoryNav navItems={getCategories(products)} />
+          ) : (
+            <h3>Loading...</h3>
+          )}
           {/**
            * Special sections
            * items in this section have different styling, thus has its own component
            */}
 
-          {products.length > 0 ? (
+          {products.length > 0 && (
             <SpecialSection
-              section={originalSections[0]}
-              database={products.slice(1)}
+              section={getSection(products, "specials")}
+              products={getProducts(products)}
             />
-          ) : (
-            <h3>Loading Specials...</h3>
           )}
 
           {/**
@@ -90,9 +93,8 @@ export default function HomePage() {
 
           {products.length > 0 ? (
             <OriginalSections
-              sections={originalSections}
-              database={products.slice(1)}
-              emuSections={products[0]}
+              sections={getCategories(products)}
+              products={getProducts(products)}
             />
           ) : (
             <h3>Loading Sections...</h3>
