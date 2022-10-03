@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 /*
  * Hooks & helpers
@@ -40,6 +40,10 @@ import { UserContext } from "../../context/user/user-context";
 export default function HomePage() {
   const products = useProducts();
   const { state } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log("products: ", products);
+  }, [products]);
 
   return (
     <>

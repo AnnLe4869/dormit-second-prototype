@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 
@@ -16,16 +15,16 @@ import { useProducts } from "../../context/product/product-handler";
 import { UserContext } from "../../context/user/user-context";
 
 function Search() {
-
   /*
    * First fetch products and filter products without name images or prices
    */
-  const products = useProducts().slice(1).filter((product) => {
-    if (product.name && product.images && product.prices){
-      return true;
-    }
-    else return false;
-  });
+  const products = useProducts()
+    .slice(1)
+    .filter((product) => {
+      if (product.name && product.images && product.prices) {
+        return true;
+      } else return false;
+    });
 
   const { state } = useContext(UserContext);
 
@@ -54,7 +53,7 @@ function Search() {
    * This will filter the rendered products based on the state of the query
    */
   let filteredProducts = products.filter((product) => {
-    return product.name.toLowerCase().includes(search.toLowerCase())
+    return product.name.toLowerCase().includes(search.toLowerCase());
   });
 
   /*
