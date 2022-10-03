@@ -9,7 +9,7 @@ import { headers, homepageStyles } from "../muiStyles.js";
 
 import { renderSpecials } from "../../../helper/renderProducts.js";
 
-function SpecialSection({ section, database }) {
+function SpecialSection({ section, products }) {
   /**
    * useNavigate which is used to redirect to a category page (e.g. 'See All` for the Candy section)
    */
@@ -51,7 +51,7 @@ function SpecialSection({ section, database }) {
       </div>
 
       <ul className={HomeCSS.bigItemList}>
-        {renderSpecials(database, 4).map((item) => {
+        {renderSpecials(products, 4).map((item) => {
           return <li>{item}</li>;
         })}
       </ul>

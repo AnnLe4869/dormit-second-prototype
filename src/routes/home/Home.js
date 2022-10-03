@@ -4,8 +4,9 @@ import React, { useContext } from "react";
  * Hooks & helpers
  */
 import { useProducts } from "../../context/product/product-handler";
-import { getCategories } from "../../helper/getCategories";
-
+import { getCategories } from "../../helper/getProductsCategories";
+import { getSection } from "../../helper/getProductsCategories";
+import { getProducts } from "../../helper/getProductsCategories";
 /*
  * Components
  */
@@ -64,14 +65,8 @@ export default function HomePage() {
 
           {products.length > 0 && (
             <SpecialSection
-              section={
-                getCategories(products)[
-                  getCategories(products).findIndex(
-                    (e) => e.category_name === "specials"
-                  )
-                ]
-              }
-              database={products.slice(1)}
+              section={getSection(products, "specials")}
+              products={getProducts(products)}
             />
           )}
 
@@ -95,7 +90,7 @@ export default function HomePage() {
           {products.length > 0 ? (
             <OriginalSections
               sections={getCategories(products)}
-              products={products.slice(1)}
+              products={getProducts(products)}
             />
           ) : (
             <h3>Loading Sections...</h3>

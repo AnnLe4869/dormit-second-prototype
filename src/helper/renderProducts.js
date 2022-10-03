@@ -42,20 +42,18 @@ export function renderCategory(products, category, displayCount) {
   return renderedProducts;
 }
 
-export function renderSpecials(database, displayCount) {
+export function renderSpecials(products, displayCount) {
   if (!displayCount) {
-    displayCount = database.length;
+    displayCount = products.length;
   }
 
   let renderedProducts = [];
-
   for (
     let i = 0;
-    i < database.length && renderedProducts.length < displayCount;
+    i < products.length && renderedProducts.length < displayCount;
     i++
   ) {
-    const product = database[i];
-
+    const product = products[i];
     if (product.metadata.isSpecial === "true") {
       renderedProducts.push(
         <ProductListing
