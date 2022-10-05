@@ -16,6 +16,10 @@ import {
   useSelectItem,
 } from "../../context/user/cart-handler";
 import { getCartFromLocStore } from "../../helper/getCartFromLocStore";
+import {
+  useActivateErrorAlert,
+  useActivateSuccessAlert,
+} from "../../context/alert/alert-handler";
 
 /*
  * Helper function that formats the price
@@ -77,6 +81,10 @@ const ProductListing = ({
   const [inCart, setInCart] = useState(false);
   const selectItem = useSelectItem();
   const removeProductFromCart = useRemoveProductFromCart();
+  const activateSuccessAlert = useActivateSuccessAlert();
+  const activateErrorAlert = useActivateErrorAlert();
+  const localCart = getCartFromLocStore();
+  const data = localCart.find((item) => item.product_id === id);
 
   //useState() to show item details popup window
   const [showDetails, setShowDetails] = useState(false);
@@ -94,22 +102,24 @@ const ProductListing = ({
     added = !added;
     setInCart(added);
     if (added) {
+      activateSuccessAlert(`${name} added to cart!`);
       selectItem(id);
     }
 
     if (!added) {
+      activateErrorAlert(`${name} removed from cart!`);
       removeProductFromCart(id);
     }
   }
 
   useEffect(() => {
-    const localCart = getCartFromLocStore();
-    const data = localCart.find((item) => item.product_id === id);
-
     if (data) {
       setInCart(true);
     }
-  }, []);
+    if (!data) {
+      setInCart(false);
+    }
+  }, [data]);
 
   return (
     <>

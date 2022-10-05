@@ -9,6 +9,7 @@ import {
   useSelectItem,
 } from "../../context/user/cart-handler";
 import styles from "./ProductDetails.module.css";
+import { useActivateSuccessAlert } from "../../context/alert/alert-handler";
 
 /*
 id={id} name={name} image={image} description={description} price={price} stock={stock}
@@ -19,9 +20,11 @@ const ProductDetails = (props) => {
   const [count, setCount] = React.useState(1);
   const selectItem = useSelectItem();
   const incrementItemCount = useIncrementItemCount();
+  const activateSuccessAlert = useActivateSuccessAlert();
 
   const addToCart = () => {
     selectItem(props.id);
+    activateSuccessAlert(`${props.name} added to cart!`);
     for (let i = 1; i < count; i++) {
       incrementItemCount(props.id);
     }
