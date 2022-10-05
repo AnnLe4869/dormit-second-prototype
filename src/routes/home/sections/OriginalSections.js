@@ -27,6 +27,7 @@ function OriginalSections({ sections, products }) {
       {categories.map((section) => (
         <section
           className={HomeCSS.categoryContainer}
+          key={section.category_name}
           id={section.category_name + "Section"}
         >
           <hr className={HomeCSS.sectionBarTop} />

@@ -52,7 +52,7 @@ function SpecialSection({ section, products }) {
 
       <ul className={HomeCSS.bigItemList}>
         {renderSpecials(products, 4).map((item) => {
-          return <li>{item}</li>;
+          return <li key={item.props.id}>{item}</li>;
         })}
       </ul>
 

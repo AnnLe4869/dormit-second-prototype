@@ -24,11 +24,11 @@ export function renderCategory(products, category, displayCount) {
       continue;
     }
 
-    //console.log(product);
     if (product.metadata.category === category || category === "/") {
       renderedProducts.push(
         <ProductListing
           id={product.id}
+          key={product.id}
           name={product.name}
           image={product.images ? product.images[0] : apple}
           description={product.description}
@@ -58,6 +58,7 @@ export function renderSpecials(products, displayCount) {
       renderedProducts.push(
         <ProductListing
           id={product.id}
+          key={product.id}
           name={product.name}
           image={product.images ? product.images[0] : apple}
           description={product.description}

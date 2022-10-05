@@ -38,7 +38,7 @@ function CategoryNav({ navItems }) {
     <div className={styles.container}>
       <ul className={styles.navbar} id="categoryNav">
         {navItems.map((category) => (
-          <li className={styles.navItem}>
+          <li className={styles.navItem} key={category.category_name}>
             <img
               src={`data:image/svg+xml;base64,${btoa(category.category_icon)}`}
               alt={convertToUpperCase(category.category_name)}

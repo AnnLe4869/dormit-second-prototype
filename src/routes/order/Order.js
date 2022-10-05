@@ -1,14 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import styles from "./Order.module.css";
-import productList from "../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
-import OrderView from "./OrderView/OrderView";
-import { Container } from "@mui/system";
-import { useGetAllPastOrders } from "../../context/user/order-handler";
-import { useInitializeAllOrders } from "../../context/user/order-handler";
-import { UserContext } from "../../context/user/user-context";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { Container } from "@mui/system";
+import { useNavigate } from "react-router-dom";
+import {
+  useGetAllPastOrders,
+  useInitializeAllOrders,
+} from "../../context/user/order-handler";
+import { UserContext } from "../../context/user/user-context";
+import OrderView from "./OrderView/OrderView";
 
 function Order() {
   const { state } = useContext(UserContext);
@@ -23,15 +24,15 @@ function Order() {
     }
   }, [state.isAuthenticated]);
 
-  const completedOrders = state?.pastOrders;
+  const completedOrders = state.pastOrders ? state.pastOrders : [];
 
-  const currentOrders = state?.current_orders;
+  const currentOrders = state.current_orders ? state.current_orders : [];
   return (
     <Container>
       <div className={styles.centering}>
         {/* all past orders with the products in the props */}
         <h2>Current</h2>
-        {currentOrders?.slice(0, 3).map((order, index) => (
+        {currentOrders.slice(0, 3).map((order, index) => (
           <OrderView status={"current"} key={index} order={order} />
         ))}
         {currentOrders.length > 3 ? (
@@ -50,7 +51,7 @@ function Order() {
         ) : null}
 
         <h2>Completed</h2>
-        {completedOrders?.slice(0, 3).map((order, index) => (
+        {completedOrders.slice(0, 3).map((order, index) => (
           <OrderView status={"completed"} key={index} order={order} />
         ))}
 
