@@ -19,10 +19,12 @@ function OriginalSections({ sections, products }) {
   function navigateCategory(link) {
     navigate(`/category/${link}`);
   }
-
+  const categories = sections.filter(
+    (section) => section.category_name !== "specials"
+  );
   return (
     <>
-      {sections.map((section) => (
+      {categories.map((section) => (
         <section
           className={HomeCSS.categoryContainer}
           id={section.category_name + "Section"}
