@@ -92,7 +92,7 @@ const Details = ({ currentCart, rusherTip }) => {
   );
 };
 
-const OrderDetails = (setStripeClientSecret) => {
+const OrderDetails = ({ setStripeClientSecret }) => {
   const navigate = useNavigate();
   const checkout = useCheckout();
   const { state } = useContext(UserContext);
@@ -181,7 +181,7 @@ const OrderDetails = (setStripeClientSecret) => {
   };
 
   const handleCheckout = async () => {
-    alert("checking out");
+    // alert("checking out");
     const data = await checkout({
       cart: state.cart,
       shippingAddress: state.shipping_address,
@@ -530,7 +530,7 @@ const OrderDetails = (setStripeClientSecret) => {
               Cancel
             </Button>
             <Button
-              onClick={!isDisabled && handleCheckout}
+              onClick={!isDisabled ? handleCheckout : undefined}
               sx={[
                 {
                   display: "flex",
