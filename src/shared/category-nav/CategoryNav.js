@@ -1,10 +1,10 @@
 import React from "react";
+import { convertToUpperCase } from "../../helper/convertToUpperCase";
 
 import styles from "./CategoryNav.module.css";
 import { headers, homepageStyles } from "./muiStyles";
 
 import { Typography } from "@mui/material";
-
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
@@ -37,14 +37,18 @@ function CategoryNav({ navItems }) {
   return (
     <div className={styles.container}>
       <ul className={styles.navbar} id="categoryNav">
-        {navItems.map((section) => (
-          <li className={styles.navItem}>
+        {navItems.map((category) => (
+          <li className={styles.navItem} key={category.category_name}>
             <img
-              src={section.imgSrc}
-              alt={section.alt}
-              onClick={(e) => scrollToCategory(section.sectionId)}
+              src={`data:image/svg+xml;base64,${btoa(category.category_icon)}`}
+              alt={convertToUpperCase(category.category_name)}
+              onClick={() => {
+                scrollToCategory(category.category_name + "Section");
+              }}
             />
-            <Typography sx={headers.header6}>{section.name}</Typography>
+            <Typography sx={headers.header6}>
+              {convertToUpperCase(category.category_name)}
+            </Typography>
           </li>
         ))}
       </ul>

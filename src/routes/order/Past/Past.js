@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import productList from "../../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import OrderView from "../OrderView/OrderView";
 import { Container } from "@mui/system";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { UserContext } from "../../../context/user/user-context";
+import { useGetAllPastOrders } from "../../../context/user/order-handler";
 
 function Past() {
-  const order1 = { products: [productList[23]], status: "completed" };
-  const order2 = { products: [productList[33]], status: "completed" };
-  const order3 = { products: [productList[43]], status: "completed" };
-  const order4 = { products: [productList[13]], status: "completed" };
+  const { state } = useContext(UserContext);
+  const initializePast = useGetAllPastOrders();
+  const [orderCount, setOrderCount] = useState(3);
 
-  const fetchedOrders = [order1, order2, order3, order4];
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      initializePast();
+    }
+  }, [state.isAuthenticated]);
 
+  const buttonHandler = (setOrderCount, orderCount) => {
+    setOrderCount(orderCount + 3);
+  };
+
+  const fetchedOrders = state?.pastOrders;
   return (
     <Container>
       <Box
@@ -20,15 +30,36 @@ function Past() {
           display: "flex",
           flexDirection: "column",
           margin: "50px auto",
+          marginBottom: 12,
           maxWidth: "600px",
           gap: "40px",
         }}
       >
-        {/* all past orders with the products in the props */}
-        <Typography variant="h4">Completed</Typography>
-        {fetchedOrders.map((order, index) => (
-          <OrderView key={index} order={order} />
-        ))}
+        {fetchedOrders ? (
+          <>
+            <Typography variant="h4">Completed</Typography>
+            {fetchedOrders?.slice(0, orderCount).map((order, index) => (
+              <OrderView status={"completed"} key={index} order={order} />
+            ))}
+          </>
+        ) : (
+          <Typography variant="h3">Loading...</Typography>
+        )}
+
+        {fetchedOrders.length > orderCount ? (
+          <Button
+            sx={{
+              color: "#7A7A7A",
+              backgroundColor: "#EEEEEE",
+              borderRadius: 30,
+              fontWeight: 600,
+              py: 1,
+            }}
+            onClick={() => buttonHandler(setOrderCount, orderCount)}
+          >
+            Load More
+          </Button>
+        ) : null}
       </Box>
     </Container>
   );

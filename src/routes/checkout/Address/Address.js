@@ -16,10 +16,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { ButtonStyles, responsiveTheme, textFieldStyles } from "./muiStyles";
+import { useNavigate } from "react-router-dom";
 export default function Address() {
   const buildingRef = useRef();
   const apartmentNumberRef = useRef();
   const messageRef = useRef();
+
+  const navigate = useNavigate();
 
   const updateShipping = useUpdateShipping();
   const updateMessage = useUpdateMessage();
@@ -41,6 +44,7 @@ export default function Address() {
     }
     updateMessage(messageRef.current.value.toString());
     setLoading(false);
+    navigate("/checkout/order");
   };
 
   return (

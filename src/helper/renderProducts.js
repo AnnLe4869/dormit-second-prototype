@@ -6,19 +6,19 @@ import apple from "../assets/apple.png";
  * Filters through the database of products to push and return an array
  * of Product components.
  */
-export function renderCategory(database, category, displayCount) {
+export function renderCategory(products, category, displayCount) {
   if (!displayCount) {
-    displayCount = database.length;
+    displayCount = products.length;
   }
 
   let renderedProducts = [];
 
   for (
     let i = 0;
-    i < database.length && renderedProducts.length < displayCount;
+    i < products.length && renderedProducts.length < displayCount;
     i++
   ) {
-    const product = database[i];
+    const product = products[i];
 
     if (!product.metadata) {
       continue;
@@ -28,6 +28,7 @@ export function renderCategory(database, category, displayCount) {
       renderedProducts.push(
         <ProductListing
           id={product.id}
+          key={product.id}
           name={product.name}
           image={product.images ? product.images[0] : apple}
           description={product.description}
@@ -41,24 +42,23 @@ export function renderCategory(database, category, displayCount) {
   return renderedProducts;
 }
 
-export function renderSpecials(database, displayCount) {
+export function renderSpecials(products, displayCount) {
   if (!displayCount) {
-    displayCount = database.length;
+    displayCount = products.length;
   }
 
   let renderedProducts = [];
-
   for (
     let i = 0;
-    i < database.length && renderedProducts.length < displayCount;
+    i < products.length && renderedProducts.length < displayCount;
     i++
   ) {
-    const product = database[i];
-
-    if (product.metadata.isSpecial) {
+    const product = products[i];
+    if (product.metadata.isSpecial === "true") {
       renderedProducts.push(
         <ProductListing
           id={product.id}
+          key={product.id}
           name={product.name}
           image={product.images ? product.images[0] : apple}
           description={product.description}

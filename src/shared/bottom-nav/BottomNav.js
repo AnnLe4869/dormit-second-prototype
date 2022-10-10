@@ -46,11 +46,13 @@ function BottomNav() {
       />
       <BottomNavigationAction
         label="Orders"
+        value="order"
         icon={<ReceiptLongIcon sx={bottomNavStyles.buttonNavIcon} />}
         sx={bottomNavStyles.bottomNavButton}
       />
       <BottomNavigationAction
         label="Account"
+        value="account"
         icon={<PersonIcon sx={bottomNavStyles.buttonNavIcon} />}
         sx={bottomNavStyles.bottomNavButton}
       />

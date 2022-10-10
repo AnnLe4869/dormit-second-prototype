@@ -6,7 +6,8 @@ import BottomNav from "../../shared/bottom-nav/BottomNav";
 import Current from "./Current/Current";
 import Order from "./Order";
 import Past from "./Past/Past";
-import Selected from "./Selected/Selected";
+import CurrentSelected from "./Past/Selected";
+import PastSelected from "./Past/Selected";
 
 export default function OrderPage() {
   const status = useCheckAuthenticationStatus();
@@ -14,16 +15,13 @@ export default function OrderPage() {
   return (
     <>
       <Container>
-        {!status ? (
-          <Routes>
-            <Route exact path="/" element={<Order />} />
-            <Route exact path="current" element={<Current />} />
-            <Route exact path="past" element={<Past />} />
-            <Route path=":orderId" element={<Selected />} />
-          </Routes>
-        ) : (
-          <Navigate to="/auth" replace />
-        )}
+        <Routes>
+          <Route exact path="/" element={<Order />} />
+          <Route exact path="current" element={<Current />} />
+          <Route exact path="past" element={<Past />} />
+          <Route path="/current/:orderId" element={<CurrentSelected />} />
+          <Route path="/past/:orderId" element={<PastSelected />} />
+        </Routes>
       </Container>
       <BottomNav currentPage="home" />
     </>

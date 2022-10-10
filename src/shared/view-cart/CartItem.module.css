@@ -67,7 +67,7 @@
   margin-right: 20px;
 }
 
-.priceAndCount{
+.priceAndCount {
   align-self: flex-end;
   margin-top: 20px;
   display: flex;
@@ -76,8 +76,8 @@
   text-align: end;
 }
 
-.priceAndCount > p{
-  font-family: 'BlinkMacSystemFont';
+.priceAndCount > p {
+  font-family: "BlinkMacSystemFont";
   font-style: normal;
   font-weight: 400;
   font-size: 27px;

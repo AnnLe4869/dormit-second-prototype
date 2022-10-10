@@ -29,13 +29,13 @@ function DerivedSections({ sections }) {
   return (
     <>
       {sections.map((section) => (
-        <section className={HomeCSS.smallItemSection}>
+        <section className={HomeCSS.smallItemSection} key={section.sectionName}>
           <Typography sx={headers.header3}>{section.sectionName}</Typography>
           {section.additionalComponent}
           <div className={HomeCSS.smallListContainer}>
             <ul className={HomeCSS.smallItemList} id={section.sectionListId}>
               {section.displayedItems.map((item) => {
-                return <li>{item}</li>;
+                return <li key={item.props.id}>{item}</li>;
               })}
             </ul>
 
