@@ -7,7 +7,6 @@ header {
   flex-flow: row nowrap;
   justify-content: center;
   color: #000000;
-  margin-top: 5px;
 }
 
 header > p {
