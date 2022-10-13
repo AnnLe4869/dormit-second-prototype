@@ -6,13 +6,27 @@ import apple from "../assets/apple.png";
  * Filters through the database of products to push and return an array
  * of Product components.
  */
+
+const renderItem = (product) => {
+  return (
+    <ProductListing
+      id={product.id}
+      key={product.id}
+      name={product.name}
+      image={product.images ? product.images[0] : apple}
+      description={product.description}
+      price={product.prices ? product.prices[0].unit_amount : "Price"}
+      stock={product.metadata ? product.metadata.quantity : 2000}
+    />
+  );
+};
+
 export function renderCategory(products, category, displayCount) {
   if (!displayCount) {
     displayCount = products.length;
   }
 
   let renderedProducts = [];
-
   for (
     let i = 0;
     i < products.length && renderedProducts.length < displayCount;
@@ -20,22 +34,10 @@ export function renderCategory(products, category, displayCount) {
   ) {
     const product = products[i];
 
-    if (!product.metadata) {
-      continue;
-    }
+    if (!product.metadata) continue;
 
     if (product.metadata.category === category || category === "/") {
-      renderedProducts.push(
-        <ProductListing
-          id={product.id}
-          key={product.id}
-          name={product.name}
-          image={product.images ? product.images[0] : apple}
-          description={product.description}
-          price={product.prices ? product.prices[0].unit_amount : "Price"}
-          stock={product.metadata ? product.metadata.quantity : 2000}
-        />
-      );
+      renderedProducts.push(renderItem(product));
     }
   }
 
@@ -55,19 +57,39 @@ export function renderSpecials(products, displayCount) {
   ) {
     const product = products[i];
     if (product.metadata.isSpecial === "true") {
-      renderedProducts.push(
-        <ProductListing
-          id={product.id}
-          key={product.id}
-          name={product.name}
-          image={product.images ? product.images[0] : apple}
-          description={product.description}
-          price={product.prices ? product.prices[0].unit_amount : "Price"}
-          stock={product.metadata ? product.metadata.quantity : 2000}
-        />
-      );
+      renderedProducts.push(renderItem(product));
     }
   }
+  return renderedProducts;
+}
 
+export function renderProducts(products, sectionName, displayCount) {
+  if (!displayCount) {
+    displayCount = products.length;
+  }
+  let renderedProducts = [];
+
+  let rankedProductsList;
+  if (sectionName === "Trending") {
+    rankedProductsList = products.sort((a, b) => {
+      return b.rank - a.rank;
+    });
+  }
+
+  for (
+    let i = 0;
+    i < products.length && renderedProducts.length < displayCount;
+    i++
+  ) {
+    if (sectionName === "Trending") {
+      const product = rankedProductsList[i];
+      renderedProducts.push(renderItem(product));
+    } else {
+      const product = products[i];
+      if (product.isOnSale === true) {
+        renderedProducts.push(renderItem(product));
+      }
+    }
+  }
   return renderedProducts;
 }

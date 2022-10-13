@@ -74,7 +74,10 @@ export default function HomePage() {
            * sections for derived items - section which properties derived from data
            * like Trending or Deals sections
            */}
-          <DerivedSections sections={derivedSections} />
+          <DerivedSections
+            products={getProducts(products)}
+            sections={derivedSections}
+          />
 
           {/* Bulletin */}
           <section className={HomeCSS.homeBulletin}>
