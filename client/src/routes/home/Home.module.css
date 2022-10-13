@@ -172,7 +172,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin-top: 26px;
+  margin-top: 15px;
 
   overflow-y: hidden;
   overflow-x: scroll;
@@ -184,7 +184,7 @@ h3 {
 
   margin-left: -15px;
   margin-right: -15px;
-  padding: 4px 15px;
+  padding: 15px 15px 4px 15px;
 }
 
 .smallItemList::-webkit-scrollbar {
@@ -203,7 +203,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin-top: 26px;
+  margin-top: 15px;
 
   overflow-y: hidden;
   overflow-x: scroll;
@@ -215,7 +215,7 @@ h3 {
 
   margin-left: -15px;
   margin-right: -15px;
-  padding: 4px 15px;
+  padding: 15px 15px 4px 15px;
 }
 
 .categoryItemList::-webkit-scrollbar {
