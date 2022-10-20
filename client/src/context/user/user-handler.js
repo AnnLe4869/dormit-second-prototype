@@ -11,8 +11,6 @@ import {
   setDoc,
 } from "firebase/firestore";
 
-import { useNavigate } from "react-router-dom";
-
 import {
   INITIALIZE_CART,
   INITIALIZE_USER_DETAILS,
@@ -88,10 +86,7 @@ export function useInitializeUser() {
         const paymentStatus = pageURL.searchParams.get("redirect_status");
 
         // If payment succeeded, clear the cart in localStorage
-        if (paymentStatus === "succeeded") {
-          removeUserDataFromLocalStorage();
-          window.open("/order", "_self");
-        }
+        if (paymentStatus === "succeeded") removeUserDataFromLocalStorage();
 
         /**
          * Combine the cart in localStorage with cart in database
