@@ -1,0 +1,173 @@
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-self: center;
+}
+
+.body {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.headerText {
+  margin: 0 auto;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 34px;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+.closebutton {
+  align-self: flex-end;
+  width: 35px;
+  height: 35px;
+  border: 0;
+  background-color: white;
+}
+
+.addmore {
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 2px solid #c4c4c4;
+  border-radius: 18px;
+  width: 170px;
+  height: 60px;
+  margin-top: 10px;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26px;
+  margin-right: 10px;
+}
+
+.missing {
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 51px;
+  margin-bottom: 10px;
+}
+
+.nextButton {
+  width: 15px;
+  height: 25px;
+  background: none;
+  border: none;
+  margin-left: 20px;
+  position: relative;
+  top: 80px;
+}
+
+.promotion {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 2px solid #c4c4c4;
+  border-radius: 16px;
+  align-self: flex-start;
+  width: 569px;
+  height: 60px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+}
+
+.promotionInput {
+  width: 60%;
+  height: inherit;
+  border: 0;
+  border-radius: 16px 0 0 16px;
+  padding: 15px;
+}
+
+.viewAll {
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  color: #7140fa;
+  border-left: 2px solid #c4c4c4;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  background: none;
+  width: 40%;
+  max-width: 129px;
+  height: inherit;
+  justify-content: space-evenly;
+  align-self: flex-end;
+}
+
+footer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+}
+
+.total {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26px;
+  color: #686868;
+}
+
+.total:nth-child(4) {
+  color: black;
+  font-weight: bold;
+}
+
+.reviewOrderButton {
+  width: 100%;
+  max-width: 380px;
+  height: 60px;
+  background: #7141fa;
+  border-radius: 30px;
+  border: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+  margin-top: 20px;
+
+  margin-bottom: 10px;
+}
+
+.reviewOrderButton > div:nth-child(1) {
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.reviewOrderButton > div:nth-child(3) {
+  font-size: 18px;
+  line-height: 21px;
+}

@@ -22,13 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.vscode
-# my-firebase.config.js
-# firebase.config.js
-ui-debug.log
-firebase-debug.log
-firestore-debug.log
-database-debug.log
+
 
 *.secret.local
 extensions

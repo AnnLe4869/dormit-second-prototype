@@ -1,0 +1,385 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  color: #000000;
+}
+
+header > p {
+  margin: 0 auto;
+  padding-top: 10px;
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+.back {
+  margin-left: 20px;
+  float: inline-end;
+  color: #7140fa;
+  background: none;
+  border: 0;
+}
+
+.addressLine {
+  display: flex;
+  align-items: center;
+  height: 53px;
+}
+
+.addressButton {
+  color: #7141fa;
+  cursor: pointer;
+  margin-left: 6px;
+  margin-top: 2px;
+  float: inline-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+  transition-duration: 0.1s;
+}
+
+.addressButton:hover {
+  margin-left: 8px;
+  opacity: 0.6;
+}
+
+.body {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.box {
+  border: 1px;
+  max-width: 610px;
+  width: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-family: "Poppins";
+}
+
+.noAddress {
+  width: auto;
+  margin-top: 50px;
+  padding: 8px;
+  text-align: center;
+  color: #7140fa;
+}
+
+.outerPicture {
+  min-width: 125px;
+  min-height: 125px;
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #c4c4c4;
+}
+
+.outerPicture > .images {
+  width: 50px;
+  height: 50px;
+  background: #c4c4c4;
+  border-radius: 16px;
+  border-radius: 8px;
+}
+
+.details {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details > .row {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  line-height: 29px;
+  overflow: hidden;
+}
+
+.names {
+  width: 100%;
+  height: auto;
+  padding: 10px 0;
+}
+
+.name:after {
+  content: ", ";
+}
+
+.name:last-child:after {
+  content: "";
+}
+
+.addressBox {
+  max-width: 610px;
+  width: 100%;
+  height: inherit;
+  padding-bottom: 45px;
+}
+
+.addressBox > .title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.addressBox > .input {
+  padding-left: 10px;
+  width: 100%;
+  display: flex;
+  border-radius: 5px;
+  margin: 15px 0;
+  grid-gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  height: 53px;
+}
+
+.input img {
+  height: 80%;
+}
+
+.grayBox {
+  background-color: #eeeeee;
+  width: 100%;
+  height: inherit;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  border-radius: 6px;
+  overflow-x: hidden;
+}
+
+.grayBox2 {
+  margin-top: 40px;
+  background-color: #eeeeee;
+  width: 100%;
+  height: 90px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  border-radius: 6px;
+}
+
+.notesRusher {
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  width: inherit;
+  line-height: 1.5em;
+  height: 4.5em;
+  white-space: pre-line;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.paymentBox {
+  max-width: 610px;
+  width: 100%;
+  height: inherit;
+  margin-bottom: 30px;
+}
+
+.paymentBox > .title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.paymentBox > .input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin: 15px 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.rusherTips {
+  width: 100%;
+  max-width: 610px;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.rusherTips > .title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.otherTipBox {
+  max-width: 610px;
+  width: 100%;
+  height: inherit;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.tipButton {
+  cursor: pointer;
+  width: 100%;
+  height: 41px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  padding: 25px 0px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #7141fa;
+  background: #eeeeee;
+  border: inherit;
+}
+
+.tipButton.selected {
+  color: #ffffff;
+  background: #7141fa;
+}
+
+.tipButton:nth-child(1) {
+  border-radius: 20px 0 0 20px;
+}
+
+.tipButton:nth-child(4) {
+  border-radius: 0 20px 20px 0;
+}
+
+/* .tipButton:focus {
+  background: #7141fa;
+  color: white;
+} */
+
+.replacement {
+  width: 100%;
+  max-width: 610px;
+  height: inherit;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.replacement > .title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.replaceButton {
+  cursor: pointer;
+  width: 100%;
+  height: 41px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins";
+  font-weight: 700;
+  color: #7141fa;
+  padding: 25px 0px;
+  background: #eeeeee;
+  border: inherit;
+  font-size: 16px;
+}
+
+.replaceButton.selected {
+  background: #7141fa;
+  color: #ffffff;
+}
+
+.replaceButton:nth-child(1) {
+  border-radius: 20px 0 0 20px;
+}
+
+.replaceButton:nth-child(3) {
+  border-radius: 0 20px 20px 0;
+}
+
+/* .replaceButton:focus {
+  background: #7141fa;
+  color: white;
+} */
+
+.placeOrder {
+  display: flex;
+  justify-content: center;
+  column-gap: 5px;
+  align-items: center;
+  text-align: center;
+  width: 420px;
+  height: 60px;
+  background: #7141fa;
+  border-radius: 20px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.bottomButtons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 15px;
+}
+
+@media screen and (max-width: 900px) {
+  .bottomButtons {
+    justify-content: space-evenly;
+  }
+}

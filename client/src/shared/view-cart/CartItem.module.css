@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
+.box {
+  width: 569px;
+  height: 192px;
+  background: #ffffff;
+  margin-bottom: 10px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.details {
+  align-self: flex-start;
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+.itemName {
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 32px;
+  color: #000000;
+}
+
+.description {
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26px;
+  color: #686868;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 32px;
+  margin-top: 5px;
+}
+
+.delete {
+  background: white;
+  border: none;
+  align-self: flex-start;
+  margin-top: 20px;
+}
+
+.image {
+  width: auto;
+  height: 80%;
+}
+
+.quantity {
+  width: 145px;
+  height: 44px;
+  display: flex;
+  flex: column;
+  background: #eeeeee;
+  margin-right: 20px;
+}
+
+.priceAndCount {
+  align-self: flex-end;
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  text-align: end;
+}
+
+.priceAndCount > p {
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 32px;
+  margin-bottom: 60px;
+  margin-right: 20px;
+}
+
+.counter {
+  height: inherit;
+  font-family: "BlinkMacSystemFont";
+  font-style: normal;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.incdec {
+  width: 32px;
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+@media screen and (max-width: 570px) {
+}
