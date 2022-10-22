@@ -95,7 +95,7 @@ const Details = ({ currentCart, rusherTip }) => {
 const OrderDetails = ({ setStripeClientSecret }) => {
   const navigate = useNavigate();
   const checkout = useCheckout();
-  const { state } = useContext(UserContext);
+  const { state: user } = useContext(UserContext);
 
   const [rusherTip, setRusherTip] = useState(RUSHER_TIP_1);
   const [otherTip, setOtherTip] = useState(0);
@@ -110,10 +110,10 @@ const OrderDetails = ({ setStripeClientSecret }) => {
 
   ///Boolean flag that indicates if the `PLACE ORDER` button should be disabled or not
   let isDisabled =
-    !state.shipping_address ||
-    !state.shipping_address.campus ||
-    !state.shipping_address.building ||
-    !state.shipping_address.floor_apartment;
+    !user.shipping_address ||
+    !user.shipping_address.campus ||
+    !user.shipping_address.building ||
+    !user.shipping_address.floor_apartment;
 
   ///Fetch products from emulator and filter products without fields
   const products = useProducts()
@@ -124,19 +124,12 @@ const OrderDetails = ({ setStripeClientSecret }) => {
       else return false;
     });
 
-  ///Set the userState's `shipping_address` field
-  state.shipping_address = {
-    campus: CAMPUS,
-    building: BUILDING,
-    floor_apartment: FLOOR,
-  };
-
   /*
    * Iterate through the cart and add to cartProducts the product data from `useProduct`
    * and the quantities from `UserContext`
    */
-  if (state.cart && products.length > 0) {
-    state.cart.map(({ product_id, quantity }) => {
+  if (user.cart && products.length > 0) {
+    user.cart.map(({ product_id, quantity }) => {
       const product = products.find((current) => current.id === product_id);
 
       cartProducts.push({
@@ -183,10 +176,10 @@ const OrderDetails = ({ setStripeClientSecret }) => {
   const handleCheckout = async () => {
     // alert("checking out");
     const data = await checkout({
-      cart: state.cart,
-      shippingAddress: state.shipping_address,
+      cart: user.cart,
+      shippingAddress: user.shipping_address,
       tip: rusherTip,
-      message: MESSAGE,
+      message: user.message,
       replacementOption: replacementOption,
     });
 
@@ -256,9 +249,9 @@ const OrderDetails = ({ setStripeClientSecret }) => {
 
               <div className={styles.grayBox}>
                 <Typography width={"100%"} sx={headers.header6} noWrap>
-                  {state.shipping_address &&
-                    state.shipping_address.building &&
-                    state.shipping_address.building}
+                  {user.shipping_address &&
+                    user.shipping_address.building &&
+                    user.shipping_address.building}
                 </Typography>
               </div>
             </div>
@@ -269,9 +262,9 @@ const OrderDetails = ({ setStripeClientSecret }) => {
               </Typography>
               <div className={styles.grayBox}>
                 <Typography width={"100%"} sx={headers.header6} noWrap>
-                  {state.shipping_address &&
-                    state.shipping_address.floor_apartment &&
-                    state.shipping_address.floor_apartment}
+                  {user.shipping_address &&
+                    user.shipping_address.floor_apartment &&
+                    user.shipping_address.floor_apartment}
                 </Typography>
               </div>
             </div>
@@ -281,14 +274,14 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                 Notes for Rusher
               </Typography>
               <div className={styles.grayBox2}>
-                <p className={styles.notesRusher}>{MESSAGE}</p>
+                <p className={styles.notesRusher}>{user.message}</p>
               </div>
             </div>
 
-            {(!state.shipping_address ||
-              !state.shipping_address.campus ||
-              !state.shipping_address.building ||
-              !state.shipping_address.floor_apartment) && (
+            {(!user.shipping_address ||
+              !user.shipping_address.campus ||
+              !user.shipping_address.building ||
+              !user.shipping_address.floor_apartment) && (
               <div className={styles.noAddress}>
                 <Typography
                   width={"100%"}
@@ -557,10 +550,10 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                     fontSize: "22px",
                   },
                 },
-                (!state.shipping_address ||
-                  !state.shipping_address.campus ||
-                  !state.shipping_address.building ||
-                  !state.shipping_address.floor_apartment) && {
+                (!user.shipping_address ||
+                  !user.shipping_address.campus ||
+                  !user.shipping_address.building ||
+                  !user.shipping_address.floor_apartment) && {
                   opacity: "0.5",
                   cursor: "none",
                 },
