@@ -97,7 +97,6 @@ export const derivedSections = [
     additionalComponent: <></>,
     alt: "Trending section",
     pixels: { pixelCount: 0 },
-    displayedItems: mockForYouItems,
   },
   {
     sectionId: "dealsSection",
@@ -110,6 +109,5 @@ export const derivedSections = [
     ),
     alt: "Deals section",
     pixels: { pixelCount: 0 },
-    displayedItems: mockForYouItems,
   },
 ];
