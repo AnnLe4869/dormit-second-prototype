@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CartItem.module.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { Box } from "@mui/system";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography} from "@mui/material";
 import {
   useDecrementItemCount,
   useIncrementItemCount,
   useRemoveProductFromCart,
 } from "../../context/user/cart-handler";
 import { useActivateErrorAlert } from "../../context/alert/alert-handler";
+import { Image } from "../loading-image/Image";
 
 const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   const [item, setitem] = useState(true);
@@ -46,28 +47,29 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
     return (
       <Box
         sx={{
-          maxWidth: "120px",
+          maxWidth: "100px",
           width: "100%",
-          height: "44px",
+          height: "40px",
           display: "flex",
           justifyContent: "center",
           flex: "row",
           background: "#eeeeee",
+          borderRadius: "10px"
         }}
       >
         <Button
           sx={{
             minWidth: "0",
             minHeight: "0",
-            width: "40%",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             border: "none",
+            width: "40%",
           }}
-          onClick={increase}
+          onClick={decrease}
         >
-          <ArrowDropUpIcon />
+          <KeyboardArrowDownOutlinedIcon sx={{fontSize: "30px"}} />
         </Button>
         <Typography
           variant="body1"
@@ -89,15 +91,15 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
           sx={{
             minWidth: "0",
             minHeight: "0",
+            width: "40%",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             border: "none",
-            width: "40%",
           }}
-          onClick={decrease}
+          onClick={increase}
         >
-          <ArrowDropDownIcon />
+          <KeyboardArrowUpOutlinedIcon sx={{fontSize: "30px"}} />
         </Button>
       </Box>
     );
@@ -109,7 +111,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
         <Box
           sx={{
             width: "100%",
-            height: "170px",
+            height: "200px",
             background: "#ffffff",
             display: "flex",
             flexDirection: "row",
@@ -128,7 +130,9 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
               alignItems: "center",
             }}
           >
-            <img src={photo} className={styles.image} />
+            <div className={styles.itemImage}>  
+              <Image image={photo} />
+            </div>
             <Box
               sx={{
                 alignItems: "start",

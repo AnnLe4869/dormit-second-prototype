@@ -38,7 +38,7 @@ const Cart = ({ handleDrawerClose }) => {
         taxRate={parseFloat(product.metadata.tax) / 100}
         name={product.name}
         id={product.id}
-        photo={apple}
+        photo={product.images}
         quantity={parseInt(quantity)}
       />
     );
@@ -79,7 +79,7 @@ const Cart = ({ handleDrawerClose }) => {
   };
 
   return (
-    <div>
+    <div className={styles.cartDiv}>
       <Box
         sx={{
           display: "flex",
@@ -92,6 +92,7 @@ const Cart = ({ handleDrawerClose }) => {
         <Typography
           sx={{
             margin: "0 auto",
+            fontSize: "28px",
           }}
           variant="h2"
         >
