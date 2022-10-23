@@ -92,7 +92,7 @@ const Cart = ({ handleDrawerClose }) => {
         <Typography
           sx={{
             margin: "0 auto",
-            fontSize: "28px",
+            fontSize: "34px",
           }}
           variant="h2"
         >
@@ -134,21 +134,20 @@ const Cart = ({ handleDrawerClose }) => {
             return item;
           })}
         </Box>
-        <Typography marginBottom={"10px"} variant="h2">
+        <Typography sx={{fontSize: "32px"}} margin={"50px 0 10px 0"} variant="h2">
           Promotion Code
         </Typography>
         <Box
           sx={{
             display: "flex",
-            flexFlow: "column wrap",
-            justifyContent: "space-between",
+            justifyContent: "center",
             boxSizing: "border-box",
             background: "#ffffff",
             border: "2px solid #c4c4c4",
             borderRadius: "16px",
             alignSelf: "flex-start",
             width: "100%",
-            height: "60px",
+            height: "70px",
             marginBottom: "30px",
           }}
         >
@@ -168,9 +167,10 @@ const Cart = ({ handleDrawerClose }) => {
               borderTop: "none",
               borderBottom: "none",
               background: "none",
+              borderRadius: "0",
               width: "40%",
               maxWidth: "129px",
-              height: "inherit",
+              height: "66px",
               justifyContent: "space-evenly",
               alignSelf: "flex-end",
             }}
@@ -178,9 +178,16 @@ const Cart = ({ handleDrawerClose }) => {
             View All <NavigateNextIcon />
           </Button>
         </Box>
-        <Typography marginBottom={"10px"} variant="h2">
+        <Typography sx={{fontSize: "32px"}} marginBottom={"10px"} variant="h2">
           Order Summary
         </Typography>
+        <Divider
+        dark
+          sx={{
+            "margin-bottom": "25px",
+            color: "black",
+          }}
+        />
         <Box
           sx={{
             width: "100%",

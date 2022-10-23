@@ -117,7 +117,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: "10px",
+            marginBottom: "20px",
             paddingY: "10px",
           }}
         >
