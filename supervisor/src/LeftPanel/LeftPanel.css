@@ -1,0 +1,55 @@
+.leftPanel {
+  position: relative;
+  padding: var(--padding);
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 100vh;
+  border-right: 2px solid lightgray;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+/* HEADER */
+.leftPanel__Header {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  font-size: 24px;
+  font-weight: 500;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+  border-radius: var(--border-Radius);
+}
+/* BODY */
+.leftPanel__Body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+/* ORDER COMPONENT */
+.leftPanel__Order {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  background-color: #b1e1ff;
+  padding: 5px;
+  border-radius: var(--border-Radius);
+  font-size: 12px;
+  gap: 2px;
+}
+/* .leftPanel__Order > .namePhone {
+} */
+
+.leftPanel__Order .name {
+  font-weight: 500;
+}

@@ -1,0 +1,90 @@
+:root {
+  --fontSize: 10px;
+}
+.rightPanel {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  padding: var(--padding);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/* RightPanel__Header */
+.rightPanel__Header {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 500;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+  border-radius: var(--border-Radius);
+  padding: 0 var(--padding);
+}
+.MuiButtonBase-root {
+  padding: 5px !important;
+}
+
+/* RightPanel__Rusher */
+.rightPanel__Rusher {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: var(--border-Radius);
+  padding: 5px;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* -------------------- */
+.rusherInformation {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.rusherInformation__left,
+.rusherInformation__right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+/* ---------------- */
+.rusherOrders {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  height: 100px;
+  padding: 2px;
+  overflow-x: auto;
+}
+
+.rusherPickUp,
+.rusherDropOff {
+  height: 100%;
+  width: 120px;
+  min-width: 120px;
+  border-radius: var(--border-Radius);
+  padding: 5px;
+  font-size: var(--fontSize);
+}
+.rusherPickUp {
+  background-color: lightblue;
+}
+.rusherPickUp .eta,
+.rusherDropOff .eta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.rusherDropOff {
+  background-color: lightgreen;
+}
