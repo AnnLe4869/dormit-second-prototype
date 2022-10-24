@@ -1,11 +1,11 @@
 import React from "react";
-import RightPanel__RusherInformation from "./RightPanel__RusherInformation";
+import RusherInformation from "./RusherInformation";
 import Rusher__DropOff from "./Rusher__DropOff";
 import Rusher__PickUp from "./Rusher__PickUp";
 //
 import { useHorizontalScroll } from "./useSideScroll";
 
-const RightPanel__Rusher = () => {
+const RusherCard = () => {
   //   const handleScroll = (e) => {
   //     e.preventDefault();
   //     // console.log(e.currentTarget.scrollLeft);
@@ -15,11 +15,12 @@ const RightPanel__Rusher = () => {
 
   return (
     <div className="rightPanel__Rusher">
-      <RightPanel__RusherInformation />
+      <RusherInformation />
       <hr />
       <div
         className="rusherOrders"
         ref={scrollRef}
+        // onScroll={handleScroll}
         // onScroll={(e) => console.log(e.currentTarget.scrollLeft)}
       >
         <Rusher__PickUp />
@@ -37,4 +38,4 @@ const RightPanel__Rusher = () => {
   );
 };
 
-export default RightPanel__Rusher;
+export default RusherCard;

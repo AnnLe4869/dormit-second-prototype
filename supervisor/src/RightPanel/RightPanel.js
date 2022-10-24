@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RightPanel.css";
 // COMPONENTS
 import RightPanel__Header from "./components/RightPanel__Header";
-import RightPanel__Rusher from "./components/RightPanel__Rusher";
+import ActiveRushers from "./components/ActiveRushers";
+import InActiveRushers from "./components/InActiveRushers";
+import ToggleRusherProvider from "../context/ToggleRusher/ToggleRusher-context";
 
 const RightPanel = () => {
+  const [active, setActive] = useState();
   return (
-    <div className="rightPanel">
-      <RightPanel__Header />
-      <RightPanel__Rusher />
-    </div>
+    <ToggleRusherProvider>
+      <div className="rightPanel">
+        <RightPanel__Header onToggleActive={setActive} />
+        {active ? <ActiveRushers /> : <InActiveRushers />}
+      </div>
+    </ToggleRusherProvider>
   );
 };
 
