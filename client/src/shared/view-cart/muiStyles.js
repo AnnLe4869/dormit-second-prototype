@@ -43,3 +43,124 @@ export const viewCartStyles = {
     textAlign: "center",
   },
 };
+
+export const cartItemStyles = {
+  cartItemContainer: {
+    width: "100%",
+    height: "150px",
+    background: "#ffffff",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: "40px",
+    "@media screen and (max-width: 900px)": {
+      height: "130px"
+    },
+    "@media screen and (max-width: 775px)": {
+      height: "150px"
+    },
+    "@media screen and (max-width: 660px)": {
+      height: "170px"
+    }
+  },
+
+  cartItemDetails: {
+    alignItems: "start",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%"
+  },
+
+  cartItemHeader: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: "22px",
+    lineHeight: "32px",
+    color: "#000000",
+    "@media screen and (max-width: 900px)": {
+      fontSize: "20px"
+    },
+    "@media screen and (max-width: 775px)": {
+      fontSize: "18px"
+    }
+  },
+
+  cartItemDescription: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: "17px",
+    lineHeight: "26px",
+    color: "#686868",
+    marginTop: "10px",
+    marginBottom: "10px",
+    "@media screen and (max-width: 900px)": {
+      fontSize: "15px"
+    },
+    "@media screen and (max-width: 775px)": {
+      fontSize: "13px"
+    }
+  },
+
+  cartItemDelete: {
+    backgroundColor: "#ffffff",
+    border: "none",
+    alignSelf: "flex-start",
+    color: "#686868",
+    ":hover": {
+      cursor: "pointer",
+    },
+    fontSize: "35px",
+    "@media screen and (max-width: 900px)": {
+      fontSize: "30px"
+    },
+    "@media screen and (max-width: 775px)": {
+      fontSize: "25px"
+    }
+  },
+
+  cartItemCounter: {
+      width: "120px",
+      height: "40px",
+      display: "flex",
+      justifyContent: "center",
+      flex: "row",
+      background: "#eeeeee",
+      borderRadius: "5px",
+      fontFamily: "poppins",
+      "@media screen and (max-width: 900px)": {
+        height: "30px",
+        width: "100px"
+      },
+      "@media screen and (max-width: 775px)": {
+        height: "25px",
+        width: "80px"
+      },
+  },
+
+  cartItemPriceBox: {
+      alignItems: "end",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      height: "100%",
+      width: "20%",
+      "@media screen and (max-width: 900px)": {
+        height: "130px"
+      },
+      "@media screen and (max-width: 775px)": {
+        height: "150px"
+      },
+      "@media screen and (max-width: 660px)": {
+        height: "170px"
+      }
+  },
+
+  cartItemPrice: {
+    fontSize: "22px",
+    "@media screen and (max-width: 900px)": {
+      fontSize: "20px"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CartItem.module.css";
+import { cartItemStyles } from './muiStyles'
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
@@ -46,17 +47,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   const Counter = () => {
     return (
       <Box
-        sx={{
-          width: "120px",
-          height: "40px",
-          display: "flex",
-          justifyContent: "center",
-          flex: "row",
-          background: "#eeeeee",
-          borderRadius: "5px",
-          fontFamily: "poppins"
-        }}
-        className={styles.mobileCounter}
+        sx={cartItemStyles.cartItemCounter}
       >
         <Button
           sx={{
@@ -73,8 +64,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
         >
           <KeyboardArrowDownOutlinedIcon sx={{fontSize: "30px"}} />
         </Button>
-        <Divider 
-          dark
+        <Divider
           orientation="vertical"
           flexItem
           sx={{
@@ -98,7 +88,6 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
           {quan}
         </Typography>
         <Divider 
-          dark
           orientation="vertical"
           flexItem
           sx={{
@@ -128,17 +117,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
     <>
       {item ? (
         <Box
-          sx={{
-            width: "100%",
-            height: "150px",
-            background: "#ffffff",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "40px",
-          }}
-          className={styles.mobileCartItem}
+          sx={cartItemStyles.cartItemContainer}
         >
           <Box
             sx={{
@@ -153,75 +132,34 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                 <Image image={photo} />
             </Box>
             <Box
-              sx={{
-                alignItems: "start",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                height: "100%",
-              }}
+              sx={cartItemStyles.cartItemDetails}
             >
               <Box>
                 <Typography
                   variant="body1"
-                  sx={{
-                    fontStyle: "normal",
-                    fontWeight: "400",
-                    fontSize: "25px",
-                    lineHeight: "32px",
-                    color: "#000000",
-                  }}
-                  className={styles.mobileCartName}
+                  sx={cartItemStyles.cartItemHeader}
                 >
                   {name}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{
-                    fontStyle: "normal",
-                    fontWeight: "400",
-                    fontSize: "20px",
-                    lineHeight: "26px",
-                    color: "#686868",
-                    marginTop: "10px",
-                    marginBottom: "10px",
-                  }}
-                  className={styles.mobileCartDesc}
+                  sx={cartItemStyles.cartItemDescription}
                 >
                   {desc}
                 </Typography>
               </Box>
               <DeleteOutlineIcon
                 onClick={toggleDel}
-                sx={{
-                  backgroundColor: "#ffffff",
-                  border: "none",
-                  alignSelf: "flex-start",
-                  color: "#686868",
-                  ":hover": {
-                    cursor: "pointer",
-                  },
-                  fontSize: "35px"
-                }}
-                className={styles.mobileDelete}
+                sx={cartItemStyles.cartItemDelete}
               />
             </Box>
           </Box>
           <Box
-            sx={{
-              alignItems: "end",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              height: "100%",
-              width: "20%",
-            }}
-            className={styles.mobileCartPriceBox}
+            sx={cartItemStyles.cartItemPriceBox}
           >
             <Typography
-              fontSize="25px"
               variant="body1"
-              className={styles.mobileCartPrice}
+              sx={cartItemStyles.cartItemPrice}
             >
               ${((price / 100) * quantity).toFixed(2)}
             </Typography>
