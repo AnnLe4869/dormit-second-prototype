@@ -112,7 +112,7 @@
   height: 150px;
   border-radius: 16px;
   border: none;
-  margin-right: 20px;
+  margin-right: 2%;
 }
 
 .itemImage img {
@@ -121,13 +121,19 @@
   border-radius: 16px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 775px) {
   .itemImage, .itemImage img {
-    height: 130px;
+    height: 140px;
   }
 }
 
-@media screen and (max-width: 775px) {
+@media screen and (max-width: 660px) {
+  .itemImage, .itemImage img {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 575px) {
   .itemImage, .itemImage img {
     height: 100px;
   }

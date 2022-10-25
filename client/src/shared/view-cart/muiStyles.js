@@ -47,22 +47,13 @@ export const viewCartStyles = {
 export const cartItemStyles = {
   cartItemContainer: {
     width: "100%",
-    height: "150px",
+    height: "100%",
     background: "#ffffff",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: "40px",
-    "@media screen and (max-width: 900px)": {
-      height: "130px"
-    },
-    "@media screen and (max-width: 775px)": {
-      height: "150px"
-    },
-    "@media screen and (max-width: 660px)": {
-      height: "170px"
-    }
   },
 
   cartItemDetails: {
@@ -70,7 +61,16 @@ export const cartItemStyles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "100%"
+    height: "150px",
+    "@media screen and (max-width: 775px)": {
+      height: "140px"
+    },
+    "@media screen and (max-width: 660px)": {
+      height: "150px"
+    },
+    "@media screen and (max-width: 575px)": {
+      height: "auto"
+    }
   },
 
   cartItemHeader: {
@@ -84,6 +84,9 @@ export const cartItemStyles = {
     },
     "@media screen and (max-width: 775px)": {
       fontSize: "18px"
+    },
+    "@media screen and (max-width: 575px)": {
+      fontSize: "15px"
     }
   },
 
@@ -144,23 +147,30 @@ export const cartItemStyles = {
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
-      height: "100%",
+      height: "150px",
       width: "20%",
-      "@media screen and (max-width: 900px)": {
-        height: "130px"
-      },
       "@media screen and (max-width: 775px)": {
-        height: "150px"
+        height: "140px"
       },
       "@media screen and (max-width: 660px)": {
-        height: "170px"
+        height: "150px"
+      },
+      "@media screen and (max-width: 575px)": {
+        height: "160px"
       }
   },
 
   cartItemPrice: {
     fontSize: "22px",
+    lineHeight: "32px",
     "@media screen and (max-width: 900px)": {
       fontSize: "20px"
+    },
+    "@media screen and (max-width: 775px)": {
+      fontSize: "18px"
+    },
+    "@media screen and (max-width: 575px)": {
+      fontSize: "15px"
     }
   }
 }
