@@ -12,13 +12,15 @@ const RightPanel = () => {
     <ToggleRusherProvider>
       <div className="rightPanel">
         <RightPanel__Header onToggleActive={setActive} />
-        {/* ACTIVE-INACTIVE RUSHERS */}
+
         {active
-          ? rushers.map(
+          ? /* ACTIVE RUSHERS */
+            rushers?.map(
               (r) =>
                 r.status == "on" && <RusherCard rusherInfo={r} key={r.name} />
             )
-          : rushers?.map(
+          : /*  INACTIVE RUSHERS */
+            rushers?.map(
               (r) =>
                 r.status == "off" && <RusherCard rusherInfo={r} k={r.name} />
             )}

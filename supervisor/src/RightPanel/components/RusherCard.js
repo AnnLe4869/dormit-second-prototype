@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import RusherInformation from "./RusherInformation";
 import Rusher__DropOff from "./Rusher__DropOff";
 import Rusher__PickUp from "./Rusher__PickUp";
@@ -6,22 +6,16 @@ import Rusher__PickUp from "./Rusher__PickUp";
 import { useHorizontalScroll } from "./useSideScroll";
 
 const RusherCard = ({ rusherInfo }) => {
-  //   const handleScroll = (e) => {
-  //     e.preventDefault();
-  //     // console.log(e.currentTarget.scrollLeft);
-  //     e.currentTarget.scrollLeft = e.currentTarget.scrollLeft + 50;
-  //   };
   const scrollRef = useHorizontalScroll();
+  const [expandMenu, setExpandMenu] = useState();
 
   return (
-    <div className="rightPanel__Rusher">
-      <RusherInformation rusherInfo={rusherInfo} />
+    <div className="rusherCard">
+      <RusherInformation rusherInfo={rusherInfo} onExpand={setExpandMenu} />
       <hr />
       <div
-        className="rusherOrders"
+        className={expandMenu ? "rusherOrdersExpand" : "rusherOrdersRow"}
         ref={scrollRef}
-        // onScroll={handleScroll}
-        // onScroll={(e) => console.log(e.currentTarget.scrollLeft)}
       >
         <Rusher__PickUp />
         <Rusher__PickUp />

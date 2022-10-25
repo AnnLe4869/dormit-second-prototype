@@ -40,7 +40,7 @@
 }
 
 /* RightPanel__Rusher */
-.rightPanel__Rusher {
+.rusherCard {
   width: 100%;
   border: 1px dashed black;
   border-radius: var(--border-Radius);
@@ -67,7 +67,7 @@
   gap: 20px;
 }
 /* ---------------- */
-.rusherOrders {
+.rusherOrdersRow {
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -75,10 +75,19 @@
   padding: 2px;
   overflow-x: auto;
 }
+.rusherOrdersExpand {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  height: auto;
+  padding: 2px;
+}
 
 .rusherPickUp,
 .rusherDropOff {
-  height: 100%;
+  height: max-content;
+  max-height: 100%;
   width: 120px;
   min-width: 120px;
   border-radius: var(--border-Radius);

@@ -1,11 +1,20 @@
 import { Avatar } from "@mui/material";
-import React, { useState } from "react";
-// MUI
+import React, { useEffect, useState } from "react";
+// MUI COMPONENTS
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+// MUI ICONS
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const RusherInformation = ({ rusherInfo }) => {
+const RusherInformation = ({ rusherInfo, onExpand }) => {
   const [status, setStatus] = useState(rusherInfo.status);
+  const [expandMenu, setExpandMenu] = useState(true);
+
+  const handleExpand = () => {
+    setExpandMenu((e) => !e);
+    onExpand(expandMenu);
+  };
 
   return (
     <div className="rusherInformation">
@@ -26,6 +35,17 @@ const RusherInformation = ({ rusherInfo }) => {
           <ToggleButton value="on">ON</ToggleButton>
           <ToggleButton value="off">OFF</ToggleButton>
         </ToggleButtonGroup>
+        {expandMenu ? (
+          <KeyboardArrowDownIcon
+            sx={{ cursor: "pointer" }}
+            onClick={handleExpand}
+          />
+        ) : (
+          <KeyboardArrowUpIcon
+            sx={{ cursor: "pointer" }}
+            onClick={handleExpand}
+          />
+        )}
       </div>
     </div>
   );
