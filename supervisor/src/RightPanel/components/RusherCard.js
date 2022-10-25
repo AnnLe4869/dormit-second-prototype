@@ -5,7 +5,7 @@ import Rusher__PickUp from "./Rusher__PickUp";
 //
 import { useHorizontalScroll } from "./useSideScroll";
 
-const RusherCard = () => {
+const RusherCard = ({ rusherInfo }) => {
   //   const handleScroll = (e) => {
   //     e.preventDefault();
   //     // console.log(e.currentTarget.scrollLeft);
@@ -15,7 +15,7 @@ const RusherCard = () => {
 
   return (
     <div className="rightPanel__Rusher">
-      <RusherInformation />
+      <RusherInformation rusherInfo={rusherInfo} />
       <hr />
       <div
         className="rusherOrders"

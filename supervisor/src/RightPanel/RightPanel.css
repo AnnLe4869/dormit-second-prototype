@@ -42,7 +42,7 @@
 /* RightPanel__Rusher */
 .rightPanel__Rusher {
   width: 100%;
-  border: 1px solid black;
+  border: 1px dashed black;
   border-radius: var(--border-Radius);
   padding: 5px 5px 1px 5px;
   background-color: whitesmoke;

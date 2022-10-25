@@ -4,25 +4,24 @@ import React, { useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-const RightPanel__RusherInformation = () => {
-  const [alignment, setAlignment] = useState("on");
+const RusherInformation = ({ rusherInfo }) => {
+  const [status, setStatus] = useState(rusherInfo.status);
 
   return (
     <div className="rusherInformation">
       <div className="rusherInformation__left">
         <Avatar alt="Remy Sharp">A</Avatar>
-        <p className="">Alex G.</p>
-        <p>123-456-92-98</p>
+        <p className="">{rusherInfo.name}</p>
+        <p>{rusherInfo.phone}</p>
       </div>
       <div className="rusherInformation__right">
         <p>6PM</p>
 
         <ToggleButtonGroup
           color="primary"
-          value={alignment}
+          value={status}
           exclusive
-          onChange={(e) => setAlignment(e.target.value)}
-          // aria-label="Platform"
+          onChange={(e) => setStatus(e.target.value)}
         >
           <ToggleButton value="on">ON</ToggleButton>
           <ToggleButton value="off">OFF</ToggleButton>
@@ -32,4 +31,4 @@ const RightPanel__RusherInformation = () => {
   );
 };
 
-export default RightPanel__RusherInformation;
+export default RusherInformation;
