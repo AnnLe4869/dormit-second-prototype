@@ -84,6 +84,11 @@ export function renderProducts(products, sectionName, displayCount) {
     if (sectionName === "Trending") {
       const product = rankedProductsList[i];
       renderedProducts.push(renderItem(product));
+    } else if (sectionName === "Specials") {
+      const product = products[i];
+      if (product.metadata?.isSpecial === "true") {
+        renderedProducts.push(renderItem(product));
+      }
     } else {
       const product = products[i];
       if (product.isOnSale === true) {
@@ -107,38 +112,6 @@ export function renderDeals(products, displayCount) {
   ) {
     const product = products[i];
     if (product.isOnSale) {
-      renderedProducts.push(
-        <ProductListing
-          id={product.id}
-          key={product.id}
-          name={product.name}
-          image={product.images ? product.images[0] : apple}
-          description={product.description}
-          price={product.prices ? product.prices[0].unit_amount : "Price"}
-          stock={product.metadata ? product.metadata.quantity : 2000}
-        />
-      );
-    }
-  }
-
-  return renderedProducts;
-}
-
-export function renderTrending(products, displayCount) {
-  if (!displayCount) {
-    displayCount = products.length;
-  }
-
-  const sortedProducts = products.sort((a, b) => a.rank - b.rank)
-
-  let renderedProducts = [];
-  for (
-    let i = 0;
-    i < products.length && renderedProducts.length < displayCount;
-    i++
-  ) {
-    const product = sortedProducts[i];
-    if (product.rank) {
       renderedProducts.push(
         <ProductListing
           id={product.id}

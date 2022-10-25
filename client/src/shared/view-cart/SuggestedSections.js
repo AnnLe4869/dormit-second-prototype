@@ -1,9 +1,10 @@
 import React from "react";
 import HomeCSS from '../../routes/home/Home.module.css'
 import { Box, Typography } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { renderProducts } from '../../helper/renderProducts'
 
 function SuggestedSections({ section, products }) {
+    console.log(products)
     return (
         <>
         <Box sx={{marginBottom: "30px"}}>
@@ -13,7 +14,7 @@ function SuggestedSections({ section, products }) {
                 className={HomeCSS.categoryItemList}
                 id={section.sectionId}
                 >
-                {section.renderFunction(products, 6).map(
+                {renderProducts(products, section.sectionName, 6).map(
                     (item) => item
                 )}
                 </ul>

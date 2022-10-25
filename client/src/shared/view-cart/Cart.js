@@ -8,6 +8,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import CartItem from "./CartItem";
 import { useProducts } from "../../context/product/product-handler";
+import { getProducts } from "../../helper/getProductsCategories";
 import OrderDetails from "../../routes/checkout/Order/OrderDetails";
 import { convertToDollar } from "../../helper/convertToDollar";
 import SuggestedSections from "./SuggestedSections";
@@ -283,7 +284,7 @@ const Cart = ({ handleDrawerClose }) => {
         </Box>
         
           {cartSections.map(section => (
-            <SuggestedSections section={section} products = {products} />
+            <SuggestedSections section={section} products = {getProducts(products)} />
           ))}
       </Container>
     </div>
