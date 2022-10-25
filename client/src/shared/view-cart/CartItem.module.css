@@ -108,17 +108,14 @@
 
 .itemImage {
   background-color: #ffffff;
-  height: 200px;
-  /* padding-top: 100%; */
-  /* ^TURN ME OFF FOR REAL IMAGES, ON FOR BOXES^ */
-  /* background-color: #818181; */
+  height: 180px;
   border-radius: 16px;
   border: none;
-  padding-right: 2%;
+  margin-right: 20px;
 }
 
 .itemImage img {
-  height: 200px;
+  height: 180px;
   object-fit: cover;
   cursor: pointer;
   border-radius: 16px;

@@ -4,7 +4,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { Box } from "@mui/system";
-import { Button, Typography} from "@mui/material";
+import { Button, Typography, Divider} from "@mui/material";
 import {
   useDecrementItemCount,
   useIncrementItemCount,
@@ -47,14 +47,14 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
     return (
       <Box
         sx={{
-          maxWidth: "100px",
-          width: "100%",
+          width: "120px",
           height: "40px",
           display: "flex",
           justifyContent: "center",
           flex: "row",
           background: "#eeeeee",
-          borderRadius: "10px"
+          borderRadius: "5px",
+          fontFamily: "poppins"
         }}
       >
         <Button
@@ -66,27 +66,44 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             justifyContent: "center",
             border: "none",
             width: "40%",
+            color: "#7141FA",
           }}
           onClick={decrease}
         >
           <KeyboardArrowDownOutlinedIcon sx={{fontSize: "30px"}} />
         </Button>
+        <Divider 
+          dark
+          orientation="vertical"
+          flexItem
+          sx={{
+            color: "black",
+          }}
+        />
         <Typography
           variant="body1"
           sx={{
             height: "inherit",
-            width: "10%",
-            fontFamily: "BlinkMacSystemFont",
+            width: "20%",
             fontStyle: "normal",
             fontWeight: "400",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             textAlign: "center",
+            padding: "0 18%"
           }}
         >
           {quan}
         </Typography>
+        <Divider 
+          dark
+          orientation="vertical"
+          flexItem
+          sx={{
+            color: "black",
+          }}
+        />
         <Button
           sx={{
             minWidth: "0",
@@ -96,6 +113,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             alignItems: "center",
             justifyContent: "center",
             border: "none",
+            color: "#7141FA",
           }}
           onClick={increase}
         >
@@ -111,14 +129,13 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
         <Box
           sx={{
             width: "100%",
-            height: "200px",
+            height: "180px",
             background: "#ffffff",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
             marginBottom: "20px",
-            paddingY: "10px",
           }}
         >
           <Box
@@ -130,9 +147,9 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
               alignItems: "center",
             }}
           >
-            <div className={styles.itemImage}>  
-              <Image image={photo} />
-            </div>
+            <Box className={styles.itemImage}>
+                <Image image={photo} />
+            </Box>
             <Box
               sx={{
                 alignItems: "start",
@@ -146,7 +163,6 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                 <Typography
                   variant="body1"
                   sx={{
-                    fontFamily: "BlinkMacSystemFont",
                     fontStyle: "normal",
                     fontWeight: "400",
                     fontSize: "27px",
@@ -159,7 +175,6 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                 <Typography
                   variant="body1"
                   sx={{
-                    fontFamily: "BlinkMacSystemFont",
                     fontStyle: "normal",
                     fontWeight: "400",
                     fontSize: "22px",
@@ -178,7 +193,6 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                   backgroundColor: "#ffffff",
                   border: "none",
                   alignSelf: "flex-start",
-                  marginTop: "20px",
                   color: "#686868",
                   ":hover": {
                     cursor: "pointer",
@@ -199,11 +213,10 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             }}
           >
             <Typography
-              fontFamily="BlinkMacSystemFont"
               fontSize="27px"
               variant="body1"
             >
-              ${(price / 100) * quantity}
+              ${((price / 100) * quantity).toFixed(2)}
             </Typography>
             <Counter />
           </Box>
