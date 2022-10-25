@@ -7,6 +7,8 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import HomeCSS from "../Home.module.css";
 import { homepageStyles, headers } from "../muiStyles";
 
+import { renderProducts } from "../../../helper/renderProducts.js";
+
 /**
  * scroll horizontally to the right (i.e next item) in the list of horizontal items
  */
@@ -25,7 +27,7 @@ function scrollCategoryBack(element, object, pixels) {
   }
 }
 
-function DerivedSections({ sections }) {
+function DerivedSections({ products, sections }) {
   return (
     <>
       {sections.map((section) => (
@@ -34,9 +36,7 @@ function DerivedSections({ sections }) {
           {section.additionalComponent}
           <div className={HomeCSS.smallListContainer}>
             <ul className={HomeCSS.smallItemList} id={section.sectionListId}>
-              {section.displayedItems.map((item) => {
-                return <li key={item.props.id}>{item}</li>;
-              })}
+              {renderProducts(products, section.sectionName, 6)}
             </ul>
 
             <ArrowBackIosNewIcon
