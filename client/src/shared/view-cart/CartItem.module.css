@@ -107,19 +107,54 @@
 }
 
 .itemImage {
+  display: flex;
   background-color: #ffffff;
-  height: 180px;
+  height: 150px;
   border-radius: 16px;
   border: none;
   margin-right: 20px;
 }
 
 .itemImage img {
-  height: 180px;
+  height: 150px;
   object-fit: cover;
-  cursor: pointer;
   border-radius: 16px;
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 990px) {
+
+  .mobileCartName, .mobileCartPrice {
+    font-size: 22px;
+  }
+
+  .mobileCartDesc {
+    font-size: 17px;
+  }
+
+  .mobileDelete {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  .mobileCartItem {
+    height: 180px;
+  }
+
+  .itemImage, .itemImage img {
+    height: 140px;
+  }
+
+  .mobileCounter {
+    width: 100px;
+    height: 30px;
+  }
+
+  .mobileCartName, .mobileCartPrice {
+    font-size: 20px;
+  }
+
+  .mobileCartDesc {
+    font-size: 15px;
+  }
 }

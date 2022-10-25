@@ -56,6 +56,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
           borderRadius: "5px",
           fontFamily: "poppins"
         }}
+        className={styles.mobileCounter}
       >
         <Button
           sx={{
@@ -129,14 +130,15 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
         <Box
           sx={{
             width: "100%",
-            height: "180px",
+            height: "150px",
             background: "#ffffff",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: "20px",
+            marginBottom: "40px",
           }}
+          className={styles.mobileCartItem}
         >
           <Box
             sx={{
@@ -165,10 +167,11 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                   sx={{
                     fontStyle: "normal",
                     fontWeight: "400",
-                    fontSize: "27px",
+                    fontSize: "25px",
                     lineHeight: "32px",
                     color: "#000000",
                   }}
+                  className={styles.mobileCartName}
                 >
                   {name}
                 </Typography>
@@ -177,12 +180,13 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                   sx={{
                     fontStyle: "normal",
                     fontWeight: "400",
-                    fontSize: "22px",
+                    fontSize: "20px",
                     lineHeight: "26px",
                     color: "#686868",
                     marginTop: "10px",
                     marginBottom: "10px",
                   }}
+                  className={styles.mobileCartDesc}
                 >
                   {desc}
                 </Typography>
@@ -197,8 +201,9 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                   ":hover": {
                     cursor: "pointer",
                   },
+                  fontSize: "35px"
                 }}
-                fontSize="large"
+                className={styles.mobileDelete}
               />
             </Box>
           </Box>
@@ -211,10 +216,12 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
               height: "100%",
               width: "20%",
             }}
+            className={styles.mobileCartPriceBox}
           >
             <Typography
-              fontSize="27px"
+              fontSize="25px"
               variant="body1"
+              className={styles.mobileCartPrice}
             >
               ${((price / 100) * quantity).toFixed(2)}
             </Typography>
