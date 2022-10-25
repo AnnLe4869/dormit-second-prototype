@@ -88,7 +88,6 @@ export function useInitializeUser() {
         // If payment succeeded, clear the cart in localStorage
         if (paymentStatus === "succeeded") {
           removeUserDataFromLocalStorage();
-          window.open("/order", "_self");
         }
 
         /**
