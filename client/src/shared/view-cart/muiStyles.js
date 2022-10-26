@@ -44,6 +44,13 @@ export const viewCartStyles = {
   },
 };
 
+export const cartPageStyles = {
+  cartHeading: {
+    margin: "0 auto",
+    fontSize: "34px",
+  }
+}
+
 export const cartItemStyles = {
   cartItemContainer: {
     width: "100%",
@@ -53,56 +60,54 @@ export const cartItemStyles = {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    gap: "20px",
     marginBottom: "40px",
+    height: "100%"
+  },
+
+  cartItemDetailsContainer: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "center",
+    height: "100%"
   },
 
   cartItemDetails: {
+    flex: "3 80%",
     alignItems: "start",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "150px",
-    "@media screen and (max-width: 775px)": {
-      height: "140px"
-    },
-    "@media screen and (max-width: 660px)": {
-      height: "150px"
-    },
-    "@media screen and (max-width: 575px)": {
-      height: "auto"
-    }
   },
 
   cartItemHeader: {
     fontStyle: "normal",
     fontWeight: "400",
-    fontSize: "22px",
+    fontSize: "1.25rem",
     lineHeight: "32px",
     color: "#000000",
-    "@media screen and (max-width: 900px)": {
-      fontSize: "20px"
-    },
-    "@media screen and (max-width: 775px)": {
-      fontSize: "18px"
-    },
+    // if the name of the product has a long word, it will push the price/counter off screen: 
     "@media screen and (max-width: 575px)": {
-      fontSize: "15px"
+      fontSize: "1.1rem",
+      maxWidth: "140px",
+      overflow: "hidden"
+    },
+    "@media screen and (max-width: 380px)": {
+      fontSize: "1rem",
+      maxWidth: "100px"
     }
   },
 
   cartItemDescription: {
     fontStyle: "normal",
     fontWeight: "400",
-    fontSize: "17px",
+    fontSize: "1rem",
     lineHeight: "26px",
     color: "#686868",
     marginTop: "10px",
     marginBottom: "10px",
-    "@media screen and (max-width: 900px)": {
-      fontSize: "15px"
-    },
-    "@media screen and (max-width: 775px)": {
-      fontSize: "13px"
+    "@media screen and (max-width: 575px)": {
+      display: "none"
     }
   },
 
@@ -111,15 +116,13 @@ export const cartItemStyles = {
     border: "none",
     alignSelf: "flex-start",
     color: "#686868",
+    marginTop: "10px",
     ":hover": {
       cursor: "pointer",
     },
     fontSize: "35px",
     "@media screen and (max-width: 900px)": {
       fontSize: "30px"
-    },
-    "@media screen and (max-width: 775px)": {
-      fontSize: "25px"
     }
   },
 
@@ -137,40 +140,23 @@ export const cartItemStyles = {
         width: "100px"
       },
       "@media screen and (max-width: 775px)": {
-        height: "25px",
         width: "80px"
       },
   },
 
   cartItemPriceBox: {
+      flex: "1 20%",
       alignItems: "end",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-between",
-      height: "150px",
-      width: "20%",
-      "@media screen and (max-width: 775px)": {
-        height: "140px"
-      },
-      "@media screen and (max-width: 660px)": {
-        height: "150px"
-      },
-      "@media screen and (max-width: 575px)": {
-        height: "160px"
-      }
+      justifyContent: "space-between"
   },
 
   cartItemPrice: {
-    fontSize: "22px",
+    fontSize: "1.25rem",
     lineHeight: "32px",
-    "@media screen and (max-width: 900px)": {
-      fontSize: "20px"
-    },
-    "@media screen and (max-width: 775px)": {
-      fontSize: "18px"
-    },
     "@media screen and (max-width: 575px)": {
-      fontSize: "15px"
+      fontSize: "1.1rem",
     }
   }
 }

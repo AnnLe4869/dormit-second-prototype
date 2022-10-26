@@ -13,6 +13,7 @@ import { convertToDollar } from "../../helper/convertToDollar";
 
 // Style import
 import styles from "./Cart.module.css";
+import { cartPageStyles } from "./muiStyles";
 
 // Image import
 import { UserContext } from "../../context/user/user-context";
@@ -90,10 +91,7 @@ const Cart = ({ handleDrawerClose }) => {
         }}
       >
         <Typography
-          sx={{
-            margin: "0 auto",
-            fontSize: "34px",
-          }}
+          sx={cartPageStyles.cartHeading}
           variant="h2"
         >
           My Cart
@@ -134,7 +132,7 @@ const Cart = ({ handleDrawerClose }) => {
             return item;
           })}
         </Box>
-        <Typography sx={{fontSize: "32px"}} margin={"50px 0 10px 0"} variant="h2">
+        <Typography sx={{fontSize: "32px", "@media screen and (max-width: 575px)": {fontSize: "26px"}}} margin={"50px 0 10px 0"} variant="h2">
           Promotion Code
         </Typography>
         <Box
@@ -178,7 +176,7 @@ const Cart = ({ handleDrawerClose }) => {
             View All <NavigateNextIcon />
           </Button>
         </Box>
-        <Typography sx={{fontSize: "32px"}} marginBottom={"10px"} variant="h2">
+        <Typography sx={{fontSize: "32px", "@media screen and (max-width: 575px)": {fontSize: "26px"}}} marginBottom={"10px"} variant="h2">
           Order Summary
         </Typography>
         <Divider

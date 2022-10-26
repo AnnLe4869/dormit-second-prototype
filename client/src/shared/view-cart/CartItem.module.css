@@ -109,25 +109,18 @@
 .itemImage {
   display: flex;
   background-color: #ffffff;
-  height: 150px;
+  height: 100%;
   border-radius: 16px;
   border: none;
-  margin-right: 2%;
 }
 
 .itemImage img {
-  height: 150px;
+  height: 140px;
   object-fit: cover;
   border-radius: 16px;
 }
 
 @media screen and (max-width: 775px) {
-  .itemImage, .itemImage img {
-    height: 140px;
-  }
-}
-
-@media screen and (max-width: 660px) {
   .itemImage, .itemImage img {
     height: 120px;
   }

@@ -119,18 +119,10 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
         <Box
           sx={cartItemStyles.cartItemContainer}
         >
-          <Box
-            sx={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "row",
-              gap: "10px",
-              alignItems: "center",
-            }}
-          >
-            <Box className={styles.itemImage}>
-                <Image image={photo} />
-            </Box>
+          <Box className={styles.itemImage}>
+              <Image image={photo} />
+          </Box>
+          <Box sx={cartItemStyles.cartItemDetailsContainer}>
             <Box
               sx={cartItemStyles.cartItemDetails}
             >
@@ -153,17 +145,17 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                 sx={cartItemStyles.cartItemDelete}
               />
             </Box>
-          </Box>
-          <Box
-            sx={cartItemStyles.cartItemPriceBox}
-          >
-            <Typography
-              variant="body1"
-              sx={cartItemStyles.cartItemPrice}
+            <Box
+              sx={cartItemStyles.cartItemPriceBox}
             >
-              ${((price / 100) * quantity).toFixed(2)}
-            </Typography>
-            <Counter />
+              <Typography
+                variant="body1"
+                sx={cartItemStyles.cartItemPrice}
+              >
+                ${((price / 100) * quantity).toFixed(2)}
+              </Typography>
+              <Counter />
+            </Box>
           </Box>
         </Box>
       ) : (
