@@ -1,11 +1,13 @@
-import LeftPanel from "./LeftPanel/LeftPanel";
-import RightPanel from "./RightPanel/RightPanel";
+import LeftPanel from "./components/LeftPanel/LeftPanel";
+import RightPanel from "./components/RightPanel/RightPanel";
+import RusherOnlineRequest from "./components/RusherOnlineRequest/RusherOnlineRequest";
 
 function App() {
   return (
     <div className="App">
       <LeftPanel />
       <RightPanel />
+      {/* <RusherOnlineRequest /> */}
     </div>
   );
 }

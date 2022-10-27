@@ -42,10 +42,11 @@
 /* RightPanel__Rusher */
 .rusherCard {
   width: 100%;
-  border: 1px dashed black;
+  border: 3px solid #EEEEEE;
+  border-radius: var(--border-Radius);
   border-radius: var(--border-Radius);
   padding: 5px 5px 1px 5px;
-  background-color: whitesmoke;
+  background: rgba(238, 238, 238, 0.19);
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -74,6 +75,7 @@
   height: 100px;
   padding: 2px;
   overflow-x: auto;
+  height: auto;
 }
 .rusherOrdersExpand {
   display: flex;
@@ -95,14 +97,16 @@
   font-size: var(--fontSize);
 }
 .rusherPickUp {
-  background-color: lightblue;
+  border: 2px solid #b3ede6;
+  background-color: #edfdfb;
+}
+.rusherDropOff {
+  border: 2px solid #b5f1a7;
+  background-color: #ecfce8;
 }
 .rusherPickUp .eta,
 .rusherDropOff .eta {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-.rusherDropOff {
-  background-color: lightgreen;
 }

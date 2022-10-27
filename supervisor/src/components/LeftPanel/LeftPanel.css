@@ -43,14 +43,13 @@
   height: max-content;
   display: flex;
   flex-direction: column;
-  background-color: #b1e1ff;
+  background-color: #7c91f426;
   padding: 5px;
+  border: 2px solid #c8d1ff;
   border-radius: var(--border-Radius);
   font-size: 12px;
   gap: 2px;
 }
-/* .leftPanel__Order > .namePhone {
-} */
 
 .leftPanel__Order .name {
   font-weight: 500;

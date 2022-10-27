@@ -1,0 +1,26 @@
+.rusherOnlineRequest {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 20px 0;
+}
+.rusherOnlineRequest > div:nth-child(3) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rusherOnlineRequest__buttonGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.rusherOnlineRequest__rusherInfo {
+  font-weight: 400;
+}

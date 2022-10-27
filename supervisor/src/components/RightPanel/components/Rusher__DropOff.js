@@ -9,7 +9,7 @@ const Rusher__DropOff = () => {
     eta: 10,
   };
   return (
-    <div className="rusherDropOff">
+    <div className="rusherDropOff" draggable>
       <div className="namePhone">
         <span className="name">{person.name}</span> - {person.number} (
         {person.items} items)

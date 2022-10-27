@@ -6,6 +6,8 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 // MUI ICONS
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+// MUI STYLES
+// import { sxButton } from "../muiStyles";
 
 const RusherInformation = ({ rusherInfo, onExpand }) => {
   const [status, setStatus] = useState(rusherInfo.status);
@@ -31,19 +33,22 @@ const RusherInformation = ({ rusherInfo, onExpand }) => {
           value={status}
           exclusive
           onChange={(e) => setStatus(e.target.value)}
+          sx={{ cursor: "pointer" }}
         >
-          <ToggleButton value="on">ON</ToggleButton>
+          <ToggleButton value="on" sx={{ borderRadius: 20 }}>
+            ON
+          </ToggleButton>
           <ToggleButton value="off">OFF</ToggleButton>
         </ToggleButtonGroup>
         {expandMenu ? (
           <KeyboardArrowDownIcon
-            sx={{ cursor: "pointer" }}
             onClick={handleExpand}
+            sx={{ cursor: "pointer" }}
           />
         ) : (
           <KeyboardArrowUpIcon
-            sx={{ cursor: "pointer" }}
             onClick={handleExpand}
+            sx={{ cursor: "pointer" }}
           />
         )}
       </div>
