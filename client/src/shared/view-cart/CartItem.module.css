@@ -128,6 +128,21 @@
 
 @media screen and (max-width: 575px) {
   .itemImage, .itemImage img {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .descriptionBox {
+    display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .itemImage, .itemImage img {
     height: 100px;
   }
 }

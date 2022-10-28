@@ -74,6 +74,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
         <Typography
           variant="body1"
           sx={{
+            fontFamily: "Poppins",
             height: "inherit",
             width: "20%",
             fontStyle: "normal",
@@ -128,14 +129,13 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             >
               <Box>
                 <Typography
-                  variant="body1"
                   sx={cartItemStyles.cartItemHeader}
                 >
                   {name}
                 </Typography>
                 <Typography
-                  variant="body1"
                   sx={cartItemStyles.cartItemDescription}
+                  className={styles.descriptionBox}
                 >
                   {desc}
                 </Typography>

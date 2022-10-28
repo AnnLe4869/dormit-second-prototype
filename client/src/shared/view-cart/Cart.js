@@ -80,14 +80,18 @@ const Cart = ({ handleDrawerClose }) => {
   };
 
   return (
-    <div className={styles.cartDiv}>
+    <Box sx={{
+      height: "96vh",
+      overflow: "auto",
+    }}>
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          paddingY: "10px",
-          justifyContent: "center",
+          padding: "10px 15px 10px 20px",
+          justifyContent: "space-between",
+          marginTop: "12px",
         }}
       >
         <Typography
@@ -101,17 +105,14 @@ const Cart = ({ handleDrawerClose }) => {
             width: "35px",
             height: "35px",
             minWidth: "0",
-            position: "absolute",
-            right: "0",
             minHeight: "0",
             border: "0",
-            backgroundColor: "white",
-            color: "#7141FA",
-            marginX: "20px",
+            color: "#000000",
+            fontSize: "100px"
           }}
           onClick={handleDrawerClose}
         >
-          <CloseIcon />
+          <CloseIcon sx={{fontSize: "35px"}}/>
         </Button>
       </Box>
       <Divider
@@ -119,6 +120,8 @@ const Cart = ({ handleDrawerClose }) => {
         sx={{
           "margin-bottom": "25px",
           color: "black",
+          borderBottomWidth: 5
+
         }}
       />
       <Container maxWidth="md">
@@ -132,7 +135,16 @@ const Cart = ({ handleDrawerClose }) => {
             return item;
           })}
         </Box>
-        <Typography sx={{fontSize: "32px", "@media screen and (max-width: 575px)": {fontSize: "26px"}}} margin={"50px 0 10px 0"} variant="h2">
+        <Typography 
+          sx={{
+            fontSize: "32px", 
+            fontFamily: "Poppins",
+            fontWeight: "500",
+            "@media screen and (max-width: 575px)": {fontSize: "26px"}
+          }} 
+          margin={"50px 0 10px 0"} 
+          variant="h2"
+        >
           Promotion Code
         </Typography>
         <Box
@@ -142,11 +154,12 @@ const Cart = ({ handleDrawerClose }) => {
             boxSizing: "border-box",
             background: "#ffffff",
             border: "2px solid #c4c4c4",
-            borderRadius: "16px",
+            borderRadius: "10px",
             alignSelf: "flex-start",
             width: "100%",
             height: "70px",
-            marginBottom: "30px",
+            marginBottom: "50px",
+            "@media screen and (max-width: 575px)": {height: "45px"}
           }}
         >
           <input
@@ -156,6 +169,8 @@ const Cart = ({ handleDrawerClose }) => {
           ></input>
           <Button
             sx={{
+              textTransform: 'none',
+              fontFamily: "Poppins",
               fontWeight: "700",
               display: "flex",
               alignItems: "center",
@@ -166,17 +181,28 @@ const Cart = ({ handleDrawerClose }) => {
               borderBottom: "none",
               background: "none",
               borderRadius: "0",
-              width: "40%",
+              width: "35%",
               maxWidth: "129px",
               height: "66px",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
               alignSelf: "flex-end",
+              padding: "0 0 0 10px",
+              "@media screen and (max-width: 575px)": {height: "43px"}
+
             }}
           >
             View All <NavigateNextIcon />
           </Button>
         </Box>
-        <Typography sx={{fontSize: "32px", "@media screen and (max-width: 575px)": {fontSize: "26px"}}} marginBottom={"10px"} variant="h2">
+        <Typography 
+          sx={{
+            fontSize: "32px", 
+            fontFamily: "Poppins",
+            fontWeight: "500",
+            "@media screen and (max-width: 575px)": {fontSize: "26px"}
+          }} 
+          marginBottom={"10px"} 
+          variant="h2">
           Order Summary
         </Typography>
         <Divider
@@ -196,8 +222,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography variant="h6">Subtotal</Typography>
-          <Typography variant="h6">
+          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Subtotal</Typography>
+          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">
             ${convertToDollar(getSubTotal())}
           </Typography>
         </Box>
@@ -211,8 +237,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography variant="h6">Tax</Typography>
-          <Typography variant="h6">${convertToDollar(getTax())}</Typography>
+          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Tax</Typography>
+          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">${convertToDollar(getTax())}</Typography>
         </Box>
         <Box
           sx={{
@@ -224,8 +250,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography variant="h6">Delivery</Typography>
-          <Typography variant="h6">
+          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Delivery</Typography>
+          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">
             ${convertToDollar(getDeliveryFee())}
           </Typography>
         </Box>
@@ -239,8 +265,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography variant="h6">Total</Typography>
-          <Typography variant="h6">${convertToDollar(getTotal())}</Typography>
+          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="h6">Total</Typography>
+          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="h6">${convertToDollar(getTotal())}</Typography>
         </Box>
         <Box
           sx={{
@@ -257,7 +283,7 @@ const Cart = ({ handleDrawerClose }) => {
               maxWidth: "380px",
               height: "60px",
               background: "#7141fa",
-              borderRadius: "30px",
+              borderRadius: "20px",
               border: "none",
               display: "flex",
               justifyContent: "space-evenly",
@@ -348,7 +374,7 @@ const Cart = ({ handleDrawerClose }) => {
           </Box>
         </Box>
       </Container>
-    </div>
+    </Box>
   );
 };
 

@@ -28,10 +28,7 @@ export const viewCartStyles = {
     textTransform: "none",
     "&:hover": {
       backgroundColor: "#ffffff",
-    },
-    "@media screen and (max-width: 900px)": {
-      display: "none",
-    },
+    }
   },
 
   viewCartGrid: {
@@ -42,17 +39,28 @@ export const viewCartStyles = {
   viewCartText: {
     textAlign: "center",
   },
+
+  cartDrawer: {
+    borderRadius: "20px 20px 0 0",
+    overflow: "hidden"
+  }
 };
 
 export const cartPageStyles = {
   cartHeading: {
+    fontFamily: "Poppins",
     margin: "0 auto",
     fontSize: "34px",
+    fontWeight: "500",
+    "@media screen and (max-width: 575px)": {
+      margin: "0"
+    },
   }
 }
 
 export const cartItemStyles = {
   cartItemContainer: {
+    fontFamily: "Poppins",
     width: "100%",
     height: "100%",
     background: "#ffffff",
@@ -81,16 +89,21 @@ export const cartItemStyles = {
   },
 
   cartItemHeader: {
+    fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: "1.25rem",
     lineHeight: "32px",
     color: "#000000",
+    overflow: "hidden",
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitLineClamp: '1',
+    WebkitBoxOrient: 'vertical',
     // if the name of the product has a long word, it will push the price/counter off screen: 
-    "@media screen and (max-width: 575px)": {
+    "@media screen and (max-width: 525px)": {
       fontSize: "1.1rem",
-      maxWidth: "140px",
-      overflow: "hidden"
+      maxWidth: "150px",
     },
     "@media screen and (max-width: 380px)": {
       fontSize: "1rem",
@@ -99,6 +112,7 @@ export const cartItemStyles = {
   },
 
   cartItemDescription: {
+    fontFamily: "Poppins",
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: "1rem",
@@ -106,9 +120,11 @@ export const cartItemStyles = {
     color: "#686868",
     marginTop: "10px",
     marginBottom: "10px",
-    "@media screen and (max-width: 575px)": {
-      display: "none"
-    }
+    overflow: "hidden",
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitLineClamp: '2',
+    WebkitBoxOrient: 'vertical'
   },
 
   cartItemDelete: {
@@ -134,7 +150,7 @@ export const cartItemStyles = {
       flex: "row",
       background: "#eeeeee",
       borderRadius: "5px",
-      fontFamily: "poppins",
+      fontFamily: "Poppins",
       "@media screen and (max-width: 900px)": {
         height: "30px",
         width: "100px"
@@ -149,10 +165,11 @@ export const cartItemStyles = {
       alignItems: "end",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
   },
 
   cartItemPrice: {
+    fontFamily: "Poppins",
     fontSize: "1.25rem",
     lineHeight: "32px",
     "@media screen and (max-width: 575px)": {
