@@ -6,10 +6,10 @@ import RusherOnlineRequest from "./components/RusherOnlineRequest/RusherOnlineRe
 function App() {
   return (
     <div className="App">
-      {/* <LeftPanel />
-      <RightPanel /> */}
+      <LeftPanel />
+      <RightPanel />
       {/* <RusherOnlineRequest /> */}
-      <PhoneVerification />
+      {/* <PhoneVerification /> */}
     </div>
   );
 }
