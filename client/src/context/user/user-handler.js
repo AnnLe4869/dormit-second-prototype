@@ -86,7 +86,9 @@ export function useInitializeUser() {
         const paymentStatus = pageURL.searchParams.get("redirect_status");
 
         // If payment succeeded, clear the cart in localStorage
-        if (paymentStatus === "succeeded") removeUserDataFromLocalStorage();
+        if (paymentStatus === "succeeded") {
+          removeUserDataFromLocalStorage();
+        }
 
         /**
          * Combine the cart in localStorage with cart in database
