@@ -10,9 +10,11 @@ import CurrentSelected from "./Past/Selected";
 import PastSelected from "./Past/Selected";
 
 export default function OrderPage() {
-  const status = useCheckAuthenticationStatus();
+  const isAuthenticated = useCheckAuthenticationStatus();
 
-  console.log(status)
+  if(!isAuthenticated) {
+    return <Navigate replace to='/auth' />
+  };
 
   return (
     <>
