@@ -13,13 +13,12 @@ import Referral from "./Referral/Referral";
 import Contact from "./Contact/Contact";
 import BottomNavMui from "../../shared/bottom-nav/BottomNav";
 
-import { UserContext } from "../../context/user/user-context";
+import { useCheckAuthenticationStatus } from "../../context/user/auth-handler";
 
 export default function Account() {
-  const userContext = useContext(UserContext);
-  const user = userContext.state;
+  const isAuthenticated = useCheckAuthenticationStatus();
 
-  if(!user.isAuthenticated) {
+  if(!isAuthenticated) {
     return <Navigate replace to='/auth' />
   };
 

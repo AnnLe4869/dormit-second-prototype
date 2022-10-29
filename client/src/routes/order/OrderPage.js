@@ -12,6 +12,8 @@ import PastSelected from "./Past/Selected";
 export default function OrderPage() {
   const status = useCheckAuthenticationStatus();
 
+  console.log(status)
+
   return (
     <>
       <Container>
