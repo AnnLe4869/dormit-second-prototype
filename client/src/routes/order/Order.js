@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Header from "../home/Header";
 import styles from "./Order.module.css";
 
-import { Button } from "@mui/material";
+import { Button, CircularProgress, Backdrop, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import {
@@ -28,49 +29,61 @@ function Order() {
 
   const currentOrders = state.current_orders ? state.current_orders : [];
   return (
-    <Container>
-      <div className={styles.centering}>
-        {/* all past orders with the products in the props */}
-        <h2>Current</h2>
-        {currentOrders.slice(0, 3).map((order, index) => (
-          <OrderView status={"current"} key={index} order={order} />
-        ))}
-        {currentOrders.length > 3 ? (
-          <Button
-            onClick={() => navigate("/order/current")}
-            sx={{
-              color: "#7A7A7A",
-              backgroundColor: "#EEEEEE",
-              borderRadius: 30,
-              fontWeight: 600,
-              py: 1,
-            }}
-          >
-            Load More
-          </Button>
-        ) : null}
+    <>
+      <Backdrop
+        transitionDuration={{ enter: 0, exit: 500 }}
+        sx={{ bgcolor: "#fff" }}
+        open={!state.current_orders}
+      >
+        <CircularProgress variant="indeterminate" sx={{ color: "#7141FA" }} />
+      </Backdrop>
+      <Container>
+        <div className={styles.centering}>
+          {/* all past orders with the products in the props */}
+          <h2>Current</h2>
+          {currentOrders.slice(0, 3).map((order, index) => (
+            <OrderView status={"current"} key={index} order={order} />
+          ))}
+          {currentOrders.length > 3 ? (
+            <Button
+              onClick={() => navigate("/order/current")}
+              sx={{
+                color: "#7A7A7A",
+                backgroundColor: "#EEEEEE",
+                borderRadius: 30,
+                fontWeight: 600,
+                py: 1,
+              }}
+            >
+              Load More
+            </Button>
+          ) : null}
 
-        <h2>Completed</h2>
-        {completedOrders.slice(0, 3).map((order, index) => (
-          <OrderView status={"completed"} key={index} order={order} />
-        ))}
+          <h2>Completed</h2>
+          {completedOrders.slice(0, 3).map((order, index) => (
+            <OrderView status={"completed"} key={index} order={order} />
+          ))}
 
-        {completedOrders.length > 3 ? (
-          <Button
-            onClick={() => navigate("/order/past")}
-            sx={{
-              color: "#7A7A7A",
-              backgroundColor: "#EEEEEE",
-              borderRadius: 30,
-              fontWeight: 600,
-              py: 1,
-            }}
-          >
-            Load More
-          </Button>
-        ) : null}
-      </div>
-    </Container>
+          {completedOrders.length > 3 ? (
+            <Button
+              onClick={() => navigate("/order/past")}
+              sx={{
+                color: "#7A7A7A",
+                backgroundColor: "#EEEEEE",
+                borderRadius: 30,
+                fontWeight: 600,
+                py: 1,
+              }}
+            >
+              Load More
+            </Button>
+          ) : null}
+          {completedOrders.length === 0 ? (
+            <Typography>No Completed Orders</Typography>
+          ) : null}
+        </div>
+      </Container>
+    </>
   );
 }
 
