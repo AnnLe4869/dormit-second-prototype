@@ -106,5 +106,43 @@
   border: none;
 }
 
-@media screen and (max-width: 570px) {
+.itemImage {
+  display: flex;
+  background-color: #ffffff;
+  height: 100%;
+  border-radius: 16px;
+  border: none;
+}
+
+.itemImage img {
+  height: 140px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+@media screen and (max-width: 775px) {
+  .itemImage, .itemImage img {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .itemImage, .itemImage img {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .descriptionBox {
+    display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .itemImage, .itemImage img {
+    height: 100px;
+  }
 }
