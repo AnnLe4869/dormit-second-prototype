@@ -86,44 +86,52 @@ const Cart = ({ handleDrawerClose }) => {
     }}>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: "10px 15px 10px 20px",
-          justifyContent: "space-between",
-          marginTop: "12px",
+          position: "sticky",
+          top: "0",
+          width: "100%",
+          backgroundColor: "#FFFFFF",
+          zIndex: "1"
         }}
       >
-        <Typography
-          sx={cartPageStyles.cartHeading}
-          variant="h2"
-        >
-          My Cart
-        </Typography>
-        <Button
+        <Box
           sx={{
-            width: "35px",
-            height: "35px",
-            minWidth: "0",
-            minHeight: "0",
-            border: "0",
-            color: "#000000",
-            fontSize: "100px"
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            padding: "22px 15px 10px 20px",
+            justifyContent: "space-between",
           }}
-          onClick={handleDrawerClose}
         >
-          <CloseIcon sx={{fontSize: "35px"}}/>
-        </Button>
+          <Typography
+            sx={cartPageStyles.cartHeading}
+            variant="h2"
+          >
+            My Cart
+          </Typography>
+          <Button
+            sx={{
+              width: "35px",
+              height: "35px",
+              minWidth: "0",
+              minHeight: "0",
+              border: "0",
+              color: "#000000",
+              fontSize: "100px",
+            }}
+            onClick={handleDrawerClose}
+          >
+            <CloseIcon sx={{fontSize: "35px"}}/>
+          </Button>
+        </Box>
+        <Divider
+          dark
+          sx={{
+            "margin-bottom": "25px",
+            color: "black",
+            borderBottomWidth: 5,
+          }}
+        />
       </Box>
-      <Divider
-        dark
-        sx={{
-          "margin-bottom": "25px",
-          color: "black",
-          borderBottomWidth: 5
-
-        }}
-      />
       <Container maxWidth="md">
         <Box
           sx={{
