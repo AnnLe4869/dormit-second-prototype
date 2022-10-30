@@ -21,8 +21,6 @@ const RusherCard = ({ rusherInfo }) => {
         <Rusher__PickUp />
         <Rusher__PickUp />
         <Rusher__PickUp />
-        <Rusher__PickUp />
-        <Rusher__DropOff />
         <Rusher__DropOff />
         <Rusher__DropOff />
         <Rusher__DropOff />

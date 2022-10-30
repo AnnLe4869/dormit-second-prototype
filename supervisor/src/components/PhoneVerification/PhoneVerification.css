@@ -11,7 +11,8 @@
 .phoneVerification h1 {
   font-size: 24px;
 }
-.phoneVerification__phoneNumber {
+.phoneVerification__phoneNumber,
+.phoneVerification__waiting {
   width: 500px;
   display: flex;
   flex-direction: column;

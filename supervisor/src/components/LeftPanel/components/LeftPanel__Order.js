@@ -1,21 +1,14 @@
 import React from "react";
 
-const LeftPanel__Order = () => {
-  const person = {
-    name: "Jacop",
-    number: "4K538",
-    items: 5,
-    adress: "Mosaic Building FLoor 4 Room 3B",
-    eta: 10,
-  };
+const LeftPanel__Order = ({ order }) => {
   return (
     <div className="leftPanel__Order">
       <div className="namePhone">
-        <span className="name">{person.name}</span> - {person.number} (
-        {person.items} items)
+        <span className="name">{order.clientName}</span> - {order.orderNo} (
+        {order.itemAmount} items)
       </div>
-      <div className="adress">{person.adress}</div>
-      <div className="eta">ETA {person.eta} min</div>
+      <div className="adress">{order.adress}</div>
+      <div className="eta">ETA {order.eta} min</div>
     </div>
   );
 };

@@ -27,8 +27,6 @@ const RightPanel__Header = ({ onToggleActive }) => {
         value={alignment}
         exclusive
         onChange={handleToggle}
-        // onChange={(e) => setAlignment(e.target.value)}
-        // aria-label="Platform"
       >
         <ToggleButton value="active">ACTIVE</ToggleButton>
         <ToggleButton value="inactive">INACTIVE</ToggleButton>

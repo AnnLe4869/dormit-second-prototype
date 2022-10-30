@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import "./PhoneVerification.css";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 
 const PhoneVerification = () => {
+  const [verify, setVerify] = useState(true);
   const handleVerification = () => {
     console.log("verified");
+    setVerify((prev) => !prev);
   };
   return (
     <div className="phoneVerification">
@@ -24,15 +26,22 @@ const PhoneVerification = () => {
         <span style={{ color: "#7141FA" }}>Enter your phone number</span> below
         to log in
       </h1>
-      <div className="phoneVerification__phoneNumber">
-        <p>Phone</p>
-        <input
-          type="tel"
-          pattern="[0-2]{3}-[0-9]{3}-[0-9]{4}"
-          required
-          placeholder="(XXX) XXX - XXXX"
-        />
-      </div>
+      {verify ? (
+        <div className="phoneVerification__phoneNumber">
+          <p>Phone</p>
+          <input
+            type="tel"
+            pattern="[0-2]{3}-[0-9]{3}-[0-9]{4}"
+            required
+            placeholder="(XXX) XXX - XXXX"
+          />
+        </div>
+      ) : (
+        <div className="phoneVerification__waiting">
+          <p>Waiting for Verification</p>
+          <input type="text" placeholder="Waiting..." />
+        </div>
+      )}
       <Button
         onClick={handleVerification}
         sx={{
@@ -41,6 +50,7 @@ const PhoneVerification = () => {
           borderRadius: 30,
           width: 400,
           height: 60,
+          fontSize: 20,
           "&:hover": {
             backgroundColor: "#8966e8",
           },
