@@ -54,3 +54,21 @@
 .leftPanel__Order .name {
   font-weight: 500;
 }
+
+/* Order Details Box */
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  box-sizing: border-box;
+  z-index: 10;
+  position: absolute;
+  width: 219px;
+  height: 425px;
+  left: 93px;
+  top: 87px;
+  background: #FFFFFF;
+  border: 2px solid #C8D1FF;
+  border-radius: 15px;
+}
