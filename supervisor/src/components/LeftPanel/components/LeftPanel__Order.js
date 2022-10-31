@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { SelectedOrderCtx } from "../../../context/SelectedOrderCtx";
 
 const LeftPanel__Order = ({ order }) => {
+  const [selectedOrder, setSelectedOrder] = useContext(SelectedOrderCtx);
+
   return (
-    <div className="leftPanel__Order">
+    <div
+      className={`leftPanel__Order ${
+        order.orderNo === selectedOrder.orderNo && "orderSelected"
+      }`}
+      onClick={() => setSelectedOrder(order)}
+    >
       <div className="namePhone">
         <span className="name">{order.clientName}</span> - {order.orderNo} (
         {order.itemAmount} items)

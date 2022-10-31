@@ -49,6 +49,10 @@
   border-radius: var(--border-Radius);
   font-size: 12px;
   gap: 2px;
+  cursor: pointer;
+}
+.orderSelected {
+  border: 3px solid green;
 }
 
 .leftPanel__Order .name {
