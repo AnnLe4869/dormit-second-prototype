@@ -1,9 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import { SelectedOrderCtx } from "../../../context/SelectedOrderCtx";
+import React from "react";
 
 const LeftPanel__Order = ({ order }) => {
-  const [selectedOrder, setSelectedOrder] = useContext(SelectedOrderCtx);
-
   return (
     <div
       className={`leftPanel__Order ${
@@ -17,6 +14,7 @@ const LeftPanel__Order = ({ order }) => {
       </div>
       <div className="adress">{order.adress}</div>
       <div className="eta">ETA {order.eta} min</div>
+      <OrderPopover />
     </div>
   );
 };
