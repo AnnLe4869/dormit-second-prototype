@@ -56,7 +56,7 @@ export function renderSpecials(products, displayCount) {
     i++
   ) {
     const product = products[i];
-    if (product.metadata.isSpecial === "true") {
+    if (product.metadata?.isSpecial === "true") {
       renderedProducts.push(renderItem(product));
     }
   }
@@ -84,6 +84,11 @@ export function renderProducts(products, sectionName, displayCount) {
     if (sectionName === "Trending") {
       const product = rankedProductsList[i];
       renderedProducts.push(renderItem(product));
+    } else if (sectionName === "Specials") {
+      const product = products[i];
+      if (product.metadata?.isSpecial === "true") {
+        renderedProducts.push(renderItem(product));
+      }
     } else {
       const product = products[i];
       if (product.isOnSale === true) {
@@ -91,5 +96,35 @@ export function renderProducts(products, sectionName, displayCount) {
       }
     }
   }
+  return renderedProducts;
+}
+
+export function renderDeals(products, displayCount) {
+  if (!displayCount) {
+    displayCount = products.length;
+  }
+
+  let renderedProducts = [];
+  for (
+    let i = 0;
+    i < products.length && renderedProducts.length < displayCount;
+    i++
+  ) {
+    const product = products[i];
+    if (product.isOnSale) {
+      renderedProducts.push(
+        <ProductListing
+          id={product.id}
+          key={product.id}
+          name={product.name}
+          image={product.images ? product.images[0] : apple}
+          description={product.description}
+          price={product.prices ? product.prices[0].unit_amount : "Price"}
+          stock={product.metadata ? product.metadata.quantity : 2000}
+        />
+      );
+    }
+  }
+
   return renderedProducts;
 }

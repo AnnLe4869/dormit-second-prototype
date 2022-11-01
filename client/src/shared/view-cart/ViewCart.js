@@ -47,7 +47,11 @@ function ViewCart({ numItems, totalAmount }) {
           </Grid>
         </Grid>
       </Button>
-      <Drawer anchor="bottom" open={drawerState} variant="temporary">
+      <Drawer  
+        PaperProps={{sx: viewCartStyles.cartDrawer}} 
+        anchor="bottom" 
+        open={drawerState} 
+        variant="temporary">
         <Cart handleDrawerClose={handleDrawerClose} />
       </Drawer>
     </>
