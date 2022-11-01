@@ -73,3 +73,14 @@
   border: 2px solid #C8D1FF;
   border-radius: 15px;
 }
+
+.button {
+  position: absolute;
+  width: 176px;
+  height: 31.95px;
+  left: 116px;
+  top: 465px;
+  background: #7C91F4;
+  border-radius: 100px;
+
+}

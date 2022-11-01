@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Popover, Box, Button } from "@mui/material";
+import { RefundButton } from "./RefundButton";
 
 export default function OrderPopover() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -41,9 +42,12 @@ export default function OrderPopover() {
               border: '2px solid #C8D1FF',
               borderRadius: '15px',
         }}>
-          <div>Order details</div>
+          <div className="order-detials">Order details</div>
+            <RefundButton />
+
         </Box>
       </Popover>
     </div>
   );
 }
+
