@@ -1,6 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-
+import React from "react";
 import { responsiveTheme } from "./muiStyles";
 import { Box, ThemeProvider } from "@mui/material";
 import Header from "../home/Header";
@@ -13,15 +11,7 @@ import Referral from "./Referral/Referral";
 import Contact from "./Contact/Contact";
 import BottomNavMui from "../../shared/bottom-nav/BottomNav";
 
-import { useCheckAuthenticationStatus } from "../../context/user/auth-handler";
-
 export default function Account() {
-  const isAuthenticated = useCheckAuthenticationStatus();
-
-  if(!isAuthenticated) {
-    return <Navigate replace to='/auth' />
-  };
-
   return (
     <>
       <Header />

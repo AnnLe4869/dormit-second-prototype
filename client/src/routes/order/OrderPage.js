@@ -1,6 +1,5 @@
 import { Container } from "@mui/system";
 import React from "react";
-import Header from "../home/Header";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useCheckAuthenticationStatus } from "../../context/user/auth-handler";
 import BottomNav from "../../shared/bottom-nav/BottomNav";
@@ -11,15 +10,10 @@ import CurrentSelected from "./Past/Selected";
 import PastSelected from "./Past/Selected";
 
 export default function OrderPage() {
-  const isAuthenticated = useCheckAuthenticationStatus();
-
-  if(!isAuthenticated) {
-    return <Navigate replace to='/auth' />
-  };
+  const status = useCheckAuthenticationStatus();
 
   return (
     <>
-      <Header />
       <Container>
         <Routes>
           <Route exact path="/" element={<Order />} />

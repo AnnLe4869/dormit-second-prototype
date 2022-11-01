@@ -8,23 +8,16 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import CartItem from "./CartItem";
 import { useProducts } from "../../context/product/product-handler";
-import { getProducts } from "../../helper/getProductsCategories";
 import OrderDetails from "../../routes/checkout/Order/OrderDetails";
 import { convertToDollar } from "../../helper/convertToDollar";
-import SuggestedSections from "./SuggestedSections";
 
 // Style import
 import styles from "./Cart.module.css";
-import { cartPageStyles } from "./muiStyles";
-
-// Data import
-import { cartSections } from "./sections/cartSections";
 
 // Image import
 import { UserContext } from "../../context/user/user-context";
 import { mockProducts } from "../../mock_data/data/mockData";
 import apple from "../../mock_data/images/apple.jpg";
-
 
 const Cart = ({ handleDrawerClose }) => {
   const mockSuggestion = ["mock", "mock", "mock", "mock", "mock", "mock"];
@@ -34,13 +27,6 @@ const Cart = ({ handleDrawerClose }) => {
   const products = useProducts();
 
   const navigate = useNavigate();
-  
-  // if users click the 'View Cart' button before product data fully loaded, website will break without this if statement
-  if(!products.length) {
-    return (
-      <h3>Loading...</h3>
-    )
-  }
 
   state.cart.map(({ product_id, quantity }) => {
     const product = products.find(({ id }) => id === product_id);
@@ -52,7 +38,7 @@ const Cart = ({ handleDrawerClose }) => {
         taxRate={parseFloat(product.metadata.tax) / 100}
         name={product.name}
         id={product.id}
-        photo={product.images}
+        photo={apple}
         quantity={parseInt(quantity)}
       />
     );
@@ -93,58 +79,49 @@ const Cart = ({ handleDrawerClose }) => {
   };
 
   return (
-    <Box sx={{
-      height: "96vh",
-      overflow: "auto",
-    }}>
+    <div>
       <Box
         sx={{
-          position: "sticky",
-          top: "0",
-          width: "100%",
-          backgroundColor: "#FFFFFF",
-          zIndex: "1"
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          paddingY: "10px",
+          justifyContent: "center",
         }}
       >
-        <Box
+        <Typography
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            padding: "22px 15px 10px 20px",
-            justifyContent: "space-between",
+            margin: "0 auto",
           }}
+          variant="h2"
         >
-          <Typography
-            sx={cartPageStyles.cartHeading}
-            variant="h2"
-          >
-            My Cart
-          </Typography>
-          <Button
-            sx={{
-              width: "35px",
-              height: "35px",
-              minWidth: "0",
-              minHeight: "0",
-              border: "0",
-              color: "#000000",
-              fontSize: "100px",
-            }}
-            onClick={handleDrawerClose}
-          >
-            <CloseIcon sx={{fontSize: "35px"}}/>
-          </Button>
-        </Box>
-        <Divider
-          dark
+          My Cart
+        </Typography>
+        <Button
           sx={{
-            "margin-bottom": "25px",
-            color: "black",
-            borderBottomWidth: 5,
+            width: "35px",
+            height: "35px",
+            minWidth: "0",
+            position: "absolute",
+            right: "0",
+            minHeight: "0",
+            border: "0",
+            backgroundColor: "white",
+            color: "#7141FA",
+            marginX: "20px",
           }}
-        />
+          onClick={handleDrawerClose}
+        >
+          <CloseIcon />
+        </Button>
       </Box>
+      <Divider
+        dark
+        sx={{
+          "margin-bottom": "25px",
+          color: "black",
+        }}
+      />
       <Container maxWidth="md">
         <Box
           sx={{
@@ -156,31 +133,22 @@ const Cart = ({ handleDrawerClose }) => {
             return item;
           })}
         </Box>
-        <Typography 
-          sx={{
-            fontSize: "32px", 
-            fontFamily: "Poppins",
-            fontWeight: "500",
-            "@media screen and (max-width: 575px)": {fontSize: "26px"}
-          }} 
-          margin={"50px 0 10px 0"} 
-          variant="h2"
-        >
+        <Typography marginBottom={"10px"} variant="h2">
           Promotion Code
         </Typography>
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
+            flexFlow: "column wrap",
+            justifyContent: "space-between",
             boxSizing: "border-box",
             background: "#ffffff",
             border: "2px solid #c4c4c4",
-            borderRadius: "10px",
+            borderRadius: "16px",
             alignSelf: "flex-start",
             width: "100%",
-            height: "70px",
-            marginBottom: "50px",
-            "@media screen and (max-width: 575px)": {height: "45px"}
+            height: "60px",
+            marginBottom: "30px",
           }}
         >
           <input
@@ -190,8 +158,6 @@ const Cart = ({ handleDrawerClose }) => {
           ></input>
           <Button
             sx={{
-              textTransform: 'none',
-              fontFamily: "Poppins",
               fontWeight: "700",
               display: "flex",
               alignItems: "center",
@@ -201,38 +167,19 @@ const Cart = ({ handleDrawerClose }) => {
               borderTop: "none",
               borderBottom: "none",
               background: "none",
-              borderRadius: "0",
-              width: "35%",
+              width: "40%",
               maxWidth: "129px",
-              height: "66px",
-              justifyContent: "center",
+              height: "inherit",
+              justifyContent: "space-evenly",
               alignSelf: "flex-end",
-              padding: "0 0 0 10px",
-              "@media screen and (max-width: 575px)": {height: "43px"}
-
             }}
           >
             View All <NavigateNextIcon />
           </Button>
         </Box>
-        <Typography 
-          sx={{
-            fontSize: "32px", 
-            fontFamily: "Poppins",
-            fontWeight: "500",
-            "@media screen and (max-width: 575px)": {fontSize: "26px"}
-          }} 
-          marginBottom={"10px"} 
-          variant="h2">
+        <Typography marginBottom={"10px"} variant="h2">
           Order Summary
         </Typography>
-        <Divider
-        dark
-          sx={{
-            "margin-bottom": "25px",
-            color: "black",
-          }}
-        />
         <Box
           sx={{
             width: "100%",
@@ -243,8 +190,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Subtotal</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">
+          <Typography variant="h6">Subtotal</Typography>
+          <Typography variant="h6">
             ${convertToDollar(getSubTotal())}
           </Typography>
         </Box>
@@ -258,8 +205,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Tax</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">${convertToDollar(getTax())}</Typography>
+          <Typography variant="h6">Tax</Typography>
+          <Typography variant="h6">${convertToDollar(getTax())}</Typography>
         </Box>
         <Box
           sx={{
@@ -271,8 +218,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Delivery</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">
+          <Typography variant="h6">Delivery</Typography>
+          <Typography variant="h6">
             ${convertToDollar(getDeliveryFee())}
           </Typography>
         </Box>
@@ -286,8 +233,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="h6">Total</Typography>
-          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="h6">${convertToDollar(getTotal())}</Typography>
+          <Typography variant="h6">Total</Typography>
+          <Typography variant="h6">${convertToDollar(getTotal())}</Typography>
         </Box>
         <Box
           sx={{
@@ -304,7 +251,7 @@ const Cart = ({ handleDrawerClose }) => {
               maxWidth: "380px",
               height: "60px",
               background: "#7141fa",
-              borderRadius: "20px",
+              borderRadius: "30px",
               border: "none",
               display: "flex",
               justifyContent: "space-evenly",
@@ -322,12 +269,80 @@ const Cart = ({ handleDrawerClose }) => {
             <div>${convertToDollar(getTotal())}</div>
           </Button>
         </Box>
-        
-          {cartSections.map(section => (
-            <SuggestedSections section={section} products = {getProducts(products)} />
-          ))}
+
+        {/* Quick snacks */}
+        <Box>
+          <Typography variant="h4">Quick Snacks</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              marginY: "30px",
+              gap: "10px",
+            }}
+          >
+            {mockSuggestion.map((val) => (
+              <img
+                style={{
+                  height: "150px",
+                  width: "150px",
+                  backgroundColor: "#C4C4C4",
+                  borderRadius: "16px",
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
+
+        {/* Essentials */}
+        <Box>
+          <Typography variant="h4">Essentials</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              marginY: "30px",
+              gap: "10px",
+            }}
+          >
+            {mockSuggestion.map((val) => (
+              <img
+                style={{
+                  height: "150px",
+                  width: "150px",
+                  backgroundColor: "#C4C4C4",
+                  borderRadius: "16px",
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
+
+        {/* Deals */}
+        <Box>
+          <Typography variant="h4">Deals</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              marginY: "30px",
+              gap: "10px",
+            }}
+          >
+            {mockSuggestion.map((val) => (
+              <img
+                style={{
+                  height: "150px",
+                  width: "150px",
+                  backgroundColor: "#C4C4C4",
+                  borderRadius: "16px",
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
       </Container>
-    </Box>
+    </div>
   );
 };
 

@@ -1,7 +1,3 @@
-* {
-  font-family: "Poppins";
-}
-
 .header {
   display: flex;
   flex-flow: row nowrap;
@@ -90,11 +86,10 @@
 
 .promotionInput {
   width: 60%;
-  height: 66px;
+  height: inherit;
   border: 0;
-  border-radius: 9px 0 0 9px;
+  border-radius: 16px 0 0 16px;
   padding: 15px;
-  flex: 1 80%;
 }
 
 .viewAll {
@@ -175,10 +170,4 @@ footer {
 .reviewOrderButton > div:nth-child(3) {
   font-size: 18px;
   line-height: 21px;
-}
-
-@media screen and (max-width: 575px) {
-  .promotionInput {
-    height: 41px;
-  }
 }
