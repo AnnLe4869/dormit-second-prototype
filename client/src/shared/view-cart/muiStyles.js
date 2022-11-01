@@ -41,7 +41,7 @@ export const viewCartStyles = {
   },
 
   cartDrawer: {
-    borderRadius: "20px 20px 0 0",
+    borderRadius: "16px 16px 0 0",
     overflow: "hidden"
   }
 };
@@ -60,7 +60,7 @@ export const cartPageStyles = {
 
 export const cartItemStyles = {
   cartItemContainer: {
-    fontFamily: "Poppins",
+    fontFamily: "Inter",
     width: "100%",
     height: "100%",
     background: "#ffffff",
@@ -88,8 +88,7 @@ export const cartItemStyles = {
   },
 
   cartItemHeader: {
-    fontFamily: "Poppins",
-    fontStyle: "normal",
+    fontFamily: "Inter",
     fontWeight: "400",
     fontSize: "18px",
     lineHeight: "21px",
@@ -109,7 +108,7 @@ export const cartItemStyles = {
   },
 
   cartItemDescription: {
-    fontFamily: "Poppins",
+    fontFamily: "Inter",
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: "14px",
@@ -147,7 +146,7 @@ export const cartItemStyles = {
       flex: "row",
       background: "#eeeeee",
       borderRadius: "5px",
-      fontFamily: "Poppins",
+      fontFamily: "Inter",
   },
 
   cartItemActions: {
@@ -157,7 +156,7 @@ export const cartItemStyles = {
   },
 
   cartItemPrice: {
-    fontFamily: "Poppins",
+    fontFamily: "Inter",
     fontSize: "1.25rem",
     lineHeight: "32px",
     "@media screen and (max-width: 575px)": {

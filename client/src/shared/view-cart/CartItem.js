@@ -76,7 +76,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
         <Typography
           variant="body1"
           sx={{
-            fontFamily: "Poppins",
+            fontFamily: "Inter",
             height: "inherit",
             width: "20%",
             fontStyle: "normal",

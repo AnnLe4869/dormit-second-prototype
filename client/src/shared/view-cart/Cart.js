@@ -190,7 +190,7 @@ const Cart = ({ handleDrawerClose }) => {
           <Button
             sx={{
               textTransform: 'none',
-              fontFamily: "Poppins",
+              fontFamily: "Inter",
               fontWeight: "700",
               display: "flex",
               alignItems: "center",
@@ -242,8 +242,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="Mobile Body">Subtotal</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="Mobile Body">
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">Subtotal</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">
             ${convertToDollar(getSubTotal())}
           </Typography>
         </Box>
@@ -256,8 +256,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="Mobile Body">Tax</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="Mobile Body">${convertToDollar(getTax())}</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">Tax</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">${convertToDollar(getTax())}</Typography>
         </Box>
         <Box
           sx={{
@@ -268,8 +268,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="Mobile Body">Delivery</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="Mobile Body">
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">Delivery</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">
             ${convertToDollar(getDeliveryFee())}
           </Typography>
         </Box>
@@ -282,8 +282,8 @@ const Cart = ({ handleDrawerClose }) => {
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="Mobile Body">Total</Typography>
-          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="Mobile Body">${convertToDollar(getTotal()).toFixed(2)}</Typography>
+          <Typography sx ={{fontFamily: "Inter", fontWeight: "800", color: "#000000"}} variant="Mobile Body">Total</Typography>
+          <Typography sx ={{fontFamily: "Inter", fontWeight: "800", color: "#000000"}} variant="Mobile Body">${convertToDollar(getTotal()).toFixed(2)}</Typography>
         </Box>
         <Box
           sx={{
@@ -316,7 +316,8 @@ const Cart = ({ handleDrawerClose }) => {
               sx={{
                 textTransform: 'none',
                 fontWeight: "700",
-                fontSize: "16px"
+                fontSize: "16px",
+                fontFamily: "Poppins"
               }}
             >
               {getTotalCount()} items
@@ -326,7 +327,8 @@ const Cart = ({ handleDrawerClose }) => {
                 textTransform: 'none',
                 fontWeight: "700",
                 fontSize: "18px",
-                lineHeight: "24px"
+                lineHeight: "24px",
+                fontFamily: "Inter"
               }}
             >
               Review Order
@@ -336,7 +338,8 @@ const Cart = ({ handleDrawerClose }) => {
                 textTransform: 'none',
                 fontWeight: "700",
                 fontSize: "16px",
-                lineHeight: "24px"
+                lineHeight: "24px",
+                fontFamily: "Poppins"
               }}
             >
               ${convertToDollar(getTotal()).toFixed(2)}

@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap');
+
 * {
-  font-family: "Poppins";
+  font-family: "Inter";
 }
 
 .header {
