@@ -1,10 +1,13 @@
 import React from "react";
-import OrderPopover from "./OrderPopover";
 
 const LeftPanel__Order = ({ order }) => {
-
   return (
-    <div className="leftPanel__Order">
+    <div
+      className={`leftPanel__Order ${
+        order.orderNo === selectedOrder.orderNo && "orderSelected"
+      }`}
+      onClick={() => setSelectedOrder(order)}
+    >
       <div className="namePhone">
         <span className="name">{order.clientName}</span> - {order.orderNo} (
         {order.itemAmount} items)

@@ -106,22 +106,22 @@
   background-color: var(--fontColorGray);
 }
 /* ---------------- */
-.rusherOrdersRow {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  height: 100px;
-  padding: 2px;
-  overflow-x: auto;
-  height: auto;
-}
+.rusherOrdersRow,
 .rusherOrdersExpand {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  min-height: 50px;
+  padding: 2px;
   gap: 5px;
   height: auto;
-  padding: 2px;
+}
+
+.rusherOrdersRow {
+  flex-direction: row;
+  overflow-x: auto;
+}
+.rusherOrdersExpand {
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .rusherPickUp,

@@ -1,5 +1,5 @@
 import { Avatar } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // MUI COMPONENTS
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -8,11 +8,21 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
-// MUI STYLES
-// import { sxButton } from "../muiStyles";
+import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
+import { SelectedOrderCtx } from "../../../context/SelectedOrderCtx";
 
-const RusherInformation = ({ rusherInfo, onExpand }) => {
-  // console.log(rusherInfo.status);
+import { orderCtx } from "../../../context/OrdersCtx";
+
+const RusherInformation = ({ rusherInfo, onExpand, onDownload }) => {
+  const downloadStyle = {
+    cursor: "pointer",
+    color: "#138808",
+    borderRadius: "50%",
+    "&:hover": {
+      color: "#B5F1A7",
+      backgroundColor: "#138808",
+    },
+  };
   const [status, setStatus] = useState();
   const [expandMenu, setExpandMenu] = useState(true);
   const [endTime, setEndTime] = useState();
@@ -20,6 +30,18 @@ const RusherInformation = ({ rusherInfo, onExpand }) => {
   const [minute, setMinute] = useState();
   const [ampm, setAmpm] = useState();
   const [showSetTime, setShowSetTime] = useState(false);
+  // context
+  const [selectedOrder, setSelectedOrder] = useContext(SelectedOrderCtx);
+  const [orders, setOrders] = useContext(orderCtx);
+
+  const downloadOrderActive = () => {
+    onDownload(selectedOrder);
+    let ordersCopy = orders;
+    ordersCopy.splice(ordersCopy.indexOf(selectedOrder), 1);
+    setOrders(ordersCopy);
+    setSelectedOrder("");
+  };
+  // console.log(orders);
 
   const handleTimeChange = (e) => {
     setEndTime(e.target.value);
@@ -43,13 +65,17 @@ const RusherInformation = ({ rusherInfo, onExpand }) => {
   return (
     <div className="rusherInformation">
       <div className="rusherInformation__left">
-        <Avatar>A</Avatar>
+        <Avatar>{rusherInfo.name.charAt(0)}</Avatar>
         <p className="">{rusherInfo.name}</p>
         <p>{rusherInfo.phone}</p>
+        <DownloadForOfflineIcon
+          sx={downloadStyle}
+          onClick={downloadOrderActive}
+        />
       </div>
       <div className="rusherInformation__right">
         {/* END TIME */}
-        {!showSetTime ? (
+        {!showSetTime && rusherInfo.status === "on" ? (
           <div className="rusherEndTime">
             <EditIcon
               sx={{ fontSize: 20, cursor: "pointer" }}

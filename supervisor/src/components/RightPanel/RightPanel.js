@@ -7,13 +7,10 @@ import RusherCard from "./components/RusherCard";
 // MUI
 import { ThemeProvider } from "@emotion/react";
 import { sxButton } from "./muiStyles";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-// REACT-BEAUTIFUL-DND
 
 const RightPanel = () => {
   const [active, setActive] = useState(true);
   const [Rushers] = useState(rushers);
-  // console.log(active);
 
   return (
     <ThemeProvider theme={sxButton}>
