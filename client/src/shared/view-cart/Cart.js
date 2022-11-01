@@ -178,7 +178,7 @@ const Cart = ({ handleDrawerClose }) => {
             alignSelf: "flex-start",
             width: "100%",
             height: "70px",
-            marginBottom: "50px",
+            marginBottom: "40px",
             "@media screen and (max-width: 575px)": {height: "42px"}
           }}
         >
@@ -221,7 +221,7 @@ const Cart = ({ handleDrawerClose }) => {
             fontWeight: "500",
             "@media screen and (max-width: 575px)": {fontSize: "22px"}
           }} 
-          marginBottom={"10px"} 
+          marginBottom={"8px"} 
           variant="h2">
           Order Summary
         </Typography>
@@ -317,8 +317,10 @@ const Cart = ({ handleDrawerClose }) => {
                 textTransform: 'none',
                 fontWeight: "700",
                 fontSize: "16px",
-                fontFamily: "Poppins"
+                fontFamily: "Poppins",
+                lineHeight: "24px",
               }}
+              variant="Mobile Callout"
             >
               {getTotalCount()} items
             </Typography>
@@ -327,8 +329,12 @@ const Cart = ({ handleDrawerClose }) => {
                 textTransform: 'none',
                 fontWeight: "700",
                 fontSize: "18px",
-                lineHeight: "24px",
-                fontFamily: "Inter"
+                lineHeight: "21px",
+                fontFamily: "Inter",
+                fontStyle: "normal",
+                display: "flex",
+                alignItems: "center",
+                textAlign: "center"
               }}
             >
               Review Order
@@ -341,6 +347,7 @@ const Cart = ({ handleDrawerClose }) => {
                 lineHeight: "24px",
                 fontFamily: "Poppins"
               }}
+              variant="Mobile Callout"
             >
               ${convertToDollar(getTotal()).toFixed(2)}
             </Typography>

@@ -90,7 +90,7 @@ export const cartItemStyles = {
   cartItemHeader: {
     fontFamily: "Inter",
     fontWeight: "400",
-    fontSize: "18px",
+    fontSize: "17px",
     lineHeight: "21px",
     color: "#000000",
     overflow: "hidden",
@@ -115,6 +115,7 @@ export const cartItemStyles = {
     lineHeight: "16px",
     color: "#686868",
     marginBottom: "25px",
+    paddingLeft: "3px",
     overflow: "hidden",
     textOverflow: 'ellipsis',
     display: '-webkit-box',
@@ -145,7 +146,7 @@ export const cartItemStyles = {
       justifyContent: "center",
       flex: "row",
       background: "#eeeeee",
-      borderRadius: "5px",
+      borderRadius: "8px",
       fontFamily: "Inter",
   },
 
@@ -157,10 +158,8 @@ export const cartItemStyles = {
 
   cartItemPrice: {
     fontFamily: "Inter",
-    fontSize: "1.25rem",
+    fontStyle: "normal",
+    fontSize: "17px",
     lineHeight: "32px",
-    "@media screen and (max-width: 575px)": {
-      fontSize: "1.1rem",
-    }
   }
 }

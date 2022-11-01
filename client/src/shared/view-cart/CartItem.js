@@ -70,7 +70,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
           flexItem
           sx={{
             color: "black",
-            borderLeftWidth: "0.5px"
+            borderLeftWidth: "1"
           }}
         />
         <Typography
@@ -80,12 +80,12 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             height: "inherit",
             width: "20%",
             fontStyle: "normal",
-            fontWeight: "400",
+            fontWeight: "700",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             textAlign: "center",
-            padding: "0 17%"
+            padding: "0 16%"
           }}
         >
           {quan}
@@ -95,7 +95,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
           flexItem
           sx={{
             color: "black",
-            borderLeftWidth: "0.5px"
+            borderLeftWidth: "1"
           }}
         />
         <Button
@@ -138,7 +138,6 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                 </Typography>
               </Box>
               <Typography
-                variant="body1"
                 sx={cartItemStyles.cartItemPrice}
               >
                 ${((price / 100) * quantity).toFixed(2)}
