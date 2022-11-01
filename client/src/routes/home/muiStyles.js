@@ -107,10 +107,12 @@ export const headerStyles = {
   headerButton: {
     color: "#ffffff",
     textTransform: "none",
+    columnGap: "15px",
     "@media screen and (max-width: 600px)": {
       color: "black",
       fontWeight: 600,
       fontSize: "18px",
+      whiteSpace: "nowrap",
     },
   },
 
@@ -157,6 +159,7 @@ export const headerStyles = {
     lineHeight: "21px",
     color: "white",
     "@media screen and (max-width: 600px)": {
+      fontFamily: "Inter",
       color: "black",
       fontWeight: 700,
       fontSize: "16px",

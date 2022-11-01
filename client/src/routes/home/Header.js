@@ -5,8 +5,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import dormitIcon from "../../assets/Home/dormit-icon.svg";
+import locationIcon from "../../assets/Home/location-marker.svg";
+import expandMoreIcon from "../../assets/Home/expand-more.svg";
 
 import { headerStyles, headers } from "./muiStyles";
 
@@ -21,18 +22,17 @@ function Header() {
       >
         <Grid
           item
-          xs={6}
+          xs={12}
           md={3}
           sx={headerStyles.headerLeft}
           order={{ xs: 2, md: 1 }}
         >
-          <Button
-            sx={headerStyles.headerButton}
-            endIcon={<ExpandMoreIcon transform="scale(1.2)" />}
-          >
+          <Button sx={headerStyles.headerButton}>
+            <img src={locationIcon} alt="location-marker" />
             <Typography sx={headerStyles.headerDelivery}>
               Delivery Location
             </Typography>
+            <img src={expandMoreIcon} alt="expand-more-icon" />
           </Button>
         </Grid>
 

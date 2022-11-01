@@ -18,44 +18,51 @@ function ViewCart({ numItems, totalAmount }) {
   const handleDrawerOpen = () => {
     setDrawerState(true);
   };
-  return (
-    <>
-      <Button sx={viewCartStyles.viewCartContainer} onClick={handleDrawerOpen}>
-        <Grid container spacing={0} sx={viewCartStyles.viewCartGrid}>
-          <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
-            <Typography
-              sx={headers.header5}
-              fontWeight={600}
-              marginBottom="6px"
-            >
-              {numItems} Items
-            </Typography>
+
+  if (numItems > 0) {
+    return (
+      <>
+        <Button
+          sx={viewCartStyles.viewCartContainer}
+          onClick={handleDrawerOpen}
+        >
+          <Grid container spacing={0} sx={viewCartStyles.viewCartGrid}>
+            <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
+              <Typography
+                sx={headers.header5}
+                fontWeight={600}
+                marginBottom="6px"
+              >
+                {numItems} Items
+              </Typography>
+            </Grid>
+            <Grid item xs={5} sx={viewCartStyles.viewCartText}>
+              <Typography sx={headers.header3} fontWeight={600}>
+                View Cart
+              </Typography>
+            </Grid>
+            <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
+              <Typography
+                sx={headers.header5}
+                fontWeight={600}
+                marginBottom="6px"
+              >
+                ${totalAmount}
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={5} sx={viewCartStyles.viewCartText}>
-            <Typography sx={headers.header3} fontWeight={600}>
-              View Cart
-            </Typography>
-          </Grid>
-          <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
-            <Typography
-              sx={headers.header5}
-              fontWeight={600}
-              marginBottom="6px"
-            >
-              ${totalAmount}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Button>
-      <Drawer  
-        PaperProps={{sx: viewCartStyles.cartDrawer}} 
-        anchor="bottom" 
-        open={drawerState} 
-        variant="temporary">
-        <Cart handleDrawerClose={handleDrawerClose} />
-      </Drawer>
-    </>
-  );
+        </Button>
+        <Drawer
+          PaperProps={{ sx: viewCartStyles.cartDrawer }}
+          anchor="bottom"
+          open={drawerState}
+          variant="temporary"
+        >
+          <Cart handleDrawerClose={handleDrawerClose} />
+        </Drawer>
+      </>
+    );
+  }
 }
 
 export default ViewCart;
