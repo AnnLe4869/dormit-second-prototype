@@ -5,6 +5,8 @@ import { Image } from "../loading-image/Image";
 import Dialog from "@mui/material/Dialog";
 import styles from "./ProductListing.module.css";
 
+import { Box } from "@mui/material";
+
 /*
  * Imported Assets
  */
@@ -147,16 +149,17 @@ const ProductListing = ({
           style={stock ? {} : { color: "#686868" }}
         >
           <p className={styles.itemName}>{name}</p>
-          {dealPrice ? (
-            <>
-              <p className={styles.purpleFont}>${dealPrice}</p>
-              <p className={styles.strikeThrough}>{formattedPrice}</p>
-            </>
-          ) : (
-            <p>{formattedPrice}</p>
-          )}
-
-          <div className={styles.stockInfo}>{stockDescription}</div>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {dealPrice ? (
+              <>
+                <p className={styles.purpleFont}>${dealPrice}</p>
+                <p className={styles.strikeThrough}>{formattedPrice}</p>
+              </>
+            ) : (
+              <p className={styles.itemPrice}>{formattedPrice}</p>
+            )}
+            {/* <div className={styles.stockInfo}>{stockDescription}</div> */}
+          </Box>
         </section>
       </div>
 

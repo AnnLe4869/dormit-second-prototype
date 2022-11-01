@@ -1,4 +1,5 @@
 .itemContainer {
+  font-family: "Poppins";
   width: 100%;
   height: 100%;
   text-align: center;
@@ -7,11 +8,10 @@
 
 .itemCorner {
   position: absolute;
-  top: -10px;
-  right: -15px;
-  width: 24%;
-  min-width: 36px;
-  min-height: 36px;
+  top: 0;
+  right: calc(-4%);
+  top: calc(-4%);
+  width: 31%;
   z-index: 1;
   overflow: hidden;
   border: none;
@@ -31,7 +31,6 @@
   /* padding-top: 100%; */
   /* ^TURN ME OFF FOR REAL IMAGES, ON FOR BOXES^ */
   /* background-color: #818181; */
-  border-radius: 16px;
   border: none;
 }
 
@@ -40,43 +39,37 @@
   height: auto;
   object-fit: cover;
   cursor: pointer;
-  border-radius: 16px;
+  border-radius: 10%;
 }
 
 .itemInfo {
-  display: inline-block;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  margin-top: 16px;
+  display: block;
+  width: 100%;
 }
 
 .itemInfo p {
-  margin-top: 4px;
-  margin-bottom: 0;
-  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemName {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.itemPrice {
+  font-weight: 400;
   font-size: 18px;
   line-height: 21px;
 }
 
-.itemName {
-  font-weight: 900;
-}
-
 .stockInfo p {
-  font-size: 13px;
-  line-height: 16px;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .purpleFont {
   color: #7141fa;
-}
-
-.strikeThrough {
-  text-decoration: line-through;
-}
-
-@media screen and (max-width: 600px) {
-  .itemInfo {
-    margin-bottom: 8px;
-  }
 }

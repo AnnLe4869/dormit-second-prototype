@@ -33,7 +33,7 @@ function OriginalSections({ sections, products }) {
           <hr className={HomeCSS.sectionBarTop} />
           <div className={HomeCSS.categoryHeader}>
             <div dangerouslySetInnerHTML={{ __html: section.category_icon }} />
-            <Typography sx={headers.header3}>
+            <Typography sx={headers.header2}>
               {convertToUpperCase(section.category_name)}
             </Typography>
             <Button
@@ -60,7 +60,9 @@ function OriginalSections({ sections, products }) {
               id={section.category_name + "List"}
             >
               {renderCategory(products, section.category_name, 6).map(
-                (item) => item
+                (item) => (
+                  <li>{item}</li>
+                )
               )}
             </ul>
           </div>

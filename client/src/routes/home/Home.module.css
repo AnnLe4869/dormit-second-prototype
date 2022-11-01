@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins";
 }
 
 h2 {
@@ -27,14 +26,10 @@ h3 {
 }
 
 .homeContent {
-  width: 71%;
-  max-width: 1028px;
+  width: 70%;
+  max-width: 1150px;
   height: auto;
   margin-bottom: 100px;
-}
-
-.homeContent > * {
-  margin: 24px 0;
 }
 
 .homeCategoryContainer {
@@ -68,44 +63,16 @@ h3 {
   height: 85px;
 }
 
-.homeBulletin2 {
-  grid-gap: 24px;
-  width: 100px;
-  height: 160px;
-  overflow-y: hidden;
-  overflow-x: scroll;
-}
-
-.homeBulletin {
-  height: 214px;
-  display: flex;
-  justify-content: space-between;
-  grid-gap: 16px;
-
-  overflow-y: hidden;
-  overflow-x: scroll;
-  margin-bottom: 50px;
-}
-
-.homeBulletin::-webkit-scrollbar {
-  display: none;
-}
-
-.bulletinBox {
-  width: 310px;
-  height: 160px;
-  border-radius: 16px;
-}
-
 .todaysSpecial {
   height: auto;
-  padding: 30px 0 22px 0;
+  padding: 20px 0 25px 0;
   position: relative;
 }
 
 .sectionBarTop {
   position: absolute;
   top: 0;
+  left: 0;
   height: 5px;
   width: 100%;
   background-color: #eeeeee;
@@ -115,6 +82,7 @@ h3 {
 .sectionBarBottom {
   position: absolute;
   bottom: 0;
+  left: 0;
   height: 5px;
   width: 100%;
   background-color: #eeeeee;
@@ -141,14 +109,14 @@ h3 {
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin-top: 26px;
+  margin-top: 22px;
 }
 
 .bigItemList li {
   display: inline-block;
-  width: 19.4%;
-  max-width: 197px;
-  min-width: 150px;
+  width: 22%;
+  max-width: 250px;
+  min-width: 100px;
   height: auto;
 }
 
@@ -172,7 +140,6 @@ h3 {
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin-top: 15px;
 
   overflow-y: hidden;
   overflow-x: scroll;
@@ -195,7 +162,7 @@ h3 {
   flex-shrink: 0;
   width: 15.3%;
   max-width: 157px;
-  min-width: 127px;
+
   height: auto;
 }
 
@@ -224,9 +191,9 @@ h3 {
 
 .categoryItemList li {
   flex-shrink: 0;
-  width: 15.3%;
+  width: 14%;
   max-width: 157px;
-  min-width: 127px;
+  min-width: 90px;
   height: auto;
 }
 
@@ -238,48 +205,23 @@ h3 {
 
 .categoryContainer {
   height: auto;
-  padding: 40px 0 20px 0;
+  padding: 25px 0 25px 0;
   position: relative;
-}
-
-.sectionBarTop {
-  position: absolute;
-  top: 0;
-  height: 5px;
-  width: 100%;
-  background-color: #eeeeee;
-  border: none;
-}
-
-.sectionBarBottom {
-  position: absolute;
-  bottom: 0;
-  height: 5px;
-  width: 100%;
-  background-color: #eeeeee;
-  border: none;
 }
 
 .categoryHeader {
   height: auto;
   position: relative;
   display: flex;
-  grid-gap: 30px;
+  grid-gap: 10px;
   align-items: center;
 }
 
-.categoryHeader img {
-  width: 10.9%;
+.categoryHeader div:first-child svg {
+  width: 60px;
 }
-/*
-@media screen and (max-width: 1280px) {
-  .homeContent {
-    width: 860px;
-    /* background-color: rgb(196, 255, 235); 
-  }
-}
-*/
-@media screen and (max-width: 900px) {
+
+@media screen and (max-width: 1200px) {
   h2 {
     font-size: 28px;
     line-height: 42px;
@@ -291,9 +233,7 @@ h3 {
   }
 
   .homeContent {
-    width: 100%;
-    margin-bottom: 100px;
-    padding: 0 16px;
+    width: 80%;
   }
 
   .homeCategoryContainer {
@@ -317,27 +257,76 @@ h3 {
     padding: 20px 0 22px 0;
   }
 
-  .homeBulletin {
-    height: 130px;
-  }
-
-  .homeBulletin::-webkit-scrollbar {
-    display: none;
-  }
-
-  .bulletinBox {
-    height: 130px;
-  }
-
   .todaysSpecialIcon {
     width: 22px;
     height: 31px;
   }
 
   .bigItemList li {
-    width: 150px;
+    width: clamp(100px, 17vw, 190px);
     height: auto;
     padding: 16px 0;
+  }
+
+  .smallItemSection h3 {
+    font-size: 22px;
+    line-height: 33px;
+  }
+
+  .smallItemList li {
+    width: clamp(100px, 11vw, 130px);
+    padding: 0;
+  }
+
+  .categoryHeader {
+    grid-gap: 19px;
+  }
+
+  .categoryHeader img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  h2 {
+    font-size: 28px;
+    line-height: 42px;
+  }
+
+  h3 {
+    font-size: 18px;
+    line-height: 21px;
+  }
+
+  .homeContent {
+    width: 90%;
+  }
+
+  .homeCategoryContainer {
+    height: 100px;
+  }
+
+  .homeCategoryNav {
+    grid-gap: 17px;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 0 15px;
+  }
+
+  .categoryCard img {
+    cursor: pointer;
+    width: 67px;
+    height: 67px;
+  }
+
+  .todaysSpecial {
+    padding: 20px 0 22px 0;
+  }
+
+  .todaysSpecialIcon {
+    width: 22px;
+    height: 31px;
   }
 
   .smallItemSection h3 {
@@ -354,24 +343,76 @@ h3 {
     height: 70px;
   }
 
-  .categoryItemList {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: space-between;
-  }
-
   .categoryItemList li {
-    width: 108px;
+    width: 95px;
   }
 }
 
-@media screen and (max-width: 700px) {
-  .bigItemList {
+@media screen and (max-width: 800px) {
+  .homeContent {
+    width: 95%;
+  }
+
+  .bigItemList li {
+    width: clamp(120px, 20vw, 150px);
+    height: auto;
+    padding: 16px 0;
+  }
+  .categoryItemList {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-left: auto;
     margin-right: auto;
-    grid-gap: 10px;
-    width: 310px;
+    grid-gap: 20px;
+    width: auto;
+    justify-items: center;
+    padding: 16px 0;
+  }
+
+  .categoryItemList li {
+    width: clamp(100px, 35vw, 200px);
+    padding: 0;
+  }
+
+  .smallItemList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: auto;
+    margin-right: auto;
+    grid-gap: 20px;
+    width: auto;
+    justify-items: center;
+    padding: 16px 0;
+  }
+
+  .smallItemList li {
+    width: clamp(100px, 35vw, 200px);
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .homeContent {
+    width: 100%;
+  }
+
+  .todaysSpecial {
+    padding-inline: 6.4%;
+    padding-block: 25px 30px;
+  }
+
+  .bigItemList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    column-gap: 8.2%;
+    row-gap: 2%;
+    width: auto;
+  }
+  .bigItemList li {
+    width: 100%;
+    padding: 0;
   }
 }

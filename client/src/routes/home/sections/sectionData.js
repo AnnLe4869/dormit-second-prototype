@@ -103,7 +103,7 @@ export const derivedSections = [
     sectionListId: "dealsList",
     sectionName: "Deals",
     additionalComponent: (
-      <Typography sx={[headers.header3, { color: "#969696", fontWeight: 400 }]}>
+      <Typography sx={[headers.header3, { color: "#969696" }]}>
         Don't miss out!
       </Typography>
     ),

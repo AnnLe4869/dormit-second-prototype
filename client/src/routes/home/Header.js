@@ -28,9 +28,9 @@ function Header() {
         >
           <Button
             sx={headerStyles.headerButton}
-            endIcon={<ExpandMoreIcon transform="scale(1.4)" />}
+            endIcon={<ExpandMoreIcon transform="scale(1.2)" />}
           >
-            <Typography sx={headers.header5} fontWeight={200}>
+            <Typography sx={headerStyles.headerDelivery}>
               Delivery Location
             </Typography>
           </Button>

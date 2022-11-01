@@ -1,11 +1,13 @@
 export const headers = {
   header6: {
-    fontWeight: 400,
+    fontFamily: "Poppins",
+    fontWeight: 500,
     fontSize: "16px",
-    lineHeight: "24px",
-    "@media screen and (max-width: 900px)": {
-      fontSize: "14px",
-      lineHeight: "17px",
+    color: "black",
+    lineHeight: "16px",
+    "@media screen and (max-width: 1200px)": {
+      fontSize: "13px",
+      lineHeight: "16px",
     },
   },
 
@@ -21,26 +23,6 @@ export const headers = {
 };
 
 export const homepageStyles = {
-  leftArrow: {
-    position: "absolute",
-    top: "30%",
-    left: -52,
-    color: "#7141FA",
-    "@media screen and (max-width: 900px)": {
-      display: "none",
-    },
-  },
-
-  rightArrow: {
-    position: "absolute",
-    top: "30%",
-    right: -52,
-    color: "#7141FA",
-    "@media screen and (max-width: 900px)": {
-      display: "none",
-    },
-  },
-
   seeAll: {
     position: "absolute",
     top: 0,

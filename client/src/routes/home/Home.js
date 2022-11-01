@@ -7,6 +7,7 @@ import { useProducts } from "../../context/product/product-handler";
 import { getCategories } from "../../helper/getProductsCategories";
 import { getSection } from "../../helper/getProductsCategories";
 import { getProducts } from "../../helper/getProductsCategories";
+
 /*
  * Components
  */
@@ -30,14 +31,16 @@ import { derivedSections } from "./sections/sectionData.js";
 /*
  * Material UI Imports
  */
-import Box from "@mui/material/Box";
+
+import { Box, Typography, Grid } from "@mui/material";
 
 /*
  * Style sheets
  */
 import HomeCSS from "./Home.module.css";
-import { homepageStyles } from "./muiStyles";
+import { homepageStyles, headers } from "./muiStyles";
 import { UserContext } from "../../context/user/user-context";
+import { ReactComponent as UcsdLogo } from "../../assets/ucsdLogo.svg";
 
 export default function HomePage() {
   const products = useProducts();
@@ -58,6 +61,7 @@ export default function HomePage() {
           ) : (
             <h3>Loading...</h3>
           )}
+
           {/**
            * Special sections
            * items in this section have different styling, thus has its own component
@@ -80,10 +84,60 @@ export default function HomePage() {
           />
 
           {/* Bulletin */}
-          <section className={HomeCSS.homeBulletin}>
-            <Box sx={homepageStyles.bulletinBox} />
-            <Box sx={homepageStyles.bulletinBox} />
-          </section>
+          <Grid
+            container
+            rowSpacing={2}
+            columnSpacing={{ sm: 0 }}
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <Grid item xs={12} sm={5.8}>
+              <Box sx={homepageStyles.bulletinBox1}>
+                <Typography sx={headers.bulletinBoxHeader1}>
+                  Welcome to UCSD
+                </Typography>
+                <Typography sx={headers.header5}>Store Hours:</Typography>
+                <Typography sx={headers.header4}>6pm - 1am</Typography>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    right: 0,
+                    bottom: 0,
+                    overflow: "hidden",
+                  }}
+                >
+                  <UcsdLogo />
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={5.8}>
+              <Grid container sx={homepageStyles.bulletinBox2}>
+                <Grid item xs={8} md={9} sm={8.5} sx={{ padding: "25px 30px" }}>
+                  <Typography sx={headers.bulletinBoxHeader2}>
+                    Call-to-action!
+                  </Typography>
+                  <Typography sx={headers.header6}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do.
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={4}
+                  md={3}
+                  sm={3.5}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#E5E5E5",
+                    color: "black",
+                  }}
+                >
+                  Image
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
 
           {/**
            * sections for category items
