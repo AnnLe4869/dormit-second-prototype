@@ -3,7 +3,7 @@ import { SelectedOrderCtx } from "../../../context/SelectedOrderCtx";
 import RusherInformation from "./RusherInformation";
 import Rusher__DropOff from "./Rusher__DropOff";
 import Rusher__PickUp from "./Rusher__PickUp";
-//
+// helper
 import { useHorizontalScroll } from "./useSideScroll";
 
 const RusherCard = ({ rusherInfo }) => {

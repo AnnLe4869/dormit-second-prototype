@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // components
 import LeftPanel__Order from "./LeftPanel__Order";
-import { orderData } from "../../../data/orderData";
+
 // context
 import { orderCtx } from "../../../context/OrdersCtx";
-import { useState } from "react";
 
 const LeftPanel__Body = () => {
   const [orders, setOrders] = useContext(orderCtx);

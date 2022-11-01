@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { SelectedOrderCtx } from "../../../context/SelectedOrderCtx";
+import OrderPopover from "./OrderPopover";
 
 const LeftPanel__Order = ({ order }) => {
+  const [selectedOrder, setSelectedOrder] = useContext(SelectedOrderCtx);
   return (
     <div
       className={`leftPanel__Order ${
