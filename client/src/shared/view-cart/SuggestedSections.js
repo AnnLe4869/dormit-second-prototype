@@ -8,7 +8,17 @@ function SuggestedSections({ section, products }) {
     return (
         <>
         <Box sx={{marginBottom: "30px"}}>
-          <Typography variant="h4">{section.sectionName}</Typography>
+          <Typography 
+            variant="h4"
+            sx={{
+                fontSize: "22px",
+                fontWeight: "700",
+                fontFamily: "Poppins",
+                lineHeight: "33px"
+            }}
+        >
+            {section.sectionName}
+        </Typography>
             <div className={HomeCSS.categoryListContainer}>
                 <ul
                 className={HomeCSS.categoryItemList}

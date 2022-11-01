@@ -13,6 +13,7 @@ import {
 } from "../../context/user/cart-handler";
 import { useActivateErrorAlert } from "../../context/alert/alert-handler";
 import { Image } from "../loading-image/Image";
+import TrashIcon from '../../assets/Cart/TrashIcon.svg'
 
 const CartItem = ({ id, name, desc, quantity, photo, price }) => {
   const [item, setitem] = useState(true);
@@ -58,17 +59,18 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             justifyContent: "center",
             border: "none",
             width: "40%",
-            color: "#7141FA",
+            color: "#686868",
           }}
           onClick={decrease}
         >
-          <KeyboardArrowDownOutlinedIcon sx={{fontSize: "30px"}} />
+          <KeyboardArrowDownOutlinedIcon sx={{fontSize: "28px"}} />
         </Button>
         <Divider
           orientation="vertical"
           flexItem
           sx={{
             color: "black",
+            borderLeftWidth: "0.5px"
           }}
         />
         <Typography
@@ -83,7 +85,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             alignItems: "center",
             justifyContent: "center",
             textAlign: "center",
-            padding: "0 18%"
+            padding: "0 17%"
           }}
         >
           {quan}
@@ -93,6 +95,7 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
           flexItem
           sx={{
             color: "black",
+            borderLeftWidth: "0.5px"
           }}
         />
         <Button
@@ -104,11 +107,11 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
             alignItems: "center",
             justifyContent: "center",
             border: "none",
-            color: "#7141FA",
+            color: "#686868",
           }}
           onClick={increase}
         >
-          <KeyboardArrowUpOutlinedIcon sx={{fontSize: "30px"}} />
+          <KeyboardArrowUpOutlinedIcon sx={{fontSize: "28px"}} />
         </Button>
       </Box>
     );
@@ -133,27 +136,30 @@ const CartItem = ({ id, name, desc, quantity, photo, price }) => {
                 >
                   {name}
                 </Typography>
-                <Typography
-                  sx={cartItemStyles.cartItemDescription}
-                  className={styles.descriptionBox}
-                >
-                  {desc}
-                </Typography>
               </Box>
-              <DeleteOutlineIcon
-                onClick={toggleDel}
-                sx={cartItemStyles.cartItemDelete}
-              />
-            </Box>
-            <Box
-              sx={cartItemStyles.cartItemPriceBox}
-            >
               <Typography
                 variant="body1"
                 sx={cartItemStyles.cartItemPrice}
               >
                 ${((price / 100) * quantity).toFixed(2)}
               </Typography>
+            </Box>
+            <Box>
+                <Typography
+                  sx={cartItemStyles.cartItemDescription}
+                  className={styles.descriptionBox}
+                >
+                  {desc}
+                </Typography>
+            </Box>
+            <Box
+              sx={cartItemStyles.cartItemActions}
+            > 
+              <img
+                src={TrashIcon}
+                onClick={toggleDel}
+                className={styles.cartItemDelete}
+              />
               <Counter />
             </Box>
           </Box>
