@@ -3,6 +3,7 @@
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   column-gap: 4%;
+  row-gap: 8px;
   padding-inline: 6%;
 }
 

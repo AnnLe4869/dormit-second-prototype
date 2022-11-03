@@ -22,17 +22,6 @@
   cursor: pointer;
 }
 
-.header {
-  top: 0;
-  min-height: 80px;
-  max-height: 100px;
-  height: 10vw;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-}
-
 .bigItemList {
   grid-gap: 10%;
   display: flex;
@@ -50,14 +39,13 @@
 .back {
   position: absolute;
   padding: 0.8%, 0;
+  width: 48px;
+  height: 48px;
   left: 30px;
-  /* top: 25px;
-  left: 30px; */
   cursor: pointer;
 }
 
 .title {
-  text-align: center;
   font-family: "Poppins";
   font-weight: 700;
   font-size: 28px;
