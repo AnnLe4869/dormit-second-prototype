@@ -8,37 +8,32 @@
   align-items: center;
 }
 
-.header {
-  position: absolute;
-  top: 0;
+.page section > p {
+  display: none;
+}
 
+.page li > div > button:first-child {
+  right: calc(-3%);
+  top: calc(-3%);
+  width: 34px;
+  border: none;
+  background-color: rgb(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.header {
+  top: 0;
   min-height: 80px;
   max-height: 100px;
   height: 10vw;
   width: 100%;
-  background-color: #7141fa;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-
-  justify-content: center;
-}
-
-.page {
-  text-align: center;
-  margin-top: 125px;
-  margin-bottom: 100px;
-  width: 74%;
-  max-width: 1060px;
-}
-
-.supplies {
-  /* display: flex; */
 }
 
 .bigItemList {
-  padding: 4px 0;
-  grid-gap: 5%;
+  grid-gap: 10%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -46,11 +41,8 @@
 }
 
 .bigItemList li {
-  margin-top: 50px;
   display: inline-block;
-  width: 19.4%;
-  max-width: 200px;
-  min-width: 150px;
+  width: 100%;
   height: auto;
 }
 
@@ -64,12 +56,11 @@
 }
 
 .title {
-  color: white;
   text-align: center;
   font-family: "Poppins";
-  font-style: normal;
   font-weight: 700;
-  font-size: min(2.9vw, 34px);
+  font-size: 28px;
+  line-height: 42px;
 }
 
 .suggestions {
@@ -134,27 +125,27 @@
   justify-content: space-between;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
   .title {
     font-size: 26px;
     line-height: 39px;
   }
 
-  .supplies {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 0px;
-    justify-content: left;
-    margin-bottom: 50px;
-    grid-row-gap: 10px;
+  .page {
+    padding-inline: 12%;
   }
 
-  .page {
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 100px;
-    margin-right: 6%;
-    margin-left: 6%;
+  .bigItemList {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    list-style: none;
+    margin-top: 50px;
+    column-gap: 4%;
+    row-gap: 30px;
+    /* grid-gap: 17px; */
+    transition-delay: 1s;
   }
 
   .item {

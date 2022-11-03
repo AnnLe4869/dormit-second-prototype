@@ -10,14 +10,12 @@ import styles from "./Category.module.css";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import SendIcon from "@mui/icons-material/Send";
 
+import { Box } from "@mui/material";
 import { categories } from "./CategoryProps.js";
-
-import { mockProducts } from "../../mock_data/data/mockData.js";
 
 import { useProducts } from "../../context/product/product-handler";
 import { renderCategory } from "../../helper/renderProducts.js";
-
-import apple from "../../assets/apple.png";
+import { getSection } from "../../helper/getProductsCategories";
 
 function Category() {
   let products = useProducts().slice(1);
@@ -66,16 +64,32 @@ function Category() {
     alert("Thank you for your suggestions.");
   };
 
+  const section = getSection(useProducts(), props.category);
+
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "column",
+          height: "10vw",
+          width: "100%",
+          minHeight: "80px",
+          maxHeight: "100px",
+          alignItems: "center",
+          justifyContent: "center",
+          color: section.category_style.color,
+          backgroundColor: section.category_style.background_color,
+        }}
+      >
         <NavigateBeforeIcon
           className={styles.back}
-          style={{ width: 48, height: 48, color: "#FFFFFF" }}
+          style={{ width: 48, height: 48 }}
           onClick={navigateItems}
         />
         <p className={styles.title}>{props.title}</p>
-      </header>
+      </Box>
       <div className={styles.page}>
         <div className={styles.supplies}>
           <ul className={styles.bigItemList}>

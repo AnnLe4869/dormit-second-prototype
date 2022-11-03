@@ -24,7 +24,6 @@ function SpecialSection({ section, products }) {
       className={HomeCSS.todaysSpecial}
       id={section.category_name + "Section"}
     >
-      <hr className={HomeCSS.sectionBarTop} />
       <div className={HomeCSS.todaysSpecialHeader}>
         <Button
           variant="contained"
@@ -70,8 +69,6 @@ function SpecialSection({ section, products }) {
       >
         <Typography sx={headers.seeAllFont}>See All</Typography>
       </Button>
-
-      <hr className={HomeCSS.sectionBarBottom} />
     </section>
   );
 }

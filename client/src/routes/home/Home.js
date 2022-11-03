@@ -40,7 +40,7 @@ import { Box, Typography, Grid } from "@mui/material";
 import HomeCSS from "./Home.module.css";
 import { homepageStyles, headers } from "./muiStyles";
 import { UserContext } from "../../context/user/user-context";
-import { ReactComponent as UcsdLogo } from "../../assets/ucsdLogo.svg";
+import ucsdLogo from "../../assets/ucsdLogo.svg";
 
 export default function HomePage() {
   const products = useProducts();
@@ -67,6 +67,7 @@ export default function HomePage() {
            * items in this section have different styling, thus has its own component
            */}
 
+          <hr className={HomeCSS.sectionBarTop} />
           {products.length > 0 && (
             <SpecialSection
               section={getSection(products, "specials")}
@@ -78,66 +79,65 @@ export default function HomePage() {
            * sections for derived items - section which properties derived from data
            * like Trending or Deals sections
            */}
+          <hr className={HomeCSS.sectionBarTop} />
           <DerivedSections
             products={getProducts(products)}
             sections={derivedSections}
           />
 
           {/* Bulletin */}
-          <Grid
-            container
-            rowSpacing={2}
-            columnSpacing={{ sm: 0 }}
-            sx={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <Grid item xs={12} sm={5.8}>
-              <Box sx={homepageStyles.bulletinBox1}>
-                <Typography sx={headers.bulletinBoxHeader1}>
+          <section>
+            <div className={HomeCSS.bulletinContainer}>
+              <div className={HomeCSS.bulletinBox}>
+                <Typography sx={headers.bulletinBox1Header1}>
                   Welcome to UCSD
                 </Typography>
-                <Typography sx={headers.header5}>Store Hours:</Typography>
-                <Typography sx={headers.header4}>6pm - 1am</Typography>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    right: 0,
-                    bottom: 0,
-                    overflow: "hidden",
-                  }}
-                >
-                  <UcsdLogo />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={5.8}>
-              <Grid container sx={homepageStyles.bulletinBox2}>
-                <Grid item xs={8} md={9} sm={8.5} sx={{ padding: "25px 30px" }}>
-                  <Typography sx={headers.bulletinBoxHeader2}>
-                    Call-to-action!
-                  </Typography>
-                  <Typography sx={headers.header6}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do.
-                  </Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={4}
-                  md={3}
-                  sm={3.5}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "#E5E5E5",
-                    color: "black",
-                  }}
-                >
-                  Image
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+                <Typography sx={headers.bulletinBox1Header2}>
+                  Store Hours:
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header3}>
+                  6pm - 1am
+                </Typography>
+                <img
+                  src={ucsdLogo}
+                  className={HomeCSS.ucsdLogo}
+                  alt="ucsd-logo-icon"
+                />
+              </div>
+              <div className={HomeCSS.bulletinBox}>
+                <Typography sx={headers.bulletinBox1Header1}>
+                  Welcome to UCSD
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header2}>
+                  Store Hours:
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header3}>
+                  6pm - 1am
+                </Typography>
+                <img
+                  src={ucsdLogo}
+                  className={HomeCSS.ucsdLogo}
+                  alt="ucsd-logo-icon"
+                />
+              </div>
+              <div className={HomeCSS.bulletinBox}>
+                <Typography sx={headers.bulletinBox1Header1}>
+                  Welcome to UCSD
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header2}>
+                  Store Hours:
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header3}>
+                  6pm - 1am
+                </Typography>
+                <img
+                  src={ucsdLogo}
+                  className={HomeCSS.ucsdLogo}
+                  alt="ucsd-logo-icon"
+                />
+              </div>
+            </div>
+          </section>
 
           {/**
            * sections for category items

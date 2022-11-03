@@ -44,14 +44,45 @@ export const headers = {
     },
   },
 
-  bulletinBoxHeader1: {
+  bulletinBox1Header1: {
     fontFamily: "Poppins",
     fontWeight: 500,
     color: "white",
     fontSize: "clamp(26px, 2.9vw, 36px)",
-    marginBottom: "20px",
-    "@media screen and (max-width: 500px)": {
-      fontSize: "18px",
+    marginBottom: "10px",
+    "@media screen and (max-width: 600px)": {
+      fontWeight: "500",
+      fontSize: "24px",
+      lineHeight: "36px",
+    },
+  },
+
+  bulletinBox1Header2: {
+    fontFamily: "Inter",
+    fontWeight: 400,
+    fontSize: "18px",
+    lineHeight: "21px",
+    color: "white",
+  },
+
+  bulletinBox1Header3: {
+    fontFamily: "Inter",
+    fontWeight: 600,
+    fontSize: "18px",
+    lineHeight: "21px",
+    color: "white",
+  },
+
+  bulletinBox2Header1: {
+    fontFamily: "Poppins",
+    fontWeight: 500,
+    color: "white",
+    fontSize: "clamp(26px, 2.9vw, 36px)",
+    marginBottom: "10px",
+    "@media screen and (max-width: 600px)": {
+      fontWeight: "500",
+      fontSize: "24px",
+      lineHeight: "36px",
     },
   },
 
@@ -179,37 +210,6 @@ export const homepageStyles = {
     },
   },
 
-  bulletinBox1: {
-    position: "relative",
-    padding: "25px 30px",
-    color: "white",
-    overflow: "hidden",
-    height: 214,
-    borderRadius: "16px",
-    backgroundColor: "#2F3997",
-    "@media screen and (max-width: 900px)": {
-      height: 190,
-    },
-    "@media screen and (max-width: 600px)": {
-      height: 150,
-    },
-  },
-
-  bulletinBox2: {
-    position: "relative",
-    color: "white",
-    overflow: "hidden",
-    height: 214,
-    borderRadius: "16px",
-    backgroundColor: "#7141FA",
-    "@media screen and (max-width: 900px)": {
-      height: 190,
-    },
-    "@media screen and (max-width: 600px)": {
-      height: 150,
-    },
-  },
-
   categoryButton: {
     width: 147,
     height: 36,
@@ -271,7 +271,7 @@ export const homepageStyles = {
   },
 
   seeAllMobile: {
-    marginTop: "20px",
+    marginTop: "16px",
     width: "100%",
     height: 51,
     borderRadius: "24px",

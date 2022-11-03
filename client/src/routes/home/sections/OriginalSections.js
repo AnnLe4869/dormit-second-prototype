@@ -25,22 +25,55 @@ function OriginalSections({ sections, products }) {
   return (
     <>
       {categories.map((section) => (
-        <section
-          className={HomeCSS.categoryContainer}
-          key={section.category_name}
-          id={section.category_name + "Section"}
-        >
+        <>
           <hr className={HomeCSS.sectionBarTop} />
-          <div className={HomeCSS.categoryHeader}>
-            <div dangerouslySetInnerHTML={{ __html: section.category_icon }} />
-            <Typography sx={headers.header2}>
-              {convertToUpperCase(section.category_name)}
-            </Typography>
+          <section
+            className={HomeCSS.categoryContainer}
+            key={section.category_name}
+            id={section.category_name + "Section"}
+          >
+            <div className={HomeCSS.categoryHeader}>
+              <div
+                dangerouslySetInnerHTML={{ __html: section.category_icon }}
+              />
+              <Typography sx={headers.header2}>
+                {convertToUpperCase(section.category_name)}
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={() => navigateCategory(section.category_name)}
+                sx={[
+                  homepageStyles.seeAll,
+                  {
+                    color: section.category_style.color,
+                    backgroundColor: section.category_style.background_color,
+                    "&:hover": {
+                      backgroundColor: section.category_style.background_color,
+                    },
+                  },
+                ]}
+              >
+                <Typography sx={headers.seeAllFont}>See All</Typography>
+              </Button>
+            </div>
+
+            <div className={HomeCSS.categoryListContainer}>
+              <ul
+                className={HomeCSS.categoryItemList}
+                id={section.category_name + "List"}
+              >
+                {renderCategory(products, section.category_name, 6).map(
+                  (item) => (
+                    <li>{item}</li>
+                  )
+                )}
+              </ul>
+            </div>
             <Button
               variant="contained"
               onClick={() => navigateCategory(section.category_name)}
               sx={[
-                homepageStyles.seeAll,
+                homepageStyles.seeAllMobile,
                 {
                   color: section.category_style.color,
                   backgroundColor: section.category_style.background_color,
@@ -52,21 +85,8 @@ function OriginalSections({ sections, products }) {
             >
               <Typography sx={headers.seeAllFont}>See All</Typography>
             </Button>
-          </div>
-
-          <div className={HomeCSS.categoryListContainer}>
-            <ul
-              className={HomeCSS.categoryItemList}
-              id={section.category_name + "List"}
-            >
-              {renderCategory(products, section.category_name, 6).map(
-                (item) => (
-                  <li>{item}</li>
-                )
-              )}
-            </ul>
-          </div>
-        </section>
+          </section>
+        </>
       ))}
     </>
   );
