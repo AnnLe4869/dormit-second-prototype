@@ -17,6 +17,8 @@ import { useProducts } from "../../context/product/product-handler";
 import { renderCategory } from "../../helper/renderProducts.js";
 import { getSection } from "../../helper/getProductsCategories";
 
+import submitIcon from "../../assets/submit-icon.svg";
+
 function Category() {
   let products = useProducts().slice(1);
 
@@ -71,10 +73,11 @@ function Category() {
       <Box
         sx={{
           display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "column",
+          position: "sticky",
+          top: 0,
           height: "10vw",
           width: "100%",
+          zIndex: 2,
           minHeight: "80px",
           maxHeight: "100px",
           alignItems: "center",
@@ -103,9 +106,9 @@ function Category() {
           </ul>
         </div>
 
-        <div>
+        <div className={styles.suggestionContainer}>
           <p className={styles.suggestions}>Didn't find what you wanted?</p>
-          <div className={styles.suggestionContainer}>
+          <div className={styles.inputContainer}>
             <input
               className={styles.suggestionInput}
               type="text"
@@ -116,16 +119,12 @@ function Category() {
               type="submit"
               onClick={sendSuggestions}
             >
-              <SendIcon />
+              <img src={submitIcon} alt="submit-icon" />
             </button>
           </div>
         </div>
 
-        <div>
-          <p className={styles.jumpToAnotherCategory}>
-            Jump to another category
-          </p>
-        </div>
+        <p className={styles.jumpToAnotherCategory}>Jump to another category</p>
 
         <CategoryMenu />
       </div>
