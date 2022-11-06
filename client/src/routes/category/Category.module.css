@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.page section div > p {
+  margin-top: 7.3px;
+}
+
 .page section > p {
   display: none;
 }
@@ -111,6 +115,7 @@
   display: flex;
   justify-content: center;
   margin-top: 43px;
+  margin-bottom: 13px;
 }
 
 .item {

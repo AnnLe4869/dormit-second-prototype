@@ -28,27 +28,13 @@ function ViewCart({ numItems, totalAmount }) {
         >
           <Grid container spacing={0} sx={viewCartStyles.viewCartGrid}>
             <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
-              <Typography
-                sx={headers.header5}
-                fontWeight={600}
-                marginBottom="6px"
-              >
-                {numItems} Items
-              </Typography>
+              <Typography sx={headers.header5}>{numItems} Items</Typography>
             </Grid>
             <Grid item xs={5} sx={viewCartStyles.viewCartText}>
-              <Typography sx={headers.header3} fontWeight={600}>
-                View Cart
-              </Typography>
+              <Typography sx={headers.header3}>View Cart</Typography>
             </Grid>
             <Grid item xs={3.5} sx={viewCartStyles.viewCartText}>
-              <Typography
-                sx={headers.header5}
-                fontWeight={600}
-                marginBottom="6px"
-              >
-                ${totalAmount}
-              </Typography>
+              <Typography sx={headers.header5}>${totalAmount}</Typography>
             </Grid>
           </Grid>
         </Button>

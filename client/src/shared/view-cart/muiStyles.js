@@ -1,15 +1,18 @@
 export const headers = {
   header3: {
+    fontFamily: "Poppins",
     fontWeight: 700,
-    fontSize: "24px",
-    color: "#7141FA",
+    fontSize: "22px",
+    lineHeight: "33px",
+    color: "#FFFFFF",
   },
 
   header5: {
+    fontFamily: "Inter",
     fontWeight: 700,
-    fontSize: "18px",
-    lineHeight: "21px",
-    color: "#7141FA",
+    fontSize: "16px",
+    lineHeight: "19px",
+    color: "#FFFFFF",
   },
 };
 
@@ -20,24 +23,15 @@ export const viewCartStyles = {
     left: "50%",
     transform: "translateX(-50%)",
     bottom: "100px",
-    width: 360,
-    height: 47,
-    backgroundColor: "#ffffff",
-    border: "1px solid #C4C4C4",
-    borderRadius: "15px",
+    width: "91.5%",
+    height: 60,
+    backgroundColor: "#7141FA",
+    borderRadius: "20px",
     textTransform: "none",
-    "&:hover": {
-      backgroundColor: "#ffffff",
-    },
   },
 
   viewCartGrid: {
-    direction: "column",
-    alignItems: "flex-end",
-  },
-
-  viewCartText: {
-    textAlign: "center",
+    alignItems: "center",
   },
 
   cartDrawer: {
