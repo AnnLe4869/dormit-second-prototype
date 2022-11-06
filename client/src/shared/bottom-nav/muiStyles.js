@@ -1,30 +1,24 @@
 export const bottomNavStyles = {
   bottomNav: {
     width: "100%",
+    position: "sticky",
     bottom: 0,
-    height: "auto",
-    padding: "0.1% 0",
-    maxHeight: 70,
-    borderTop: "2px solid #B8B8B8",
-    position: "fixed",
+    height: "68px",
+    borderTop: "1.5px solid #C1C1C1",
     zIndex: "1",
     display: "flex",
-    justifyContent: "space-evenly",
-    "& .Mui-selected, .Mui-selected > svg": {
-      color: "#7141fa",
+    "& .Mui-selected, .Mui-selected > svg > path": {
+      fill: "#7141fa",
+    },
+    "&.MuiButtonBase-root:hover": {
+      backgroundColor: " unset",
     },
   },
 
   bottomNavButton: {
     width: "100%",
-
     "&:hover": {
       color: "#7141fa",
     },
-  },
-
-  buttonNavIcon: {
-    height: "auto",
-    width: "22%",
   },
 };

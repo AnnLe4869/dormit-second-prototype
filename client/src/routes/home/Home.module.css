@@ -194,12 +194,16 @@ h3 {
   height: auto;
 }
 
+.bigItemList section {
+  margin-top: 5px;
+}
+
 .categoryContainer section > p {
   display: none;
 }
 
 .categoryContainer section div > p {
-  margin-top: 4px;
+  margin-top: 10px;
 }
 
 .smallItemSection section > p {
@@ -207,7 +211,7 @@ h3 {
 }
 
 .smallItemSection section div > p {
-  margin-top: 4px;
+  margin-top: 10px;
 }
 
 .seeAllButton {
@@ -246,6 +250,7 @@ h3 {
   white-space: nowrap;
   overflow-x: scroll;
   column-gap: 3%;
+  margin-top: 10px;
 }
 
 .bulletinContainer::-webkit-scrollbar {
@@ -417,6 +422,7 @@ h3 {
 @media screen and (max-width: 600px) {
   .homeContent {
     width: 100%;
+    margin-bottom: 50px;
   }
 
   .homeContent > section {
@@ -464,5 +470,6 @@ h3 {
   .smallItemList li {
     width: 35.1%;
     padding: 0;
+    margin-bottom: 10px;
   }
 }

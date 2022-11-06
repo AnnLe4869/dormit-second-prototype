@@ -140,7 +140,9 @@ const ProductListing = ({
           className={styles.itemImage}
           onClick={() => setShowDetails((o) => !o)}
         >
-          <Image image={image} />
+          <div className={styles.itemImageContainer}>
+            <Image image={image} />
+          </div>
         </button>
 
         {/* Item Info (Price, Stock) */}

@@ -140,6 +140,10 @@
     line-height: 39px;
   }
 
+  .page {
+    padding-bottom: 31px;
+  }
+
   .bigItemList {
     display: grid;
     justify-items: center;
