@@ -425,7 +425,15 @@ h3 {
     margin-bottom: 50px;
   }
 
-  .homeContent > section {
+  .smallItemSection > p {
+    padding-left: 7%;
+  }
+
+  .smallItemSection > div > ul {
+    padding-left: 7%;
+  }
+
+  .bulletinContainer {
     padding-left: 7%;
   }
 
