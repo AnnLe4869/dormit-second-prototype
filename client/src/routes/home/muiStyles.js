@@ -136,15 +136,15 @@ export const headerStyles = {
       "&::before": {
         content: "''",
         display: "block",
-        height: "16px",
+        height: "10px",
         position: "sticky",
-        top: "48px",
+        top: "54px",
         boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.2)",
       },
       "&::after": {
         content: "''",
         display: "block",
-        height: "22px",
+        height: "20px",
         position: "sticky",
         background:
           "linear-gradient(white 100%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.4) 70%, transparent)",
