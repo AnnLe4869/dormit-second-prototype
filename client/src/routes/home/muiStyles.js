@@ -129,10 +129,37 @@ export const headerStyles = {
     },
     "@media screen and (max-width: 600px)": {
       p: 0,
-      height: 93,
+      height: 80,
       position: "sticky",
+      top: "-16px",
       backgroundColor: "#ffffff",
+      "&::before": {
+        content: "''",
+        display: "block",
+        height: "16px",
+        position: "sticky",
+        top: "48px",
+        boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.2)",
+      },
+      "&::after": {
+        content: "''",
+        display: "block",
+        height: "22px",
+        position: "sticky",
+        background:
+          "linear-gradient(white 100%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.4) 70%, transparent)",
+        top: 0,
+        zIndex: "2",
+      },
     },
+  },
+
+  headerGrid: {
+    height: "64px",
+    position: "sticky",
+    top: "0px",
+    marginTop: "-26px",
+    zIndex: "3",
   },
 
   headerButton: {
@@ -152,7 +179,11 @@ export const headerStyles = {
       textAlign: "right",
     },
     "@media screen and (max-width: 600px)": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       textAlign: "center",
+      height: "100%",
     },
   },
 
