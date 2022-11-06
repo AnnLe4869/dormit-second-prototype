@@ -10,20 +10,30 @@ import { sxButton } from "./muiStyles";
 
 const RightPanel = () => {
   const [active, setActive] = useState(true);
-  const [Rushers] = useState(rushers);
+  const [Rushers, setRushers] = useState(rushers);
+  const [status, setStatus] = useState("on");
+
+  // show active/inactive rushers
+  useEffect(() => {
+    active ? setStatus("on") : setStatus("off");
+  }, [active]);
 
   return (
     <ThemeProvider theme={sxButton}>
       <div className="rightPanel">
         <RightPanel__Header onToggleActive={setActive} />
 
-        {active
+        {/* {active
           ? Rushers.filter((r) => r.status == "on").map((r, i) => (
               <RusherCard rusherInfo={r} key={i} />
             ))
           : Rushers.filter((r) => r.status == "off").map((r, i) => (
               <RusherCard rusherInfo={r} key={i} />
-            ))}
+            ))} */}
+        {/* why active ? 'on':'off'; didnt work   ??? */}
+        {Rushers.filter((r) => r.status == status).map((r, i) => (
+          <RusherCard rusherInfo={r} key={r.name} />
+        ))}
       </div>
     </ThemeProvider>
   );

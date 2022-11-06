@@ -1,15 +1,15 @@
 import { createContext, useState } from "react";
 import { orderData } from "../data/orderData";
 
-export const orderCtx = createContext();
+export const OrderCtx = createContext();
 
 const OrderProvider = (props) => {
-  const [orders, setOrders] = useState(orderData.map((e) => e));
+  const [orders, setOrders] = useState(orderData);
 
   return (
-    <orderCtx.Provider value={[orders, setOrders]}>
+    <OrderCtx.Provider value={[orders, setOrders]}>
       {props.children}
-    </orderCtx.Provider>
+    </OrderCtx.Provider>
   );
 };
 

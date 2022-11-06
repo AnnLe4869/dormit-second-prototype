@@ -3,10 +3,10 @@ import React, { useContext, useEffect, useState } from "react";
 import LeftPanel__Order from "./LeftPanel__Order";
 
 // context
-import { orderCtx } from "../../../context/OrdersCtx";
+import { OrderCtx } from "../../../context/OrdersCtx";
 
 const LeftPanel__Body = () => {
-  const [orders, setOrders] = useContext(orderCtx);
+  const [orders, setOrders] = useContext(OrderCtx);
 
   return (
     <div className="leftPanel__Body">

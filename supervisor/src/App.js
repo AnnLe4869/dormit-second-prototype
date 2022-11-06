@@ -9,12 +9,12 @@ import OrderProvider from "./context/OrdersCtx";
 function App() {
   return (
     <div className="App">
-      <OrderProvider>
-        <SelectedOrderProvider>
+      <SelectedOrderProvider>
+        <OrderProvider>
           <LeftPanel />
           <RightPanel />
-        </SelectedOrderProvider>
-      </OrderProvider>
+        </OrderProvider>
+      </SelectedOrderProvider>
       {/* <RusherOnlineRequest /> */}
       {/* <PhoneVerification /> */}
     </div>

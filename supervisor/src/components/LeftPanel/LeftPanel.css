@@ -38,6 +38,7 @@
 }
 /* ORDER COMPONENT */
 .leftPanel__Order {
+  position: relative;
   width: auto;
   max-width: 100%;
   height: max-content;
@@ -73,8 +74,8 @@
   height: 425px;
   left: 93px;
   top: 87px;
-  background: #FFFFFF;
-  border: 2px solid #C8D1FF;
+  background: #ffffff;
+  border: 2px solid #c8d1ff;
   border-radius: 15px;
 }
 
@@ -84,7 +85,6 @@
   height: 31.95px;
   left: 116px;
   top: 465px;
-  background: #7C91F4;
+  background: #7c91f4;
   border-radius: 100px;
-
 }

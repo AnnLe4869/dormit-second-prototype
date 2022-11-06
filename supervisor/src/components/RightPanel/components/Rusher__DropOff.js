@@ -1,22 +1,15 @@
 import React from "react";
 
-const Rusher__DropOff = () => {
-  const person = {
-    name: "Jacop",
-    number: "4K538",
-    items: 5,
-    adress: "Mosaic Building FLoor 4 Room 3B",
-    eta: 10,
-  };
+const Rusher__DropOff = ({ order }) => {
   return (
-    <div className="rusherDropOff" draggable>
+    <div className="rusherDropOff">
       <div className="namePhone">
-        <span className="name">{person.name}</span> - {person.number} (
-        {person.items} items)
+        <span className="name">{order.clientName}</span> - {order.orderNo} (
+        {order.itemAmount} items)
       </div>
-      <div className="adress">{person.adress}</div>
+      <div className="adress">{order.adress}</div>
       <div className="eta">
-        <b>DROPOFF</b> ETA {person.eta} min
+        <b>DROPOFF</b> ETA {order.dropOffETA} min
       </div>
     </div>
   );

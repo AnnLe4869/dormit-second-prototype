@@ -11,7 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import { SelectedOrderCtx } from "../../../context/SelectedOrderCtx";
 
-import { orderCtx } from "../../../context/OrdersCtx";
+import { OrderCtx } from "../../../context/OrdersCtx";
 
 const RusherInformation = ({ rusherInfo, onExpand, onDownload }) => {
   const downloadStyle = {
@@ -32,16 +32,14 @@ const RusherInformation = ({ rusherInfo, onExpand, onDownload }) => {
   const [showSetTime, setShowSetTime] = useState(false);
   // context
   const [selectedOrder, setSelectedOrder] = useContext(SelectedOrderCtx);
-  const [orders, setOrders] = useContext(orderCtx);
+  const [orders, setOrders] = useContext(OrderCtx);
 
   const downloadOrderActive = () => {
     onDownload(selectedOrder);
-    let ordersCopy = orders;
-    ordersCopy.splice(ordersCopy.indexOf(selectedOrder), 1);
-    setOrders(ordersCopy);
+    const ordersCopy = orders.filter((e) => e !== selectedOrder);
+    setOrders(ordersCopy); 
     setSelectedOrder("");
   };
-  // console.log(orders);
 
   const handleTimeChange = (e) => {
     setEndTime(e.target.value);

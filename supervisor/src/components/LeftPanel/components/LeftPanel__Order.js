@@ -16,7 +16,7 @@ const LeftPanel__Order = ({ order }) => {
         {order.itemAmount} items)
       </div>
       <div className="adress">{order.adress}</div>
-      <div className="eta">ETA {order.eta} min</div>
+      <div className="eta">ETA {order.dropOffETA + order.pickUpETA} min</div>
       <OrderPopover />
     </div>
   );
