@@ -11,6 +11,7 @@ import {
 } from "../../context/user/order-handler";
 import { UserContext } from "../../context/user/user-context";
 import OrderView from "./OrderView/OrderView";
+import CurrentOrder from "./OrderView/CurrentOrder";
 
 import OrderSelector from "./OrderSelector";
 
@@ -54,7 +55,7 @@ function Order() {
 
           {/* CURRENT ORDERS */}
           {ordersSelected === 'current' && currentOrders.slice(0, 3).map((order, index) => (
-            <OrderView status={"current"} key={index} order={order} />
+            <CurrentOrder status={"current"} key={index} order={order} />
           ))}
 
           {/* COMPLETED ORDERS */}

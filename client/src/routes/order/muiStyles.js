@@ -3,14 +3,15 @@ export const orderSelectorStyles = {
         display: "flex",
         width: "100%",
         justifyContent: "space-around",
+        borderRadius: "27px",
+        backgroundColor: "#7C91F426",
     },
 
     selectorButton: {
-        width: "170px",
+        width: "51%",
         height: "39px",
         border: "none",
         textTransform: "none",
-        backgroundColor: "#7C91F426",
         borderRadius: "27px",
         fontWeight: "600",
         fontFamily: "Poppins",

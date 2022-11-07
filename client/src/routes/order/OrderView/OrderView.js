@@ -10,7 +10,7 @@ import { Button, Typography } from "@mui/material";
 
 function OrderView({ order, status }) {
   const totalProducts = order.items.length;
-
+  console.log(order)
   return (
     <Box
       sx={{
