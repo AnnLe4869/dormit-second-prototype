@@ -27,23 +27,32 @@ const RusherCard = ({ rusherInfo }) => {
 
   const dragStart = (e, position) => {
     dragItem.current = position;
-    console.log(e.target.innerHTML);
   };
 
   const dragEnter = (e, position) => {
     dragOverItem.current = position;
-    console.log(e.target.innerHTML);
   };
 
-  const drop = (e) => {
-    const copyRusherOrders = [...rusherOrders];
-    const dragItemContent = copyRusherOrders[dragItem.current];
-    copyRusherOrders.splice(dragItem.current, 1);
-    copyRusherOrders.splice(dragOverItem.current, 0, dragItemContent);
+  // Handle Sort
+  const handleSort = () => {
+    let copyRusherOrders = [...rusherOrders];
+    // remove and save the dragged item content
+    const draggedItemContent = copyRusherOrders.splice(dragItem.current, 1);
+    console.log("sliced");
+    console.log(draggedItemContent);
+    // switch the position
+    copyRusherOrders.splice(dragOverItem.current, 0, ...draggedItemContent);
+    // reset the position ref
     dragItem.current = null;
-    dragOverItem = null;
+    dragOverItem.current = null;
+    console.log("copyarray");
+    console.log(copyRusherOrders);
+
+    // update the actual array
     setRusherOrders(copyRusherOrders);
   };
+
+  console.log(rusherOrders);
 
   return (
     <div className="rusherCard">
@@ -57,13 +66,17 @@ const RusherCard = ({ rusherInfo }) => {
         className={expandMenu ? "rusherOrdersExpand" : "rusherOrdersRow"}
         ref={scrollRef}
       >
-        {rusherOrders.map((order) => (
+        {rusherOrders.map((order, i) => (
           <div
+            key={
+              order.forPickUp
+                ? order.orderNo + "pickup"
+                : order.orderNo + "dropoff"
+            }
             draggable="true"
-            onDragStart={(e, i) => dragStart(e, i)}
-            onDragEnter={(e, i) => dragEnter(e, i)}
-            key={order.orderNo + "1"}
-            onDragEnd={drop}
+            onDragStart={(e) => dragStart(e, i)}
+            onDragEnter={(e) => dragEnter(e, i)}
+            onDragEnd={handleSort}
           >
             <RusherOrder order={order} />
           </div>

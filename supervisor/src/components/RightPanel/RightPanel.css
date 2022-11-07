@@ -133,6 +133,7 @@
   border-radius: var(--border-Radius);
   padding: 5px;
   font-size: var(--fontSize);
+  cursor: move;
 }
 .rusherPickUp {
   border: 2px solid #b3ede6;
