@@ -10,7 +10,9 @@ import { Box } from "@mui/system";
 import { Button, Typography, Divider } from "@mui/material";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
-function CurrentOrder({ order }) {
+import { convertUnixToTime } from "../../../helper/time";
+
+function PastOrder({ order }) {
   const totalProducts = order.items.length;
   
   console.log(order)
@@ -40,7 +42,7 @@ function CurrentOrder({ order }) {
             display: "flex", 
             flexDirection: "column",
             justifyContent: "center",
-            height: "223px",
+            height: "124px",
             backgroundColor: "#7C91F426",
             borderRadius: "19px",
         }}
@@ -50,7 +52,7 @@ function CurrentOrder({ order }) {
                 display: "flex",
                 flexDirection: "column",
                 padding: "4% 5%",
-                height: "74px"
+                height: "62px"
             }}
         >
             <Box
@@ -87,96 +89,36 @@ function CurrentOrder({ order }) {
             <Typography
                 sx={{
                     fontFamily: "Poppins",
-                    fontWeight: "400",
+                    fontWeight: "700",
                     color: "#586DD0",
                     fontSize: "12px"
                 }}
             >
-                Order Confirmed • <span style={{fontWeight: "700"}}>{`5 min to pick up`}</span>
+                Completed • <span style={{color: "#686868", fontWeight: "400"}}>{convertUnixToTime(order.order_time)}</span>
             </Typography>
         </Box>
-        <Divider
-          sx={{
-            borderColor: "#FFFFFF",
-            borderBottomWidth: 1,
-          }}
-        />
-        {/* ORDER STATUS */}
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "4% 5%",
-                height: "74px"
-            }}
-        >
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "16px",
-                    alignItems: "center",
-                }}
-            >
-            {orderStatusList.map(status => (
-                <>
-                {/* <img src={status.icon} /> */}
-                <CheckBoxIcon styles={{color: "#586DD0"}} />
-                {status.name !== "Complete" && <img src={dashIconComplete} styles={{color: "black"}} />}
-                </>
-            ))}
-            </Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "15px",
-                    width: "300px"
-                }}
-            >
-                {orderStatusList.map(status => (     
-                    <Typography 
-                                variant="h6" 
-                                sx={{
-                                    fontWeight: "600",
-                                    display: "flex",
-                                    fontFamily: "Poppins",
-                                    fontSize: "12px"
-                                }}
-                            >
-                                {status.name}
-                    </Typography>
-                ))}
-            </Box>
-        </Box>
-        <Divider
-          sx={{
-            borderColor: "#FFFFFF",
-            borderBottomWidth: 1,
-          }}
-        />
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             padding: "4% 5%",
-            height: "74px"
+            height: "62px"
           }}
         >
           {/* Reorder and report */}
-          <Typography 
-            variant="body1"
+          <Box
             sx={{
-                fontFamily: "Inter",
-                fontWeight: "700",
-                fontSize: "16px"
+              height: "40px",
+              width: "40px",
+              borderRadius: "8px",
+              display: "flex",
+              gap: "7px"
             }}
           >
-            Alex G.
-          </Typography>
+            <img src={apple} style={{height: "100%", borderRadius: "8px"}} />
+            <img src={apple} style={{height: "100%", borderRadius: "8px"}} />
+          </Box>
           <Box 
             sx={{ 
                 display: "flex",
@@ -194,21 +136,10 @@ function CurrentOrder({ order }) {
             >
               <img style={{ width: "40px" }} src={PhoneIcon} />
             </Button>
-            <Button
-              sx={{
-                padding: "0",
-                outline: "none",
-                border: "none",
-                backgroundColor: "none",
-                borderRadius: "999px",
-              }}
-            >
-              <img style={{ width: "40px", padding: "0"  }} src={msgIcon} />
-            </Button>
           </Box>
         </Box>
     </Box>
   );
 }
 
-export default CurrentOrder;
+export default PastOrder;

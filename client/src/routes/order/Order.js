@@ -12,6 +12,7 @@ import {
 import { UserContext } from "../../context/user/user-context";
 import OrderView from "./OrderView/OrderView";
 import CurrentOrder from "./OrderView/CurrentOrder";
+import PastOrder from "./OrderView/PastOrder";
 
 import OrderSelector from "./OrderSelector";
 
@@ -55,12 +56,12 @@ function Order() {
 
           {/* CURRENT ORDERS */}
           {ordersSelected === 'current' && currentOrders.slice(0, 3).map((order, index) => (
-            <CurrentOrder status={"current"} key={index} order={order} />
+            <CurrentOrder key={index} order={order} />
           ))}
 
           {/* COMPLETED ORDERS */}
           {ordersSelected === 'completed' && completedOrders.slice(0, 3).map((order, index) => (
-            <OrderView status={"completed"} key={index} order={order} />
+            <PastOrder key={index} order={order} />
           ))}
 
           {completedOrders.length === 0 ? (
