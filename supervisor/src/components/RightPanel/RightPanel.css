@@ -149,3 +149,24 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+@keyframes Border {
+  0% {border-color: black;}
+  20% {border-color: red;}
+  40% {border-color: black;}
+  60% {border-color: red;}
+  80% {border-color: black;}
+  100% {border-color: red}
+}
+
+.dragging {
+  border: 2px solid ;
+  border-radius: var(--border-Radius);
+ animation:Border 1.5s infinite alternate;
+}
+
+.onMe{
+  opacity: 0.3;
+  border: 3px solid blue;
+  border-radius: var(--border-Radius);
+}

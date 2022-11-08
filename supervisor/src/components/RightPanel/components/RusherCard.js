@@ -16,6 +16,9 @@ const RusherCard = ({ rusherInfo }) => {
   // draggabe object
   const dragItem = useRef();
   const dragOverItem = useRef();
+  // draggable class
+  // const [draggableClass, setDraggableClass] = useState("");
+  const [draggingClass, setDraggingClass] = useState("");
 
   //Bring data on Rusher Card
   const handleDownload = (e) => {
@@ -27,10 +30,13 @@ const RusherCard = ({ rusherInfo }) => {
 
   const dragStart = (e, position) => {
     dragItem.current = position;
+    // setDraggableClass("draggable");
+    setDraggingClass("dragging");
   };
 
   const dragEnter = (e, position) => {
     dragOverItem.current = position;
+    // console.log(dragOverItem.current);
   };
 
   // Handle Sort
@@ -38,22 +44,27 @@ const RusherCard = ({ rusherInfo }) => {
     let copyRusherOrders = [...rusherOrders];
     // remove and save the dragged item content
     const draggedItemContent = copyRusherOrders.splice(dragItem.current, 1);
-    console.log("sliced");
-    console.log(draggedItemContent);
+
     // switch the position
     copyRusherOrders.splice(dragOverItem.current, 0, ...draggedItemContent);
     // reset the position ref
     dragItem.current = null;
     dragOverItem.current = null;
-    console.log("copyarray");
-    console.log(copyRusherOrders);
+    setDraggingClass("");
 
     // update the actual array
     setRusherOrders(copyRusherOrders);
   };
 
-  console.log(rusherOrders);
-
+  const handleDragOver = (e, i) => {
+    e.preventDefault();
+    // let copyRusherOrders = [...rusherOrders];
+    // remove and save the dragged item content
+    // const draggedItemContent = copyRusherOrders.splice(dragItem.current, 1);
+    // copyRusherOrders.splice(dragOverItem.current, 0, ...draggedItemContent);
+    // setRusherOrders(copyRusherOrders);
+  };
+  console.log(dragOverItem);
   return (
     <div className="rusherCard">
       <RusherInformation
@@ -73,10 +84,15 @@ const RusherCard = ({ rusherInfo }) => {
                 ? order.orderNo + "pickup"
                 : order.orderNo + "dropoff"
             }
+            className={`${dragItem.current == i ? draggingClass : null} ${
+              dragOverItem.current == i ? "onMe" : null
+            }`}
             draggable="true"
             onDragStart={(e) => dragStart(e, i)}
             onDragEnter={(e) => dragEnter(e, i)}
             onDragEnd={handleSort}
+            onDragOver={(e) => handleDragOver(e, i)}
+            // onClick={} // take the element on selectedOrderCtx
           >
             <RusherOrder order={order} />
           </div>
