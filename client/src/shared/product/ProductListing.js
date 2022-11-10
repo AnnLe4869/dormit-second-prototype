@@ -3,6 +3,7 @@ import Item from "./ProductDetails";
 import { Image } from "../loading-image/Image";
 
 import Dialog from "@mui/material/Dialog";
+import { TransitionProps, Slide } from "@mui/material";
 import styles from "./ProductListing.module.css";
 
 import { Box } from "@mui/material";
@@ -26,6 +27,7 @@ import {
 /*
  * Helper function that formats the price
  */
+
 function priceFormat(price) {
   //Reverse toString the Number type of the price and store it in temp
   const temp = price.toString().split("").reverse().join("");
@@ -64,7 +66,9 @@ function stockFormat(stock) {
   } else if (stock === 1) {
     stockDescription = <p className={styles.purpleFont}>Only 1 left!</p>;
   } else if (stock < 4) {
-    stockDescription = <p className={styles.purpleFont}>Low in stock</p>;
+    stockDescription = (
+      <p className={styles.purpleFont}>Low in stock, order quickly!</p>
+    );
   }
 
   return stockDescription;
@@ -90,6 +94,14 @@ const ProductListing = ({
 
   //useState() to show item details popup window
   const [showDetails, setShowDetails] = useState(false);
+
+  const handleShow = () => {
+    setShowDetails(true);
+  };
+
+  const handleClose = () => {
+    setShowDetails(false);
+  };
 
   let added = inCart;
 
@@ -136,10 +148,7 @@ const ProductListing = ({
         </button>
 
         {/* Item image */}
-        <button
-          className={styles.itemImage}
-          onClick={() => setShowDetails((o) => !o)}
-        >
+        <button className={styles.itemImage} onClick={() => handleShow()}>
           <div className={styles.itemImageContainer}>
             <Image image={image} />
           </div>
@@ -167,18 +176,18 @@ const ProductListing = ({
 
       {/* Item Description Popup */}
       <div>
-        <Dialog fullScreen open={showDetails} onClose={setShowDetails}>
-          <Item
-            id={id}
-            name={name}
-            image={image}
-            description={description}
-            price={formattedPrice}
-            stock={stockDescription}
-            onClose={setShowDetails}
-            link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
-          />
-        </Dialog>
+        <Item
+          id={id}
+          name={name}
+          image={image}
+          description={description}
+          price={formattedPrice}
+          stock={stockDescription}
+          showDetails={showDetails}
+          handleClose={handleClose}
+          handleShow={handleShow}
+          link="https://firebasestorage.googleapis.com/v0/b/dormit-second-prototype.appspot.com/o/products%2Fapple.jpg?alt=media&token=372a4141-e0e3-4521-bf51-604ed8622430"
+        />
       </div>
     </>
   );
