@@ -14,7 +14,7 @@ import { Box } from "@mui/material";
 import { categories } from "./CategoryProps.js";
 
 import { useProducts } from "../../context/product/product-handler";
-import { renderCategory } from "../../helper/renderProducts.js";
+import { renderCategory, renderSpecials } from "../../helper/renderProducts.js";
 import { getSection } from "../../helper/getProductsCategories";
 
 import submitIcon from "../../assets/submit-icon.svg";
@@ -67,7 +67,7 @@ function Category() {
   };
 
   const section = getSection(useProducts(), props.category);
-
+  console.log(props.category);
   return (
     <div className={styles.container}>
       <Box
@@ -115,13 +115,11 @@ function Category() {
       <div className={styles.page}>
         <div className={styles.supplies}>
           <ul className={styles.bigItemList}>
-            {products.length > 0 ? (
-              renderCategory(products, props.category, 0).map((product) => (
-                <li>{product}</li>
-              ))
-            ) : (
-              <h2>Waiting for loading...</h2>
-            )}
+            {props.category !== "specials"
+              ? renderCategory(products, props.category, 0).map((product) => (
+                  <li>{product}</li>
+                ))
+              : renderSpecials(products, 0).map((item) => <li>{item}</li>)}
           </ul>
         </div>
 

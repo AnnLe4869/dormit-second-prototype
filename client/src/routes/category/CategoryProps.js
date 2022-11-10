@@ -1,6 +1,6 @@
 export const categories = [
   { id: "/", title: "Category", category: "/" },
-  { id: "todays-special", title: "Today's Special", category: "todaysSpecial" },
+  { id: "todays-special", title: "DormIt Meals", category: "specials" },
   { id: "candy", title: "Candy", category: "candy" },
   { id: "chips", title: "Chips", category: "chips" },
   { id: "drinks", title: "Drinks", category: "drinks" },
