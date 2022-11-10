@@ -36,11 +36,9 @@ function DerivedSections({ products, sections }) {
           {section.additionalComponent}
           <div className={HomeCSS.smallListContainer}>
             <ul className={HomeCSS.smallItemList} id={section.sectionListId}>
-              {renderProducts(products, section.category_name, 12).map(
-                (item) => (
-                  <li>{item}</li>
-                )
-              )}
+              {renderProducts(products, section.sectionName, 12).map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
 
             <ArrowBackIosNewIcon
