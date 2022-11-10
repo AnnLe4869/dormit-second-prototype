@@ -9,12 +9,16 @@
   padding-top: clamp(90px, 30%, 150px);
   display: flex;
   flex-direction: column;
-  max-width: 400px;
-  min-width: 300px;
+  width: 310px;
   height: auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.content p {
+  display: block;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .close {
@@ -28,7 +32,7 @@
   position: relative;
   border-radius: 11px;
   width: 100%;
-  aspect-ratio: 1/0.95;
+  aspect-ratio: 1/0.955;
 }
 
 .content img[alt]:after {
