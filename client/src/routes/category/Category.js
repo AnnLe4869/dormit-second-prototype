@@ -33,7 +33,7 @@ function Category() {
   ///Find the correct props by :id { props.id, props.title, props.category }
   let renderedProducts = [];
   let props = categories.find((index) => index.id === params.id);
-
+  console.log(props);
   ///If props is undefined, set it equal to "/" category
   if (!props) props = categories[0];
 
@@ -67,7 +67,7 @@ function Category() {
   };
 
   const section = getSection(useProducts(), props.category);
-  console.log(props.category);
+
   return (
     <div className={styles.container}>
       <Box
