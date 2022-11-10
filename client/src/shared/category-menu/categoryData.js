@@ -57,10 +57,4 @@ export const categories = [
     image: readyToEat,
     link: "ready-to-eat",
   },
-
-  {
-    name: "Category",
-    image: categoryImage,
-    link: "",
-  },
 ];
