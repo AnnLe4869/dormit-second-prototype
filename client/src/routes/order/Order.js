@@ -45,7 +45,7 @@ function Order() {
       >
         <CircularProgress variant="indeterminate" sx={{ color: "#7141FA" }} />
       </Backdrop>
-      <Container>
+      <Container sx={{width: "93%", padding: "0"}}>
         <div className={styles.centering}>
           {/* all past orders with the products in the props */}
           <h2>Orders</h2>

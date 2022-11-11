@@ -1,37 +1,41 @@
 import React from "react";
-import styles from "../Order.module.css";
-import apple from "../../../mock_data/images/apple.jpg";
-// import msgIcon from "../../../mock_data/images/msgIcon.png";
 import msgIcon from "../../../assets/Order/message.svg";
 import PhoneIcon from "../../../assets/Order/phone.svg";
-import dashIconComplete from "../../../assets/Order/dash.svg"
-// import PhoneIcon from "../../../mock_data/images/PhoneIcon.png";
+
+// import icons as react components
+import {ReactComponent as DashIcon} from "../../../assets/Order/dash.svg"
+import {ReactComponent as ConfirmedIcon} from "../../../assets/Order/confirmed.svg"
+import {ReactComponent as PickedUpIcon} from "../../../assets/Order/pickedup.svg"
+import {ReactComponent as OnTheWayIcon} from "../../../assets/Order/ontheway.svg"
+import {ReactComponent as CompleteIcon} from "../../../assets/Order/complete.svg"
+
 import { Box } from "@mui/system";
 import { Button, Typography, Divider } from "@mui/material";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 function CurrentOrder({ order }) {
   const totalProducts = order.items.length;
-  
+  const processingStage = order.process_stage;
+
   console.log(order)
 
   const orderStatusList = [
-    {
-        name: "Confirmed",
-        icon: {CheckBoxIcon}
+    { 
+      name: "Confirmed",
+      processingStage: 0
     },
-    {
-        name: "Picked up",
-        icon: {CheckBoxIcon}
+    { 
+      name: "Picked up",
+      processingStage: 1
     },
-    {
-        name: "On the way",
-        icon: {CheckBoxIcon}
+    { 
+      name: "On the way",
+      processingStage: 2
     },
-    {
-        name: "Complete",
-        icon: {CheckBoxIcon}
-    },
+    { 
+      name: "Complete",
+      processingStage: 3
+    }
   ]
 
   return (
@@ -41,6 +45,7 @@ function CurrentOrder({ order }) {
             flexDirection: "column",
             justifyContent: "center",
             height: "223px",
+            width: "100%",
             backgroundColor: "#7C91F426",
             borderRadius: "19px",
         }}
@@ -109,41 +114,43 @@ function CurrentOrder({ order }) {
                 justifyContent: "center",
                 alignItems: "center",
                 padding: "4% 5%",
-                height: "74px"
+                height: "74px",
             }}
         >
             <Box
                 sx={{
                     display: "flex",
-                    justifyContent: "center",
-                    gap: "16px",
+                    justifyContent: "space-evenly",
+                    width: "300px",
+                    padding: "0 2px 0 5px",
                     alignItems: "center",
+                    marginBottom: "5px"
                 }}
             >
-            {orderStatusList.map(status => (
-                <>
-                {/* <img src={status.icon} /> */}
-                <CheckBoxIcon styles={{color: "#586DD0"}} />
-                {status.name !== "Complete" && <img src={dashIconComplete} styles={{color: "black"}} />}
-                </>
-            ))}
+                <ConfirmedIcon fill={processingStage >= 0 ? "#586DD0" : "#686868"} />
+                <DashIcon stroke ={processingStage >= 0 ? "#586DD0" : "#686868"}/>
+                <PickedUpIcon fill={processingStage >= 1 ? "#586DD0" : "#686868"} />
+                <DashIcon stroke ={processingStage >= 1 ? "#586DD0" : "#686868"}/>
+                <OnTheWayIcon stroke={processingStage >= 2 ? "#586DD0" : "#686868"} />
+                <DashIcon stroke={processingStage >= 2 ? "#586DD0" : "#686868"}/>
+                <CompleteIcon fill={processingStage >= 3 ? "#586DD0" : "#686868"} />
             </Box>
             <Box
                 sx={{
                     display: "flex",
-                    justifyContent: "center",
-                    gap: "15px",
-                    width: "300px"
+                    justifyContent: "space-between",
+                    width: "300px",
                 }}
             >
                 {orderStatusList.map(status => (     
                     <Typography 
                                 variant="h6" 
                                 sx={{
-                                    fontWeight: "600",
+                                    fontWeight: processingStage >= status.processingStage ? "700" : "400",
                                     display: "flex",
-                                    fontFamily: "Poppins",
-                                    fontSize: "12px"
+                                    fontFamily: "Inter",
+                                    fontSize: "12px",
+                                    color: processingStage >= status.processingStage ? "#586DD0" : "#686868",
                                 }}
                             >
                                 {status.name}
@@ -168,11 +175,10 @@ function CurrentOrder({ order }) {
         >
           {/* Reorder and report */}
           <Typography 
-            variant="body1"
             sx={{
                 fontFamily: "Inter",
                 fontWeight: "700",
-                fontSize: "16px"
+                fontSize: "16px",
             }}
           >
             Alex G.
@@ -180,31 +186,36 @@ function CurrentOrder({ order }) {
           <Box 
             sx={{ 
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: "center",
+                gap: "10px"
             }}
           >
-            <Button
+            <Box
               sx={{
                 padding: "0",
-                outline: "none",
+                height: "40px",
+                width: "40px",
                 border: "none",
-                backgroundColor: "none",
                 borderRadius: "999px",
+                display: "flex",
+                alignItems: "center"
               }}
             >
-              <img style={{ width: "40px" }} src={PhoneIcon} />
-            </Button>
-            <Button
+              <img src={PhoneIcon} />
+            </Box>
+            <Box
               sx={{
                 padding: "0",
-                outline: "none",
                 border: "none",
-                backgroundColor: "none",
+                height: "40px",
+                width: "40px",
                 borderRadius: "999px",
+                display: "flex",
+                alignItems: "center"
               }}
             >
-              <img style={{ width: "40px", padding: "0"  }} src={msgIcon} />
-            </Button>
+              <img src={msgIcon} />
+            </Box>
           </Box>
         </Box>
     </Box>
