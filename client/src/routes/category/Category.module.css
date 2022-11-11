@@ -17,15 +17,6 @@
   display: none;
 }
 
-.page li > div > button:first-child {
-  right: calc(-3%);
-  top: calc(-3%);
-  width: 34px;
-  border: none;
-  background-color: rgb(0, 0, 0, 0);
-  cursor: pointer;
-}
-
 .bigItemList {
   grid-gap: 10%;
   display: flex;
