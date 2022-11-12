@@ -165,8 +165,7 @@
  animation:Border 1.5s infinite alternate;
 }
 
-.onMe{
-  opacity: 0.3;
-  border: 3px solid blue;
+.orderSelected {
+  border: 3px solid green;
   border-radius: var(--border-Radius);
 }

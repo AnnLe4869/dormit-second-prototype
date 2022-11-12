@@ -13,7 +13,7 @@ import { SelectedOrderCtx } from "../../../context/SelectedOrderCtx";
 
 import { OrderCtx } from "../../../context/OrdersCtx";
 
-const RusherInformation = ({ rusherInfo, onExpand, onDownload }) => {
+const RusherInformation = ({ rusherInfo, onExpand, onDownload, exist }) => {
   const downloadStyle = {
     cursor: "pointer",
     color: "#138808",
@@ -37,7 +37,7 @@ const RusherInformation = ({ rusherInfo, onExpand, onDownload }) => {
   const downloadOrderActive = () => {
     onDownload(selectedOrder);
     const ordersCopy = orders.filter((e) => e !== selectedOrder);
-    setOrders(ordersCopy); 
+    setOrders(ordersCopy);
     setSelectedOrder("");
   };
 
