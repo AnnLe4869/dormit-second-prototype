@@ -1,8 +1,10 @@
 import React from "react";
+
+// import icons
 import msgIcon from "../../../assets/Order/message.svg";
 import PhoneIcon from "../../../assets/Order/phone.svg";
 
-// import icons as react components
+// import icons as react components as they need to dynamically change styling
 import {ReactComponent as DashIcon} from "../../../assets/Order/dash.svg"
 import {ReactComponent as ConfirmedIcon} from "../../../assets/Order/confirmed.svg"
 import {ReactComponent as PickedUpIcon} from "../../../assets/Order/pickedup.svg"
@@ -10,10 +12,12 @@ import {ReactComponent as OnTheWayIcon} from "../../../assets/Order/ontheway.svg
 import {ReactComponent as CompleteIcon} from "../../../assets/Order/complete.svg"
 
 import { Box } from "@mui/system";
-import { Button, Typography, Divider } from "@mui/material";
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { Typography, Divider, Button } from "@mui/material";
+
+import { useNavigate } from 'react-router-dom';
 
 function CurrentOrder({ order }) {
+  const navigate = useNavigate();
   const totalProducts = order.items.length;
   const processingStage = order.process_stage;
 
@@ -39,7 +43,8 @@ function CurrentOrder({ order }) {
   ]
 
   return (
-    <Box 
+    <Box
+        onClick = {() => navigate(`/order/current/${order.id}`)}
         sx={{ 
             display: "flex", 
             flexDirection: "column",
@@ -48,6 +53,7 @@ function CurrentOrder({ order }) {
             width: "100%",
             backgroundColor: "#7C91F426",
             borderRadius: "19px",
+            cursor: "pointer"
         }}
     >   
         <Box
@@ -75,7 +81,7 @@ function CurrentOrder({ order }) {
                     fontSize: "16px"
                 }}
             >
-                #4KB96 - <span style={{fontWeight: "400", fontFamily: "Inter"}}>&nbsp;{`${totalProducts} items`}</span>
+                {(order.id).substring(3, 9)} - <span style={{fontWeight: "400", fontFamily: "Inter"}}>&nbsp;{`${totalProducts} items`}</span>
             </Typography>
             <Typography 
                 variant="Mobile Body"
@@ -144,16 +150,17 @@ function CurrentOrder({ order }) {
             >
                 {orderStatusList.map(status => (     
                     <Typography 
-                                variant="h6" 
-                                sx={{
-                                    fontWeight: processingStage >= status.processingStage ? "700" : "400",
-                                    display: "flex",
-                                    fontFamily: "Inter",
-                                    fontSize: "12px",
-                                    color: processingStage >= status.processingStage ? "#586DD0" : "#686868",
-                                }}
-                            >
-                                {status.name}
+                      key={status.processingStage}
+                      variant="h6" 
+                      sx={{
+                          fontWeight: processingStage >= status.processingStage ? "700" : "400",
+                          display: "flex",
+                          fontFamily: "Inter",
+                          fontSize: "12px",
+                          color: processingStage >= status.processingStage ? "#586DD0" : "#686868",
+                      }}
+                  >
+                      {status.name}
                     </Typography>
                 ))}
             </Box>
@@ -181,7 +188,7 @@ function CurrentOrder({ order }) {
                 fontSize: "16px",
             }}
           >
-            Alex G.
+            {order.rusher ? `${order.rusher}` : "Searching Rusher..."}
           </Typography>
           <Box 
             sx={{ 
@@ -198,7 +205,12 @@ function CurrentOrder({ order }) {
                 border: "none",
                 borderRadius: "999px",
                 display: "flex",
-                alignItems: "center"
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick = {(e) => {
+                e.stopPropagation()
+                window.open('tel:900300400', '_self')
               }}
             >
               <img src={PhoneIcon} />
@@ -211,7 +223,8 @@ function CurrentOrder({ order }) {
                 width: "40px",
                 borderRadius: "999px",
                 display: "flex",
-                alignItems: "center"
+                alignItems: "center",
+                cursor: "pointer"
               }}
             >
               <img src={msgIcon} />
