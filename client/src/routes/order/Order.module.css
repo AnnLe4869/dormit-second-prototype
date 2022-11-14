@@ -3,9 +3,9 @@
 .centering {
   display: flex;
   flex-direction: column;
-  margin: 50px auto;
+  margin: 25px auto;
   max-width: 600px;
-  gap: 30px;
+  gap: 25px;
 }
 
 .orderContainer {

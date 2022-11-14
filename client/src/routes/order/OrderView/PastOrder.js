@@ -20,14 +20,15 @@ function PastOrder({ order }) {
             justifyContent: "center",
             height: "124px",
             backgroundColor: "#7C91F426",
-            borderRadius: "19px",
+            borderRadius: "30px",
         }}
     >   
         <Box
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                padding: "4% 5% 0% 5%",
+                justifyContent: "flex-end",
+                padding: "4% 6% 0 6%",
                 height: "62px"
             }}
         >
@@ -78,7 +79,7 @@ function PastOrder({ order }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "0 5%",
+            padding: "0 6% 2% 6%",
             height: "62px"
           }}
         >

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Header from "../home/Header";
 import styles from "./Order.module.css";
 
-import { CircularProgress, Backdrop, Typography } from "@mui/material";
+import { Box, CircularProgress, Backdrop, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import {
@@ -45,14 +45,25 @@ function Order() {
       >
         <CircularProgress variant="indeterminate" sx={{ color: "#7141FA" }} />
       </Backdrop>
+      <Box sx={{
+        width: "93%", 
+        padding: "0",
+        display: "flex",
+        flexDirection: "column",
+        margin: "20px auto",
+        maxWidth: "600px",
+        gap: "30px"
+      }}>
+        <h2>Orders</h2>
+        <OrderSelector 
+          ordersSelected={ordersSelected}
+          setOrdersSelected={setOrdersSelected}           
+        />
+      </Box>
       <Container sx={{width: "93%", padding: "0"}}>
         <div className={styles.centering}>
           {/* all past orders with the products in the props */}
-          <h2>Orders</h2>
-          <OrderSelector 
-            ordersSelected={ordersSelected}
-            setOrdersSelected={setOrdersSelected}           
-          />
+
 
           {/* CURRENT ORDERS */}
           {ordersSelected === 'current' && currentOrders.slice(0, 3).map((order, index) => (
