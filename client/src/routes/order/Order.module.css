@@ -113,6 +113,20 @@
   color: red;
 }
 
+.itemImage {
+  display: flex;
+  background-color: #ffffff;
+  height: 100%;
+  border-radius: 16px;
+  border: none;
+}
+
+.itemImage img {
+  height: 75px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
 @media screen {
   @media (min-width: 500px) {
     .imageContainer {

@@ -1,5 +1,5 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import productList from "../../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import { Container } from "@mui/system";
@@ -18,6 +18,13 @@ import apple from "../../../mock_data/images/apple.jpg";
 import { styled } from "@mui/material/styles";
 import msgIcon from "../../../mock_data/images/msgIcon.png";
 import PhoneIcon from "../../../mock_data/images/PhoneIcon.png";
+import {ReactComponent as LeftArrow} from "../../../assets/Order/leftarrow.svg"
+import {ReactComponent as Flag} from "../../../assets/Order/flag.svg"
+
+import { UserContext } from "../../../context/user/user-context";
+import { useProducts } from "../../../context/product/product-handler";
+import OrderItem from "./OrderItem";
+import { convertToDollar } from "../../../helper/convertToDollar";
 
 const order1 = {
   products: [productList[23], productList[24], productList[25]],
@@ -27,55 +34,152 @@ const steps = ["Placed", "Picking Up", "On the Way", "Received"];
 
 
 function Order() {
-  
+  const { state } = useContext(UserContext);
+  const { current_orders } = state;
   const { orderId } = useParams();
+  const products = useProducts();
+  const [selectedOrder, setSelectedOrder] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setSelectedOrder(current_orders ? (current_orders).filter(order => order.id === orderId)[0] : []);
+  }, [current_orders]);
+
+  const selectedOrderItems = [];
+  let itemNumber = 1;
+  selectedOrder.items?.map(({ product_id, quantity }) => {
+    const product = products.find(({ id }) => id === product_id);
+    const productComponent = (
+      <OrderItem
+        key={product.id}
+        number={itemNumber}
+        price={product.prices[0].unit_amount}
+        taxRate={parseFloat(product.metadata.tax) / 100}
+        desc={product.description}
+        name={product.name}
+        photo={product.images}
+        quantity={parseInt(quantity)}
+      />
+    );
+    selectedOrderItems.push(productComponent)
+    itemNumber++
+  })
+
+  const getSubTotal = () => {
+    let subTotal = 0;
+    selectedOrderItems?.forEach((item) => {
+      subTotal += item.props.price * item.props.quantity;
+    });
+    return subTotal;
+  };
+
+  const getTax = () => {
+    let taxTotal = 0;
+    selectedOrderItems?.forEach((item) => {
+      taxTotal += item.props.price * item.props.quantity * item.props.taxRate;
+    });
+    return Math.round(taxTotal);
+  };
+
+  const getDeliveryFee = () => {
+    const shippingFee = products.find((item) => item.id === "shipping_fee");
+    return parseFloat(shippingFee?.price);
+  };
+
+  const getTotal = () => {
+    return getSubTotal() + getTax() + getDeliveryFee();
+  };
+
+  const getTotalCount = () => {
+    let count = 0;
+    selectedOrderItems?.forEach((element) => {
+      count += element.props.quantity;
+    });
+    return count;
+  };
 
   return (
-    <Container sx={{ padding: "0" }}>
+    <Box sx={{ paddingBottom: "100px" }}>
       <Box
         sx={{
           display: "flex",
-          marginY: "20px",
-          gap: "25px",
+          margin: "30px 25px 20px 25px",
+          gap: "15px",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "flex-start",
         }}
-      >
-        <Typography variant="h4">Order Details</Typography>
+      > 
+        <Box
+          onClick={() => navigate('../../order')}
+        >
+          <LeftArrow />
+        </Box>
+        <Typography 
+          variant="Mobile Title 1"
+          sx={{
+            fontWeight: "500",
+            fontSize: "28px",
+            width: "390px"
+          }}
+        >
+          In Progress
+        </Typography>
       </Box>
       {/* Current order details */}
       <Divider
-        sx={{ borderBottomWidth: "4px", width: "390px" }}
+        sx={{ borderBottomWidth: "4px", width: "100%" }}
       />
 
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" sx={{padding: "0 25px"}}>
         {/* Order */}
-        <Typography variant="body1" fontSize="large" sx={{ my: "20px" }}>
-          <b>Complete</b> • March 22 at 08:05 pm
+        <Box 
+          sx={{ 
+            display: "flex",
+            justifyContent: "space-between",
+            fontFamily: "Poppins",
+            padding: "25px 0 0 0"
+        }}>
+          <Typography
+            sx={{
+              fontWeight: "600",
+              color: "#586DD0",
+              fontSize: "22px"
+            }}
+          >
+            {`#${selectedOrder.id && (selectedOrder.id).substring(3, 9)} (${selectedOrderItems.length} items)`}
+          </Typography>
+          <Box
+            sx={{
+              // position: "absolute"
+            }}
+          >
+            <Flag />
+          </Box>
+        </Box>
+        <Typography 
+          variant="body1"
+          fontSize="large" 
+          sx={{ 
+            my: "10px",
+            fontFamily: "Poppins",
+            color: "#586DD0",
+            fontWeight: "600",
+            fontSize: "16px"
+        }}>
+          <b style={{color: "#000000"}}>Order Confirmed •</b> <span style={{fontWeight: "400"}}>Searching </span>Rusher
         </Typography>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             my: "20px",
+            padding: "0 10px",
             gap: "10px",
           }}
         >
-          {order1.products.map((product, index) => (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: "15px",
-              }}
-            >
-              <img alt="Apple" width="100px" src={apple} />
-              <Typography variant="body1" fontSize="larger">
-                <b>1x</b> {product.name}
-              </Typography>
-            </Box>
-          ))}
+          {selectedOrderItems.map((item) => {
+            return item;
+          })}
         </Box>
         {/* Completed order information */}
         <Box>
@@ -89,6 +193,25 @@ function Order() {
           <Box
             sx={{
               width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              color: "#686868",
+              marginBottom: "10px"
+            }}
+          >
+            <Typography 
+              sx={{
+                color: "#686868",
+                fontFamily: "Inter",
+                fontWeight: "600",
+                fontSize: "22px"
+              }}>
+              Order Summary
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
               height: "30px",
               display: "flex",
               justifyContent: "space-between",
@@ -99,7 +222,7 @@ function Order() {
               Subtotal
             </Typography>
             <Typography variant="subtitle1" color="#686868">
-              $1.00
+              ${convertToDollar(getSubTotal())}
             </Typography>
           </Box>
           <Box
@@ -115,7 +238,7 @@ function Order() {
               Tax
             </Typography>
             <Typography variant="subtitle1" color="#686868">
-              $1.00
+              ${convertToDollar(getTax())}
             </Typography>
           </Box>
           <Box
@@ -131,7 +254,7 @@ function Order() {
               Delivery
             </Typography>
             <Typography variant="subtitle1" color="#686868">
-              $1.95
+              ${convertToDollar(getDeliveryFee())}
             </Typography>
           </Box>
           <Box
@@ -163,7 +286,7 @@ function Order() {
               Total
             </Typography>
             <Typography variant="subtitle1" color="#000000">
-              $1.00
+              ${convertToDollar(getTotal())}
             </Typography>
           </Box>
 
@@ -210,7 +333,7 @@ function Order() {
           >
             <img alt="Apple" width="60px" src={apple} />
             <Typography variant="body1" fontSize="larger">
-              Adam's Apple
+              Rusher
             </Typography>
           </Box>
 
@@ -257,7 +380,7 @@ function Order() {
           </Button>
         </Box>
       </Container>
-    </Container>
+    </Box>
   );
 }
 
