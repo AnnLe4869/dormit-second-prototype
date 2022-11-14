@@ -19,6 +19,7 @@ function PastOrder({ order }) {
             flexDirection: "column",
             justifyContent: "center",
             height: "124px",
+            width: "85.2%",
             backgroundColor: "#7C91F426",
             borderRadius: "30px",
         }}

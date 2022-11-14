@@ -13,14 +13,14 @@ import PastSelected from "./Past/Selected";
 export default function OrderPage() {
   const isAuthenticated = useCheckAuthenticationStatus();
 
-  if(!isAuthenticated) {
-    return <Navigate replace to='/auth' />
-  };
+  // if(!isAuthenticated) {
+  //   return <Navigate replace to='/auth' />
+  // };
 
   return (
     <>
       <Header />
-      <Container>
+      {/* <Container> */}
         <Routes>
           <Route exact path="/" element={<Order />} />
           <Route exact path="current" element={<Current />} />
@@ -28,7 +28,7 @@ export default function OrderPage() {
           <Route path="/current/:orderId" element={<CurrentSelected />} />
           <Route path="/past/:orderId" element={<PastSelected />} />
         </Routes>
-      </Container>
+      {/* </Container> */}
       <BottomNav currentPage="home" />
     </>
   );

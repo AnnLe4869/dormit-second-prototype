@@ -50,7 +50,7 @@ function CurrentOrder({ order }) {
             flexDirection: "column",
             justifyContent: "center",
             height: "223px",
-            width: "100%",
+            width: "85.2%",
             backgroundColor: "#7C91F426",
             borderRadius: "19px",
             cursor: "pointer"

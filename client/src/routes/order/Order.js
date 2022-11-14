@@ -46,52 +46,84 @@ function Order() {
         <CircularProgress variant="indeterminate" sx={{ color: "#7141FA" }} />
       </Backdrop>
       <Box sx={{
-        width: "93%", 
+        width: "85.2%", 
         display: "flex",
         flexDirection: "column",
+        alignItems: "flex-start",
         margin: "20px auto",
         maxWidth: "600px",
         gap: "30px"
       }}>
         <h2>Orders</h2>
+      </Box>
+      <Box sx={{
+        width: "100%", 
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: "20px auto",
+        maxWidth: "600px",
+        gap: "30px"
+      }}>
         <OrderSelector 
           ordersSelected={ordersSelected}
           setOrdersSelected={setOrdersSelected}           
         />
       </Box>
-      <Container sx={{width: "93%", padding: "0"}}>
+      <Container sx={{width: "100%", padding: "0"}}>
         <div className={styles.centering}>
           {/* all past orders with the products in the props */}
 
 
           {/* CURRENT ORDERS */}
-          {ordersSelected === 'current' && currentOrders.slice(0, 3).map((order, index) => (
-            <CurrentOrder key={index} order={order} />
-          ))}
+          <Box 
+            sx={{
+              display: "flex", 
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "25px"
+            }}>
+            {ordersSelected === 'current' && currentOrders.slice(0, 3).map((order, index) => (
+              <CurrentOrder key={index} order={order} />
+            ))}
+          </Box>
 
           {/* COMPLETED ORDERS */}
-          {ordersSelected === 'completed' && completedOrders.slice(0, completedOrderCount).map((order, index) => (
-            <PastOrder key={index} order={order} />
-          ))}
+          <Box 
+            sx={{
+              display: "flex", 
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "25px"
+            }}>
+            {ordersSelected === 'completed' && completedOrders.slice(0, completedOrderCount).map((order, index) => (
+              <PastOrder key={index} order={order} />
+            ))}
+          </Box>
           {completedOrders.length > completedOrderCount && ordersSelected === 'completed' ? (
-            <Button
-              onClick={() => setCompletedOrderCount(completedOrderCount*2)}
-              sx={{
-                color: "#7A7A7A",
-                textTransform: "none",
-                backgroundColor: "#EEEEEE",
-                borderRadius: 30,
-                fontWeight: 700,
-                fontFamily: "Poppins",
-                height: "47px",
-                fontSize: "18px",
-                '&:focus': {
-                  backgroundColor: "#EEEEEE",
-                }
-              }}
+            <Box
+              sx={{display: "flex", justifyContent: "center", marginTop: "25px"}}
             >
-              Load More
-            </Button>
+              <Button
+                onClick={() => setCompletedOrderCount(completedOrderCount*2)}
+                sx={{
+                  color: "#7A7A7A",
+                  width: "85.2%",
+                  textTransform: "none",
+                  backgroundColor: "#EEEEEE",
+                  borderRadius: 30,
+                  fontWeight: 700,
+                  fontFamily: "Poppins",
+                  height: "47px",
+                  fontSize: "18px",
+                  '&:focus': {
+                    backgroundColor: "#EEEEEE",
+                  }
+                }}
+              >
+                Load More
+              </Button>
+            </Box>
           ) : null}
           {completedOrders.length === 0 ? (
             <Typography>No Completed Orders</Typography>

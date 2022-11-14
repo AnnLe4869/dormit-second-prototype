@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import productList from "../../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import { Container } from "@mui/system";
@@ -24,32 +25,13 @@ const order1 = {
 
 const steps = ["Placed", "Picking Up", "On the Way", "Received"];
 
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 9,
-    left: "calc(-50% + 7px)",
-    right: "calc(50% + 7px)",
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#7141FA",
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#7141FA",
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor: "#F5F5F5",
-    borderTopWidth: 8,
-    borderRadius: 5,
-  },
-}));
 
 function Order() {
+  
+  const { orderId } = useParams();
+
   return (
-    <Container sx={{ paddingBottom: "50px" }}>
+    <Container sx={{ padding: "0" }}>
       <Box
         sx={{
           display: "flex",
@@ -63,10 +45,7 @@ function Order() {
       </Box>
       {/* Current order details */}
       <Divider
-        flex="true"
-        light={false}
-        variant="fullWidth"
-        sx={{ borderBottomWidth: "4px" }}
+        sx={{ borderBottomWidth: "4px", width: "390px" }}
       />
 
       <Container maxWidth="sm">

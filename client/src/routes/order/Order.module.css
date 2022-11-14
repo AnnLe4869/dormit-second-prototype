@@ -3,10 +3,11 @@
 .centering {
   display: flex;
   flex-direction: column;
-  margin: 25px auto;
+  margin: 0 auto;
   max-width: 600px;
-  gap: 25px;
   margin-bottom: 100px;
+  margin-top: 25px;
+  padding: 0;
 }
 
 .orderContainer {

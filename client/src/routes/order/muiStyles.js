@@ -1,7 +1,7 @@
 export const orderSelectorStyles = {
     selectorContainer: {
         display: "flex",
-        width: "100%",
+        width: "85.2%",
         justifyContent: "space-around",
         borderRadius: "27px",
         backgroundColor: "#7C91F426",
