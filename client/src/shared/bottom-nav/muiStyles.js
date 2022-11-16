@@ -1,7 +1,7 @@
 export const bottomNavStyles = {
   bottomNav: {
     width: "100%",
-    position: "sticky",
+    position: "fixed",
     bottom: 0,
     height: "68px",
     borderTop: "1.5px solid #C1C1C1",

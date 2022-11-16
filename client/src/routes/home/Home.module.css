@@ -34,7 +34,6 @@ h3 {
   width: 70%;
   max-width: 1150px;
   height: auto;
-  margin-bottom: 100px;
 }
 
 .homeCategoryContainer {
@@ -422,7 +421,7 @@ h3 {
 @media screen and (max-width: 600px) {
   .homeContent {
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
   }
 
   .smallItemSection > p {
