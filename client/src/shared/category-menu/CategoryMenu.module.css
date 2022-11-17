@@ -5,6 +5,7 @@
   column-gap: 4%;
   row-gap: 8px;
   padding-inline: 6%;
+  margin-bottom: 80px;
 }
 
 .container div:first-child {
