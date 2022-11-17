@@ -35,7 +35,7 @@ function Order() {
   
   const [ordersSelected, setOrdersSelected] = useState(currentOrders ? 'current' : 'completed')
   const [completedOrderCount, setCompletedOrderCount] = useState(3);
-  console.log(completedOrderCount, completedOrders.length)
+  
   return (
     <>
       <Backdrop

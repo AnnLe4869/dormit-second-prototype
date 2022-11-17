@@ -8,12 +8,27 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
 import { convertUnixToTime } from "../../../helper/time";
+import { useProducts } from "../../../context/product/product-handler";
+
+import { useNavigate } from 'react-router-dom';
 
 function PastOrder({ order }) {
+  const navigate = useNavigate();
+  const products = useProducts();
   const totalProducts = order.items.length;
 
+  const productImages = [];
+  order.items.slice(0, 4).map(({ product_id }) => {
+    const product = products.find(({ id }) => id === product_id);
+    const productImage = (
+      <img key={product.id} style={{height: "100%", borderRadius: "8px"}} src={product.images} />
+    );
+    productImages.push(productImage)
+  })
+
   return (
-    <Box 
+    <Box
+        onClick = {() => navigate(`/order/past/${order.id}`)}
         sx={{ 
             display: "flex", 
             flexDirection: "column",
@@ -28,9 +43,9 @@ function PastOrder({ order }) {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "flex-end",
+                justifyContent: "center",
                 padding: "4% 6% 0 6%",
-                height: "62px"
+                height: "60px"
             }}
         >
             <Box
@@ -81,7 +96,7 @@ function PastOrder({ order }) {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "0 6% 2% 6%",
-            height: "62px"
+            height: "64px"
           }}
         >
           {/* Reorder and report */}
@@ -93,9 +108,12 @@ function PastOrder({ order }) {
               gap: "7px"
             }}
           >
+            {/* <img src={apple} style={{height: "100%", borderRadius: "8px"}} />
             <img src={apple} style={{height: "100%", borderRadius: "8px"}} />
-            <img src={apple} style={{height: "100%", borderRadius: "8px"}} />
-            <img src={apple} style={{height: "100%", borderRadius: "8px"}} />
+            <img src={apple} style={{height: "100%", borderRadius: "8px"}} /> */}
+            {productImages.map((item) => {
+              return item;
+            })}
           </Box>
           <Box 
             sx={{ 

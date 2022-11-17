@@ -31,3 +31,16 @@ export const orderSelectorStyles = {
         fontWeight: "600",
     }
 }
+
+export const universalOrderStyles = {
+    contactButtons: {
+        padding: "0",
+        height: "40px",
+        width: "40px",
+        border: "none",
+        borderRadius: "999px",
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+      }
+}

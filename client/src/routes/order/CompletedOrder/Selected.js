@@ -1,49 +1,39 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import productList from "../../../mock_data/data/PRODUCT_MOCK_DATA.json";
 
 import { Container } from "@mui/system";
 import {
   Box,
-  Button,
   Divider,
-  StepLabel,
-  Stepper,
-  Step,
   Typography,
-  StepConnector,
-  stepConnectorClasses,
 } from "@mui/material";
 import apple from "../../../mock_data/images/apple.jpg";
-import { styled } from "@mui/material/styles";
-import msgIcon from "../../../mock_data/images/msgIcon.png";
-import PhoneIcon from "../../../mock_data/images/PhoneIcon.png";
+import {ReactComponent as MsgIcon} from "../../../assets/Order/message.svg";
+import {ReactComponent as PhoneIcon} from "../../../assets/Order/phone.svg";
+import {ReactComponent as AddressIcon} from "../../../assets/Order/address.svg"
 import {ReactComponent as LeftArrow} from "../../../assets/Order/leftarrow.svg"
 import {ReactComponent as Flag} from "../../../assets/Order/flag.svg"
 
 import { UserContext } from "../../../context/user/user-context";
 import { useProducts } from "../../../context/product/product-handler";
-import OrderItem from "./OrderItem";
+import OrderItem from "../CurrentOrder/OrderItem";
 import { convertToDollar } from "../../../helper/convertToDollar";
-
-const order1 = {
-  products: [productList[23], productList[24], productList[25]],
-};
-
-const steps = ["Placed", "Picking Up", "On the Way", "Received"];
-
+import { selectedOrderStyles } from "../CurrentOrder/muiStyles";
+import { universalOrderStyles } from "../muiStyles";
+import ProgressTracker from "../OrderView/ProgressTracker";
+import { convertUnixToTime } from '../../../helper/time'
 
 function Order() {
   const { state } = useContext(UserContext);
-  const { current_orders } = state;
+  const { pastOrders } = state;
   const { orderId } = useParams();
   const products = useProducts();
   const [selectedOrder, setSelectedOrder] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSelectedOrder(current_orders ? (current_orders).filter(order => order.id === orderId)[0] : []);
-  }, [current_orders]);
+    setSelectedOrder(pastOrders ? (pastOrders).filter(order => order.id === orderId)[0] : []);
+  }, [pastOrders]);
 
   const selectedOrderItems = [];
   let itemNumber = 1;
@@ -86,17 +76,29 @@ function Order() {
     return parseFloat(shippingFee?.price);
   };
 
+  const getRusherTip = () => {
+    const rusherTip = selectedOrder?.rusher_tip;
+    return parseFloat(rusherTip);
+  }
+
   const getTotal = () => {
     return getSubTotal() + getTax() + getDeliveryFee();
   };
 
-  const getTotalCount = () => {
-    let count = 0;
-    selectedOrderItems?.forEach((element) => {
-      count += element.props.quantity;
-    });
-    return count;
-  };
+  const getShippingAddress = () => {
+    const building = selectedOrder?.shipping_address?.building
+    const campus = selectedOrder?.shipping_address?.campus
+    const floor_apartment = selectedOrder?.shipping_address?.floor_apartment
+
+    return <Typography 
+            sx={{
+              fontWeight: "500",
+              fontFamily: "Inter",
+              fontSize: "16px",
+              color: "#000000"
+            }}
+           >{`${building} ${floor_apartment}`} <br /> {campus} </Typography>;
+  }
 
   return (
     <Box sx={{ paddingBottom: "100px" }}>
@@ -122,7 +124,7 @@ function Order() {
             width: "390px"
           }}
         >
-          In Progress
+          Order Details
         </Typography>
       </Box>
       {/* Current order details */}
@@ -162,11 +164,11 @@ function Order() {
           sx={{ 
             my: "10px",
             fontFamily: "Poppins",
-            color: "#586DD0",
+            color: "#000000",
             fontWeight: "600",
             fontSize: "16px"
         }}>
-          <b style={{color: "#000000"}}>Order Confirmed •</b> <span style={{fontWeight: "400"}}>Searching </span>Rusher
+          <b style={{color: "#000000"}}>Complete •</b> <span style={{fontWeight: "400"}}>{convertUnixToTime(selectedOrder.order_time)}</span>
         </Typography>
         <Box
           sx={{
@@ -174,7 +176,7 @@ function Order() {
             flexDirection: "column",
             my: "20px",
             padding: "0 10px",
-            gap: "10px",
+            gap: "6px",
           }}
         >
           {selectedOrderItems.map((item) => {
@@ -218,10 +220,14 @@ function Order() {
               color: "#686868",
             }}
           >
-            <Typography variant="subtitle1" color="#686868">
+            <Typography 
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
               Subtotal
             </Typography>
-            <Typography variant="subtitle1" color="#686868">
+            <Typography 
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
               ${convertToDollar(getSubTotal())}
             </Typography>
           </Box>
@@ -234,10 +240,14 @@ function Order() {
               color: "#686868",
             }}
           >
-            <Typography variant="subtitle1" color="#686868">
+            <Typography
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
               Tax
             </Typography>
-            <Typography variant="subtitle1" color="#686868">
+            <Typography
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
               ${convertToDollar(getTax())}
             </Typography>
           </Box>
@@ -250,10 +260,14 @@ function Order() {
               color: "#686868",
             }}
           >
-            <Typography variant="subtitle1" color="#686868">
+            <Typography
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
               Delivery
             </Typography>
-            <Typography variant="subtitle1" color="#686868">
+            <Typography
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
               ${convertToDollar(getDeliveryFee())}
             </Typography>
           </Box>
@@ -266,11 +280,15 @@ function Order() {
               color: "#686868",
             }}
           >
-            <Typography variant="subtitle1" color="#686868">
+            <Typography
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
               Rusher Tip
             </Typography>
-            <Typography variant="subtitle1" color="#686868">
-              $1.95
+            <Typography
+              sx={selectedOrderStyles.selectedOrderSummary}
+            >
+              ${convertToDollar(getRusherTip())}
             </Typography>
           </Box>
           <Box
@@ -282,39 +300,122 @@ function Order() {
               color: "#686868",
             }}
           >
-            <Typography variant="subtitle1" color="#000000">
+            <Typography
+              sx={selectedOrderStyles.selectedOrderTotal}
+            >
               Total
             </Typography>
-            <Typography variant="subtitle1" color="#000000">
+            <Typography
+              sx={selectedOrderStyles.selectedOrderTotal}
+            >
               ${convertToDollar(getTotal())}
             </Typography>
           </Box>
 
           {/* Address */}
           <Divider
-            flexItem="true"
-            light="false"
-            variant="fullWidth"
             sx={{ borderBottomWidth: "2px", my: "15px" }}
           />
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: "10px" }}>
-            Address
-          </Typography>
-          <Typography variant="subtitle1" color="#686868">
-            Black Hall 1234 <br />
-            UC San Diego
-          </Typography>
+          <Box
+            sx={selectedOrderStyles.orderDetailsSection}
+          >
+            <Typography 
+              sx={{
+                color: "#686868",
+                fontFamily: "Inter",
+                fontWeight: "600",
+                fontSize: "22px"
+              }}>
+              Address
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between"
+            }}
+          >
+            {getShippingAddress()}
+            <AddressIcon />
+          </Box>
+        </Box>
+        {/* Replacement preference info */}
+        <Divider
+          sx={{ borderBottomWidth: "2px", my: "15px" }}
+        />
+        <Box
+            sx={selectedOrderStyles.orderDetailsSection}
+          >
+            <Typography 
+              sx={{
+                color: "#686868",
+                fontFamily: "Inter",
+                fontWeight: "600",
+                fontSize: "22px"
+              }}>
+              Replacement Preference
+            </Typography>
+          </Box>
+        {/* special delivery instructions */}
+        <Divider
+          sx={{ borderBottomWidth: "2px", my: "15px" }}
+        />
+        <Box
+            sx={selectedOrderStyles.orderDetailsSection}
+          >
+            <Typography 
+              sx={{
+                color: "#686868",
+                fontFamily: "Inter",
+                fontWeight: "600",
+                fontSize: "22px"
+              }}>
+              Special Delivery Instructions
+            </Typography>
+          </Box>
+        {/* Progress info */}
+        <Divider
+          sx={{ borderBottomWidth: "2px", my: "15px" }}
+        />
+        <Box
+            sx={selectedOrderStyles.orderDetailsSection}
+          >
+            <Typography 
+              sx={{
+                color: "#686868",
+                fontFamily: "Inter",
+                fontWeight: "600",
+                fontSize: "22px"
+              }}>
+              Progress
+            </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          <ProgressTracker processingStage={3} iconPadding={"0"} textPadding={"0 5px 0 1px"}/>
         </Box>
         {/* Rusher info */}
         <Divider
-          flexItem="true"
-          light="false"
-          variant="fullWidth"
           sx={{ borderBottomWidth: "2px", my: "15px" }}
         />
-        <Typography variant="h6" fontWeight="bold" sx={{ mb: "10px" }}>
-          Rusher
-        </Typography>
+        <Box
+            sx={selectedOrderStyles.orderDetailsSection}
+          >
+            <Typography 
+              sx={{
+                color: "#686868",
+                fontFamily: "Inter",
+                fontWeight: "600",
+                fontSize: "22px"
+              }}>
+              Rusher
+            </Typography>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -331,53 +432,46 @@ function Order() {
               gap: "20px",
             }}
           >
-            <img alt="Apple" width="60px" src={apple} />
-            <Typography variant="body1" fontSize="larger">
-              Rusher
+            <img style={{width: "50px", height: "50px", borderRadius: "50%"}} alt="Apple" width="60px" src={apple} />
+            <Typography
+              sx={{
+                fontFamily: "Inter",
+                fontWeight: "400",
+                fontSize: "22px",
+              }}
+            >
+              Alex G
             </Typography>
           </Box>
 
-          <Box sx={{ display: "flex" }}>
-            <Button>
-              <img alt="Phone Icon" src={PhoneIcon} />
-            </Button>
-            <Button>
-              <img alt="Message Icon" src={msgIcon} />
-            </Button>
-          </Box>
-        </Box>
-        <Divider
-          flexItem="true"
-          light="false"
-          variant="fullWidth"
-          sx={{ borderBottomWidth: "2px", my: "15px" }}
-        />
-
-        <Box
-          sx={{
-            marginY: "40px",
-          }}
-        >
-          <Button
-            disableRipple
-            variant="contained"
-            sx={{
-              backgroundColor: "#7141FA",
-              borderRadius: "999px",
-              color: "#ffffff",
-              padding: "10px 15px",
-              width: "100%",
-              fontWeight: "bold",
-              fontSize: "large",
-              border: "none",
-              cursor: "pointer",
-              "&:hover": {
-                backgroundColor: "#7141FA",
-              },
+          <Box 
+            sx={{ 
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px"
             }}
           >
-            Reorder
-          </Button>
+            {/* phone number and text numbers below to be changed to actual values */}
+            <Box
+              sx={universalOrderStyles.contactButtons}
+              onClick = {(e) => {
+                e.stopPropagation()
+                window.open('tel:900300400', '_self')
+              }}
+            >
+              <PhoneIcon fill="#7C91F426"/>
+            </Box>
+            <Box
+              sx={universalOrderStyles.contactButtons}
+              onClick = {(e) => {
+                e.stopPropagation()
+                window.open('sms:900300400', '_self')
+              }}
+            >
+              <MsgIcon fill="#7C91F426"/>
+            </Box>
+          </Box>
         </Box>
       </Container>
     </Box>

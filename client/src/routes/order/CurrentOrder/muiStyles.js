@@ -114,54 +114,28 @@ export const cartItemStyles = {
     WebkitLineClamp: '1',
     WebkitBoxOrient: 'vertical'
   },
+}
 
-  cartItemDelete: {
-    backgroundColor: "#ffffff",
-    border: "none",
-    alignSelf: "flex-start",
-    color: "#686868",
-    marginTop: "10px",
-    ":hover": {
-      cursor: "pointer",
-    },
-    fontSize: "35px",
-    "@media screen and (max-width: 900px)": {
-      fontSize: "30px"
-    }
+export const selectedOrderStyles = {
+  selectedOrderSummary: {
+    fontSize: "16px",
+    fontFamily: "Inter",
+    fontWeight: "400",
+    color:"#686868"
   },
 
-  cartItemCounter: {
-      width: "120px",
-      height: "40px",
-      display: "flex",
-      justifyContent: "center",
-      flex: "row",
-      background: "#eeeeee",
-      borderRadius: "5px",
-      fontFamily: "Poppins",
-      "@media screen and (max-width: 900px)": {
-        height: "30px",
-        width: "100px"
-      },
-      "@media screen and (max-width: 775px)": {
-        width: "80px"
-      },
+  selectedOrderTotal: {
+    fontSize: "16px",
+    fontFamily: "Inter",
+    fontWeight: "700",
+    color:"#000000"
   },
 
-  cartItemPriceBox: {
-      flex: "1 20%",
-      alignItems: "end",
+  orderDetailsSection: {
+      width: "100%",
       display: "flex",
-      flexDirection: "column",
       justifyContent: "space-between",
-  },
-
-  cartItemPrice: {
-    fontFamily: "Poppins",
-    fontSize: "1.25rem",
-    lineHeight: "32px",
-    "@media screen and (max-width: 575px)": {
-      fontSize: "1.1rem",
-    }
+      color: "#686868",
+      marginBottom: "10px"
   }
 }
