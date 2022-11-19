@@ -108,7 +108,7 @@
 
 .itemImage {
   display: flex;
-  background-color: #ffffff;
+  background-color: #C4C4C4;
   height: 100%;
   border-radius: 16px;
   border: none;
@@ -128,21 +128,11 @@
 
 @media screen and (max-width: 575px) {
   .itemImage, .itemImage img {
-    height: 120px;
+    height: 105px;
   }
-}
 
-@media screen and (max-width: 525px) {
-  .descriptionBox {
-    display: -webkit-box;
-   -webkit-line-clamp: 2; /* number of lines to show */
-           line-clamp: 2; 
-   -webkit-box-orient: vertical;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .itemImage, .itemImage img {
-    height: 100px;
+  .cartItemDelete {
+    height: 22px;
+    width: 22px;
   }
 }
