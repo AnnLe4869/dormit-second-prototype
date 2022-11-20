@@ -162,6 +162,10 @@ function CurrentOrder({ order }) {
             </Box>
             <Box
               sx={universalOrderStyles.contactButtons}
+              onClick = {(e) => {
+                e.stopPropagation()
+                window.open('sms:900300400', '_self')
+              }}
             >
               <MsgIcon fill="#FFFFFF"/>
             </Box>

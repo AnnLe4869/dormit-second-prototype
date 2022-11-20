@@ -117,6 +117,15 @@ export const cartItemStyles = {
 }
 
 export const selectedOrderStyles = {
+  selectedOrderSummaryBox: {
+    width: "100%",
+    height: "30px",
+    display: "flex",
+    justifyContent: "space-between",
+    color: "#686868",
+    padding: "0 8px"
+  },
+
   selectedOrderSummary: {
     fontSize: "16px",
     fontFamily: "Inter",
@@ -132,10 +141,18 @@ export const selectedOrderStyles = {
   },
 
   orderDetailsSection: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-      color: "#686868",
-      marginBottom: "10px"
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    color: "#686868",
+    marginBottom: "10px",
+    padding: "0 8px"
+  },
+
+  orderDetailsHeader: {
+    color: "#686868",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "22px"
   }
 }

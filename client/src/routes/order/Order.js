@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import Header from "../home/Header";
 import styles from "./Order.module.css";
 
 import { Button, Box, CircularProgress, Backdrop, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { useNavigate } from "react-router-dom";
 import {
   useGetAllPastOrders,
   useInitializeAllOrders,
 } from "../../context/user/order-handler";
 import { UserContext } from "../../context/user/user-context";
-import OrderView from "./OrderView/OrderView";
 import CurrentOrder from "./OrderView/CurrentOrder";
 import PastOrder from "./OrderView/PastOrder";
 
@@ -20,7 +17,6 @@ function Order() {
   const { state } = useContext(UserContext);
   const initializePast = useGetAllPastOrders();
   const initializeOrders = useInitializeAllOrders();
-  const navigate = useNavigate();
 
 
   useEffect(() => {

@@ -101,6 +101,11 @@ function Order() {
            >{`${building} ${floor_apartment}`} <br /> {campus} </Typography>;
   }
 
+  const getInstructions = () => {
+    const instructions = selectedOrder?.message;
+    return instructions;
+  }
+
   return (
     <Box sx={{ paddingBottom: "100px" }}>
       <Box
@@ -122,7 +127,6 @@ function Order() {
           sx={{
             fontWeight: "500",
             fontSize: "28px",
-            width: "390px"
           }}
         >
           In Progress
@@ -133,14 +137,14 @@ function Order() {
         sx={{ borderBottomWidth: "4px", width: "100%" }}
       />
 
-      <Container maxWidth="sm" sx={{padding: "0 25px"}}>
+      <Container maxWidth="sm" sx={{padding: "0 15px"}}>
         {/* Order */}
         <Box 
           sx={{ 
             display: "flex",
             justifyContent: "space-between",
             fontFamily: "Poppins",
-            padding: "25px 0 0 0"
+            padding: "25px 0 0 5px"
         }}>
           <Typography
             sx={{
@@ -167,7 +171,8 @@ function Order() {
             fontFamily: "Poppins",
             color: "#586DD0",
             fontWeight: "600",
-            fontSize: "16px"
+            fontSize: "16px",
+            padding: "0 0 0 5px"
         }}>
           <b style={{color: "#000000"}}>Order Confirmed •</b> <span style={{fontWeight: "400"}}>Searching </span>Rusher
         </Typography>
@@ -176,7 +181,7 @@ function Order() {
             display: "flex",
             flexDirection: "column",
             my: "20px",
-            padding: "0 10px",
+            padding: "0 12px",
             gap: "6px",
           }}
         >
@@ -194,32 +199,16 @@ function Order() {
             sx={{ borderBottomWidth: "2px", my: "15px" }}
           />
           <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              color: "#686868",
-              marginBottom: "10px"
-            }}
+            sx={selectedOrderStyles.orderDetailsSection}
           >
             <Typography 
-              sx={{
-                color: "#686868",
-                fontFamily: "Inter",
-                fontWeight: "600",
-                fontSize: "22px"
-              }}>
+              sx={selectedOrderStyles.orderDetailsHeader}
+            >
               Order Summary
             </Typography>
           </Box>
           <Box
-            sx={{
-              width: "100%",
-              height: "30px",
-              display: "flex",
-              justifyContent: "space-between",
-              color: "#686868",
-            }}
+            sx={selectedOrderStyles.selectedOrderSummaryBox}
           >
             <Typography 
               sx={selectedOrderStyles.selectedOrderSummary}
@@ -233,13 +222,7 @@ function Order() {
             </Typography>
           </Box>
           <Box
-            sx={{
-              width: "100%",
-              height: "30px",
-              display: "flex",
-              justifyContent: "space-between",
-              color: "#686868",
-            }}
+            sx={selectedOrderStyles.selectedOrderSummaryBox}
           >
             <Typography
               sx={selectedOrderStyles.selectedOrderSummary}
@@ -253,13 +236,7 @@ function Order() {
             </Typography>
           </Box>
           <Box
-            sx={{
-              width: "100%",
-              height: "30px",
-              display: "flex",
-              justifyContent: "space-between",
-              color: "#686868",
-            }}
+            sx={selectedOrderStyles.selectedOrderSummaryBox}
           >
             <Typography
               sx={selectedOrderStyles.selectedOrderSummary}
@@ -273,13 +250,7 @@ function Order() {
             </Typography>
           </Box>
           <Box
-            sx={{
-              width: "100%",
-              height: "30px",
-              display: "flex",
-              justifyContent: "space-between",
-              color: "#686868",
-            }}
+            sx={selectedOrderStyles.selectedOrderSummaryBox}
           >
             <Typography
               sx={selectedOrderStyles.selectedOrderSummary}
@@ -293,13 +264,7 @@ function Order() {
             </Typography>
           </Box>
           <Box
-            sx={{
-              width: "100%",
-              height: "30px",
-              display: "flex",
-              justifyContent: "space-between",
-              color: "#686868",
-            }}
+            sx={selectedOrderStyles.selectedOrderSummaryBox}
           >
             <Typography
               sx={selectedOrderStyles.selectedOrderTotal}
@@ -321,19 +286,16 @@ function Order() {
             sx={selectedOrderStyles.orderDetailsSection}
           >
             <Typography 
-              sx={{
-                color: "#686868",
-                fontFamily: "Inter",
-                fontWeight: "600",
-                fontSize: "22px"
-              }}>
+              sx={selectedOrderStyles.orderDetailsHeader}
+            >
               Address
             </Typography>
           </Box>
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
+              padding: "0 0 0 8px"
             }}
           >
             {getShippingAddress()}
@@ -348,13 +310,25 @@ function Order() {
             sx={selectedOrderStyles.orderDetailsSection}
           >
             <Typography 
-              sx={{
-                color: "#686868",
-                fontFamily: "Inter",
-                fontWeight: "600",
-                fontSize: "22px"
-              }}>
+              sx={selectedOrderStyles.orderDetailsHeader}
+            >
               Replacement Preference
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              padding: "0 0 0 8px"
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "Inter",
+                fontWeight: "500",
+                fontSize: "16px"
+              }}
+            >
+              Call me.
             </Typography>
           </Box>
         {/* special delivery instructions */}
@@ -362,18 +336,30 @@ function Order() {
           sx={{ borderBottomWidth: "2px", my: "15px" }}
         />
         <Box
-            sx={selectedOrderStyles.orderDetailsSection}
+          sx={selectedOrderStyles.orderDetailsSection}
+        >
+          <Typography 
+            sx={selectedOrderStyles.orderDetailsHeader}
           >
-            <Typography 
-              sx={{
-                color: "#686868",
-                fontFamily: "Inter",
-                fontWeight: "600",
-                fontSize: "22px"
-              }}>
-              Special Delivery Instructions
-            </Typography>
-          </Box>
+            Special Delivery Instructions
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            padding: "0 0 0 8px"
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "Inter",
+              fontWeight: "500",
+              fontSize: "16px"
+            }}
+          >
+            {getInstructions()}
+          </Typography>
+        </Box>
         {/* Progress info */}
         <Divider
           sx={{ borderBottomWidth: "2px", my: "15px" }}
@@ -382,12 +368,8 @@ function Order() {
             sx={selectedOrderStyles.orderDetailsSection}
           >
             <Typography 
-              sx={{
-                color: "#686868",
-                fontFamily: "Inter",
-                fontWeight: "600",
-                fontSize: "22px"
-              }}>
+              sx={selectedOrderStyles.orderDetailsHeader}
+            >
               Progress
             </Typography>
         </Box>
@@ -395,7 +377,8 @@ function Order() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
+            padding: "0 8px"
           }}
         >
           <ProgressTracker processingStage={selectedOrder.process_stage} iconPadding={"0"} textPadding={"0 5px 0 1px"}/>
@@ -408,12 +391,8 @@ function Order() {
             sx={selectedOrderStyles.orderDetailsSection}
           >
             <Typography 
-              sx={{
-                color: "#686868",
-                fontFamily: "Inter",
-                fontWeight: "600",
-                fontSize: "22px"
-              }}>
+              sx={selectedOrderStyles.orderDetailsHeader}
+            >
               Rusher
             </Typography>
         </Box>
@@ -422,7 +401,7 @@ function Order() {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            my: "20px",
+            padding: "0 10px"
           }}
         >
           <Box
