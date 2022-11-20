@@ -17,25 +17,6 @@ function CurrentOrder({ order }) {
   const totalProducts = order.items.length;
   const processingStage = order.process_stage;
 
-  const orderStatusList = [
-    { 
-      name: "Confirmed",
-      processingStage: 0
-    },
-    { 
-      name: "Picked up",
-      processingStage: 1
-    },
-    { 
-      name: "On the way",
-      processingStage: 2
-    },
-    { 
-      name: "Complete",
-      processingStage: 3
-    }
-  ]
-
   return (
     <Box
         onClick = {() => navigate(`/order/current/${order.id}`)}

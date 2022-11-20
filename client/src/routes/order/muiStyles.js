@@ -42,5 +42,10 @@ export const universalOrderStyles = {
         display: "flex",
         alignItems: "center",
         cursor: "pointer",
-      }
+    },
+
+    cartDrawer: {
+      borderRadius: "20px 20px 0 0",
+      overflow: "hidden"
+    }
 }

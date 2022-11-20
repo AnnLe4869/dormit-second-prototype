@@ -156,3 +156,57 @@ export const selectedOrderStyles = {
     fontSize: "22px"
   }
 }
+
+export const reportPageStyles = {
+  reportPageHeader: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: "15px 0px 10px 0px",
+    justifyContent: "space-between",
+  },
+
+  closeButton: {
+    width: "35px",
+    height: "35px",
+    minWidth: "0",
+    minHeight: "0",
+    border: "0",
+    color: "#000000",
+    fontSize: "100px",
+  },
+
+  pageMessageBox: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "50px"
+  },
+
+  radioLabelBox: {
+    padding: "0 20px",
+    gap: "3px",
+    borderRadius: "30px",
+    width: "100%",
+    height: "36px",
+    margin: "0",
+    marginBottom: "10px",
+  },
+
+  radioLabelSelectedBox: {
+    padding: "0 20px",
+    gap: "3px",
+    borderRadius: "30px",
+    width: "100%",
+    height: "36px",
+    margin: "0",
+    marginBottom: "10px",
+    backgroundColor: "#7C91F426"
+  },
+
+  radioButton: {
+    '&.Mui-checked': {
+      color: "#000000"
+    }
+  }
+}

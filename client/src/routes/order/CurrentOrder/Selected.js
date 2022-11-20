@@ -6,6 +6,7 @@ import {
   Box,
   Divider,
   Typography,
+  Drawer
 } from "@mui/material";
 import apple from "../../../mock_data/images/apple.jpg";
 import {ReactComponent as MsgIcon} from "../../../assets/Order/message.svg";
@@ -21,8 +22,10 @@ import { convertToDollar } from "../../../helper/convertToDollar";
 import { selectedOrderStyles } from "./muiStyles";
 import { universalOrderStyles } from "../muiStyles";
 import ProgressTracker from "../OrderView/ProgressTracker";
+import Report from "./Report";
 
 function Order() {
+  const [drawerState, setDrawerState] = useState(false)
   const { state } = useContext(UserContext);
   const { current_orders } = state;
   const { orderId } = useParams();
@@ -33,8 +36,6 @@ function Order() {
   useEffect(() => {
     setSelectedOrder(current_orders ? (current_orders).filter(order => order.id === orderId)[0] : []);
   }, [current_orders]);
-
-  console.log(selectedOrder)
 
   const selectedOrderItems = [];
   let itemNumber = 1;
@@ -156,9 +157,7 @@ function Order() {
             {`#${selectedOrder.id && (selectedOrder.id).substring(3, 9)} (${selectedOrderItems.length} items)`}
           </Typography>
           <Box
-            sx={{
-              // position: "absolute"
-            }}
+            onClick={() => setDrawerState(true)}
           >
             <Flag />
           </Box>
@@ -193,8 +192,6 @@ function Order() {
         <Box>
           {/* Totals */}
           <Divider
-            flexItem="true"
-            light="false"
             variant="fullWidth"
             sx={{ borderBottomWidth: "2px", my: "15px" }}
           />
@@ -454,6 +451,14 @@ function Order() {
           </Box>
         </Box>
       </Container>
+      <Drawer
+        PaperProps={{sx: universalOrderStyles.cartDrawer}}
+        anchor="bottom"
+        open={drawerState}
+        variant="temporary"
+      >
+        <Report setDrawerState={setDrawerState}/>
+      </Drawer>
     </Box>
   );
 }
