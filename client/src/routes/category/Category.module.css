@@ -147,11 +147,10 @@
     grid-template-rows: repeat(2, 1fr);
     list-style: none;
     margin-top: 50px;
-    column-gap: 4%;
+    column-gap: 11%;
     row-gap: 30px;
     margin-bottom: 39px;
-
-    padding-inline: 12%;
+    padding-inline: 9.2%;
   }
 
   .item {
