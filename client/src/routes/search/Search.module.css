@@ -47,6 +47,15 @@
   color: #686868;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  background-repeat: no-repeat;
+  background-image: url("../../assets/Search/search-exit-icon.svg");
+}
+
 .searchIcon {
   content: "";
   position: absolute;

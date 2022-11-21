@@ -15,7 +15,6 @@ import ProductListing from "../../shared/product/ProductListing";
 import { useProducts } from "../../context/product/product-handler";
 import { UserContext } from "../../context/user/user-context";
 import { renderProducts } from "../../helper/renderProducts";
-import { style } from "@mui/system";
 
 function Search() {
   /*
