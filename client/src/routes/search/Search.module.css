@@ -14,11 +14,11 @@
   max-width: 1060px;
 }
 
-section div > p {
+.supplies section div > p {
   margin-top: 7.3px;
 }
 
-section > p {
+.supplies section > p {
   display: none;
 }
 
@@ -143,7 +143,7 @@ section > p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 100px;
+  padding-bottom: 160px;
 }
 
 .inputContainer {
@@ -207,6 +207,18 @@ section > p {
   /* grid-column-gap: 0.4rem; */
   grid-row-gap: 3rem;
   justify-content: space-between;
+}
+
+.trendingContainer {
+  padding-top: 25px;
+}
+
+.trendingHeader {
+  padding-left: 12%;
+  padding-bottom: 28px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
 }
 
 @media only screen and (max-width: 600px) {

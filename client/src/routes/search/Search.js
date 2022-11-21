@@ -14,6 +14,7 @@ import ProductListing from "../../shared/product/ProductListing";
 
 import { useProducts } from "../../context/product/product-handler";
 import { UserContext } from "../../context/user/user-context";
+import { renderProducts } from "../../helper/renderProducts";
 import { style } from "@mui/system";
 
 function Search() {
@@ -115,6 +116,16 @@ function Search() {
                     onSubmit={handleSubmit}
                   />
                   <img src={submitIcon} className={styles.submitIcon} />
+                </div>
+              </div>
+              <div className={styles.trendingContainer}>
+                <p className={styles.trendingHeader}>Suggested</p>
+                <div className={styles.supplies}>
+                  <ul className={styles.bigItemList}>
+                    {renderProducts(products, "Trending", 12).map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </>
