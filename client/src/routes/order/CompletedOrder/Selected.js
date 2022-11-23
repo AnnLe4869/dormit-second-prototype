@@ -379,7 +379,7 @@ function Order() {
             padding: "0 8px"
           }}
         >
-          <ProgressTracker processingStage={3} iconPadding={"0"} textPadding={"0 5px 0 1px"}/>
+          <ProgressTracker processingStage={3} width={"319px"} iconPadding={"0"} textPadding={"0 5px 0 1px"}/>
         </Box>
         {/* Rusher info */}
         <Divider

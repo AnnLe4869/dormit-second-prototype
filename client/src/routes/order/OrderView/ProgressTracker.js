@@ -10,7 +10,7 @@ import {ReactComponent as CompleteIcon} from "../../../assets/Order/complete.svg
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
-function ProgressTracker({ processingStage, iconPadding, textPadding }) {
+function ProgressTracker({ processingStage, width, iconPadding, textPadding }) {
 
   const orderStatusList = [
     { 
@@ -37,7 +37,7 @@ function ProgressTracker({ processingStage, iconPadding, textPadding }) {
             sx={{
                 display: "flex",
                 justifyContent: "space-evenly",
-                width: "100%",
+                width: width,
                 padding: iconPadding,
                 alignItems: "center",
                 marginBottom: "5px"
@@ -56,7 +56,7 @@ function ProgressTracker({ processingStage, iconPadding, textPadding }) {
                 display: "flex",
                 justifyContent: "space-between",
                 padding: textPadding,
-                width: "100%",
+                width: width,
             }}
         >
             {orderStatusList.map(status => (     

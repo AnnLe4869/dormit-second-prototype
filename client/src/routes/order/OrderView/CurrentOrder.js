@@ -98,7 +98,7 @@ function CurrentOrder({ order }) {
                 height: "74px",
             }}
         >
-            <ProgressTracker processingStage={processingStage} iconPadding={"0 2px 0 5px"} textPadding={"0"}/>
+            <ProgressTracker processingStage={processingStage} width={"300px"} iconPadding={"0 2px 0 5px"} textPadding={"0"}/>
         </Box>
         <Divider
           sx={{
