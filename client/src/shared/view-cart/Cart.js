@@ -103,7 +103,7 @@ const Cart = ({ handleDrawerClose }) => {
           top: "0",
           width: "100%",
           backgroundColor: "#FFFFFF",
-          zIndex: "1"
+          zIndex: "999"
         }}
       >
         <Box
@@ -111,13 +111,13 @@ const Cart = ({ handleDrawerClose }) => {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            padding: "22px 15px 10px 20px",
+            padding: "30px 15px 10px 25px",
             justifyContent: "space-between",
           }}
         >
           <Typography
             sx={cartPageStyles.cartHeading}
-            variant="h2"
+            variant="Mobile Title 1"
           >
             My Cart
           </Typography>
@@ -129,7 +129,6 @@ const Cart = ({ handleDrawerClose }) => {
               minHeight: "0",
               border: "0",
               color: "#000000",
-              fontSize: "100px",
             }}
             onClick={handleDrawerClose}
           >
@@ -139,7 +138,7 @@ const Cart = ({ handleDrawerClose }) => {
         <Divider
           dark
           sx={{
-            "margin-bottom": "25px",
+            "margin-bottom": "15px",
             color: "black",
             borderBottomWidth: 5,
           }}
@@ -161,9 +160,9 @@ const Cart = ({ handleDrawerClose }) => {
             fontSize: "32px", 
             fontFamily: "Poppins",
             fontWeight: "500",
-            "@media screen and (max-width: 575px)": {fontSize: "26px"}
+            "@media screen and (max-width: 575px)": {fontSize: "22px"}
           }} 
-          margin={"50px 0 10px 0"} 
+          margin={"35px 0 10px 0"} 
           variant="h2"
         >
           Promotion Code
@@ -179,8 +178,8 @@ const Cart = ({ handleDrawerClose }) => {
             alignSelf: "flex-start",
             width: "100%",
             height: "70px",
-            marginBottom: "50px",
-            "@media screen and (max-width: 575px)": {height: "45px"}
+            marginBottom: "40px",
+            "@media screen and (max-width: 575px)": {height: "42px"}
           }}
         >
           <input
@@ -191,7 +190,7 @@ const Cart = ({ handleDrawerClose }) => {
           <Button
             sx={{
               textTransform: 'none',
-              fontFamily: "Poppins",
+              fontFamily: "Inter",
               fontWeight: "700",
               display: "flex",
               alignItems: "center",
@@ -208,7 +207,7 @@ const Cart = ({ handleDrawerClose }) => {
               justifyContent: "center",
               alignSelf: "flex-end",
               padding: "0 0 0 10px",
-              "@media screen and (max-width: 575px)": {height: "43px"}
+              "@media screen and (max-width: 575px)": {height: "40px"}
 
             }}
           >
@@ -220,74 +219,71 @@ const Cart = ({ handleDrawerClose }) => {
             fontSize: "32px", 
             fontFamily: "Poppins",
             fontWeight: "500",
-            "@media screen and (max-width: 575px)": {fontSize: "26px"}
+            "@media screen and (max-width: 575px)": {fontSize: "22px"}
           }} 
-          marginBottom={"10px"} 
+          marginBottom={"8px"} 
           variant="h2">
           Order Summary
         </Typography>
         <Divider
         dark
           sx={{
-            "margin-bottom": "25px",
+            "margin-bottom": "10px",
             color: "black",
+            borderBottomWidth: 2
           }}
         />
         <Box
           sx={{
             width: "100%",
-            marginBottom: "10px",
             height: "30px",
             display: "flex",
             justifyContent: "space-between",
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Subtotal</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">Subtotal</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">
             ${convertToDollar(getSubTotal())}
           </Typography>
         </Box>
         <Box
           sx={{
             width: "100%",
-            marginBottom: "10px",
             height: "30px",
             display: "flex",
             justifyContent: "space-between",
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Tax</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">${convertToDollar(getTax())}</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">Tax</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">${convertToDollar(getTax())}</Typography>
         </Box>
         <Box
           sx={{
             width: "100%",
-            marginBottom: "10px",
             height: "30px",
             display: "flex",
             justifyContent: "space-between",
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">Delivery</Typography>
-          <Typography sx ={{fontFamily: "Poppins"}} variant="h6">
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">Delivery</Typography>
+          <Typography sx ={{fontFamily: "Inter"}} variant="Mobile Body">
             ${convertToDollar(getDeliveryFee())}
           </Typography>
         </Box>
         <Box
           sx={{
             width: "100%",
-            marginBottom: "10px",
             height: "30px",
             display: "flex",
             justifyContent: "space-between",
             color: "#686868",
           }}
         >
-          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="h6">Total</Typography>
-          <Typography sx ={{fontFamily: "Poppins", fontWeight: "800", color: "#000000"}} variant="h6">${convertToDollar(getTotal())}</Typography>
+          <Typography sx ={{fontFamily: "Inter", fontWeight: "800", color: "#000000"}} variant="Mobile Body">Total</Typography>
+          <Typography sx ={{fontFamily: "Inter", fontWeight: "800", color: "#000000"}} variant="Mobile Body">${convertToDollar(getTotal()).toFixed(2)}</Typography>
         </Box>
         <Box
           sx={{
@@ -300,8 +296,7 @@ const Cart = ({ handleDrawerClose }) => {
             onClick={() => navigate("/checkout/address")}
             sx={{
               marginBottom: "30px",
-              width: "100%",
-              maxWidth: "380px",
+              width: "313px",
               height: "60px",
               background: "#7141fa",
               borderRadius: "20px",
@@ -317,9 +312,45 @@ const Cart = ({ handleDrawerClose }) => {
               },
             }}
           >
-            <div>{getTotalCount()} items</div>
-            <div>Review Order</div>
-            <div>${convertToDollar(getTotal())}</div>
+            <Typography
+              sx={{
+                textTransform: 'none',
+                fontWeight: "700",
+                fontSize: "16px",
+                fontFamily: "Poppins",
+                lineHeight: "24px",
+              }}
+              variant="Mobile Callout"
+            >
+              {getTotalCount()} items
+            </Typography>
+            <Typography
+              sx={{
+                textTransform: 'none',
+                fontWeight: "700",
+                fontSize: "18px",
+                lineHeight: "21px",
+                fontFamily: "Inter",
+                fontStyle: "normal",
+                display: "flex",
+                alignItems: "center",
+                textAlign: "center"
+              }}
+            >
+              Review Order
+            </Typography>
+            <Typography
+              sx={{
+                textTransform: 'none',
+                fontWeight: "700",
+                fontSize: "16px",
+                lineHeight: "24px",
+                fontFamily: "Poppins"
+              }}
+              variant="Mobile Callout"
+            >
+              ${convertToDollar(getTotal()).toFixed(2)}
+            </Typography>
           </Button>
         </Box>
         
