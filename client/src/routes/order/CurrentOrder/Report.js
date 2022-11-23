@@ -71,7 +71,7 @@ const Report = ({ setDrawerState }) => {
                         marginBottom: "30px"
                     }}
                 >
-                    Please <span style={{fontWeight: "600"}}>select one</span> and wait to connect with a supervisor!
+                    Please <span style={{fontWeight: "700"}}>select one</span> and wait to connect with a supervisor!
                 </Typography>
                 <form onSubmit={handleFormSubmit}>
                     <FormControl>

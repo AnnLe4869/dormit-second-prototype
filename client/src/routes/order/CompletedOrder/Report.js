@@ -71,7 +71,7 @@ const Report = ({ setDrawerState }) => {
                         marginBottom: "30px"
                     }}
                 >
-                    Please <span style={{fontWeight: "600"}}>select one</span> and explain!
+                    Please <span style={{fontWeight: "700"}}>select one</span> and explain!
                 </Typography>
                 <form onSubmit={handleFormSubmit}>
                     <FormControl>

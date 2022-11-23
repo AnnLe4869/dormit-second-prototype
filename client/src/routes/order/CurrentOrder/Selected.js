@@ -173,7 +173,7 @@ function Order() {
             fontSize: "16px",
             padding: "0 0 0 5px"
         }}>
-          <b style={{color: "#000000"}}>Order Confirmed •</b> <span style={{fontWeight: "400"}}>Searching </span>Rusher
+          <b style={{fontFamily: "Poppins", color: "#000000"}}>Order Confirmed •</b> <span style={{fontWeight: "400"}}>Searching </span>Rusher
         </Typography>
         <Box
           sx={{

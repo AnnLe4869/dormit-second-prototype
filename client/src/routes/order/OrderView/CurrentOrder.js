@@ -78,7 +78,7 @@ function CurrentOrder({ order }) {
                     fontSize: "12px"
                 }}
             >
-                Order Confirmed • <span style={{fontWeight: "700"}}>{`5 min to pick up`}</span>
+                Order Confirmed • <span style={{fontFamily: "Poppins", fontWeight: "700"}}>{`5 min to pick up`}</span>
             </Typography>
         </Box>
         <Divider

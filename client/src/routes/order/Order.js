@@ -50,7 +50,15 @@ function Order() {
         maxWidth: "600px",
         gap: "30px"
       }}>
-        <h2>Orders</h2>
+        <Typography
+          sx={{
+            fontFamily: "Poppins",
+            fontSize: "28px",
+            fontWeight: "500"
+          }}
+        >
+          Orders
+        </Typography>
       </Box>
       <Box sx={{
         width: "100%", 

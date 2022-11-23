@@ -4,6 +4,8 @@ import React from "react";
 import apple from "../../../mock_data/images/apple.jpg";
 import reorderIcon from "../../../assets/Order/reorder.svg";
 
+import { Image } from "../../../shared/loading-image/Image";
+
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
@@ -21,7 +23,13 @@ function PastOrder({ order }) {
   order.items.slice(0, 4).map(({ product_id }) => {
     const product = products.find(({ id }) => id === product_id);
     const productImage = (
-      <img key={product.id} style={{height: "100%", borderRadius: "8px"}} src={product.images} />
+      <Box
+        sx={{
+          width: "100%",
+        }}
+      >
+        <Image key={product.id} style={{height: "100%", borderRadius: "8px", width: "40px"}} image={product.images} />
+      </Box>
     );
     productImages.push(productImage)
   })
