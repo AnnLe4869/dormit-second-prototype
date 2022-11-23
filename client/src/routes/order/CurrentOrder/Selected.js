@@ -128,6 +128,7 @@ function Order() {
           sx={{
             fontWeight: "500",
             fontSize: "28px",
+            fontFamily: "Poppins"
           }}
         >
           In Progress

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./Order.module.css";
 
-import { Button, Box, CircularProgress, Backdrop, Typography } from "@mui/material";
+import { Button, Box, CircularProgress, Backdrop, Typography, Drawer } from "@mui/material";
 import { Container } from "@mui/system";
 import {
   useGetAllPastOrders,
@@ -12,8 +12,12 @@ import CurrentOrder from "./OrderView/CurrentOrder";
 import PastOrder from "./OrderView/PastOrder";
 
 import OrderSelector from "./OrderSelector";
+import Cart from "../../shared/view-cart/Cart";
+
+import { universalOrderStyles } from './muiStyles';
 
 function Order() {
+  const [drawerState, setDrawerState] = useState(false);
   const { state } = useContext(UserContext);
   const initializePast = useGetAllPastOrders();
   const initializeOrders = useInitializeAllOrders();
@@ -101,7 +105,7 @@ function Order() {
               gap: "25px"
             }}>
             {ordersSelected === 'completed' && completedOrders.slice(0, completedOrderCount).map((order, index) => (
-              <PastOrder key={index} order={order} />
+              <PastOrder key={index} order={order} setDrawerState={setDrawerState}/>
             ))}
           </Box>
           {completedOrders.length > completedOrderCount && ordersSelected === 'completed' ? (
@@ -134,6 +138,14 @@ function Order() {
           ) : null}
         </div>
       </Container>
+      <Drawer
+        PaperProps={{sx: universalOrderStyles.cartDrawer}} 
+        anchor="bottom" 
+        open={drawerState} 
+        variant="temporary"
+      >
+        <Cart handleDrawerClose={() => setDrawerState(false)}/>
+      </Drawer>
     </>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 // icons
 import apple from "../../../mock_data/images/apple.jpg";
-import reorderIcon from "../../../assets/Order/reorder.svg";
+import {ReactComponent as ReorderIcon} from "../../../assets/Order/reorder.svg";
 
 import { Image } from "../../../shared/loading-image/Image";
 
@@ -13,8 +13,13 @@ import { convertUnixToTime } from "../../../helper/time";
 import { useProducts } from "../../../context/product/product-handler";
 
 import { useNavigate } from 'react-router-dom';
+import { useIncrementItemCount, useSelectItem } from "../../../context/user/cart-handler";
+import { getCartFromLocStore } from "../../../helper/getCartFromLocStore";
 
-function PastOrder({ order }) {
+function PastOrder({ order, setDrawerState }) {
+  const selectItem = useSelectItem();
+  const incrementCount = useIncrementItemCount();
+  const localCart = getCartFromLocStore();
   const navigate = useNavigate();
   const products = useProducts();
   const totalProducts = order.items.length;
@@ -24,15 +29,30 @@ function PastOrder({ order }) {
     const product = products.find(({ id }) => id === product_id);
     const productImage = (
       <Box
+        key={product.id} 
         sx={{
           width: "100%",
         }}
       >
-        <Image key={product.id} style={{height: "100%", borderRadius: "8px", width: "40px"}} image={product.images} />
+        <Image style={{height: "100%", borderRadius: "8px", width: "40px"}} image={product.images} />
       </Box>
     );
     productImages.push(productImage)
   })
+
+  const handleReorderClick = (e) => {
+    e.stopPropagation()
+    order.items.map(({ product_id }) => {
+      const existingItem = localCart.find((item) => item.product_id === product_id);
+      if(!existingItem) {
+        selectItem(product_id);
+      } else {
+        incrementCount(product_id);
+      }
+    })
+
+    setDrawerState(true)
+  }
 
   return (
     <Box
@@ -143,7 +163,7 @@ function PastOrder({ order }) {
                 borderRadius: "999px",
               }}
             >
-              <img style={{ width: "40px" }} src={reorderIcon} />
+              <ReorderIcon onClick={handleReorderClick} />
             </Box>
           </Box>
         </Box>

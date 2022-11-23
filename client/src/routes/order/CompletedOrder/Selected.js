@@ -127,6 +127,7 @@ function Order() {
           sx={{
             fontWeight: "500",
             fontSize: "28px",
+            fontFamily: "Poppins"
           }}
         >
           Order Details
@@ -191,9 +192,6 @@ function Order() {
         <Box>
           {/* Totals */}
           <Divider
-            flexItem="true"
-            light="false"
-            variant="fullWidth"
             sx={{ borderBottomWidth: "2px", my: "15px" }}
           />
           <Box
