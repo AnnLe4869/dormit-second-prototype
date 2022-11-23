@@ -6,10 +6,9 @@ import {
   Box,
   Divider,
   Typography,
+  Drawer
 } from "@mui/material";
 import apple from "../../../mock_data/images/apple.jpg";
-import {ReactComponent as MsgIcon} from "../../../assets/Order/message.svg";
-import {ReactComponent as PhoneIcon} from "../../../assets/Order/phone.svg";
 import {ReactComponent as AddressIcon} from "../../../assets/Order/address.svg"
 import {ReactComponent as LeftArrow} from "../../../assets/Order/leftarrow.svg"
 import {ReactComponent as Flag} from "../../../assets/Order/flag.svg"
@@ -22,8 +21,10 @@ import { selectedOrderStyles } from "../CurrentOrder/muiStyles";
 import { universalOrderStyles } from "../muiStyles";
 import ProgressTracker from "../OrderView/ProgressTracker";
 import { convertUnixToTime } from '../../../helper/time'
+import Report from "./Report";
 
 function Order() {
+  const [drawerState, setDrawerState] = useState(false)
   const { state } = useContext(UserContext);
   const { pastOrders } = state;
   const { orderId } = useParams();
@@ -155,9 +156,7 @@ function Order() {
             {`#${selectedOrder.id && (selectedOrder.id).substring(3, 9)} (${selectedOrderItems.length} items)`}
           </Typography>
           <Box
-            sx={{
-              // position: "absolute"
-            }}
+            onClick={() => setDrawerState(true)}
           >
             <Flag />
           </Box>
@@ -426,6 +425,14 @@ function Order() {
           </Box>
         </Box>
       </Container>
+      <Drawer
+        PaperProps={{sx: universalOrderStyles.cartDrawer}}
+        anchor="bottom"
+        open={drawerState}
+        variant="temporary"
+      >
+        <Report setDrawerState={setDrawerState}/>
+      </Drawer>
     </Box>
   );
 }
