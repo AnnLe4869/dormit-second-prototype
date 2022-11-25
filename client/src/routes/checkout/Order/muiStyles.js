@@ -51,3 +51,31 @@ export const headers = {
     webkitBoxOrient: "vertical",
   },
 };
+
+export const buttonSelector = {
+  buttonGroup: {
+    display: "flex",
+    justifyContent: "space-around",
+    borderRadius: "20px",
+    backgroundColor: "#EEEEEE",
+    width: "100%",
+    height: "41px"
+  },
+
+  tipButton: {
+    borderRadius: "20px",
+    border: "none",
+    textTransform: "none",
+    borderRadius: "20px",
+    fontWeight: "500",
+    fontFamily: "Inter",
+    color: "#000000",
+    fontSize: "16px",
+    width: "88px",
+    '&.Mui-selected, &.Mui-selected:hover': {
+        backgroundColor: "black",
+        border: "none",
+        color: "#FFFFFF",
+    }
+  }
+}

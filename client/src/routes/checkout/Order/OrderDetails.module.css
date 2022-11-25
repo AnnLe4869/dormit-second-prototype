@@ -232,7 +232,7 @@ header > p {
 .rusherTips {
   width: 100%;
   max-width: 610px;
-  height: inherit;
+  height: "inherit";
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -280,14 +280,6 @@ header > p {
 .tipButton.selected {
   color: #ffffff;
   background: #7141fa;
-}
-
-.tipButton:nth-child(1) {
-  border-radius: 20px 0 0 20px;
-}
-
-.tipButton:nth-child(4) {
-  border-radius: 0 20px 20px 0;
 }
 
 /* .tipButton:focus {
