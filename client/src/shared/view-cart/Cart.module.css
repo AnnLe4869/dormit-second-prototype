@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap');
+
 * {
-  font-family: "Poppins";
+  font-family: "Inter";
 }
 
 .header {
@@ -95,6 +97,7 @@
   border-radius: 9px 0 0 9px;
   padding: 15px;
   flex: 1 80%;
+  font-size: "14px";
 }
 
 .viewAll {
@@ -179,6 +182,6 @@ footer {
 
 @media screen and (max-width: 575px) {
   .promotionInput {
-    height: 41px;
+    height: 38px;
   }
 }

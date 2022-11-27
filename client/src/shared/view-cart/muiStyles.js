@@ -44,7 +44,7 @@ export const cartPageStyles = {
   cartHeading: {
     fontFamily: "Poppins",
     margin: "0 auto",
-    fontSize: "34px",
+    fontSize: "28px",
     fontWeight: "500",
     "@media screen and (max-width: 575px)": {
       margin: "0",
@@ -54,7 +54,7 @@ export const cartPageStyles = {
 
 export const cartItemStyles = {
   cartItemContainer: {
-    fontFamily: "Poppins",
+    fontFamily: "Inter",
     width: "100%",
     height: "100%",
     background: "#ffffff",
@@ -69,25 +69,24 @@ export const cartItemStyles = {
 
   cartItemDetailsContainer: {
     display: "flex",
+    flexDirection: "column",
     width: "100%",
     justifyContent: "center",
     height: "100%",
   },
 
   cartItemDetails: {
-    flex: "3 80%",
-    alignItems: "start",
+    width: "100%",
+    alignItems: "center",
     display: "flex",
-    flexDirection: "column",
     justifyContent: "space-between",
   },
 
   cartItemHeader: {
-    fontFamily: "Poppins",
-    fontStyle: "normal",
+    fontFamily: "Inter",
     fontWeight: "400",
-    fontSize: "1.25rem",
-    lineHeight: "32px",
+    fontSize: "17px",
+    lineHeight: "21px",
     color: "#000000",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -96,7 +95,6 @@ export const cartItemStyles = {
     WebkitBoxOrient: "vertical",
     // if the name of the product has a long word, it will push the price/counter off screen:
     "@media screen and (max-width: 525px)": {
-      fontSize: "1.1rem",
       maxWidth: "150px",
     },
     "@media screen and (max-width: 380px)": {
@@ -106,14 +104,14 @@ export const cartItemStyles = {
   },
 
   cartItemDescription: {
-    fontFamily: "Poppins",
+    fontFamily: "Inter",
     fontStyle: "normal",
     fontWeight: "400",
-    fontSize: "1rem",
-    lineHeight: "26px",
+    fontSize: "14px",
+    lineHeight: "16px",
     color: "#686868",
-    marginTop: "10px",
-    marginBottom: "10px",
+    marginBottom: "25px",
+    paddingLeft: "3px",
     overflow: "hidden",
     textOverflow: "ellipsis",
     display: "-webkit-box",
@@ -130,7 +128,8 @@ export const cartItemStyles = {
     ":hover": {
       cursor: "pointer",
     },
-    fontSize: "35px",
+    height: "35px",
+    width: "1000px",
     "@media screen and (max-width: 900px)": {
       fontSize: "30px",
     },
@@ -163,8 +162,9 @@ export const cartItemStyles = {
   },
 
   cartItemPrice: {
-    fontFamily: "Poppins",
-    fontSize: "1.25rem",
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontSize: "17px",
     lineHeight: "32px",
     "@media screen and (max-width: 575px)": {
       fontSize: "1.1rem",
