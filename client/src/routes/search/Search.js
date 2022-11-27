@@ -3,8 +3,9 @@ import { useState, useEffect, useContext } from "react";
 
 import styles from "./Search.module.css";
 import CategoryMenu from "../../shared/category-menu/CategoryMenu";
-import SearchIcon from "@mui/icons-material/Search";
-
+import searchIcon from "../../assets/Search/search-icon.svg";
+import submitIcon from "../../assets/airplane.svg";
+import submitIconGray from "../../assets/submit-icon.svg";
 /* ViewCart components */
 import ViewCart from "../../shared/view-cart/ViewCart";
 
@@ -13,6 +14,7 @@ import ProductListing from "../../shared/product/ProductListing";
 
 import { useProducts } from "../../context/product/product-handler";
 import { UserContext } from "../../context/user/user-context";
+import { renderProducts } from "../../helper/renderProducts";
 
 function Search() {
   /*
@@ -67,14 +69,19 @@ function Search() {
     alert("Picking up!");
   }
 
+  const sendSuggestions = () => {
+    alert("Thank you for your suggestions.");
+  };
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.searchContainer}>
-            <SearchIcon
+            <img
+              src={searchIcon}
+              alt="search-icon"
               className={styles.searchIcon}
-              style={{ color: "#686868" }}
             />
             <input
               className={styles.searchBar}
@@ -87,51 +94,91 @@ function Search() {
           {empty ? (
             <></>
           ) : searchCount ? (
-            <h3 className={styles.resultsText}>{searchCount} results</h3>
+            <>
+              <h3 className={styles.resultsText}>{searchCount} Results</h3>
+            </>
           ) : (
             <>
-              <h3 className={styles.resultsText}>{searchCount} results</h3>
+              <h3 className={styles.resultsText}>{searchCount} Results</h3>
               <div className={styles.noResultsContainer}>
                 <h3 className={styles.noResultsText}>No results found</h3>
                 <p>
-                  We couldn't find "{search}". Sorry bestie. Want us to pick it
-                  up?
+                  Sorry, we couldn’t find “{search}”.
+                  <br />
+                  Want us to pick it up?
                 </p>
-                <input
-                  className={styles.pickupTextField}
-                  type="text"
-                  value={search}
-                  onSubmit={handleSubmit}
-                />
+                <div className={styles.pickupTextFieldContainer}>
+                  <input
+                    className={styles.pickupTextField}
+                    type="text"
+                    value={search}
+                    onSubmit={handleSubmit}
+                  />
+                  <img src={submitIcon} className={styles.submitIcon} />
+                </div>
+              </div>
+              <div className={styles.trendingContainer}>
+                <p className={styles.trendingHeader}>Suggested</p>
+                <div className={styles.supplies}>
+                  <ul className={styles.bigItemList}>
+                    {renderProducts(products, "Trending", 12).map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </>
           )}
 
-          <div className={styles.supplies}>
-            <ul className={styles.bigItemList}>
-              {/* if empty state is false, render filterProducts */}
-              {empty ? (
-                <></>
-              ) : (
-                filteredProducts.map((product) => {
-                  return (
-                    <li>
-                      <ProductListing
-                        id={product.id}
-                        name={product.name}
-                        image={product.images[0]}
-                        description={product.description}
-                        price={product.prices[0].unit_amount}
-                        stock={product.metadata.quantity}
-                      />
-                    </li>
-                  );
-                })
-              )}
-            </ul>
-          </div>
-
-          <CategoryMenu />
+          {/* if empty state is false, render filterProducts */}
+          {empty ? (
+            <>
+              <div className={styles.searchContainerSpacer}></div>
+              <CategoryMenu />
+            </>
+          ) : (
+            <>
+              <div className={styles.supplies}>
+                <ul className={styles.bigItemList}>
+                  {filteredProducts.map((product) => {
+                    return (
+                      <li>
+                        <ProductListing
+                          id={product.id}
+                          name={product.name}
+                          image={product.images[0]}
+                          description={product.description}
+                          price={product.prices[0].unit_amount}
+                          stock={product.metadata.quantity}
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </>
+          )}
+          {searchCount > 0 ? (
+            <div className={styles.suggestionContainer}>
+              <p className={styles.suggestions}>Didn't find what you wanted?</p>
+              <div className={styles.inputContainer}>
+                <input
+                  className={styles.suggestionInput}
+                  type="text"
+                  placeholder="Request"
+                />
+                <button
+                  className={styles.suggestionSubmit}
+                  type="submit"
+                  onClick={sendSuggestions}
+                >
+                  <img src={submitIconGray} alt="submit-icon" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <ViewCart numItems={state.cart?.length} totalAmount="X.XX" />

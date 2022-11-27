@@ -32,11 +32,13 @@ function DerivedSections({ products, sections }) {
     <>
       {sections.map((section) => (
         <section className={HomeCSS.smallItemSection} key={section.sectionName}>
-          <Typography sx={headers.header3}>{section.sectionName}</Typography>
+          <Typography sx={headers.header2}>{section.sectionName}</Typography>
           {section.additionalComponent}
           <div className={HomeCSS.smallListContainer}>
             <ul className={HomeCSS.smallItemList} id={section.sectionListId}>
-              {renderProducts(products, section.sectionName, 6)}
+              {renderProducts(products, section.sectionName, 12).map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
 
             <ArrowBackIosNewIcon

@@ -1,16 +1,16 @@
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, 30%); */
-  grid-column-gap: 0.4rem;
-  grid-row-gap: 3rem;
-  justify-content: space-between;
-  margin-top: 20px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 4%;
+  row-gap: 8px;
+  padding-inline: 6%;
+  margin-bottom: 80px;
 }
 
-@media only screen and (max-width: 900px) {
-  .container {
-    grid-row-gap: 20px;
-  }
+.container div:first-child {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-row-end: 2;
+  grid-column-end: 3;
 }

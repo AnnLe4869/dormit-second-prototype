@@ -13,9 +13,9 @@ import PastSelected from "./Past/Selected";
 export default function OrderPage() {
   const isAuthenticated = useCheckAuthenticationStatus();
 
-  if(!isAuthenticated) {
-    return <Navigate replace to='/auth' />
-  };
+  if (!isAuthenticated) {
+    return <Navigate replace to="/auth" />;
+  }
 
   return (
     <>

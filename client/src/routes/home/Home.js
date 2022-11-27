@@ -7,6 +7,7 @@ import { useProducts } from "../../context/product/product-handler";
 import { getCategories } from "../../helper/getProductsCategories";
 import { getSection } from "../../helper/getProductsCategories";
 import { getProducts } from "../../helper/getProductsCategories";
+
 /*
  * Components
  */
@@ -30,14 +31,16 @@ import { derivedSections } from "./sections/sectionData.js";
 /*
  * Material UI Imports
  */
-import Box from "@mui/material/Box";
+
+import { Box, Typography, Grid } from "@mui/material";
 
 /*
  * Style sheets
  */
 import HomeCSS from "./Home.module.css";
-import { homepageStyles } from "./muiStyles";
+import { homepageStyles, headers } from "./muiStyles";
 import { UserContext } from "../../context/user/user-context";
+import ucsdLogo from "../../assets/ucsdLogo.svg";
 
 export default function HomePage() {
   const products = useProducts();
@@ -58,11 +61,13 @@ export default function HomePage() {
           ) : (
             <h3>Loading...</h3>
           )}
+
           {/**
            * Special sections
            * items in this section have different styling, thus has its own component
            */}
 
+          <hr className={HomeCSS.sectionBarTop} />
           {products.length > 0 && (
             <SpecialSection
               section={getSection(products, "specials")}
@@ -74,15 +79,64 @@ export default function HomePage() {
            * sections for derived items - section which properties derived from data
            * like Trending or Deals sections
            */}
+          <hr className={HomeCSS.sectionBarTop} />
           <DerivedSections
             products={getProducts(products)}
             sections={derivedSections}
           />
 
           {/* Bulletin */}
-          <section className={HomeCSS.homeBulletin}>
-            <Box sx={homepageStyles.bulletinBox} />
-            <Box sx={homepageStyles.bulletinBox} />
+          <section>
+            <div className={HomeCSS.bulletinContainer}>
+              <div className={HomeCSS.bulletinBox}>
+                <Typography sx={headers.bulletinBox1Header1}>
+                  Welcome to UCSD
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header2}>
+                  Store Hours:
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header3}>
+                  6pm - 1am
+                </Typography>
+                <img
+                  src={ucsdLogo}
+                  className={HomeCSS.ucsdLogo}
+                  alt="ucsd-logo-icon"
+                />
+              </div>
+              <div className={HomeCSS.bulletinBox}>
+                <Typography sx={headers.bulletinBox1Header1}>
+                  Welcome to UCSD
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header2}>
+                  Store Hours:
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header3}>
+                  6pm - 1am
+                </Typography>
+                <img
+                  src={ucsdLogo}
+                  className={HomeCSS.ucsdLogo}
+                  alt="ucsd-logo-icon"
+                />
+              </div>
+              <div className={HomeCSS.bulletinBox}>
+                <Typography sx={headers.bulletinBox1Header1}>
+                  Welcome to UCSD
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header2}>
+                  Store Hours:
+                </Typography>
+                <Typography sx={headers.bulletinBox1Header3}>
+                  6pm - 1am
+                </Typography>
+                <img
+                  src={ucsdLogo}
+                  className={HomeCSS.ucsdLogo}
+                  alt="ucsd-logo-icon"
+                />
+              </div>
+            </div>
           </section>
 
           {/**

@@ -2,7 +2,8 @@ import React from "react";
 import { convertToUpperCase } from "../../helper/convertToUpperCase";
 
 import styles from "./CategoryNav.module.css";
-import { headers, homepageStyles } from "./muiStyles";
+import { headers } from "./muiStyles";
+import { homepageStyles } from "../../routes/home/muiStyles";
 
 import { Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";

@@ -24,7 +24,6 @@ function SpecialSection({ section, products }) {
       className={HomeCSS.todaysSpecial}
       id={section.category_name + "Section"}
     >
-      <hr className={HomeCSS.sectionBarTop} />
       <div className={HomeCSS.todaysSpecialHeader}>
         <Button
           variant="contained"
@@ -42,10 +41,8 @@ function SpecialSection({ section, products }) {
         >
           <Typography sx={headers.seeAllFont}>See All</Typography>
         </Button>
-        <Typography sx={headers.header2}>Specials</Typography>
-        <Typography
-          sx={[headers.header3, { color: "#969696", fontWeight: 400 }]}
-        >
+        <Typography sx={headers.header2}>DormIt Meals</Typography>
+        <Typography sx={[headers.header3, { color: "#969696" }]}>
           Get it while it's hot!
         </Typography>
       </div>
@@ -56,7 +53,22 @@ function SpecialSection({ section, products }) {
         })}
       </ul>
 
-      <hr className={HomeCSS.sectionBarBottom} />
+      <Button
+        variant="contained"
+        onClick={() => navigateCategory("todays-special")}
+        sx={[
+          homepageStyles.seeAllMobile,
+          {
+            color: section.category_style.color,
+            backgroundColor: section.category_style.background_color,
+            "&:hover": {
+              backgroundColor: section.category_style.background_color,
+            },
+          },
+        ]}
+      >
+        <Typography sx={headers.seeAllFont}>See All</Typography>
+      </Button>
     </section>
   );
 }

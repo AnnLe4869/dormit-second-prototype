@@ -25,7 +25,12 @@ export function Image({ image, ...props }) {
         </Box>
       )}
       <Fade in={loaded}>
-        <img src={image} onLoad={() => setLoaded(true)} {...props} />
+        <img
+          src={image}
+          alt="product-image"
+          onLoad={() => setLoaded(true)}
+          {...props}
+        />
       </Fade>
     </>
   );
