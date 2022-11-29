@@ -1,13 +1,15 @@
 import {ReactComponent as LeftArrowIcon} from '../../../assets/Checkout/leftarrow.svg'
 import {ReactComponent as RightArrowIcon} from '../../../assets/Checkout/rightarrow.svg'
 import {ReactComponent as AddressIcon} from '../../../assets/Checkout/address.svg'
-import CreditCardIcon from "@mui/icons-material/CreditCard";
+import {ReactComponent as CardIcon} from '../../../assets/Checkout/card.svg'
+import {ReactComponent as PhoneIcon} from '../../../assets/Checkout/phone.svg'
 import {
   Box,
   Button,
   ButtonGroup,
   Container,
   Divider,
+  Drawer,
   Grid,
   TextField,
   ToggleButton,
@@ -23,6 +25,9 @@ import styles from "./OrderDetails.module.css";
 import { buttonSelector } from './muiStyles';
 
 import Details from "./Details";
+import TipSelector from './TipSelector';
+
+import { formatPhoneNumber } from '../../../helper/formatPhoneNumber'
 
 const RUSHER_TIP_1 = 1.5;
 const RUSHER_TIP_2 = 2;
@@ -132,6 +137,7 @@ const OrderDetails = ({ setStripeClientSecret }) => {
     }
   };
 
+  console.log(user)
   return (
     <>
       <Box
@@ -147,14 +153,15 @@ const OrderDetails = ({ setStripeClientSecret }) => {
             sx={{
               fontFamily: "Poppins",
               fontSize: "28px",
-              fontWeight: "500"
+              fontWeight: "500",
+              padding: "0 2px"
             }}
           > 
             Order Details 
           </Typography>
       </Box>
 
-      <Container sx={{padding: "0 20px"}}>
+      <Container sx={{padding: "0 22px"}}>
         <Box
           sx={{
             display: "flex",
@@ -166,7 +173,7 @@ const OrderDetails = ({ setStripeClientSecret }) => {
           <Divider
             sx={{
               width: "100%",
-              marginBottom: "15px",
+              borderBottomWidth: 1.5,
             }}
           />
           <Box
@@ -176,7 +183,7 @@ const OrderDetails = ({ setStripeClientSecret }) => {
               alignItems: "center",
               padding: "0 10px",
               width: "100%",
-              marginBottom: "15px",
+              height: "80px"
             }}
           >
               <Box
@@ -204,7 +211,7 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                       fontWeight: "400"
                     }}
                   >
-                    {user.shipping_address.floor_apartment ? `${user.shipping_address.floor_apartment}` : 'Floor / Apartment #'}
+                    {user.shipping_address?.floor_apartment ? `${user.shipping_address.floor_apartment}` : 'Floor / Apartment #'}
                   </Typography>
                 </Box>
               </Box>
@@ -220,8 +227,98 @@ const OrderDetails = ({ setStripeClientSecret }) => {
           <Divider
             sx={{
               width: "100%",
-              marginBottom: "25px",
-              maxWidth: "610px",
+              borderBottomWidth: 1.5,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 10px",
+              width: "100%",
+              height: "80px"
+            }}
+          >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "24px"
+                }}
+              >
+                <PhoneIcon/>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Inter",
+                      fontSize: "16px",
+                      fontWeight: "700"
+                    }}
+                  >
+                    {formatPhoneNumber(user.phone)}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box>
+                <RightArrowIcon
+                  fontSize="medium"
+                  onClick={() => {
+                    alert("Phone Page");
+                  }}
+                />
+              </Box>
+          </Box>
+          <Divider
+            sx={{
+              width: "100%",
+              borderBottomWidth: 1.5,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 10px",
+              width: "100%",
+              height: "80px"
+            }}
+          >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "24px"
+                }}
+              >
+                <CardIcon fill="black"/>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Inter",
+                      fontSize: "16px",
+                      fontWeight: "700"
+                    }}
+                  >
+                    Discover Card 4414
+                  </Typography>
+                </Box>
+              </Box>
+              <Box>
+                <RightArrowIcon
+                  fontSize="medium"
+                  onClick={() => {
+                    alert("Card Page");
+                  }}
+                />
+              </Box>
+          </Box>
+          <Divider
+            sx={{
+              width: "100%",
+              borderBottomWidth: 1.5,
+              marginBottom: "20px"
             }}
           />
           <Grid
@@ -287,7 +384,6 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                   selected={selectedTip === OTHER}
                   sx={buttonSelector.tipButton}
                   onClick={() => {
-                    setRusherTip(otherTip);
                     setShowOtherTip(true);
                     setSelectedTip(OTHER);
                   }}
@@ -296,31 +392,6 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                 </ToggleButton>
               </Box>
             </Grid>
-          {showOtherTip && (
-            <div className={styles.otherTipBox}>
-              <Typography width={"100%"} variant="h7">
-                Other Tip $
-              </Typography>
-              <TextField
-                onChange={handleOtherTipChange}
-                value={otherTip.toFixed(2)}
-                type={"number"}
-                min={MINTIP}
-                id="outlined-basic"
-                required
-                variant="outlined"
-                sx={{
-                  height: "inherit",
-                  backgroundColor: "#EEEEEE",
-                  width: "50%",
-                  borderRadius: "10px",
-                  "@media screen and (max-width: 900px)": {
-                    marginRight: "none",
-                  },
-                }}
-              />
-            </div>
-          )}
           <Grid
             container
             sx={{
@@ -329,7 +400,7 @@ const OrderDetails = ({ setStripeClientSecret }) => {
               height: "inherit",
               gap: "10px",
               display: "flex",
-              marginBottom: "60px",
+              marginBottom: "30px",
               alignItems: "center",
             }}
           >
@@ -345,94 +416,94 @@ const OrderDetails = ({ setStripeClientSecret }) => {
               </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
-              <ButtonGroup
-                disableElevation
-                variant="contained"
-                sx={{ "border-radius": "20px", width: "100%" }}
+              <Box
+                sx={buttonSelector.buttonGroup}
               >
-                <button
-                  className={
-                    replacementOption === REPLACEMENT_0
-                      ? `${styles.replaceButton} ${styles.selected}`
-                      : styles.replaceButton
-                  }
+                <ToggleButton
+                  selected={replacementOption === REPLACEMENT_0}
+                  sx={buttonSelector.replacementButton}
                   onClick={() => {
                     setReplacementOption(REPLACEMENT_0);
                   }}
                 >
                   Pick for me
-                </button>
-                <button
-                  className={
-                    replacementOption === REPLACEMENT_1
-                      ? `${styles.replaceButton} ${styles.selected}`
-                      : styles.replaceButton
-                  }
+                </ToggleButton>
+                <ToggleButton
+                  selected={replacementOption === REPLACEMENT_1}
+                  sx={buttonSelector.replacementButton}
                   onClick={() => {
                     setReplacementOption(REPLACEMENT_1);
                   }}
                 >
                   Call me
-                </button>
-                <button
-                  className={
-                    replacementOption === REPLACEMENT_2
-                      ? `${styles.replaceButton} ${styles.selected}`
-                      : styles.replaceButton
-                  }
+                </ToggleButton>
+                <ToggleButton
+                  selected={replacementOption === REPLACEMENT_2}
+                  sx={buttonSelector.replacementButton}
                   onClick={() => {
                     setReplacementOption(REPLACEMENT_2);
                   }}
                 >
                   Refund me
-                </button>
-              </ButtonGroup>
+                </ToggleButton>
+              </Box>
             </Grid>
           </Grid>{" "}
-          <div className={styles.bottomButtons}>
-            <Button
-              onClick={!isDisabled ? handleCheckout : undefined}
-              sx={[
-                {
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  maxWidth: "420px",
-                  gap: "15px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "60px",
-                  background: "#7141fa",
-                  borderRadius: "20px",
-                  fontFamily: "Poppins",
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  fontSize: "24px",
-                  lineHeight: "36px",
-                  color: "white",
-                  border: "none",
-                  marginBottom: "10px",
-                  "&:hover": { background: "#7141fa" },
-                  "@media screen and (max-width: 900px)": {
-                    width: "100%",
-                    fontSize: "22px",
-                  },
-                },
-                (!user.shipping_address ||
-                  !user.shipping_address.campus ||
-                  !user.shipping_address.building ||
-                  !user.shipping_address.floor_apartment) && {
-                  opacity: "0.5",
-                  cursor: "none",
-                },
-              ]}
-            >
-              <CreditCardIcon fontSize="large" />
-              Place Order
-            </Button>
-          </div>
         </Box>
       </Container>
+      <Divider
+            sx={{
+              width: "100%",
+              marginBottom: "15px",
+              color: "black",
+              borderBottomWidth: 2,
+            }}
+      />
+      <Button
+        onClick={!isDisabled ? handleCheckout : undefined}
+        disabled={false}
+        sx={[
+          {
+            display: "flex",
+            textTransform: "none",
+            flexDirection: "row",
+            width: "296px",
+            gap: "10px",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "60px",
+            background: "#7141fa",
+            borderRadius: "20px",
+            fontFamily: "Poppins",
+            fontStyle: "normal",
+            fontWeight: "700",
+            fontSize: "18px",
+            lineHeight: "36px",
+            color: "white",
+            border: "none",
+            margin: "0 auto",
+            marginBottom: "70px"
+          }
+        ]}
+      >
+        <CardIcon fill="white"/>
+        Place Order
+      </Button>
+      <Drawer
+        PaperProps={{sx: buttonSelector.tipSelectorDrawer}}
+        anchor='bottom'
+        open={showOtherTip} 
+        variant="temporary"
+      >
+        <TipSelector 
+          setShowOtherTip={setShowOtherTip} 
+          otherTip={otherTip} 
+          handleOtherTipChange={handleOtherTipChange}
+          setSelectedTip={setSelectedTip}
+          setRusherTip={setRusherTip}
+          setOtherTip={setOtherTip}
+          />
+      </Drawer>
     </>
   );
 };
