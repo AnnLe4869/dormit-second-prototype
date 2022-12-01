@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 .centering {
   display: flex;
   flex-direction: column;
-  margin: 50px auto;
+  margin: 0 auto;
   max-width: 600px;
-  gap: 40px;
+  margin-bottom: 100px;
+  margin-top: 25px;
+  padding: 0;
 }
 
 .orderContainer {
@@ -107,6 +111,20 @@
 
 .colorRed {
   color: red;
+}
+
+.itemImage {
+  display: flex;
+  background-color: #ffffff;
+  height: 100%;
+  border-radius: 16px;
+  border: none;
+}
+
+.itemImage img {
+  height: 75px;
+  object-fit: cover;
+  border-radius: 16px;
 }
 
 @media screen {
