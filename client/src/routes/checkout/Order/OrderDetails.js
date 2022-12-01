@@ -1,15 +1,18 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import ClearIcon from "@mui/icons-material/Clear";
+import {ReactComponent as LeftArrowIcon} from '../../../assets/Checkout/leftarrow.svg'
+import {ReactComponent as RightArrowIcon} from '../../../assets/Checkout/rightarrow.svg'
+import {ReactComponent as AddressIcon} from '../../../assets/Checkout/address.svg'
+import {ReactComponent as CardIcon} from '../../../assets/Checkout/card.svg'
+import {ReactComponent as PhoneIcon} from '../../../assets/Checkout/phone.svg'
 import {
   Box,
   Button,
   ButtonGroup,
   Container,
   Divider,
+  Drawer,
   Grid,
   TextField,
+  ToggleButton,
   Typography,
 } from "@mui/material";
 import React, { useState, useContext } from "react";
@@ -18,14 +21,13 @@ import { useProducts } from "../../../context/product/product-handler";
 import { useCheckout } from "../../../context/user/checkout-handler";
 import { UserContext } from "../../../context/user/user-context";
 
-import { getTotal, getTotalCount } from "../../../helper/getTotalsAndFees.js";
-
-import building from "../../../assets/OrderDetails/building.svg";
-import stairs from "../../../assets/OrderDetails/stairs.svg";
-import notes from "../../../assets/OrderDetails/notes.svg";
-
-import { headers } from "./muiStyles.js";
 import styles from "./OrderDetails.module.css";
+import { buttonSelector } from './muiStyles';
+
+import Details from "./Details";
+import TipSelector from './TipSelector';
+
+import { formatPhoneNumber } from '../../../helper/formatPhoneNumber'
 
 const RUSHER_TIP_1 = 1.5;
 const RUSHER_TIP_2 = 2;
@@ -37,60 +39,6 @@ const REPLACEMENT_0 = 0;
 const REPLACEMENT_1 = 1;
 const REPLACEMENT_2 = 2;
 
-const CAMPUS = "UCSD";
-const BUILDING = "UCSD Building";
-const FLOOR = "1/12";
-const MESSAGE = "Leave it at my door";
-
-const Details = ({ currentCart, rusherTip }) => {
-  return (
-    <div className={styles.box}>
-      <div className={styles.outerPicture}>
-        {currentCart &&
-          currentCart.map((item, index) => {
-            if (index < 4)
-              return <img className={styles.images} src={item.image} />;
-          })}
-      </div>
-      <div className={styles.details}>
-        <Typography fontWeight="700" variant="h6" className={styles.names}>
-          {currentCart &&
-            currentCart.map((item, index) => {
-              if (index < 4) {
-                return <span className={styles.name}>{item.name}</span>;
-              }
-
-              if (index === 4 && currentCart.length > 4) {
-                return "...";
-              }
-            })}
-        </Typography>
-        <div className={styles.row}>
-          <Typography sx={headers.header4}>Item Count</Typography>
-          <Typography sx={headers.header6}>
-            {getTotalCount(currentCart)}
-          </Typography>
-        </div>
-        <div className={styles.row}>
-          <Typography sx={headers.header4}>Subtotal</Typography>
-          <Typography sx={headers.header6}>
-            ${getTotal(currentCart).toFixed(2)}
-          </Typography>
-        </div>
-        <div className={styles.row}>
-          <Typography sx={headers.header4}>Tip</Typography>
-          <Typography sx={headers.header6}>${rusherTip.toFixed(2)}</Typography>
-        </div>
-        <div className={styles.row}>
-          <Typography sx={headers.header4}>Total</Typography>
-          <Typography sx={headers.header6}>
-            ${(getTotal(currentCart) + rusherTip).toFixed(2)}
-          </Typography>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const OrderDetails = ({ setStripeClientSecret }) => {
   const navigate = useNavigate();
@@ -189,125 +137,188 @@ const OrderDetails = ({ setStripeClientSecret }) => {
     }
   };
 
+  console.log(user)
   return (
     <>
-      <header>
-        <button className={styles.back}>
-          <ArrowBackIosIcon fontSize="large" onClick={() => navigate(-1)} />
-        </button>
-        <p> Order Details </p>
-      </header>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "30px 20px 15px 20px",
+          gap: "20px"
+        }}
+      >
+          <LeftArrowIcon fontSize="large" onClick={() => navigate(-1)} />
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontSize: "28px",
+              fontWeight: "500",
+              padding: "0 2px"
+            }}
+          > 
+            Order Details 
+          </Typography>
+      </Box>
 
-      <Divider />
-
-      <Container maxWidth="md">
+      <Container sx={{padding: "0 22px"}}>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            paddingY: "25px",
+            alignItems: "flex-start",
           }}
         >
-          <div className={styles.paymentBox}>
-            <Typography marginBottom={"15px"} sx={headers.header2}>
-              Order Summary
-            </Typography>
-            <Details currentCart={cartProducts} rusherTip={rusherTip} />
-          </div>
+          <Details currentCart={cartProducts} rusherTip={rusherTip} />
           <Divider
             sx={{
               width: "100%",
-              marginBottom: "25px",
-              maxWidth: "610px",
+              borderBottomWidth: 1.5,
             }}
           />
-          <div className={styles.addressBox}>
-            <div className={styles.addressLine}>
-              <Typography
-                fontWeight="700"
-                fontFamily="BlinkMacSystemFont"
-                variant="h5"
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 10px",
+              width: "100%",
+              height: "80px"
+            }}
+          >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "24px"
+                }}
               >
-                Address
-              </Typography>
-              <button className={styles.addressButton}>
-                <ArrowForwardIosIcon
+                <AddressIcon/>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Inter",
+                      fontSize: "16px",
+                      fontWeight: "700"
+                    }}
+                  >
+                    {user.shipping_address ? `${user.shipping_address.campus} ${user.shipping_address.building}` : 'Campus Building'}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontFamily: "Inter",
+                      fontSize: "15px",
+                      fontWeight: "400"
+                    }}
+                  >
+                    {user.shipping_address?.floor_apartment ? `${user.shipping_address.floor_apartment}` : 'Floor / Apartment #'}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box>
+                <RightArrowIcon
                   fontSize="medium"
                   onClick={() => {
                     alert("Address Page");
                   }}
                 />
-              </button>
-            </div>
-
-            <div className={styles.input}>
-              <img src={building} alt="" />
-              <Typography width={"100%"} variant="h7">
-                UCSD Building
-              </Typography>
-
-              <div className={styles.grayBox}>
-                <Typography width={"100%"} sx={headers.header6} noWrap>
-                  {user.shipping_address &&
-                    user.shipping_address.building &&
-                    user.shipping_address.building}
-                </Typography>
-              </div>
-            </div>
-            <div className={styles.input}>
-              <img src={stairs} alt="" />
-              <Typography width={"100%"} variant="h7">
-                Floor / Apartment #
-              </Typography>
-              <div className={styles.grayBox}>
-                <Typography width={"100%"} sx={headers.header6} noWrap>
-                  {user.shipping_address &&
-                    user.shipping_address.floor_apartment &&
-                    user.shipping_address.floor_apartment}
-                </Typography>
-              </div>
-            </div>
-            <div className={styles.input}>
-              <img src={notes} alt="" />
-              <Typography width={"100%"} variant="h7">
-                Notes for Rusher
-              </Typography>
-              <div className={styles.grayBox2}>
-                <p className={styles.notesRusher}>{user.message}</p>
-              </div>
-            </div>
-
-            {(!user.shipping_address ||
-              !user.shipping_address.campus ||
-              !user.shipping_address.building ||
-              !user.shipping_address.floor_apartment) && (
-              <div className={styles.noAddress}>
-                <Typography
-                  width={"100%"}
-                  variant="h7"
-                  sx={{
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transitionDuration: "0.1s",
-                    "&:hover": {
-                      opacity: 0.8,
-                    },
-                  }}
-                  onClick={() => {
-                    alert("Address page");
-                  }}
-                >
-                  You haven't set a location yet. Click here to set one!
-                </Typography>
-              </div>
-            )}
-          </div>
+              </Box>
+          </Box>
           <Divider
             sx={{
               width: "100%",
-              marginBottom: "25px",
-              maxWidth: "610px",
+              borderBottomWidth: 1.5,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 10px",
+              width: "100%",
+              height: "80px"
+            }}
+          >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "24px"
+                }}
+              >
+                <PhoneIcon/>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Inter",
+                      fontSize: "16px",
+                      fontWeight: "700"
+                    }}
+                  >
+                    {formatPhoneNumber(user.phone)}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box>
+                <RightArrowIcon
+                  fontSize="medium"
+                  onClick={() => {
+                    alert("Phone Page");
+                  }}
+                />
+              </Box>
+          </Box>
+          <Divider
+            sx={{
+              width: "100%",
+              borderBottomWidth: 1.5,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 10px",
+              width: "100%",
+              height: "80px"
+            }}
+          >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "24px"
+                }}
+              >
+                <CardIcon fill="black"/>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Inter",
+                      fontSize: "16px",
+                      fontWeight: "700"
+                    }}
+                  >
+                    Discover Card 4414
+                  </Typography>
+                </Box>
+              </Box>
+              <Box>
+                <RightArrowIcon
+                  fontSize="medium"
+                  onClick={() => {
+                    alert("Card Page");
+                  }}
+                />
+              </Box>
+          </Box>
+          <Divider
+            sx={{
+              width: "100%",
+              borderBottomWidth: 1.5,
+              marginBottom: "20px"
             }}
           />
           <Grid
@@ -324,25 +335,21 @@ const OrderDetails = ({ setStripeClientSecret }) => {
           >
             <Grid item xs={12} md={3}>
               <Typography
-                fontWeight="700"
-                fontFamily="BlinkMacSystemFont"
-                variant="h5"
+                sx={{
+                  fontWeight: "700",
+                  fontFamily: "Inter",
+                  fontSize: "16px"
+                }}
               >
                 Rusher Tip
               </Typography>
             </Grid>
-            <Grid item xs={12} md={8}>
-              <ButtonGroup
-                disableElevation
-                variant="contained"
-                sx={{ "border-radius": "20px", width: "100%" }}
+              <Box
+                sx={buttonSelector.buttonGroup}
               >
-                <button
-                  className={
-                    selectedTip === RUSHER_TIP_1
-                      ? `${styles.tipButton} ${styles.selected}`
-                      : styles.tipButton
-                  }
+                <ToggleButton
+                  selected={selectedTip === RUSHER_TIP_1}
+                  sx={buttonSelector.tipButton}
                   onClick={() => {
                     setRusherTip(RUSHER_TIP_1);
                     setShowOtherTip(false);
@@ -350,13 +357,10 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                   }}
                 >
                   $1.50
-                </button>
-                <button
-                  className={
-                    selectedTip === RUSHER_TIP_2
-                      ? `${styles.tipButton} ${styles.selected}`
-                      : styles.tipButton
-                  }
+                </ToggleButton>
+                <ToggleButton
+                  selected={selectedTip === RUSHER_TIP_2}
+                  sx={buttonSelector.tipButton}
                   onClick={() => {
                     setRusherTip(RUSHER_TIP_2);
                     setShowOtherTip(false);
@@ -364,13 +368,10 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                   }}
                 >
                   $2.00
-                </button>
-                <button
-                  className={
-                    selectedTip === RUSHER_TIP_3
-                      ? `${styles.tipButton} ${styles.selected}`
-                      : styles.tipButton
-                  }
+                </ToggleButton>
+                <ToggleButton
+                  selected={selectedTip === RUSHER_TIP_3}
+                  sx={buttonSelector.tipButton}
                   onClick={() => {
                     setRusherTip(RUSHER_TIP_3);
                     setShowOtherTip(false);
@@ -378,49 +379,19 @@ const OrderDetails = ({ setStripeClientSecret }) => {
                   }}
                 >
                   $2.50
-                </button>
-                <button
-                  className={
-                    selectedTip === OTHER
-                      ? `${styles.tipButton} ${styles.selected}`
-                      : styles.tipButton
-                  }
+                </ToggleButton>
+                <ToggleButton
+                  selected={selectedTip === OTHER}
+                  sx={buttonSelector.tipButton}
                   onClick={() => {
-                    setRusherTip(otherTip);
                     setShowOtherTip(true);
                     setSelectedTip(OTHER);
                   }}
                 >
                   Other
-                </button>
-              </ButtonGroup>
+                </ToggleButton>
+              </Box>
             </Grid>
-          </Grid>
-          {showOtherTip && (
-            <div className={styles.otherTipBox}>
-              <Typography width={"100%"} variant="h7">
-                Other Tip $
-              </Typography>
-              <TextField
-                onChange={handleOtherTipChange}
-                value={otherTip.toFixed(2)}
-                type={"number"}
-                min={MINTIP}
-                id="outlined-basic"
-                required
-                variant="outlined"
-                sx={{
-                  height: "inherit",
-                  backgroundColor: "#EEEEEE",
-                  width: "50%",
-                  borderRadius: "10px",
-                  "@media screen and (max-width: 900px)": {
-                    marginRight: "none",
-                  },
-                }}
-              />
-            </div>
-          )}
           <Grid
             container
             sx={{
@@ -429,142 +400,110 @@ const OrderDetails = ({ setStripeClientSecret }) => {
               height: "inherit",
               gap: "10px",
               display: "flex",
-              marginBottom: "60px",
+              marginBottom: "30px",
               alignItems: "center",
             }}
           >
             <Grid item xs={12} md={3}>
               <Typography
-                fontWeight="700"
-                fontFamily="BlinkMacSystemFont"
-                variant="h5"
+                sx={{
+                  fontWeight: "700",
+                  fontFamily: "Inter",
+                  fontSize: "16px"
+                }}
               >
                 Replacement Items
               </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
-              <ButtonGroup
-                disableElevation
-                variant="contained"
-                sx={{ "border-radius": "20px", width: "100%" }}
+              <Box
+                sx={buttonSelector.buttonGroup}
               >
-                <button
-                  className={
-                    replacementOption === REPLACEMENT_0
-                      ? `${styles.replaceButton} ${styles.selected}`
-                      : styles.replaceButton
-                  }
+                <ToggleButton
+                  selected={replacementOption === REPLACEMENT_0}
+                  sx={buttonSelector.replacementButton}
                   onClick={() => {
                     setReplacementOption(REPLACEMENT_0);
                   }}
                 >
                   Pick for me
-                </button>
-                <button
-                  className={
-                    replacementOption === REPLACEMENT_1
-                      ? `${styles.replaceButton} ${styles.selected}`
-                      : styles.replaceButton
-                  }
+                </ToggleButton>
+                <ToggleButton
+                  selected={replacementOption === REPLACEMENT_1}
+                  sx={buttonSelector.replacementButton}
                   onClick={() => {
                     setReplacementOption(REPLACEMENT_1);
                   }}
                 >
                   Call me
-                </button>
-                <button
-                  className={
-                    replacementOption === REPLACEMENT_2
-                      ? `${styles.replaceButton} ${styles.selected}`
-                      : styles.replaceButton
-                  }
+                </ToggleButton>
+                <ToggleButton
+                  selected={replacementOption === REPLACEMENT_2}
+                  sx={buttonSelector.replacementButton}
                   onClick={() => {
                     setReplacementOption(REPLACEMENT_2);
                   }}
                 >
                   Refund me
-                </button>
-              </ButtonGroup>
+                </ToggleButton>
+              </Box>
             </Grid>
           </Grid>{" "}
-          <div className={styles.bottomButtons}>
-            <Button
-              onClick={() => {
-                navigate(-1);
-              }}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "20%",
-                minWidth: "130px",
-                maxWidth: "420px",
-                gap: "0px",
-                textAlign: "center",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "60px",
-                background: "#ff6363",
-                borderRadius: "20px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "700",
-                fontSize: "18px",
-                lineHeight: "36px",
-                color: "#ffffff",
-                border: "none",
-                marginBottom: "10px",
-                textTransform: "none",
-                "&:hover": {
-                  color: "#ed3939",
-                },
-              }}
-            >
-              <ClearIcon fontSize="large" />
-              Cancel
-            </Button>
-            <Button
-              onClick={!isDisabled ? handleCheckout : undefined}
-              sx={[
-                {
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "80%",
-                  maxWidth: "420px",
-                  gap: "15px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "60px",
-                  background: "#7141fa",
-                  borderRadius: "20px",
-                  fontFamily: "Poppins",
-                  fontStyle: "normal",
-                  fontWeight: "700",
-                  fontSize: "24px",
-                  lineHeight: "36px",
-                  color: "white",
-                  border: "none",
-                  marginBottom: "10px",
-                  "&:hover": { background: "#7141fa" },
-                  "@media screen and (max-width: 900px)": {
-                    width: "60%",
-                    fontSize: "22px",
-                  },
-                },
-                (!user.shipping_address ||
-                  !user.shipping_address.campus ||
-                  !user.shipping_address.building ||
-                  !user.shipping_address.floor_apartment) && {
-                  opacity: "0.5",
-                  cursor: "none",
-                },
-              ]}
-            >
-              <CreditCardIcon fontSize="large" />
-              Place Order
-            </Button>
-          </div>
         </Box>
       </Container>
+      <Divider
+            sx={{
+              width: "100%",
+              marginBottom: "15px",
+              color: "black",
+              borderBottomWidth: 2,
+            }}
+      />
+      <Button
+        onClick={!isDisabled ? handleCheckout : undefined}
+        disabled={false}
+        sx={[
+          {
+            display: "flex",
+            textTransform: "none",
+            flexDirection: "row",
+            width: "296px",
+            gap: "10px",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "60px",
+            background: "#7141fa",
+            borderRadius: "20px",
+            fontFamily: "Poppins",
+            fontStyle: "normal",
+            fontWeight: "700",
+            fontSize: "18px",
+            lineHeight: "36px",
+            color: "white",
+            border: "none",
+            margin: "0 auto",
+            marginBottom: "70px"
+          }
+        ]}
+      >
+        <CardIcon fill="white"/>
+        Place Order
+      </Button>
+      <Drawer
+        PaperProps={{sx: buttonSelector.tipSelectorDrawer}}
+        anchor='bottom'
+        open={showOtherTip} 
+        variant="temporary"
+      >
+        <TipSelector 
+          setShowOtherTip={setShowOtherTip} 
+          otherTip={otherTip} 
+          handleOtherTipChange={handleOtherTipChange}
+          setSelectedTip={setSelectedTip}
+          setRusherTip={setRusherTip}
+          setOtherTip={setOtherTip}
+          />
+      </Drawer>
     </>
   );
 };
